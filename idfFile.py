@@ -1,9 +1,9 @@
 
 from EnumTypes import ParameterType, SurfaceType
 
-from IDFObjects.Building import Building
-from IDFObjects.BuildingSurface.Detailed import Surface
-from IDFObjects.Zone import Zone
+from IDFObject.Building import Building
+from IDFObject.BuildingSurface.Detailed import Surface
+from IDFObject.Zone import Zone
 
 from Probabilistic import Parameter
 
