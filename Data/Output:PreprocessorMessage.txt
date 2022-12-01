@@ -1,0 +1,2 @@
+PreprocessorName,ErrorSeverity,MessageLine1
+ExpandObjects,Warning,Preprocessorwarning

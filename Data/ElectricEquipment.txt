@@ -1,0 +1,2 @@
+Name,ZoneorZoneListName,ScheduleName,DesignLevelCalculationMethod,DesignLevel,WattsperZoneFloorArea,WattsperPerson,FractionLatent,FractionRadiant,FractionLost
+Equipment_Office,Office,Office_EquipmentSchedule,Watts/area, ,12, , ,0.1, 

@@ -1,0 +1,2 @@
+Name,BeginMonth,BeginDayofMonth,EndMonth,EndDayofMonth,DayofWeekforStartDay,UseWeatherFileDaylightSavingPeriod,UseWeatherFileRainandSnowIndicators
+Summer including Extreme Summer days,7,18,7,25,SummerDesignDay,Yes,Yes

@@ -1,15 +1,17 @@
-from ...GeometryObject.XYZ import XYZ
+from GeometryObject import XYZ
+from IDFObject import IDFObject
+    
+class ReferencePoint(IDFObject.IDFObject):
+    __IDFName__ = 'Daylighting:ReferencePoint'
+    Properties = [
+        'Name',
+        'ZoneName',
+        'Point',
+    ]
 
-class ReferencePoint:
-    def __init__(self, name: str, zoneName: str, point: XYZ):
-        self.Name = name
-        self.ZoneName = zoneName
-        self.Point = point
+    def __init__(self, propertiesDict: dict()):
+        super().__init__(self.Properties, propertiesDict)
+        self.Initialise()
 
-    def WriteToIDF(self):
-        return "\n".join([
-            f"DayLighting:{self.__name__},",
-            f"{self.Name},",
-            f"{self.ZoneName},",
-            str(self.Point),
-        ]) + ";"
+    def Initialise(self):
+        self.Point = XYZ.XYZ(self.Point)

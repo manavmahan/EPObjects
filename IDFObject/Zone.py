@@ -1,12 +1,11 @@
-import BuildingSurface
+from EnumTypes import SurfaceType
+from IDFObject import BuildingSurface, IDFObject
 
-from ..EnumTypes import SurfaceType
-
-class Zone:
+class Zone(IDFObject.IDFObject):
     __IDFName__ = "Zone"
-    Properties = {
-        "Name": None,
-    }
+    Properties = [
+        "Name"
+    ]
     
     Surfaces = list()
 
@@ -21,7 +20,7 @@ class Zone:
     def Surfaces(self): return self.__surfaces
 
     def __init__(self, properties: dict()) -> None:
-        super().__init__(self.Properties.keys(), properties)
+        super().__init__(self.Properties, properties)
 
     def AddSurface(self, surface: BuildingSurface.Detailed) -> None:
         if surface.Area == None | 0:
@@ -41,9 +40,9 @@ class Zone:
                 self.__wallArea += surface.Area
                 self.__windowArea += [x.Area for x in surface.Fenestrations]
 
-        surface.Properties.ZoneName = self.Properties.Name
+        surface.ZoneName = self.Name
         self.__surfaces += [surface]
 
     def AddSurfaces(self, surfaces: list()):
         for surface in surfaces:
-            if surface.Properties.ZoneName == self.Properties.Name: self.AddSurface(surface)
+            if surface.ZoneName == self.Name: self.AddSurface(surface)

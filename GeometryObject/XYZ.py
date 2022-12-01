@@ -3,12 +3,25 @@ from scipy.spatial.transform import Rotation
 
 class XYZ:
     __round = 5
-    Coords = np.zeros((3), dtype=np.float16)
+    Coords = np.zeros((3), dtype=np.float64)
 
     def __call__(self, *args, **kwds):
         return self.Coords(*args, **kwds)
 
     def __init__(self, *args) -> None:
+        if len(args) == 0:
+            return
+
+        if isinstance(args[0], str):
+            coords = args[0]
+            if ';' in coords:
+                coords = coords.split(';')
+            elif ',' in coords:
+                coords = coords.split(',')
+            coords = np.array(coords, dtype=np.float64)
+            self.Coords = coords
+            return 
+
         if len(args) == 1:
             self.Coords = np.round(args[0], self.__round)
         elif len(args) == 3:

@@ -1,0 +1,2 @@
+JanuaryGroundTemperature,FebruaryGroundTemperature,MarchGroundTemperature,AprilGroundTemperature,MayGroundTemperature,JuneGroundTemperature,JulyGroundTemperature,AugustGroundTemperature,SeptemberGroundTemperature,OctoberGroundTemperature,NovemberGroundTemperature,DecemberGroundTemperature
+6.17,5.07,5.33,6.27,9.35,12.12,14.32,15.48,15.20,13.62,11.08,8.41

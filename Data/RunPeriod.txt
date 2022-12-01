@@ -1,0 +1,2 @@
+Name,BeginMonth,BeginDayofMonth,BeginYear,EndMonth,EndDayofMonth,EndYear,DayofWeekforStartDay,UseWeatherFileHolidaysandSpecialDays,UseWeatherFileDaylightSavingPeriod,ApplyWeekendHolidayRule,UseWeatherFileRainIndicators,UseWeatherFileSnowIndicators,TreatWeatherasActual
+RunPeriod1,1,1, ,12,31, , ,No,No,No,Yes,Yes,No

@@ -1,0 +1,2 @@
+Name,TowerType,HighSpeedNominalCapacity,HighSpeedFanPower,LowSpeedNominalCapacity,LowSpeedFanPower,FreeConvectionCapacity,Priority,SizingFactor
+MainTower,SingleSpeed,autosize,autosize,autosize,autosize,autosize,1,1.2

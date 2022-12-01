@@ -1,11 +1,10 @@
 from IDFObject import IDFObject
     
-class Compact(IDFObject.IDFObject):
-    __IDFName__ = 'Schedule:Compact'
+class ZoneList(IDFObject.IDFObject):
+    __IDFName__ = 'ZoneList'
     Properties = [
         'Name',
-        'ScheduleTypeLimitsName',
-        'Fields',
+        'ZoneNames',
     ]
 
     def __init__(self, propertiesDict: dict()):
@@ -13,4 +12,4 @@ class Compact(IDFObject.IDFObject):
         self.Initialise()
 
     def Initialise(self):
-        self.Fields = self.Fields.replace(';', ',')
+        self.ZoneNames = self.ZoneNames.replace(';', ',')

@@ -1,0 +1,2 @@
+Name,ConstructionName,ZoneorZoneListName,SurfaceArea
+Office:0:1:InternalMass:01,InternalMass,Office:0:1,7.499853

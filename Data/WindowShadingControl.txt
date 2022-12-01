@@ -1,0 +1,2 @@
+Name,ZoneName,ShadingControlSequenceNumber,ShadingType,ConstructionwithShadingName,ShadingControlType,ScheduleName,Setpoint,ShadingControlIsScheduled,GlareControlIsActive,ShadingDeviceMaterialName,TypeofSlatAngleControlforBlinds,SlatAngleScheduleName,Setpoint2,DaylightingControlObjectName,MultipleSurfaceControlType,FenestrationSurface1Name
+CONTROLONZONETEMPWindow_On_Office:0:1:East:Wall:2,Office:0:1, ,InteriorShade, ,OnIfHighZoneAirTemperature, ,23,NO,NO,ROLLSHADE, , , ,DayLightControlForOffice:0:1, ,Window_On_Office:0:1:East:Wall:2

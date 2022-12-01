@@ -1,0 +1,53 @@
+from IDFObject import IDFObject
+    
+class WaterToAirHeatPump(IDFObject.IDFObject):
+    __IDFName__ = 'HVACTemplate:Zone:WaterToAirHeatPump'
+    Properties = [
+        'ZoneName',
+        'TemplateThermostatName',
+        'CoolingSupplyAirFlowRate',
+        'HeatingSupplyAirFlowRate',
+        'NoLoadSupplyAirFlowRate',
+        'ZoneHeatingSizingFactor',
+        'ZoneCoolingSizingFactor',
+        'OutdoorAirMethod',
+        'OutdoorAirFlowRateperPerson',
+        'OutdoorAirFlowRateperZoneFloorArea',
+        'OutdoorAirFlowRateperZone',
+        'SystemAvailabilityScheduleName',
+        'SupplyFanOperatingModeScheduleName',
+        'SupplyFanPlacement',
+        'SupplyFanTotalEfficiency',
+        'SupplyFanDeltaPressure',
+        'SupplyFanMotorEfficiency',
+        'CoolingCoilType',
+        'CoolingCoilGrossRatedTotalCapacity',
+        'CoolingCoilGrossRatedSensibleHeatRatio',
+        'CoolingCoilGrossRatedCOP',
+        'HeatPumpHeatingCoilType',
+        'HeatPumpHeatingCoilGrossRatedCapacity',
+        'HeatPumpHeatingCoilGrossRatedCOP',
+        'SupplementalHeatingCoilAvailabilityScheduleName',
+        'SupplementalHeatingCoilCapacity',
+        'MaximumCyclingRate',
+        'HeatPumpTimeConstant',
+        'FractionofOn-CyclePowerUse',
+        'HeatPumpFanDelayTime',
+        'DedicatedOutdoorAirSystemName',
+        'SupplementalHeatingCoilType',
+        'ZoneCoolingDesignSupplyAirTemperatureInputMethod',
+        'ZoneCoolingDesignSupplyAirTemperature',
+        'ZoneCoolingDesignSupplyAirTemperatureDifference',
+        'ZoneHeatingDesignSupplyAirTemperatureInputMethod',
+        'ZoneHeatingDesignSupplyAirTemperature',
+        'ZoneHeatingDesignSupplyAirTemperatureDifference',
+        'HeatPumpCoilWaterFlowMode',
+        'DesignSpecificationOutdoorAirObjectName',
+        'DesignSpecificationZoneAirDistributionObjectName',
+        'BaseboardHeatingType',
+        'BaseboardHeatingAvailabilityScheduleName',
+        'BaseboardHeatingCapacity',
+    ]
+
+    def __init__(self, propertiesDict: dict()):
+        super().__init__(self.Properties, propertiesDict)

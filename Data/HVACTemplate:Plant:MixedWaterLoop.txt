@@ -1,0 +1,2 @@
+Name,PumpScheduleName,PumpControlType,OperationSchemeType,EquipmentOperationSchemesName,HighTemperatureSetpointScheduleName,HighTemperatureDesignSetpoint,LowTemperatureSetpointScheduleName,LowTemperatureDesignSetpoint,WaterPumpConfiguration,WaterPumpRatedHead,WaterPumpType,SupplySideBypassPipe,DemandSideBypassPipe,FluidType,LoopDesignDeltaTemperature,LoadDistributionScheme
+OnlyWaterLoop, ,Intermittent,Default, , ,34, ,20,ConstantFlow,179352,SinglePump,Yes,Yes,Water,6,SequentialLoad

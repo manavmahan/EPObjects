@@ -1,0 +1,2 @@
+Name,ZoneorZoneListName,ScheduleName,DesignFlowRateCalculationMethod,DesignFlowRate,FlowperZoneFloorArea,FlowperExteriorSurfaceArea,AirChangesperHour,ConstantTermCoefficient,TemperatureTermCoefficient,VelocityTermCoefficient,VelocitySquaredTermCoefficient
+Infiltration_Office,Office,SpaceInfiltrationSchedule,AirChanges/Hour, , , ,0.337,0.606,0.03636,0.1177165,0

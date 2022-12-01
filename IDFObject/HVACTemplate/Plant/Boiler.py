@@ -1,5 +1,3 @@
-import pandas as pd
-from GeometryObject import XYZList
 from IDFObject import IDFObject
 
 class Boiler(IDFObject.IDFObject):
@@ -23,3 +21,6 @@ class Boiler(IDFObject.IDFObject):
     def __init__(self, properties: dict()) -> None:
         super().__init__(self.Properties, properties)
         self.Initialise()
+
+    def Initialise(self):
+        pass

@@ -1,11 +1,9 @@
 from IDFObject import IDFObject
     
-class Compact(IDFObject.IDFObject):
-    __IDFName__ = 'Schedule:Compact'
+class SummaryReports(IDFObject.IDFObject):
+    __IDFName__ = 'Output:Table:SummaryReports'
     Properties = [
-        'Name',
-        'ScheduleTypeLimitsName',
-        'Fields',
+        'ReportsName',
     ]
 
     def __init__(self, propertiesDict: dict()):
@@ -13,4 +11,4 @@ class Compact(IDFObject.IDFObject):
         self.Initialise()
 
     def Initialise(self):
-        self.Fields = self.Fields.replace(';', ',')
+        self.ReportsName = self.ReportsName.replace(';', ',')

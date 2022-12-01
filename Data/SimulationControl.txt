@@ -1,0 +1,2 @@
+DoZoneSizingCalculation,DoSystemSizingCalculation,DoPlantSizingCalculationRun,SimulationforSizingPeriods,RunSimulationforSizingPeriods
+Yes,Yes,Yes,No,Yes

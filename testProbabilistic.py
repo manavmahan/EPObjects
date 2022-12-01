@@ -2,7 +2,7 @@ import pandas as pd
 import unittest
 
 from Probabilistic.Parameter import Distribution, Parameter, ParameterType, ProbabilisticParameter, ProbabilisticParameters, SamplingScheme
-from surface import SurfaceType
+from EnumTypes import SurfaceType
 
 class TestParameter(unittest.TestCase):
     def testFloor(self):
