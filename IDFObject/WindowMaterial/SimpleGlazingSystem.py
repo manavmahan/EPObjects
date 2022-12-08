@@ -1,10 +1,10 @@
-from IDFObject import IDFObject
+from IDFObject.IDFObject import IDFObject
     
-class SimpleGlazingSystem(IDFObject.IDFObject):
+class SimpleGlazingSystem(IDFObject):
     __IDFName__ = 'WindowMaterial:SimpleGlazingSystem'
     Properties = [
         'Name',
-        'U-Factor',
+        'UFactor',
         'SolarHeatGainCoefficient',
         'VisibleTransmittance',
     ]

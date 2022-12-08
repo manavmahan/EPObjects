@@ -1,0 +1,13 @@
+ ReadVarsESO
+ processing:/Users/manav/repos/EPObjects/1.rvi
+ input file:/Users/manav/repos/EPObjects/output-1/1out.eso
+ output file:/Users/manav/repos/EPObjects/output-1/1out.csv
+ getting all vars from:/Users/manav/repos/EPObjects/output-1/1out.eso
+  number variables requested for output=          11
+ ReadVars Run Time=00hr 00min  0.01sec
+ ReadVarsESO program completed successfully.
+ ReadVarsESO
+ processing:/Users/manav/repos/EPObjects/1.mvi
+ Requested ESO file=/Users/manav/repos/EPObjects/output-1/1out.mtr
+ does not exist.  ReadVarsESO program terminated.
+ ReadVarsESO program terminated.

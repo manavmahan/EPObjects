@@ -16,9 +16,9 @@ def Automate(root, file):
     df = pd.read_csv(f'{root}/{file}')
     properties = ",\n        ".join(f"'{x}'" for x in df.columns) + ','
     
-    lines = f'''from IDFObject import IDFObject
+    lines = f'''from IDFObject.IDFObject import IDFObject
     
-class {f[-1]}(IDFObject.IDFObject):
+class {f[-1]}(IDFObject):
     __IDFName__ = '{name}'
     Properties = [
         {properties}
@@ -45,7 +45,7 @@ def AddTest(objectName, dfFileName):
 
 '''
     
-    with open(f'{RepoPath}/tests.py', 'r') as f:
+    with open(f'{RepoPath}/testIDFObject.py', 'r') as f:
         lines = f.readlines()
 
     for i, l in enumerate(lines):

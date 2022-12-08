@@ -1,2 +1,2 @@
 Name,SurfaceType,ConstructionName,ZoneName,OutsideBoundaryCondition,OutsideBoundaryConditionObject,SunExposure,WindExposure,ViewFactor,XYZs
-Floor0.Zone0,Floor,GroundFloorConstruction,Zone0,Ground, ,NoSun,NoWind,0,0;0;0;0;1;0;1;1;0;1;0;0
+Floor0.Zone0,Floor,GroundFloor,Zone0,Ground, ,NoSun,NoWind,0,4;13.5;0.0;0.0;26.23057;7.35;0.0;12.73057;30.73269;0.0;0.0;23.38269;0.0

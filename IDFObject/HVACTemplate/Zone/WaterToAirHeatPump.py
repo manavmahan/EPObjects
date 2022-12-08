@@ -1,6 +1,6 @@
-from IDFObject import IDFObject
+from IDFObject.IDFObject import IDFObject
     
-class WaterToAirHeatPump(IDFObject.IDFObject):
+class WaterToAirHeatPump(IDFObject):
     __IDFName__ = 'HVACTemplate:Zone:WaterToAirHeatPump'
     Properties = [
         'ZoneName',
@@ -31,7 +31,7 @@ class WaterToAirHeatPump(IDFObject.IDFObject):
         'SupplementalHeatingCoilCapacity',
         'MaximumCyclingRate',
         'HeatPumpTimeConstant',
-        'FractionofOn-CyclePowerUse',
+        'FractionofOnCyclePowerUse',
         'HeatPumpFanDelayTime',
         'DedicatedOutdoorAirSystemName',
         'SupplementalHeatingCoilType',
@@ -44,10 +44,49 @@ class WaterToAirHeatPump(IDFObject.IDFObject):
         'HeatPumpCoilWaterFlowMode',
         'DesignSpecificationOutdoorAirObjectName',
         'DesignSpecificationZoneAirDistributionObjectName',
-        'BaseboardHeatingType',
-        'BaseboardHeatingAvailabilityScheduleName',
-        'BaseboardHeatingCapacity',
     ]
 
     def __init__(self, propertiesDict: dict()):
         super().__init__(self.Properties, propertiesDict)
+
+WaterToAirHeatPump.Default = dict(
+    CoolingSupplyAirFlowRate = 'autosize',
+    HeatingSupplyAirFlowRate = 'autosize',
+    NoLoadSupplyAirFlowRate = '',
+    ZoneHeatingSizingFactor = 1.2,
+    ZoneCoolingSizingFactor = 1.2,
+    OutdoorAirMethod = 'Flow/Person',
+    OutdoorAirFlowRateperPerson = 0.00944,
+    OutdoorAirFlowRateperZoneFloorArea = '',
+    OutdoorAirFlowRateperZone = '',
+    SystemAvailabilityScheduleName = '',
+    SupplyFanOperatingModeScheduleName = '',
+    SupplyFanPlacement = 'DrawThrough',
+    SupplyFanTotalEfficiency = 0.7,
+    SupplyFanDeltaPressure = 75,
+    SupplyFanMotorEfficiency = 0.9,
+    CoolingCoilType = 'Coil:Cooling:WaterToAirHeatPump:EquationFit',
+    CoolingCoilGrossRatedTotalCapacity = 'autosize',
+    CoolingCoilGrossRatedSensibleHeatRatio = 'autosize',
+    CoolingCoilGrossRatedCOP = 3.2,
+    HeatPumpHeatingCoilType = 'Coil:Heating:WaterToAirHeatPump:EquationFit',
+    HeatPumpHeatingCoilGrossRatedCapacity = 'autosize',
+    HeatPumpHeatingCoilGrossRatedCOP = 3.2,
+    SupplementalHeatingCoilAvailabilityScheduleName = '',
+    SupplementalHeatingCoilCapacity = 'autosize',
+    MaximumCyclingRate = 2.5,
+    HeatPumpTimeConstant = 60,
+    FractionofOnCyclePowerUse = 0.01,
+    HeatPumpFanDelayTime = 60,
+    DedicatedOutdoorAirSystemName = '',
+    SupplementalHeatingCoilType = 'Electric',
+    ZoneCoolingDesignSupplyAirTemperatureInputMethod = 'SupplyAirTemperature',
+    ZoneCoolingDesignSupplyAirTemperature = 12.5,
+    ZoneCoolingDesignSupplyAirTemperatureDifference = '',
+    ZoneHeatingDesignSupplyAirTemperatureInputMethod = 'SupplyAirTemperature',
+    ZoneHeatingDesignSupplyAirTemperature = 50,
+    ZoneHeatingDesignSupplyAirTemperatureDifference = '',
+    HeatPumpCoilWaterFlowMode = '',
+    DesignSpecificationOutdoorAirObjectName = '',
+    DesignSpecificationZoneAirDistributionObjectName = '',
+)

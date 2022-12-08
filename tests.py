@@ -25,6 +25,9 @@ class TestInialiser(unittest.TestCase):
     def testReadFileElectricEquipment(self):
         self.assertEqual("ElectricEquipment,Equipment_Office,Office,Office_EquipmentSchedule,Watts/area,,12,,,0.1,;", str(self.idfObjects['ElectricEquipment'][0]))
 
+    def testReadFileGlobalGeometryRules(self):
+        self.assertEqual("GlobalGeometryRules,UpperLeftCorner,Counterclockwise,Relative,Relative,Relative					;", str(self.idfObjects['GlobalGeometryRules'][0]))
+
     def testReadFileHVACTemplatePlantBoiler(self):
         self.assertEqual("HVACTemplate:Plant:Boiler,Boiler1,HotWaterBoiler,autosize,0.95,Electric,1,1.2,0.1,1.1,0.9,99;",
         str(self.idfObjects['HVACTemplate:Plant:Boiler'][0]))

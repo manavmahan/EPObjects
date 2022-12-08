@@ -37,8 +37,9 @@ class SamplingScheme(Enum):
 class SurfaceType(Enum):
     Ceiling = "Ceiling"
     Floor = "Floor"
+    Roof = "Roof"    
     Wall = "Wall"
-    Roof = "Roof"
+    Window = "Window"
 
     def __str__(self):
         return str(self.value)

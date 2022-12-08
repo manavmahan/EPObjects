@@ -6,7 +6,7 @@ class IDFObject():
             if property in propertiesDict: setattr(self, property, propertiesDict[property])
 
     def __repr__(self) -> str:
-        return self.__str()
+        return self.__str__()
 
     def __str__(self) -> str:
         return f'''{self.__IDFName__},{','.join(str(getattr(self, x)).rstrip() for x in self.Properties)};'''

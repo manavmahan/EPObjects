@@ -1,2 +1,2 @@
-Name,U-Factor,SolarHeatGainCoefficient,VisibleTransmittance
-GlazingMaterial,0.72,0.6,0.1
+Name,UFactor,SolarHeatGainCoefficient,VisibleTransmittance
+Glazing,0.72,0.6,0.1

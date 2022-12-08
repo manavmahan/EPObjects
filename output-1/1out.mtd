@@ -1,0 +1,466 @@
+
+ Meters for 7,OFFICE.0.0:Zone Air System Sensible Heating Energy [J]
+  OnMeter=EnergyTransfer:Facility [J]
+  OnMeter=EnergyTransfer:Building [J]
+  OnMeter=EnergyTransfer:Zone:OFFICE.0.0 [J]
+  OnMeter=Heating:EnergyTransfer [J]
+  OnMeter=Heating:EnergyTransfer:Zone:OFFICE.0.0 [J]
+
+ Meters for 68,OFFICE.0.0:Zone Air System Sensible Cooling Energy [J]
+  OnMeter=EnergyTransfer:Facility [J]
+  OnMeter=EnergyTransfer:Building [J]
+  OnMeter=EnergyTransfer:Zone:OFFICE.0.0 [J]
+  OnMeter=Cooling:EnergyTransfer [J]
+  OnMeter=Cooling:EnergyTransfer:Zone:OFFICE.0.0 [J]
+
+ Meters for 95,OFFICE.1.0:Zone Air System Sensible Heating Energy [J]
+  OnMeter=EnergyTransfer:Facility [J]
+  OnMeter=EnergyTransfer:Building [J]
+  OnMeter=EnergyTransfer:Zone:OFFICE.1.0 [J]
+  OnMeter=Heating:EnergyTransfer [J]
+  OnMeter=Heating:EnergyTransfer:Zone:OFFICE.1.0 [J]
+
+ Meters for 120,OFFICE.1.0:Zone Air System Sensible Cooling Energy [J]
+  OnMeter=EnergyTransfer:Facility [J]
+  OnMeter=EnergyTransfer:Building [J]
+  OnMeter=EnergyTransfer:Zone:OFFICE.1.0 [J]
+  OnMeter=Cooling:EnergyTransfer [J]
+  OnMeter=Cooling:EnergyTransfer:Zone:OFFICE.1.0 [J]
+
+ Meters for 135,OFFICE.2.0:Zone Air System Sensible Heating Energy [J]
+  OnMeter=EnergyTransfer:Facility [J]
+  OnMeter=EnergyTransfer:Building [J]
+  OnMeter=EnergyTransfer:Zone:OFFICE.2.0 [J]
+  OnMeter=Heating:EnergyTransfer [J]
+  OnMeter=Heating:EnergyTransfer:Zone:OFFICE.2.0 [J]
+
+ Meters for 160,OFFICE.2.0:Zone Air System Sensible Cooling Energy [J]
+  OnMeter=EnergyTransfer:Facility [J]
+  OnMeter=EnergyTransfer:Building [J]
+  OnMeter=EnergyTransfer:Zone:OFFICE.2.0 [J]
+  OnMeter=Cooling:EnergyTransfer [J]
+  OnMeter=Cooling:EnergyTransfer:Zone:OFFICE.2.0 [J]
+
+ Meters for 175,OFFICE.0.0 WAHP SUPPLY FAN:Fan Electric Energy [J]
+  OnMeter=Electricity:Facility [J]
+  OnMeter=Electricity:HVAC [J]
+  OnMeter=Fans:Electricity [J]
+  OnMeter=General:Fans:Electricity [J]
+
+ Meters for 224,OFFICE.1.0 WAHP SUPPLY FAN:Fan Electric Energy [J]
+  OnMeter=Electricity:Facility [J]
+  OnMeter=Electricity:HVAC [J]
+  OnMeter=Fans:Electricity [J]
+  OnMeter=General:Fans:Electricity [J]
+
+ Meters for 225,OFFICE.2.0 WAHP SUPPLY FAN:Fan Electric Energy [J]
+  OnMeter=Electricity:Facility [J]
+  OnMeter=Electricity:HVAC [J]
+  OnMeter=Fans:Electricity [J]
+  OnMeter=General:Fans:Electricity [J]
+
+ Meters for 226,OFFICE.0.0 WAHP COOLING COIL:Cooling Coil Electric Energy [J]
+  OnMeter=Electricity:Facility [J]
+  OnMeter=Electricity:HVAC [J]
+  OnMeter=Cooling:Electricity [J]
+
+ Meters for 239,OFFICE.0.0 WAHP COOLING COIL:Cooling Coil Total Cooling Energy [J]
+  OnMeter=EnergyTransfer:Facility [J]
+  OnMeter=EnergyTransfer:HVAC [J]
+  OnMeter=CoolingCoils:EnergyTransfer [J]
+
+ Meters for 264,OFFICE.0.0 WAHP COOLING COIL:Cooling Coil Source Side Heat Transfer Energy [J]
+  OnMeter=PlantLoopCoolingDemand:Facility [J]
+  OnMeter=PlantLoopCoolingDemand:HVAC [J]
+  OnMeter=CoolingCoils:PlantLoopCoolingDemand [J]
+
+ Meters for 301,OFFICE.1.0 WAHP COOLING COIL:Cooling Coil Electric Energy [J]
+  OnMeter=Electricity:Facility [J]
+  OnMeter=Electricity:HVAC [J]
+  OnMeter=Cooling:Electricity [J]
+
+ Meters for 302,OFFICE.1.0 WAHP COOLING COIL:Cooling Coil Total Cooling Energy [J]
+  OnMeter=EnergyTransfer:Facility [J]
+  OnMeter=EnergyTransfer:HVAC [J]
+  OnMeter=CoolingCoils:EnergyTransfer [J]
+
+ Meters for 303,OFFICE.1.0 WAHP COOLING COIL:Cooling Coil Source Side Heat Transfer Energy [J]
+  OnMeter=PlantLoopCoolingDemand:Facility [J]
+  OnMeter=PlantLoopCoolingDemand:HVAC [J]
+  OnMeter=CoolingCoils:PlantLoopCoolingDemand [J]
+
+ Meters for 304,OFFICE.2.0 WAHP COOLING COIL:Cooling Coil Electric Energy [J]
+  OnMeter=Electricity:Facility [J]
+  OnMeter=Electricity:HVAC [J]
+  OnMeter=Cooling:Electricity [J]
+
+ Meters for 305,OFFICE.2.0 WAHP COOLING COIL:Cooling Coil Total Cooling Energy [J]
+  OnMeter=EnergyTransfer:Facility [J]
+  OnMeter=EnergyTransfer:HVAC [J]
+  OnMeter=CoolingCoils:EnergyTransfer [J]
+
+ Meters for 306,OFFICE.2.0 WAHP COOLING COIL:Cooling Coil Source Side Heat Transfer Energy [J]
+  OnMeter=PlantLoopCoolingDemand:Facility [J]
+  OnMeter=PlantLoopCoolingDemand:HVAC [J]
+  OnMeter=CoolingCoils:PlantLoopCoolingDemand [J]
+
+ Meters for 307,OFFICE.0.0 WAHP HEATING COIL:Heating Coil Electric Energy [J]
+  OnMeter=Electricity:Facility [J]
+  OnMeter=Electricity:HVAC [J]
+  OnMeter=Heating:Electricity [J]
+
+ Meters for 320,OFFICE.0.0 WAHP HEATING COIL:Heating Coil Heating Energy [J]
+  OnMeter=EnergyTransfer:Facility [J]
+  OnMeter=EnergyTransfer:HVAC [J]
+  OnMeter=HeatingCoils:EnergyTransfer [J]
+
+ Meters for 333,OFFICE.0.0 WAHP HEATING COIL:Heating Coil Source Side Heat Transfer Energy [J]
+  OnMeter=PlantLoopHeatingDemand:Facility [J]
+  OnMeter=PlantLoopHeatingDemand:HVAC [J]
+  OnMeter=HeatingCoils:PlantLoopHeatingDemand [J]
+
+ Meters for 370,OFFICE.1.0 WAHP HEATING COIL:Heating Coil Electric Energy [J]
+  OnMeter=Electricity:Facility [J]
+  OnMeter=Electricity:HVAC [J]
+  OnMeter=Heating:Electricity [J]
+
+ Meters for 371,OFFICE.1.0 WAHP HEATING COIL:Heating Coil Heating Energy [J]
+  OnMeter=EnergyTransfer:Facility [J]
+  OnMeter=EnergyTransfer:HVAC [J]
+  OnMeter=HeatingCoils:EnergyTransfer [J]
+
+ Meters for 372,OFFICE.1.0 WAHP HEATING COIL:Heating Coil Source Side Heat Transfer Energy [J]
+  OnMeter=PlantLoopHeatingDemand:Facility [J]
+  OnMeter=PlantLoopHeatingDemand:HVAC [J]
+  OnMeter=HeatingCoils:PlantLoopHeatingDemand [J]
+
+ Meters for 373,OFFICE.2.0 WAHP HEATING COIL:Heating Coil Electric Energy [J]
+  OnMeter=Electricity:Facility [J]
+  OnMeter=Electricity:HVAC [J]
+  OnMeter=Heating:Electricity [J]
+
+ Meters for 374,OFFICE.2.0 WAHP HEATING COIL:Heating Coil Heating Energy [J]
+  OnMeter=EnergyTransfer:Facility [J]
+  OnMeter=EnergyTransfer:HVAC [J]
+  OnMeter=HeatingCoils:EnergyTransfer [J]
+
+ Meters for 375,OFFICE.2.0 WAHP HEATING COIL:Heating Coil Source Side Heat Transfer Energy [J]
+  OnMeter=PlantLoopHeatingDemand:Facility [J]
+  OnMeter=PlantLoopHeatingDemand:HVAC [J]
+  OnMeter=HeatingCoils:PlantLoopHeatingDemand [J]
+
+ Meters for 376,OFFICE.0.0 WAHP SUPP HEATING COIL:Heating Coil Heating Energy [J]
+  OnMeter=EnergyTransfer:Facility [J]
+  OnMeter=EnergyTransfer:HVAC [J]
+  OnMeter=HeatingCoils:EnergyTransfer [J]
+
+ Meters for 377,OFFICE.0.0 WAHP SUPP HEATING COIL:Heating Coil Electric Energy [J]
+  OnMeter=Electricity:Facility [J]
+  OnMeter=Electricity:HVAC [J]
+  OnMeter=Heating:Electricity [J]
+
+ Meters for 378,OFFICE.1.0 WAHP SUPP HEATING COIL:Heating Coil Heating Energy [J]
+  OnMeter=EnergyTransfer:Facility [J]
+  OnMeter=EnergyTransfer:HVAC [J]
+  OnMeter=HeatingCoils:EnergyTransfer [J]
+
+ Meters for 379,OFFICE.1.0 WAHP SUPP HEATING COIL:Heating Coil Electric Energy [J]
+  OnMeter=Electricity:Facility [J]
+  OnMeter=Electricity:HVAC [J]
+  OnMeter=Heating:Electricity [J]
+
+ Meters for 380,OFFICE.2.0 WAHP SUPP HEATING COIL:Heating Coil Heating Energy [J]
+  OnMeter=EnergyTransfer:Facility [J]
+  OnMeter=EnergyTransfer:HVAC [J]
+  OnMeter=HeatingCoils:EnergyTransfer [J]
+
+ Meters for 381,OFFICE.2.0 WAHP SUPP HEATING COIL:Heating Coil Electric Energy [J]
+  OnMeter=Electricity:Facility [J]
+  OnMeter=Electricity:HVAC [J]
+  OnMeter=Heating:Electricity [J]
+
+ Meters for 385,BOILER1:Boiler Heating Energy [J]
+  OnMeter=EnergyTransfer:Facility [J]
+  OnMeter=EnergyTransfer:Plant [J]
+  OnMeter=Boilers:EnergyTransfer [J]
+
+ Meters for 410,BOILER1:Boiler Electric Energy [J]
+  OnMeter=Electricity:Facility [J]
+  OnMeter=Electricity:Plant [J]
+  OnMeter=Heating:Electricity [J]
+  OnMeter=Boiler:Heating:Electricity [J]
+
+ Meters for 435,BOILER1:Boiler Ancillary Electric Energy [J]
+  OnMeter=Electricity:Facility [J]
+  OnMeter=Electricity:Plant [J]
+  OnMeter=Heating:Electricity [J]
+  OnMeter=Boiler Parasitic:Heating:Electricity [J]
+
+ Meters for 448,MAINTOWER:Cooling Tower Fan Electric Energy [J]
+  OnMeter=Electricity:Facility [J]
+  OnMeter=Electricity:Plant [J]
+  OnMeter=HeatRejection:Electricity [J]
+  OnMeter=General:HeatRejection:Electricity [J]
+
+ Meters for 473,MAINTOWER:Cooling Tower Make Up Water Volume [m3]
+  OnMeter=Water:Facility [m3]
+  OnMeter=Water:Plant [m3]
+  OnMeter=HeatRejection:Water [m3]
+
+ Meters for 510,MAINTOWER:Cooling Tower Make Up Mains Water Volume [m3]
+  OnMeter=MainsWater:Facility [m3]
+  OnMeter=MainsWater:Plant [m3]
+  OnMeter=HeatRejection:MainsWater [m3]
+
+ Meters for 547,ONLYWATERLOOP MIXED SUPPLY PUMP:Pump Electric Energy [J]
+  OnMeter=Electricity:Facility [J]
+  OnMeter=Electricity:Plant [J]
+  OnMeter=Pumps:Electricity [J]
+  OnMeter=General:Pumps:Electricity [J]
+
+ Meters for 572,Site:Environmental Impact Total N2O Emissions Carbon Equivalent Mass [kg]
+  OnMeter=Carbon Equivalent:Facility [kg]
+  OnMeter=CarbonEquivalentEmissions:Carbon Equivalent [kg]
+
+ Meters for 597,Site:Environmental Impact Total CH4 Emissions Carbon Equivalent Mass [kg]
+  OnMeter=Carbon Equivalent:Facility [kg]
+  OnMeter=CarbonEquivalentEmissions:Carbon Equivalent [kg]
+
+ Meters for 598,Site:Environmental Impact Total CO2 Emissions Carbon Equivalent Mass [kg]
+  OnMeter=Carbon Equivalent:Facility [kg]
+  OnMeter=CarbonEquivalentEmissions:Carbon Equivalent [kg]
+
+ For Meter=EnergyTransfer:Facility [J], ResourceType=EnergyTransfer, contents are:
+  OFFICE.0.0:Zone Air System Sensible Heating Energy
+  OFFICE.0.0:Zone Air System Sensible Cooling Energy
+  OFFICE.1.0:Zone Air System Sensible Heating Energy
+  OFFICE.1.0:Zone Air System Sensible Cooling Energy
+  OFFICE.2.0:Zone Air System Sensible Heating Energy
+  OFFICE.2.0:Zone Air System Sensible Cooling Energy
+  OFFICE.0.0 WAHP COOLING COIL:Cooling Coil Total Cooling Energy
+  OFFICE.1.0 WAHP COOLING COIL:Cooling Coil Total Cooling Energy
+  OFFICE.2.0 WAHP COOLING COIL:Cooling Coil Total Cooling Energy
+  OFFICE.0.0 WAHP HEATING COIL:Heating Coil Heating Energy
+  OFFICE.1.0 WAHP HEATING COIL:Heating Coil Heating Energy
+  OFFICE.2.0 WAHP HEATING COIL:Heating Coil Heating Energy
+  OFFICE.0.0 WAHP SUPP HEATING COIL:Heating Coil Heating Energy
+  OFFICE.1.0 WAHP SUPP HEATING COIL:Heating Coil Heating Energy
+  OFFICE.2.0 WAHP SUPP HEATING COIL:Heating Coil Heating Energy
+  BOILER1:Boiler Heating Energy
+
+ For Meter=EnergyTransfer:Building [J], ResourceType=EnergyTransfer, Group=Building, contents are:
+  OFFICE.0.0:Zone Air System Sensible Heating Energy
+  OFFICE.0.0:Zone Air System Sensible Cooling Energy
+  OFFICE.1.0:Zone Air System Sensible Heating Energy
+  OFFICE.1.0:Zone Air System Sensible Cooling Energy
+  OFFICE.2.0:Zone Air System Sensible Heating Energy
+  OFFICE.2.0:Zone Air System Sensible Cooling Energy
+
+ For Meter=EnergyTransfer:Zone:OFFICE.0.0 [J], ResourceType=EnergyTransfer, Group=Zone, contents are:
+  OFFICE.0.0:Zone Air System Sensible Heating Energy
+  OFFICE.0.0:Zone Air System Sensible Cooling Energy
+
+ For Meter=Heating:EnergyTransfer [J], ResourceType=EnergyTransfer, EndUse=Heating, contents are:
+  OFFICE.0.0:Zone Air System Sensible Heating Energy
+  OFFICE.1.0:Zone Air System Sensible Heating Energy
+  OFFICE.2.0:Zone Air System Sensible Heating Energy
+
+ For Meter=Heating:EnergyTransfer:Zone:OFFICE.0.0 [J], ResourceType=EnergyTransfer, EndUse=Heating, Group=Zone, contents are:
+  OFFICE.0.0:Zone Air System Sensible Heating Energy
+
+ For Meter=Cooling:EnergyTransfer [J], ResourceType=EnergyTransfer, EndUse=Cooling, contents are:
+  OFFICE.0.0:Zone Air System Sensible Cooling Energy
+  OFFICE.1.0:Zone Air System Sensible Cooling Energy
+  OFFICE.2.0:Zone Air System Sensible Cooling Energy
+
+ For Meter=Cooling:EnergyTransfer:Zone:OFFICE.0.0 [J], ResourceType=EnergyTransfer, EndUse=Cooling, Group=Zone, contents are:
+  OFFICE.0.0:Zone Air System Sensible Cooling Energy
+
+ For Meter=EnergyTransfer:Zone:OFFICE.1.0 [J], ResourceType=EnergyTransfer, Group=Zone, contents are:
+  OFFICE.1.0:Zone Air System Sensible Heating Energy
+  OFFICE.1.0:Zone Air System Sensible Cooling Energy
+
+ For Meter=Heating:EnergyTransfer:Zone:OFFICE.1.0 [J], ResourceType=EnergyTransfer, EndUse=Heating, Group=Zone, contents are:
+  OFFICE.1.0:Zone Air System Sensible Heating Energy
+
+ For Meter=Cooling:EnergyTransfer:Zone:OFFICE.1.0 [J], ResourceType=EnergyTransfer, EndUse=Cooling, Group=Zone, contents are:
+  OFFICE.1.0:Zone Air System Sensible Cooling Energy
+
+ For Meter=EnergyTransfer:Zone:OFFICE.2.0 [J], ResourceType=EnergyTransfer, Group=Zone, contents are:
+  OFFICE.2.0:Zone Air System Sensible Heating Energy
+  OFFICE.2.0:Zone Air System Sensible Cooling Energy
+
+ For Meter=Heating:EnergyTransfer:Zone:OFFICE.2.0 [J], ResourceType=EnergyTransfer, EndUse=Heating, Group=Zone, contents are:
+  OFFICE.2.0:Zone Air System Sensible Heating Energy
+
+ For Meter=Cooling:EnergyTransfer:Zone:OFFICE.2.0 [J], ResourceType=EnergyTransfer, EndUse=Cooling, Group=Zone, contents are:
+  OFFICE.2.0:Zone Air System Sensible Cooling Energy
+
+ For Meter=Electricity:Facility [J], ResourceType=Electricity, contents are:
+  OFFICE.0.0 WAHP SUPPLY FAN:Fan Electric Energy
+  OFFICE.1.0 WAHP SUPPLY FAN:Fan Electric Energy
+  OFFICE.2.0 WAHP SUPPLY FAN:Fan Electric Energy
+  OFFICE.0.0 WAHP COOLING COIL:Cooling Coil Electric Energy
+  OFFICE.1.0 WAHP COOLING COIL:Cooling Coil Electric Energy
+  OFFICE.2.0 WAHP COOLING COIL:Cooling Coil Electric Energy
+  OFFICE.0.0 WAHP HEATING COIL:Heating Coil Electric Energy
+  OFFICE.1.0 WAHP HEATING COIL:Heating Coil Electric Energy
+  OFFICE.2.0 WAHP HEATING COIL:Heating Coil Electric Energy
+  OFFICE.0.0 WAHP SUPP HEATING COIL:Heating Coil Electric Energy
+  OFFICE.1.0 WAHP SUPP HEATING COIL:Heating Coil Electric Energy
+  OFFICE.2.0 WAHP SUPP HEATING COIL:Heating Coil Electric Energy
+  BOILER1:Boiler Electric Energy
+  BOILER1:Boiler Ancillary Electric Energy
+  MAINTOWER:Cooling Tower Fan Electric Energy
+  ONLYWATERLOOP MIXED SUPPLY PUMP:Pump Electric Energy
+
+ For Meter=Electricity:HVAC [J], ResourceType=Electricity, Group=HVAC, contents are:
+  OFFICE.0.0 WAHP SUPPLY FAN:Fan Electric Energy
+  OFFICE.1.0 WAHP SUPPLY FAN:Fan Electric Energy
+  OFFICE.2.0 WAHP SUPPLY FAN:Fan Electric Energy
+  OFFICE.0.0 WAHP COOLING COIL:Cooling Coil Electric Energy
+  OFFICE.1.0 WAHP COOLING COIL:Cooling Coil Electric Energy
+  OFFICE.2.0 WAHP COOLING COIL:Cooling Coil Electric Energy
+  OFFICE.0.0 WAHP HEATING COIL:Heating Coil Electric Energy
+  OFFICE.1.0 WAHP HEATING COIL:Heating Coil Electric Energy
+  OFFICE.2.0 WAHP HEATING COIL:Heating Coil Electric Energy
+  OFFICE.0.0 WAHP SUPP HEATING COIL:Heating Coil Electric Energy
+  OFFICE.1.0 WAHP SUPP HEATING COIL:Heating Coil Electric Energy
+  OFFICE.2.0 WAHP SUPP HEATING COIL:Heating Coil Electric Energy
+
+ For Meter=Fans:Electricity [J], ResourceType=Electricity, EndUse=Fans, contents are:
+  OFFICE.0.0 WAHP SUPPLY FAN:Fan Electric Energy
+  OFFICE.1.0 WAHP SUPPLY FAN:Fan Electric Energy
+  OFFICE.2.0 WAHP SUPPLY FAN:Fan Electric Energy
+
+ For Meter=General:Fans:Electricity [J], ResourceType=Electricity, EndUse=Fans, contents are:
+  OFFICE.0.0 WAHP SUPPLY FAN:Fan Electric Energy
+  OFFICE.1.0 WAHP SUPPLY FAN:Fan Electric Energy
+  OFFICE.2.0 WAHP SUPPLY FAN:Fan Electric Energy
+
+ For Meter=Cooling:Electricity [J], ResourceType=Electricity, EndUse=Cooling, contents are:
+  OFFICE.0.0 WAHP COOLING COIL:Cooling Coil Electric Energy
+  OFFICE.1.0 WAHP COOLING COIL:Cooling Coil Electric Energy
+  OFFICE.2.0 WAHP COOLING COIL:Cooling Coil Electric Energy
+
+ For Meter=EnergyTransfer:HVAC [J], ResourceType=EnergyTransfer, Group=HVAC, contents are:
+  OFFICE.0.0 WAHP COOLING COIL:Cooling Coil Total Cooling Energy
+  OFFICE.1.0 WAHP COOLING COIL:Cooling Coil Total Cooling Energy
+  OFFICE.2.0 WAHP COOLING COIL:Cooling Coil Total Cooling Energy
+  OFFICE.0.0 WAHP HEATING COIL:Heating Coil Heating Energy
+  OFFICE.1.0 WAHP HEATING COIL:Heating Coil Heating Energy
+  OFFICE.2.0 WAHP HEATING COIL:Heating Coil Heating Energy
+  OFFICE.0.0 WAHP SUPP HEATING COIL:Heating Coil Heating Energy
+  OFFICE.1.0 WAHP SUPP HEATING COIL:Heating Coil Heating Energy
+  OFFICE.2.0 WAHP SUPP HEATING COIL:Heating Coil Heating Energy
+
+ For Meter=CoolingCoils:EnergyTransfer [J], ResourceType=EnergyTransfer, EndUse=CoolingCoils, contents are:
+  OFFICE.0.0 WAHP COOLING COIL:Cooling Coil Total Cooling Energy
+  OFFICE.1.0 WAHP COOLING COIL:Cooling Coil Total Cooling Energy
+  OFFICE.2.0 WAHP COOLING COIL:Cooling Coil Total Cooling Energy
+
+ For Meter=PlantLoopCoolingDemand:Facility [J], ResourceType=PlantLoopCoolingDemand, contents are:
+  OFFICE.0.0 WAHP COOLING COIL:Cooling Coil Source Side Heat Transfer Energy
+  OFFICE.1.0 WAHP COOLING COIL:Cooling Coil Source Side Heat Transfer Energy
+  OFFICE.2.0 WAHP COOLING COIL:Cooling Coil Source Side Heat Transfer Energy
+
+ For Meter=PlantLoopCoolingDemand:HVAC [J], ResourceType=PlantLoopCoolingDemand, Group=HVAC, contents are:
+  OFFICE.0.0 WAHP COOLING COIL:Cooling Coil Source Side Heat Transfer Energy
+  OFFICE.1.0 WAHP COOLING COIL:Cooling Coil Source Side Heat Transfer Energy
+  OFFICE.2.0 WAHP COOLING COIL:Cooling Coil Source Side Heat Transfer Energy
+
+ For Meter=CoolingCoils:PlantLoopCoolingDemand [J], ResourceType=PlantLoopCoolingDemand, EndUse=CoolingCoils, contents are:
+  OFFICE.0.0 WAHP COOLING COIL:Cooling Coil Source Side Heat Transfer Energy
+  OFFICE.1.0 WAHP COOLING COIL:Cooling Coil Source Side Heat Transfer Energy
+  OFFICE.2.0 WAHP COOLING COIL:Cooling Coil Source Side Heat Transfer Energy
+
+ For Meter=Heating:Electricity [J], ResourceType=Electricity, EndUse=Heating, contents are:
+  OFFICE.0.0 WAHP HEATING COIL:Heating Coil Electric Energy
+  OFFICE.1.0 WAHP HEATING COIL:Heating Coil Electric Energy
+  OFFICE.2.0 WAHP HEATING COIL:Heating Coil Electric Energy
+  OFFICE.0.0 WAHP SUPP HEATING COIL:Heating Coil Electric Energy
+  OFFICE.1.0 WAHP SUPP HEATING COIL:Heating Coil Electric Energy
+  OFFICE.2.0 WAHP SUPP HEATING COIL:Heating Coil Electric Energy
+  BOILER1:Boiler Electric Energy
+  BOILER1:Boiler Ancillary Electric Energy
+
+ For Meter=HeatingCoils:EnergyTransfer [J], ResourceType=EnergyTransfer, EndUse=HeatingCoils, contents are:
+  OFFICE.0.0 WAHP HEATING COIL:Heating Coil Heating Energy
+  OFFICE.1.0 WAHP HEATING COIL:Heating Coil Heating Energy
+  OFFICE.2.0 WAHP HEATING COIL:Heating Coil Heating Energy
+  OFFICE.0.0 WAHP SUPP HEATING COIL:Heating Coil Heating Energy
+  OFFICE.1.0 WAHP SUPP HEATING COIL:Heating Coil Heating Energy
+  OFFICE.2.0 WAHP SUPP HEATING COIL:Heating Coil Heating Energy
+
+ For Meter=PlantLoopHeatingDemand:Facility [J], ResourceType=PlantLoopHeatingDemand, contents are:
+  OFFICE.0.0 WAHP HEATING COIL:Heating Coil Source Side Heat Transfer Energy
+  OFFICE.1.0 WAHP HEATING COIL:Heating Coil Source Side Heat Transfer Energy
+  OFFICE.2.0 WAHP HEATING COIL:Heating Coil Source Side Heat Transfer Energy
+
+ For Meter=PlantLoopHeatingDemand:HVAC [J], ResourceType=PlantLoopHeatingDemand, Group=HVAC, contents are:
+  OFFICE.0.0 WAHP HEATING COIL:Heating Coil Source Side Heat Transfer Energy
+  OFFICE.1.0 WAHP HEATING COIL:Heating Coil Source Side Heat Transfer Energy
+  OFFICE.2.0 WAHP HEATING COIL:Heating Coil Source Side Heat Transfer Energy
+
+ For Meter=HeatingCoils:PlantLoopHeatingDemand [J], ResourceType=PlantLoopHeatingDemand, EndUse=HeatingCoils, contents are:
+  OFFICE.0.0 WAHP HEATING COIL:Heating Coil Source Side Heat Transfer Energy
+  OFFICE.1.0 WAHP HEATING COIL:Heating Coil Source Side Heat Transfer Energy
+  OFFICE.2.0 WAHP HEATING COIL:Heating Coil Source Side Heat Transfer Energy
+
+ For Meter=EnergyTransfer:Plant [J], ResourceType=EnergyTransfer, Group=Plant, contents are:
+  BOILER1:Boiler Heating Energy
+
+ For Meter=Boilers:EnergyTransfer [J], ResourceType=EnergyTransfer, EndUse=Boilers, contents are:
+  BOILER1:Boiler Heating Energy
+
+ For Meter=Electricity:Plant [J], ResourceType=Electricity, Group=Plant, contents are:
+  BOILER1:Boiler Electric Energy
+  BOILER1:Boiler Ancillary Electric Energy
+  MAINTOWER:Cooling Tower Fan Electric Energy
+  ONLYWATERLOOP MIXED SUPPLY PUMP:Pump Electric Energy
+
+ For Meter=Boiler:Heating:Electricity [J], ResourceType=Electricity, EndUse=Heating, contents are:
+  BOILER1:Boiler Electric Energy
+
+ For Meter=Boiler Parasitic:Heating:Electricity [J], ResourceType=Electricity, EndUse=Heating, contents are:
+  BOILER1:Boiler Ancillary Electric Energy
+
+ For Meter=HeatRejection:Electricity [J], ResourceType=Electricity, EndUse=HeatRejection, contents are:
+  MAINTOWER:Cooling Tower Fan Electric Energy
+
+ For Meter=General:HeatRejection:Electricity [J], ResourceType=Electricity, EndUse=HeatRejection, contents are:
+  MAINTOWER:Cooling Tower Fan Electric Energy
+
+ For Meter=Water:Facility [m3], ResourceType=Water, contents are:
+  MAINTOWER:Cooling Tower Make Up Water Volume
+
+ For Meter=Water:Plant [m3], ResourceType=Water, Group=Plant, contents are:
+  MAINTOWER:Cooling Tower Make Up Water Volume
+
+ For Meter=HeatRejection:Water [m3], ResourceType=Water, EndUse=HeatRejection, contents are:
+  MAINTOWER:Cooling Tower Make Up Water Volume
+
+ For Meter=MainsWater:Facility [m3], ResourceType=MainsWater, contents are:
+  MAINTOWER:Cooling Tower Make Up Mains Water Volume
+
+ For Meter=MainsWater:Plant [m3], ResourceType=MainsWater, Group=Plant, contents are:
+  MAINTOWER:Cooling Tower Make Up Mains Water Volume
+
+ For Meter=HeatRejection:MainsWater [m3], ResourceType=MainsWater, EndUse=HeatRejection, contents are:
+  MAINTOWER:Cooling Tower Make Up Mains Water Volume
+
+ For Meter=Pumps:Electricity [J], ResourceType=Electricity, EndUse=Pumps, contents are:
+  ONLYWATERLOOP MIXED SUPPLY PUMP:Pump Electric Energy
+
+ For Meter=General:Pumps:Electricity [J], ResourceType=Electricity, EndUse=Pumps, contents are:
+  ONLYWATERLOOP MIXED SUPPLY PUMP:Pump Electric Energy
+
+ For Meter=Carbon Equivalent:Facility [kg], ResourceType=Carbon Equivalent, contents are:
+  Site:Environmental Impact Total N2O Emissions Carbon Equivalent Mass
+  Site:Environmental Impact Total CH4 Emissions Carbon Equivalent Mass
+  Site:Environmental Impact Total CO2 Emissions Carbon Equivalent Mass
+
+ For Meter=CarbonEquivalentEmissions:Carbon Equivalent [kg], ResourceType=Carbon Equivalent, EndUse=CarbonEquivalentEmissions, contents are:
+  Site:Environmental Impact Total N2O Emissions Carbon Equivalent Mass
+  Site:Environmental Impact Total CH4 Emissions Carbon Equivalent Mass
+  Site:Environmental Impact Total CO2 Emissions Carbon Equivalent Mass

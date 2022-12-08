@@ -6,13 +6,14 @@ class Material(IDFObject.IDFObject):
     __IDFName__ = 'Material'
     Properties = [
         'Name',
+        'Roughness',
         'Thickness',
         'Conductivity',
         'Density',
-        'Specific Heat',
-        'Thermal Absorptance',
-        'Solar Absorptance',
-        'Visible Absorptance',
+        'SpecificHeat',
+        'ThermalAbsorptance',
+        'SolarAbsorptance',
+        'VisibleAbsorptance',
     ]
 
     def __init__(self, properties: dict()) -> None:

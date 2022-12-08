@@ -4,7 +4,7 @@ class DesignFlowRate(IDFObject.IDFObject):
     __IDFName__ = 'ZoneInfiltration:DesignFlowRate'
     Properties = [
         'Name',
-        'ZoneorZoneListName',
+        'ZoneListName',
         'ScheduleName',
         'DesignFlowRateCalculationMethod',
         'DesignFlowRate',
@@ -19,3 +19,8 @@ class DesignFlowRate(IDFObject.IDFObject):
 
     def __init__(self, propertiesDict: dict()):
         super().__init__(self.Properties, propertiesDict)
+
+DesignFlowRate.Default = dict(
+    DesignFlowRateCalculationMethod = 'AirChanges/Hour',
+    
+)

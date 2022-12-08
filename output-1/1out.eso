@@ -1,0 +1,34 @@
+Program Version,EnergyPlus, Version 9.2.0-921312fa1d, YMD=2022.12.08 16:32
+1,5,Environment Title[],Latitude[deg],Longitude[deg],Time Zone[],Elevation[m]
+2,8,Day of Simulation[],Month[],Day of Month[],DST Indicator[1=yes 0=no],Hour[],StartMinute[],EndMinute[],DayType
+3,5,Cumulative Day of Simulation[],Month[],Day of Month[],DST Indicator[1=yes 0=no],DayType  ! When Daily Report Variables Requested
+4,2,Cumulative Days of Simulation[],Month[]  ! When Monthly Report Variables Requested
+5,1,Cumulative Days of Simulation[] ! When Run Period Report Variables Requested
+6,1,Calendar Year of Simulation[] ! When Annual Report Variables Requested
+93,11,OFFICE.0.0,Zone Air System Sensible Heating Rate [W] !Annual [Value,Min,Month,Day,Hour,Minute,Max,Month,Day,Hour,Minute]
+94,11,OFFICE.0.0,Zone Air System Sensible Cooling Rate [W] !Annual [Value,Min,Month,Day,Hour,Minute,Max,Month,Day,Hour,Minute]
+133,11,OFFICE.1.0,Zone Air System Sensible Heating Rate [W] !Annual [Value,Min,Month,Day,Hour,Minute,Max,Month,Day,Hour,Minute]
+134,11,OFFICE.1.0,Zone Air System Sensible Cooling Rate [W] !Annual [Value,Min,Month,Day,Hour,Minute,Max,Month,Day,Hour,Minute]
+173,11,OFFICE.2.0,Zone Air System Sensible Heating Rate [W] !Annual [Value,Min,Month,Day,Hour,Minute,Max,Month,Day,Hour,Minute]
+174,11,OFFICE.2.0,Zone Air System Sensible Cooling Rate [W] !Annual [Value,Min,Month,Day,Hour,Minute,Max,Month,Day,Hour,Minute]
+382,11,OFFICE.0.0 WAHP,Zone Water to Air Heat Pump Electric Energy [J] !Annual [Value,Min,Month,Day,Hour,Minute,Max,Month,Day,Hour,Minute]
+383,11,OFFICE.1.0 WAHP,Zone Water to Air Heat Pump Electric Energy [J] !Annual [Value,Min,Month,Day,Hour,Minute,Max,Month,Day,Hour,Minute]
+384,11,OFFICE.2.0 WAHP,Zone Water to Air Heat Pump Electric Energy [J] !Annual [Value,Min,Month,Day,Hour,Minute,Max,Month,Day,Hour,Minute]
+410,11,BOILER1,Boiler Electric Energy [J] !Annual [Value,Min,Month,Day,Hour,Minute,Max,Month,Day,Hour,Minute]
+448,11,MAINTOWER,Cooling Tower Fan Electric Energy [J] !Annual [Value,Min,Month,Day,Hour,Minute,Max,Month,Day,Hour,Minute]
+End of Data Dictionary
+1,RUNPERIOD1,  48.13,  11.70,   1.00, 529.00
+6,2017
+93,690.9904960766959,0.0, 1, 2,19,45,16542.36482208968, 1, 2, 7,45
+94,429.4983835855622,0.0, 1, 1, 1,15,7889.793623091377, 7,31, 7,45
+133,504.62881608056099,0.0, 1, 2,19,45,20648.460954764356, 1, 2, 7,45
+134,807.1645962592514,0.0, 1, 1, 1,15,12676.404017436496, 7,31, 7,45
+173,983.2217310889546,0.0, 1, 2,19,45,24419.757467853087, 1, 2, 7,45
+174,660.941192760786,0.0, 1, 1, 1,15,12426.528808066409, 8, 7, 7,45
+382,18123901861.87035,0.0, 1, 2,19,45,15269435.21238599, 2,13, 7,45
+383,19116969825.471418,0.0, 1, 2,19,45,13931936.733062786, 1, 2, 7,45
+384,23200573453.541093,0.0, 1, 2,19,45,17208599.64850848, 1, 2, 7,45
+410,67497593324.66131,0.0, 1, 2,19,45,30332750.721231428, 2,13, 7,45
+448,661956176.0984335,0.0, 1, 1, 1,15,365235.4714649351, 8, 3,17,60
+End of Data
+ Number of Records Written=          11

@@ -4,7 +4,7 @@ class People(IDFObject.IDFObject):
     __IDFName__ = 'People'
     Properties = [
         'Name',
-        'ZoneorZoneListName',
+        'ZoneListName',
         'NumberofPeopleScheduleName',
         'NumberofPeopleCalculationMethod',
         'NumberofPeople',
@@ -16,7 +16,7 @@ class People(IDFObject.IDFObject):
         'CarbonDioxideGenerationRate',
         'EnableASHRAE55ComfortWarnings',
         'MeanRadiantTemperatureCalculationType',
-        'SurfaceName/AngleFactorListName',
+        'SurfaceNameAngleFactorListName',
         'WorkEfficiencyScheduleName',
         'ClothingInsulationCalculationMethod',
         'ClothingInsulationCalculationMethodScheduleName',
@@ -27,3 +27,24 @@ class People(IDFObject.IDFObject):
 
     def __init__(self, propertiesDict: dict()):
         super().__init__(self.Properties, propertiesDict)
+
+People.Default = dict(
+    NumberofPeopleScheduleName = 'Office.People',
+    NumberofPeopleCalculationMethod = 'Area/Person',
+    NumberofPeople = '',
+    PeopleperZoneFloorArea = '',
+    ZoneFloorAreaperPerson = 22,
+    FractionRadiant = 0.1,
+    SensibleHeatFraction = '',
+    ActivityLevelScheduleName = 'Office.Activity',
+    CarbonDioxideGenerationRate = 3.82E-08,
+    EnableASHRAE55ComfortWarnings = '',
+    MeanRadiantTemperatureCalculationType = 'ZoneAveraged',
+    SurfaceNameAngleFactorListName = '',
+    WorkEfficiencyScheduleName = 'Always1',
+    ClothingInsulationCalculationMethod = 'DynamicClothingModelASHRAE55',
+    ClothingInsulationCalculationMethodScheduleName = '',
+    ClothingInsulationScheduleName = '',
+    AirVelocityScheduleName = 'Always1',
+    ThermalComfortModel1Type = 'Fanger',
+)

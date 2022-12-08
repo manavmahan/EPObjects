@@ -1,2 +1,9 @@
 Name,ScheduleTypeLimitsName,Fields
-OfficeHeatingSetPointSchedule, ,Through: 12/31;For: WeekDays SummerDesignDay WinterDesignDay CustomDay1 CustomDay2;Until: 6:30;15;Until: 18:30;20;Until: 24:00;15;For: WeekendsHoliday;Until: 24:00;15
+Office.HeatingSetPoint, ,Through: 12/31;For: WeekDays SummerDesignDay WinterDesignDay CustomDay1 CustomDay2;Until: 6:30;15;Until: 18:30;20;Until: 24:00;15;For: WeekendsHoliday;Until: 24:00;15
+Office.CoolingSetPoint, ,Through: 12/31;For: WeekDays SummerDesignDay WinterDesignDay CustomDay1 CustomDay2;Until: 6:30;30;Until: 18:30;26;Until: 24:00;30;For: WeekendsHoliday;Until: 24:00;30
+Office.Equipment, ,Through: 12/31;For: WeekDays SummerDesignDay WinterDesignDay CustomDay1 CustomDay2;Until: 7:30;0.1;Until: 18:30;1;Until: 24:00;0.1;For: WeekendsHoliday;Until: 24:00;0.1
+Office.Light, ,Through: 12/31;For: WeekDays SummerDesignDay WinterDesignDay CustomDay1 CustomDay2;Until: 7:30;0.1;Until: 18:30;1;Until: 24:00;0.1;For: WeekendsHoliday;Until: 24:00;0.1
+Office.People, ,Through: 12/31;For: WeekDays SummerDesignDay WinterDesignDay CustomDay1 CustomDay2;Until: 7:30;0;Until: 18:30;1;Until: 24:00;0;For: WeekendsHoliday;Until: 24:00;0
+Office.Ventilation, ,Through: 12/31;For: WeekDays SummerDesignDay WinterDesignDay CustomDay1 CustomDay2;Until: 7:30;0;Until: 18:30;1;Until: 24:00;0;For: WeekendsHoliday;Until: 24:00;0
+Office.Activity, ,Through: 12/31;For: AllDays;Until: 24:00;125
+Always1, ,Through: 12/31;For: AllDays;Until: 24:00;1

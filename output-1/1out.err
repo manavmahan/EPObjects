@@ -1,0 +1,116 @@
+Program Version,EnergyPlus, Version 9.2.0-921312fa1d, YMD=2022.12.08 16:32,
+   ** Warning ** No Timestep object found.  Number of TimeSteps in Hour defaulted to 4.
+   ************* Beginning Zone Sizing Calculations
+   ** Warning ** Site:GroundTemperature:BuildingSurface: Some values fall outside the range of 15-25C.
+   **   ~~~   ** These values may be inappropriate.  Please consult the Input Output Reference for more details.
+   ** Warning ** ProcessScheduleInput: Schedule:Compact="OFFICE.HEATINGSETPOINT", Blank Schedule Type Limits Name input -- will not be validated.
+   ** Warning ** ProcessScheduleInput: Schedule:Compact="OFFICE.COOLINGSETPOINT", Blank Schedule Type Limits Name input -- will not be validated.
+   ** Warning ** ProcessScheduleInput: Schedule:Compact="OFFICE.EQUIPMENT", Blank Schedule Type Limits Name input -- will not be validated.
+   ** Warning ** ProcessScheduleInput: Schedule:Compact="OFFICE.LIGHT", Blank Schedule Type Limits Name input -- will not be validated.
+   ** Warning ** ProcessScheduleInput: Schedule:Compact="OFFICE.PEOPLE", Blank Schedule Type Limits Name input -- will not be validated.
+   ** Warning ** ProcessScheduleInput: Schedule:Compact="OFFICE.VENTILATION", Blank Schedule Type Limits Name input -- will not be validated.
+   ** Warning ** ProcessScheduleInput: Schedule:Compact="OFFICE.ACTIVITY", Blank Schedule Type Limits Name input -- will not be validated.
+   ** Warning ** ProcessScheduleInput: Schedule:Compact="ALWAYS1", Blank Schedule Type Limits Name input -- will not be validated.
+   ** Warning ** CheckUsedConstructions: There are 1 nominally unused constructions in input.
+   **   ~~~   ** Each Unused construction is shown.
+   ************* Construction=INTERNALWALL
+   ** Severe  ** CheckWarmupConvergence: Loads Initialization, Zone="OFFICE.0.0" did not converge after 10 warmup days.
+   **   ~~~   ** Warmup Convergence failing during sizing.
+   **   ~~~   ** ...Environment(SizingPeriod)="SUMMER INCLUDING EXTREME SUMMER DAYS"
+   **   ~~~   ** ..Max Temp Comparison = 0.16 vs Temperature Convergence Tolerance=1.00E-002 - Fail Convergence
+   **   ~~~   ** ..Min Temp Comparison = 0.20 vs Temperature Convergence Tolerance=1.00E-002 - Fail Convergence
+   **   ~~~   ** ..Max Heat Load Comparison = 0.0000 vs Loads Convergence Tolerance=1.00E-002 - Pass Convergence
+   **   ~~~   ** ..Max Cool Load Comparison = 0.1178 vs Loads Convergence Tolerance=1.00E-002 - Fail Convergence
+   ** Severe  ** CheckWarmupConvergence: Loads Initialization, Zone="OFFICE.1.0" did not converge after 10 warmup days.
+   **   ~~~   ** ...Environment(SizingPeriod)="SUMMER INCLUDING EXTREME SUMMER DAYS"
+   **   ~~~   ** ..Max Temp Comparison = 0.11 vs Temperature Convergence Tolerance=1.00E-002 - Fail Convergence
+   **   ~~~   ** ..Min Temp Comparison = 3.95E-005 vs Temperature Convergence Tolerance=1.00E-002 - Pass Convergence
+   **   ~~~   ** ..Max Heat Load Comparison = 0.0000 vs Loads Convergence Tolerance=1.00E-002 - Pass Convergence
+   **   ~~~   ** ..Max Cool Load Comparison = 9.3204E-002 vs Loads Convergence Tolerance=1.00E-002 - Fail Convergence
+   ** Severe  ** CheckWarmupConvergence: Loads Initialization, Zone="OFFICE.2.0" did not converge after 10 warmup days.
+   **   ~~~   ** ...Environment(SizingPeriod)="SUMMER INCLUDING EXTREME SUMMER DAYS"
+   **   ~~~   ** ..Max Temp Comparison = 0.11 vs Temperature Convergence Tolerance=1.00E-002 - Fail Convergence
+   **   ~~~   ** ..Min Temp Comparison = 6.58E-005 vs Temperature Convergence Tolerance=1.00E-002 - Pass Convergence
+   **   ~~~   ** ..Max Heat Load Comparison = 0.0000 vs Loads Convergence Tolerance=1.00E-002 - Pass Convergence
+   **   ~~~   ** ..Max Cool Load Comparison = 6.2278E-002 vs Loads Convergence Tolerance=1.00E-002 - Fail Convergence
+   ** Severe  ** CheckWarmupConvergence: User supplied maximum warmup days=10 is insufficient.
+   **   ~~~   ** Suggest setting maximum number of warmup days to at least 25.
+   ** Severe  ** CheckWarmupConvergence: Loads Initialization, Zone="OFFICE.0.0" did not converge after 10 warmup days.
+   **   ~~~   ** ...Environment(SizingPeriod)="WINTER INCLUDING EXTREME WINTER DAYS"
+   **   ~~~   ** ..Max Temp Comparison = 8.96E-004 vs Temperature Convergence Tolerance=1.00E-002 - Pass Convergence
+   **   ~~~   ** ..Min Temp Comparison = 0.25 vs Temperature Convergence Tolerance=1.00E-002 - Fail Convergence
+   **   ~~~   ** ..Max Heat Load Comparison = 6.7283E-002 vs Loads Convergence Tolerance=1.00E-002 - Fail Convergence
+   **   ~~~   ** ..Max Cool Load Comparison = 0.1178 vs Loads Convergence Tolerance=1.00E-002 - Pass Convergence
+   ** Severe  ** CheckWarmupConvergence: Loads Initialization, Zone="OFFICE.1.0" did not converge after 10 warmup days.
+   **   ~~~   ** ...Environment(SizingPeriod)="WINTER INCLUDING EXTREME WINTER DAYS"
+   **   ~~~   ** ..Max Temp Comparison = 1.16E-003 vs Temperature Convergence Tolerance=1.00E-002 - Pass Convergence
+   **   ~~~   ** ..Min Temp Comparison = 0.22 vs Temperature Convergence Tolerance=1.00E-002 - Fail Convergence
+   **   ~~~   ** ..Max Heat Load Comparison = 6.6293E-002 vs Loads Convergence Tolerance=1.00E-002 - Fail Convergence
+   **   ~~~   ** ..Max Cool Load Comparison = 9.3204E-002 vs Loads Convergence Tolerance=1.00E-002 - Pass Convergence
+   ** Severe  ** CheckWarmupConvergence: Loads Initialization, Zone="OFFICE.2.0" did not converge after 10 warmup days.
+   **   ~~~   ** ...Environment(SizingPeriod)="WINTER INCLUDING EXTREME WINTER DAYS"
+   **   ~~~   ** ..Max Temp Comparison = 3.44E-004 vs Temperature Convergence Tolerance=1.00E-002 - Pass Convergence
+   **   ~~~   ** ..Min Temp Comparison = 0.18 vs Temperature Convergence Tolerance=1.00E-002 - Fail Convergence
+   **   ~~~   ** ..Max Heat Load Comparison = 3.5406E-002 vs Loads Convergence Tolerance=1.00E-002 - Fail Convergence
+   **   ~~~   ** ..Max Cool Load Comparison = 6.2278E-002 vs Loads Convergence Tolerance=1.00E-002 - Pass Convergence
+   ** Severe  ** CheckWarmupConvergence: User supplied maximum warmup days=10 is insufficient.
+   **   ~~~   ** Suggest setting maximum number of warmup days to at least 25.
+   ************* Beginning Plant Sizing Calculations
+   ************* Testing Individual Branch Integrity
+   ************* All Branches passed integrity testing
+   ************* Testing Individual Supply Air Path Integrity
+   ************* All Supply Air Paths passed integrity testing
+   ************* Testing Individual Return Air Path Integrity
+   ************* All Return Air Paths passed integrity testing
+   ************* No node connection errors were found.
+   ************* Beginning Simulation
+   ** Severe  ** CheckWarmupConvergence: Loads Initialization, Zone="OFFICE.0.0" did not converge after 10 warmup days.
+   **   ~~~   ** See Warmup Convergence Information in .eio file for details.
+   **   ~~~   ** ...Environment(RunPeriod)="RUNPERIOD1"
+   **   ~~~   ** ..Max Temp Comparison = 4.93E-005 vs Temperature Convergence Tolerance=1.00E-002 - Pass Convergence
+   **   ~~~   ** ..Min Temp Comparison = 0.00 vs Temperature Convergence Tolerance=1.00E-002 - Pass Convergence
+   **   ~~~   ** ..Max Heat Load Comparison = 0.3059 vs Loads Convergence Tolerance=1.00E-002 - Fail Convergence
+   **   ~~~   ** ..Max Cool Load Comparison = 0.1178 vs Loads Convergence Tolerance=1.00E-002 - Pass Convergence
+   ** Severe  ** CheckWarmupConvergence: Loads Initialization, Zone="OFFICE.1.0" did not converge after 10 warmup days.
+   **   ~~~   ** ...Environment(RunPeriod)="RUNPERIOD1"
+   **   ~~~   ** ..Max Temp Comparison = 3.69E-005 vs Temperature Convergence Tolerance=1.00E-002 - Pass Convergence
+   **   ~~~   ** ..Min Temp Comparison = 1.95E-014 vs Temperature Convergence Tolerance=1.00E-002 - Pass Convergence
+   **   ~~~   ** ..Max Heat Load Comparison = 0.2153 vs Loads Convergence Tolerance=1.00E-002 - Fail Convergence
+   **   ~~~   ** ..Max Cool Load Comparison = 9.3204E-002 vs Loads Convergence Tolerance=1.00E-002 - Pass Convergence
+   ** Severe  ** CheckWarmupConvergence: Loads Initialization, Zone="OFFICE.2.0" did not converge after 10 warmup days.
+   **   ~~~   ** ...Environment(RunPeriod)="RUNPERIOD1"
+   **   ~~~   ** ..Max Temp Comparison = 1.02E-005 vs Temperature Convergence Tolerance=1.00E-002 - Pass Convergence
+   **   ~~~   ** ..Min Temp Comparison = 2.84E-014 vs Temperature Convergence Tolerance=1.00E-002 - Pass Convergence
+   **   ~~~   ** ..Max Heat Load Comparison = 6.1794E-002 vs Loads Convergence Tolerance=1.00E-002 - Fail Convergence
+   **   ~~~   ** ..Max Cool Load Comparison = 6.2278E-002 vs Loads Convergence Tolerance=1.00E-002 - Pass Convergence
+   ** Severe  ** CheckWarmupConvergence: User supplied maximum warmup days=10 is insufficient.
+   **   ~~~   ** Suggest setting maximum number of warmup days to at least 25.
+   ************* Simulation Error Summary *************
+   ** Warning ** The following Report Variables were requested but not generated -- check.rdd file
+   **   ~~~   ** Either the IDF did not contain these elements, the variable name is misspelled,
+   **   ~~~   ** or the requested variable is an advanced output which requires Output : Diagnostics, DisplayAdvancedReportVariables;
+   ************* Key=*, VarName=ZONE LIGHTS ELECTRIC POWER, Frequency=Annual
+   ************* Key=*, VarName=CHILLER ELECTRIC ENERGY, Frequency=Annual
+   ************* There are 3 unused schedules in input.
+   ************* Use Output:Diagnostics,DisplayUnusedSchedules; to see them.
+   *************
+   ************* ===== Final Error Summary =====
+   ************* The following error categories occurred.  Consider correcting or noting.
+   ************* Loads Initialization did not Converge
+   ************* ..1) very high thermal mass such as very thick concrete (solution: increase max number of warmup
+   ************* ..   days in the BUILDING object);
+   ************* ..2) moderate mass and inadequate space conditioning such that the building keeps getting warmer
+   ************* ..   and warmer on successive days (solution: add HVAC, check building thermal properties,
+   ************* ..   check if infiltration is included, make sure HVAC properly controlled);
+   ************* ..3) a soil layer modeled below the concrete slab - (solution remove this layer and read about
+   ************* ..   ground temperatures in the Auxiliary Programs document).
+   ************* ..4) unreasonable (too small) limits in the BUILDING object for temperature (.4 default) or
+   ************* ..   loads tolerances (.04 default)
+   ************* Nominally Unused Constructions
+   ************* ..The nominally unused constructions warning is provided to alert you to potential conditions that can cause
+   ************* ..extra time during simulation. Each construction is calculated by the algorithm indicated in the HeatBalanceAlgorithm
+   ************* ..object. You may remove the constructions indicated (when you use the DisplayExtraWarnings option).
+   *************
+   ************* EnergyPlus Warmup Error Summary. During Warmup: 0 Warning; 4 Severe Errors.
+   ************* EnergyPlus Sizing Error Summary. During Sizing: 10 Warning; 8 Severe Errors.
+   ************* EnergyPlus Completed Successfully-- 12 Warning; 12 Severe Errors; Elapsed Time=00hr 00min  3.22sec

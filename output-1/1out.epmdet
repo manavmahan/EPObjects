@@ -1,0 +1,485 @@
+
+
+ ****************************** EPMacro processing begun.
+
+
+ KRDRD  --> kardi1=   1  KARDI2= 501 KARDX= 502  mTxtP=     0  mStk=     0
+      *   1 * Version,9.2.0 ;
+ KRDRD  <-3-  KARDI1=   1  KARDI2=  16  KARDX=   1  KRDNUM=   1 mTxtP =     0  mP=     0  mStk=     0
+            .2345678.1.2345678.2.2345678.3.2345678.4.2345678.5.2345678.6.2345678.7.2345678.8.2345678.9.2345678.0
+            Version,9.2.0 ; 
+ KRDRD  --> kardi1=   1  KARDI2=  16 KARDX=  17  mTxtP=     0  mStk=     0
+      *   2 * Building,Building1,0.0,,0.01,0.01,FullExterior,10,6 ;
+ KRDRD  <-3-  KARDI1=   1  KARDI2=  54  KARDX=   1  KRDNUM=   2 mTxtP =     0  mP=     0  mStk=     0
+            .2345678.1.2345678.2.2345678.3.2345678.4.2345678.5.2345678.6.2345678.7.2345678.8.2345678.9.2345678.0
+            Building,Building1,0.0,,0.01,0.01,FullExterior,10,6 ; 
+ KRDRD  --> kardi1=   1  KARDI2=  54 KARDX=  55  mTxtP=     0  mStk=     0
+      *   3 * RunPeriod,RunPeriod1,1,1,,12,31,,,No,No,No,Yes,Yes,No ;
+ KRDRD  <-3-  KARDI1=   1  KARDI2=  56  KARDX=   1  KRDNUM=   3 mTxtP =     0  mP=     0  mStk=     0
+            .2345678.1.2345678.2.2345678.3.2345678.4.2345678.5.2345678.6.2345678.7.2345678.8.2345678.9.2345678.0
+            RunPeriod,RunPeriod1,1,1,,12,31,,,No,No,No,Yes,Yes,No ; 
+ KRDRD  --> kardi1=   1  KARDI2=  56 KARDX=  57  mTxtP=     0  mStk=     0
+      *   4 * ConvergenceLimits,0,20,2,8 ;
+ KRDRD  <-3-  KARDI1=   1  KARDI2=  29  KARDX=   1  KRDNUM=   4 mTxtP =     0  mP=     0  mStk=     0
+            .2345678.1.2345678.2.2345678.3.2345678.4.2345678.5.2345678.6.2345678.7.2345678.8.2345678.9.2345678.0
+            ConvergenceLimits,0,20,2,8 ; 
+ KRDRD  --> kardi1=   1  KARDI2=  29 KARDX=  30  mTxtP=     0  mStk=     0
+      *   5 * GlobalGeometryRules,UpperLeftCorner,Counterclockwise,Relative,Relative,Relative ;
+ KRDRD  <-3-  KARDI1=   1  KARDI2=  82  KARDX=   1  KRDNUM=   5 mTxtP =     0  mP=     0  mStk=     0
+            .2345678.1.2345678.2.2345678.3.2345678.4.2345678.5.2345678.6.2345678.7.2345678.8.2345678.9.2345678.0
+            GlobalGeometryRules,UpperLeftCorner,Counterclockwise,Relative,Relative,Relative ; 
+ KRDRD  --> kardi1=   1  KARDI2=  82 KARDX=  83  mTxtP=     0  mStk=     0
+      *   6 * Material,Brick*Wall,Smooth,0.18,2.3,2300,1100,0.9,0.7,0.7 ;
+ KRDRD  <-3-  KARDI1=   1  KARDI2=  60  KARDX=   1  KRDNUM=   6 mTxtP =     0  mP=     0  mStk=     0
+            .2345678.1.2345678.2.2345678.3.2345678.4.2345678.5.2345678.6.2345678.7.2345678.8.2345678.9.2345678.0
+            Material,Brick*Wall,Smooth,0.18,2.3,2300,1100,0.9,0.7,0.7 ; 
+ KRDRD  --> kardi1=   1  KARDI2=  60 KARDX=  61  mTxtP=     0  mStk=     0
+      *   7 * Material,Concrete*Floor,Smooth,0.2,2.3,2300,800,0.9,0.7,0.7 ;
+ KRDRD  <-3-  KARDI1=   1  KARDI2=  62  KARDX=   1  KRDNUM=   7 mTxtP =     0  mP=     0  mStk=     0
+            .2345678.1.2345678.2.2345678.3.2345678.4.2345678.5.2345678.6.2345678.7.2345678.8.2345678.9.2345678.0
+            Material,Concrete*Floor,Smooth,0.2,2.3,2300,800,0.9,0.7,0.7 ; 
+ KRDRD  --> kardi1=   1  KARDI2=  62 KARDX=  63  mTxtP=     0  mStk=     0
+      *   8 * Material,Concrete*Roof,Smooth,0.25,2.3,2300,800,0.9,0.7,0.7 ;
+ KRDRD  <-3-  KARDI1=   1  KARDI2=  62  KARDX=   1  KRDNUM=   8 mTxtP =     0  mP=     0  mStk=     0
+            .2345678.1.2345678.2.2345678.3.2345678.4.2345678.5.2345678.6.2345678.7.2345678.8.2345678.9.2345678.0
+            Material,Concrete*Roof,Smooth,0.25,2.3,2300,800,0.9,0.7,0.7 ; 
+ KRDRD  --> kardi1=   1  KARDI2=  62 KARDX=  63  mTxtP=     0  mStk=     0
+      *   9 * Material,Mass,Smooth,0.12,2.3,500,1000,0.8,0.8,0.7 ;
+ KRDRD  <-3-  KARDI1=   1  KARDI2=  53  KARDX=   1  KRDNUM=   9 mTxtP =     0  mP=     0  mStk=     0
+            .2345678.1.2345678.2.2345678.3.2345678.4.2345678.5.2345678.6.2345678.7.2345678.8.2345678.9.2345678.0
+            Material,Mass,Smooth,0.12,2.3,500,1000,0.8,0.8,0.7 ; 
+ KRDRD  --> kardi1=   1  KARDI2=  53 KARDX=  54  mTxtP=     0  mStk=     0
+      *  10 * Material,Insulation,Smooth,0.05,0.035,20,1000,0.9,0.7,0.7 ;
+ KRDRD  <-3-  KARDI1=   1  KARDI2=  60  KARDX=   1  KRDNUM=  10 mTxtP =     0  mP=     0  mStk=     0
+            .2345678.1.2345678.2.2345678.3.2345678.4.2345678.5.2345678.6.2345678.7.2345678.8.2345678.9.2345678.0
+            Material,Insulation,Smooth,0.05,0.035,20,1000,0.9,0.7,0.7 ; 
+ KRDRD  --> kardi1=   1  KARDI2=  60 KARDX=  61  mTxtP=     0  mStk=     0
+      *  11 * Material,PerimeterInsulation,Smooth,0.05,0.035,20,1000,0.9,0.7,0.7 ;
+ KRDRD  <-3-  KARDI1=   1  KARDI2=  69  KARDX=   1  KRDNUM=  11 mTxtP =     0  mP=     0  mStk=     0
+            .2345678.1.2345678.2.2345678.3.2345678.4.2345678.5.2345678.6.2345678.7.2345678.8.2345678.9.2345678.0
+            Material,PerimeterInsulation,Smooth,0.05,0.035,20,1000,0.9,0.7,0.7 ; 
+ KRDRD  --> kardi1=   1  KARDI2=  69 KARDX=  70  mTxtP=     0  mStk=     0
+      *  12 * Material,Plaster,Smooth,0.02,0.7,1400,1000,0.9,0.7,0.7 ;
+ KRDRD  <-3-  KARDI1=   1  KARDI2=  57  KARDX=   1  KRDNUM=  12 mTxtP =     0  mP=     0  mStk=     0
+            .2345678.1.2345678.2.2345678.3.2345678.4.2345678.5.2345678.6.2345678.7.2345678.8.2345678.9.2345678.0
+            Material,Plaster,Smooth,0.02,0.7,1400,1000,0.9,0.7,0.7 ; 
+ KRDRD  --> kardi1=   1  KARDI2=  57 KARDX=  58  mTxtP=     0  mStk=     0
+      *  13 * Material,Plasterboard,Rough,0.05,0.16,800,800,0.9,0.6,0.6 ;
+ KRDRD  <-3-  KARDI1=   1  KARDI2=  60  KARDX=   1  KRDNUM=  13 mTxtP =     0  mP=     0  mStk=     0
+            .2345678.1.2345678.2.2345678.3.2345678.4.2345678.5.2345678.6.2345678.7.2345678.8.2345678.9.2345678.0
+            Material,Plasterboard,Rough,0.05,0.16,800,800,0.9,0.6,0.6 ; 
+ KRDRD  --> kardi1=   1  KARDI2=  60 KARDX=  61  mTxtP=     0  mStk=     0
+      *  14 * Material,Screed*Floor,Smooth,0.08,1.4,2000,1000,0.9,0.7,0.7 ;
+ KRDRD  <-3-  KARDI1=   1  KARDI2=  62  KARDX=   1  KRDNUM=  14 mTxtP =     0  mP=     0  mStk=     0
+            .2345678.1.2345678.2.2345678.3.2345678.4.2345678.5.2345678.6.2345678.7.2345678.8.2345678.9.2345678.0
+            Material,Screed*Floor,Smooth,0.08,1.4,2000,1000,0.9,0.7,0.7 ; 
+ KRDRD  --> kardi1=   1  KARDI2=  62 KARDX=  63  mTxtP=     0  mStk=     0
+      *  15 * WindowMaterial:SimpleGlazingSystem,Glazing,0.72,0.6,0.1 ;
+ KRDRD  <-3-  KARDI1=   1  KARDI2=  58  KARDX=   1  KRDNUM=  15 mTxtP =     0  mP=     0  mStk=     0
+            .2345678.1.2345678.2.2345678.3.2345678.4.2345678.5.2345678.6.2345678.7.2345678.8.2345678.9.2345678.0
+            WindowMaterial:SimpleGlazingSystem,Glazing,0.72,0.6,0.1 ; 
+ KRDRD  --> kardi1=   1  KARDI2=  58 KARDX=  59  mTxtP=     0  mStk=     0
+      *  16 * Schedule:Compact,Office.HeatingSetPoint,,Through: 12/31,For: WeekDays SummerDesignDay WinterDesignDay CustomDay1 CustomDay2,Until: 6:30,15,Until: 18:30,20,Until: 24:00,15,For: WeekendsHoliday,Until: 24:00,15 ;
+ KRDRD  <-3-  KARDI1=   1  KARDI2= 210  KARDX=   1  KRDNUM=  16 mTxtP =     0  mP=     0  mStk=     0
+            .2345678.1.2345678.2.2345678.3.2345678.4.2345678.5.2345678.6.2345678.7.2345678.8.2345678.9.2345678.0
+            Schedule:Compact,Office.HeatingSetPoint,,Through: 12/31,For: WeekDays SummerDesignDay WinterDesignDa
+            y CustomDay1 CustomDay2,Until: 6:30,15,Until: 18:30,20,Until: 24:00,15,For: WeekendsHoliday,Until: 2
+            4:00,15 ; 
+ KRDRD  --> kardi1=   1  KARDI2= 210 KARDX= 211  mTxtP=     0  mStk=     0
+      *  17 * Schedule:Compact,Office.CoolingSetPoint,,Through: 12/31,For: WeekDays SummerDesignDay WinterDesignDay CustomDay1 CustomDay2,Until: 6:30,30,Until: 18:30,26,Until: 24:00,30,For: WeekendsHoliday,Until: 24:00,30 ;
+ KRDRD  <-3-  KARDI1=   1  KARDI2= 210  KARDX=   1  KRDNUM=  17 mTxtP =     0  mP=     0  mStk=     0
+            .2345678.1.2345678.2.2345678.3.2345678.4.2345678.5.2345678.6.2345678.7.2345678.8.2345678.9.2345678.0
+            Schedule:Compact,Office.CoolingSetPoint,,Through: 12/31,For: WeekDays SummerDesignDay WinterDesignDa
+            y CustomDay1 CustomDay2,Until: 6:30,30,Until: 18:30,26,Until: 24:00,30,For: WeekendsHoliday,Until: 2
+            4:00,30 ; 
+ KRDRD  --> kardi1=   1  KARDI2= 210 KARDX= 211  mTxtP=     0  mStk=     0
+      *  18 * Schedule:Compact,Office.Equipment,,Through: 12/31,For: WeekDays SummerDesignDay WinterDesignDay CustomDay1 CustomDay2,Until: 7:30,0.1,Until: 18:30,1,Until: 24:00,0.1,For: WeekendsHoliday,Until: 24:00,0.1 ;
+ KRDRD  <-3-  KARDI1=   1  KARDI2= 206  KARDX=   1  KRDNUM=  18 mTxtP =     0  mP=     0  mStk=     0
+            .2345678.1.2345678.2.2345678.3.2345678.4.2345678.5.2345678.6.2345678.7.2345678.8.2345678.9.2345678.0
+            Schedule:Compact,Office.Equipment,,Through: 12/31,For: WeekDays SummerDesignDay WinterDesignDay Cust
+            omDay1 CustomDay2,Until: 7:30,0.1,Until: 18:30,1,Until: 24:00,0.1,For: WeekendsHoliday,Until: 24:00,
+            0.1 ; 
+ KRDRD  --> kardi1=   1  KARDI2= 206 KARDX= 207  mTxtP=     0  mStk=     0
+      *  19 * Schedule:Compact,Office.Light,,Through: 12/31,For: WeekDays SummerDesignDay WinterDesignDay CustomDay1 CustomDay2,Until: 7:30,0.1,Until: 18:30,1,Until: 24:00,0.1,For: WeekendsHoliday,Until: 24:00,0.1 ;
+ KRDRD  <-3-  KARDI1=   1  KARDI2= 202  KARDX=   1  KRDNUM=  19 mTxtP =     0  mP=     0  mStk=     0
+            .2345678.1.2345678.2.2345678.3.2345678.4.2345678.5.2345678.6.2345678.7.2345678.8.2345678.9.2345678.0
+            Schedule:Compact,Office.Light,,Through: 12/31,For: WeekDays SummerDesignDay WinterDesignDay CustomDa
+            y1 CustomDay2,Until: 7:30,0.1,Until: 18:30,1,Until: 24:00,0.1,For: WeekendsHoliday,Until: 24:00,0.1 
+            ; 
+ KRDRD  --> kardi1=   1  KARDI2= 202 KARDX= 203  mTxtP=     0  mStk=     0
+      *  20 * Schedule:Compact,Office.People,,Through: 12/31,For: WeekDays SummerDesignDay WinterDesignDay CustomDay1 CustomDay2,Until: 7:30,0,Until: 18:30,1,Until: 24:00,0,For: WeekendsHoliday,Until: 24:00,0 ;
+ KRDRD  <-3-  KARDI1=   1  KARDI2= 197  KARDX=   1  KRDNUM=  20 mTxtP =     0  mP=     0  mStk=     0
+            .2345678.1.2345678.2.2345678.3.2345678.4.2345678.5.2345678.6.2345678.7.2345678.8.2345678.9.2345678.0
+            Schedule:Compact,Office.People,,Through: 12/31,For: WeekDays SummerDesignDay WinterDesignDay CustomD
+            ay1 CustomDay2,Until: 7:30,0,Until: 18:30,1,Until: 24:00,0,For: WeekendsHoliday,Until: 24:00,0 ; 
+ KRDRD  --> kardi1=   1  KARDI2= 197 KARDX= 198  mTxtP=     0  mStk=     0
+      *  21 * Schedule:Compact,Office.Ventilation,,Through: 12/31,For: WeekDays SummerDesignDay WinterDesignDay CustomDay1 CustomDay2,Until: 7:30,0,Until: 18:30,1,Until: 24:00,0,For: WeekendsHoliday,Until: 24:00,0 ;
+ KRDRD  <-3-  KARDI1=   1  KARDI2= 202  KARDX=   1  KRDNUM=  21 mTxtP =     0  mP=     0  mStk=     0
+            .2345678.1.2345678.2.2345678.3.2345678.4.2345678.5.2345678.6.2345678.7.2345678.8.2345678.9.2345678.0
+            Schedule:Compact,Office.Ventilation,,Through: 12/31,For: WeekDays SummerDesignDay WinterDesignDay Cu
+            stomDay1 CustomDay2,Until: 7:30,0,Until: 18:30,1,Until: 24:00,0,For: WeekendsHoliday,Until: 24:00,0 
+            ; 
+ KRDRD  --> kardi1=   1  KARDI2= 202 KARDX= 203  mTxtP=     0  mStk=     0
+      *  22 * Schedule:Compact,Office.Activity,,Through: 12/31,For: AllDays,Until: 24:00,125 ;
+ KRDRD  <-3-  KARDI1=   1  KARDI2=  81  KARDX=   1  KRDNUM=  22 mTxtP =     0  mP=     0  mStk=     0
+            .2345678.1.2345678.2.2345678.3.2345678.4.2345678.5.2345678.6.2345678.7.2345678.8.2345678.9.2345678.0
+            Schedule:Compact,Office.Activity,,Through: 12/31,For: AllDays,Until: 24:00,125 ; 
+ KRDRD  --> kardi1=   1  KARDI2=  81 KARDX=  82  mTxtP=     0  mStk=     0
+      *  23 * Schedule:Compact,Always1,,Through: 12/31,For: AllDays,Until: 24:00,1 ;
+ KRDRD  <-3-  KARDI1=   1  KARDI2=  71  KARDX=   1  KRDNUM=  23 mTxtP =     0  mP=     0  mStk=     0
+            .2345678.1.2345678.2.2345678.3.2345678.4.2345678.5.2345678.6.2345678.7.2345678.8.2345678.9.2345678.0
+            Schedule:Compact,Always1,,Through: 12/31,For: AllDays,Until: 24:00,1 ; 
+ KRDRD  --> kardi1=   1  KARDI2=  71 KARDX=  72  mTxtP=     0  mStk=     0
+      *  24 * SimulationControl,Yes,Yes,Yes,No,Yes ;
+ KRDRD  <-3-  KARDI1=   1  KARDI2=  39  KARDX=   1  KRDNUM=  24 mTxtP =     0  mP=     0  mStk=     0
+            .2345678.1.2345678.2.2345678.3.2345678.4.2345678.5.2345678.6.2345678.7.2345678.8.2345678.9.2345678.0
+            SimulationControl,Yes,Yes,Yes,No,Yes ; 
+ KRDRD  --> kardi1=   1  KARDI2=  39 KARDX=  40  mTxtP=     0  mStk=     0
+      *  25 * Site:GroundTemperature:BuildingSurface,6.17,5.07,5.33,6.27,9.35,12.12,14.32,15.48,15.2,13.62,11.08,8.41 ;
+ KRDRD  <-3-  KARDI1=   1  KARDI2= 106  KARDX=   1  KRDNUM=  25 mTxtP =     0  mP=     0  mStk=     0
+            .2345678.1.2345678.2.2345678.3.2345678.4.2345678.5.2345678.6.2345678.7.2345678.8.2345678.9.2345678.0
+            Site:GroundTemperature:BuildingSurface,6.17,5.07,5.33,6.27,9.35,12.12,14.32,15.48,15.2,13.62,11.08,8
+            .41 ; 
+ KRDRD  --> kardi1=   1  KARDI2= 106 KARDX= 107  mTxtP=     0  mStk=     0
+      *  26 * Site:Location,MUNICH_DEU,48.13,11.7,1,529 ;
+ KRDRD  <-3-  KARDI1=   1  KARDI2=  44  KARDX=   1  KRDNUM=  26 mTxtP =     0  mP=     0  mStk=     0
+            .2345678.1.2345678.2.2345678.3.2345678.4.2345678.5.2345678.6.2345678.7.2345678.8.2345678.9.2345678.0
+            Site:Location,MUNICH_DEU,48.13,11.7,1,529 ; 
+ KRDRD  --> kardi1=   1  KARDI2=  44 KARDX=  45  mTxtP=     0  mStk=     0
+      *  27 * SizingPeriod:WeatherFileDays,Summer including Extreme Summer days,7,18,7,25,SummerDesignDay,Yes,Yes ;
+ KRDRD  <-3-  KARDI1=   1  KARDI2= 102  KARDX=   1  KRDNUM=  27 mTxtP =     0  mP=     0  mStk=     0
+            .2345678.1.2345678.2.2345678.3.2345678.4.2345678.5.2345678.6.2345678.7.2345678.8.2345678.9.2345678.0
+            SizingPeriod:WeatherFileDays,Summer including Extreme Summer days,7,18,7,25,SummerDesignDay,Yes,Yes 
+            ; 
+ KRDRD  --> kardi1=   1  KARDI2= 102 KARDX= 103  mTxtP=     0  mStk=     0
+      *  28 * SizingPeriod:WeatherFileDays,Winter including Extreme Winter days,1,25,2,1,WinterDesignDay,Yes,Yes ;
+ KRDRD  <-3-  KARDI1=   1  KARDI2= 101  KARDX=   1  KRDNUM=  28 mTxtP =     0  mP=     0  mStk=     0
+            .2345678.1.2345678.2.2345678.3.2345678.4.2345678.5.2345678.6.2345678.7.2345678.8.2345678.9.2345678.0
+            SizingPeriod:WeatherFileDays,Winter including Extreme Winter days,1,25,2,1,WinterDesignDay,Yes,Yes ;
+             
+ KRDRD  --> kardi1=   1  KARDI2= 101 KARDX= 102  mTxtP=     0  mStk=     0
+      *  29 * Construction,ExternalWall,Plaster,Insulation,Brick*Wall,Plaster ;
+ KRDRD  <-3-  KARDI1=   1  KARDI2=  66  KARDX=   1  KRDNUM=  29 mTxtP =     0  mP=     0  mStk=     0
+            .2345678.1.2345678.2.2345678.3.2345678.4.2345678.5.2345678.6.2345678.7.2345678.8.2345678.9.2345678.0
+            Construction,ExternalWall,Plaster,Insulation,Brick*Wall,Plaster ; 
+ KRDRD  --> kardi1=   1  KARDI2=  66 KARDX=  67  mTxtP=     0  mStk=     0
+      *  30 * Construction,FloorCeiling,Concrete*Floor,Insulation,Screed*Floor ;
+ KRDRD  <-3-  KARDI1=   1  KARDI2=  67  KARDX=   1  KRDNUM=  30 mTxtP =     0  mP=     0  mStk=     0
+            .2345678.1.2345678.2.2345678.3.2345678.4.2345678.5.2345678.6.2345678.7.2345678.8.2345678.9.2345678.0
+            Construction,FloorCeiling,Concrete*Floor,Insulation,Screed*Floor ; 
+ KRDRD  --> kardi1=   1  KARDI2=  67 KARDX=  68  mTxtP=     0  mStk=     0
+      *  31 * Construction,GroundFloor,PerimeterInsulation,Insulation,Concrete*Floor,Screed*Floor ;
+ KRDRD  <-3-  KARDI1=   1  KARDI2=  86  KARDX=   1  KRDNUM=  31 mTxtP =     0  mP=     0  mStk=     0
+            .2345678.1.2345678.2.2345678.3.2345678.4.2345678.5.2345678.6.2345678.7.2345678.8.2345678.9.2345678.0
+            Construction,GroundFloor,PerimeterInsulation,Insulation,Concrete*Floor,Screed*Floor ; 
+ KRDRD  --> kardi1=   1  KARDI2=  86 KARDX=  87  mTxtP=     0  mStk=     0
+      *  32 * Construction,Roof,PerimeterInsulation,Insulation,Concrete*Roof,Plaster ;
+ KRDRD  <-3-  KARDI1=   1  KARDI2=  73  KARDX=   1  KRDNUM=  32 mTxtP =     0  mP=     0  mStk=     0
+            .2345678.1.2345678.2.2345678.3.2345678.4.2345678.5.2345678.6.2345678.7.2345678.8.2345678.9.2345678.0
+            Construction,Roof,PerimeterInsulation,Insulation,Concrete*Roof,Plaster ; 
+ KRDRD  --> kardi1=   1  KARDI2=  73 KARDX=  74  mTxtP=     0  mStk=     0
+      *  33 * Construction,Glazing,Glazing ;
+ KRDRD  <-3-  KARDI1=   1  KARDI2=  31  KARDX=   1  KRDNUM=  33 mTxtP =     0  mP=     0  mStk=     0
+            .2345678.1.2345678.2.2345678.3.2345678.4.2345678.5.2345678.6.2345678.7.2345678.8.2345678.9.2345678.0
+            Construction,Glazing,Glazing ; 
+ KRDRD  --> kardi1=   1  KARDI2=  31 KARDX=  32  mTxtP=     0  mStk=     0
+      *  34 * Construction,InternalWall,PlasterBoard,Insulation,PlasterBoard ;
+ KRDRD  <-3-  KARDI1=   1  KARDI2=  65  KARDX=   1  KRDNUM=  34 mTxtP =     0  mP=     0  mStk=     0
+            .2345678.1.2345678.2.2345678.3.2345678.4.2345678.5.2345678.6.2345678.7.2345678.8.2345678.9.2345678.0
+            Construction,InternalWall,PlasterBoard,Insulation,PlasterBoard ; 
+ KRDRD  --> kardi1=   1  KARDI2=  65 KARDX=  66  mTxtP=     0  mStk=     0
+      *  35 * ZoneList,Office,Office.0.0,Office.1.0,Office.2.0 ;
+ KRDRD  <-3-  KARDI1=   1  KARDI2=  51  KARDX=   1  KRDNUM=  35 mTxtP =     0  mP=     0  mStk=     0
+            .2345678.1.2345678.2.2345678.3.2345678.4.2345678.5.2345678.6.2345678.7.2345678.8.2345678.9.2345678.0
+            ZoneList,Office,Office.0.0,Office.1.0,Office.2.0 ; 
+ KRDRD  --> kardi1=   1  KARDI2=  51 KARDX=  52  mTxtP=     0  mStk=     0
+      *  36 * Zone,Office.0.0 ;
+ KRDRD  <-3-  KARDI1=   1  KARDI2=  18  KARDX=   1  KRDNUM=  36 mTxtP =     0  mP=     0  mStk=     0
+            .2345678.1.2345678.2.2345678.3.2345678.4.2345678.5.2345678.6.2345678.7.2345678.8.2345678.9.2345678.0
+            Zone,Office.0.0 ; 
+ KRDRD  --> kardi1=   1  KARDI2=  18 KARDX=  19  mTxtP=     0  mStk=     0
+      *  37 * Zone,Office.1.0 ;
+ KRDRD  <-3-  KARDI1=   1  KARDI2=  18  KARDX=   1  KRDNUM=  37 mTxtP =     0  mP=     0  mStk=     0
+            .2345678.1.2345678.2.2345678.3.2345678.4.2345678.5.2345678.6.2345678.7.2345678.8.2345678.9.2345678.0
+            Zone,Office.1.0 ; 
+ KRDRD  --> kardi1=   1  KARDI2=  18 KARDX=  19  mTxtP=     0  mStk=     0
+      *  38 * Zone,Office.2.0 ;
+ KRDRD  <-3-  KARDI1=   1  KARDI2=  18  KARDX=   1  KRDNUM=  38 mTxtP =     0  mP=     0  mStk=     0
+            .2345678.1.2345678.2.2345678.3.2345678.4.2345678.5.2345678.6.2345678.7.2345678.8.2345678.9.2345678.0
+            Zone,Office.2.0 ; 
+ KRDRD  --> kardi1=   1  KARDI2=  18 KARDX=  19  mTxtP=     0  mStk=     0
+      *  39 * BuildingSurface:Detailed,Office.0.0.Floor,Floor,GroundFloor,Office.0.0,Ground,,NoSun,NoWind,,4,0.0,27.0,0.0,14.7,27.0,0.0,14.7,0.0,0.0,0.0,0.0,0.0 ;
+ KRDRD  <-3-  KARDI1=   1  KARDI2= 149  KARDX=   1  KRDNUM=  39 mTxtP =     0  mP=     0  mStk=     0
+            .2345678.1.2345678.2.2345678.3.2345678.4.2345678.5.2345678.6.2345678.7.2345678.8.2345678.9.2345678.0
+            BuildingSurface:Detailed,Office.0.0.Floor,Floor,GroundFloor,Office.0.0,Ground,,NoSun,NoWind,,4,0.0,2
+            7.0,0.0,14.7,27.0,0.0,14.7,0.0,0.0,0.0,0.0,0.0 ; 
+ KRDRD  --> kardi1=   1  KARDI2= 149 KARDX= 150  mTxtP=     0  mStk=     0
+      *  40 * BuildingSurface:Detailed,Office.1.0.Floor,Floor,FloorCeiling,Office.1.0,Zone,Office.0.0,NoSun,NoWind,,4,0.0,27.0,3.1,14.7,27.0,3.1,14.7,0.0,3.1,0.0,0.0,3.1 ;
+ KRDRD  <-3-  KARDI1=   1  KARDI2= 158  KARDX=   1  KRDNUM=  40 mTxtP =     0  mP=     0  mStk=     0
+            .2345678.1.2345678.2.2345678.3.2345678.4.2345678.5.2345678.6.2345678.7.2345678.8.2345678.9.2345678.0
+            BuildingSurface:Detailed,Office.1.0.Floor,Floor,FloorCeiling,Office.1.0,Zone,Office.0.0,NoSun,NoWind
+            ,,4,0.0,27.0,3.1,14.7,27.0,3.1,14.7,0.0,3.1,0.0,0.0,3.1 ; 
+ KRDRD  --> kardi1=   1  KARDI2= 158 KARDX= 159  mTxtP=     0  mStk=     0
+      *  41 * BuildingSurface:Detailed,Office.2.0.Floor,Floor,FloorCeiling,Office.2.0,Zone,Office.1.0,NoSun,NoWind,,4,0.0,27.0,6.2,14.7,27.0,6.2,14.7,0.0,6.2,0.0,0.0,6.2 ;
+ KRDRD  <-3-  KARDI1=   1  KARDI2= 158  KARDX=   1  KRDNUM=  41 mTxtP =     0  mP=     0  mStk=     0
+            .2345678.1.2345678.2.2345678.3.2345678.4.2345678.5.2345678.6.2345678.7.2345678.8.2345678.9.2345678.0
+            BuildingSurface:Detailed,Office.2.0.Floor,Floor,FloorCeiling,Office.2.0,Zone,Office.1.0,NoSun,NoWind
+            ,,4,0.0,27.0,6.2,14.7,27.0,6.2,14.7,0.0,6.2,0.0,0.0,6.2 ; 
+ KRDRD  --> kardi1=   1  KARDI2= 158 KARDX= 159  mTxtP=     0  mStk=     0
+      *  42 * BuildingSurface:Detailed,Office.0.0.Wall.0,Wall,ExternalWall,Office.0.0,Outdoors,,SunExposed,WindExposed,,4,0.0,27.0,0.0,0.0,0.0,0.0,0.0,0.0,3.1,0.0,27.0,3.1 ;
+ KRDRD  <-3-  KARDI1=   1  KARDI2= 160  KARDX=   1  KRDNUM=  42 mTxtP =     0  mP=     0  mStk=     0
+            .2345678.1.2345678.2.2345678.3.2345678.4.2345678.5.2345678.6.2345678.7.2345678.8.2345678.9.2345678.0
+            BuildingSurface:Detailed,Office.0.0.Wall.0,Wall,ExternalWall,Office.0.0,Outdoors,,SunExposed,WindExp
+            osed,,4,0.0,27.0,0.0,0.0,0.0,0.0,0.0,0.0,3.1,0.0,27.0,3.1 ; 
+ KRDRD  --> kardi1=   1  KARDI2= 160 KARDX= 161  mTxtP=     0  mStk=     0
+      *  43 * BuildingSurface:Detailed,Office.0.0.Wall.1,Wall,ExternalWall,Office.0.0,Outdoors,,SunExposed,WindExposed,,4,0.0,0.0,0.0,14.7,0.0,0.0,14.7,0.0,3.1,0.0,0.0,3.1 ;
+ KRDRD  <-3-  KARDI1=   1  KARDI2= 160  KARDX=   1  KRDNUM=  43 mTxtP =     0  mP=     0  mStk=     0
+            .2345678.1.2345678.2.2345678.3.2345678.4.2345678.5.2345678.6.2345678.7.2345678.8.2345678.9.2345678.0
+            BuildingSurface:Detailed,Office.0.0.Wall.1,Wall,ExternalWall,Office.0.0,Outdoors,,SunExposed,WindExp
+            osed,,4,0.0,0.0,0.0,14.7,0.0,0.0,14.7,0.0,3.1,0.0,0.0,3.1 ; 
+ KRDRD  --> kardi1=   1  KARDI2= 160 KARDX= 161  mTxtP=     0  mStk=     0
+      *  44 * BuildingSurface:Detailed,Office.0.0.Wall.2,Wall,ExternalWall,Office.0.0,Outdoors,,SunExposed,WindExposed,,4,14.7,0.0,0.0,14.7,27.0,0.0,14.7,27.0,3.1,14.7,0.0,3.1 ;
+ KRDRD  <-3-  KARDI1=   1  KARDI2= 164  KARDX=   1  KRDNUM=  44 mTxtP =     0  mP=     0  mStk=     0
+            .2345678.1.2345678.2.2345678.3.2345678.4.2345678.5.2345678.6.2345678.7.2345678.8.2345678.9.2345678.0
+            BuildingSurface:Detailed,Office.0.0.Wall.2,Wall,ExternalWall,Office.0.0,Outdoors,,SunExposed,WindExp
+            osed,,4,14.7,0.0,0.0,14.7,27.0,0.0,14.7,27.0,3.1,14.7,0.0,3.1 ; 
+ KRDRD  --> kardi1=   1  KARDI2= 164 KARDX= 165  mTxtP=     0  mStk=     0
+      *  45 * BuildingSurface:Detailed,Office.0.0.Wall.3,Wall,ExternalWall,Office.0.0,Outdoors,,SunExposed,WindExposed,,4,14.7,27.0,0.0,0.0,27.0,0.0,0.0,27.0,3.1,14.7,27.0,3.1 ;
+ KRDRD  <-3-  KARDI1=   1  KARDI2= 164  KARDX=   1  KRDNUM=  45 mTxtP =     0  mP=     0  mStk=     0
+            .2345678.1.2345678.2.2345678.3.2345678.4.2345678.5.2345678.6.2345678.7.2345678.8.2345678.9.2345678.0
+            BuildingSurface:Detailed,Office.0.0.Wall.3,Wall,ExternalWall,Office.0.0,Outdoors,,SunExposed,WindExp
+            osed,,4,14.7,27.0,0.0,0.0,27.0,0.0,0.0,27.0,3.1,14.7,27.0,3.1 ; 
+ KRDRD  --> kardi1=   1  KARDI2= 164 KARDX= 165  mTxtP=     0  mStk=     0
+      *  46 * BuildingSurface:Detailed,Office.1.0.Wall.0,Wall,ExternalWall,Office.1.0,Outdoors,,SunExposed,WindExposed,,4,0.0,27.0,3.1,0.0,0.0,3.1,0.0,0.0,6.2,0.0,27.0,6.2 ;
+ KRDRD  <-3-  KARDI1=   1  KARDI2= 160  KARDX=   1  KRDNUM=  46 mTxtP =     0  mP=     0  mStk=     0
+            .2345678.1.2345678.2.2345678.3.2345678.4.2345678.5.2345678.6.2345678.7.2345678.8.2345678.9.2345678.0
+            BuildingSurface:Detailed,Office.1.0.Wall.0,Wall,ExternalWall,Office.1.0,Outdoors,,SunExposed,WindExp
+            osed,,4,0.0,27.0,3.1,0.0,0.0,3.1,0.0,0.0,6.2,0.0,27.0,6.2 ; 
+ KRDRD  --> kardi1=   1  KARDI2= 160 KARDX= 161  mTxtP=     0  mStk=     0
+      *  47 * BuildingSurface:Detailed,Office.1.0.Wall.1,Wall,ExternalWall,Office.1.0,Outdoors,,SunExposed,WindExposed,,4,0.0,0.0,3.1,14.7,0.0,3.1,14.7,0.0,6.2,0.0,0.0,6.2 ;
+ KRDRD  <-3-  KARDI1=   1  KARDI2= 160  KARDX=   1  KRDNUM=  47 mTxtP =     0  mP=     0  mStk=     0
+            .2345678.1.2345678.2.2345678.3.2345678.4.2345678.5.2345678.6.2345678.7.2345678.8.2345678.9.2345678.0
+            BuildingSurface:Detailed,Office.1.0.Wall.1,Wall,ExternalWall,Office.1.0,Outdoors,,SunExposed,WindExp
+            osed,,4,0.0,0.0,3.1,14.7,0.0,3.1,14.7,0.0,6.2,0.0,0.0,6.2 ; 
+ KRDRD  --> kardi1=   1  KARDI2= 160 KARDX= 161  mTxtP=     0  mStk=     0
+      *  48 * BuildingSurface:Detailed,Office.1.0.Wall.2,Wall,ExternalWall,Office.1.0,Outdoors,,SunExposed,WindExposed,,4,14.7,0.0,3.1,14.7,27.0,3.1,14.7,27.0,6.2,14.7,0.0,6.2 ;
+ KRDRD  <-3-  KARDI1=   1  KARDI2= 164  KARDX=   1  KRDNUM=  48 mTxtP =     0  mP=     0  mStk=     0
+            .2345678.1.2345678.2.2345678.3.2345678.4.2345678.5.2345678.6.2345678.7.2345678.8.2345678.9.2345678.0
+            BuildingSurface:Detailed,Office.1.0.Wall.2,Wall,ExternalWall,Office.1.0,Outdoors,,SunExposed,WindExp
+            osed,,4,14.7,0.0,3.1,14.7,27.0,3.1,14.7,27.0,6.2,14.7,0.0,6.2 ; 
+ KRDRD  --> kardi1=   1  KARDI2= 164 KARDX= 165  mTxtP=     0  mStk=     0
+      *  49 * BuildingSurface:Detailed,Office.1.0.Wall.3,Wall,ExternalWall,Office.1.0,Outdoors,,SunExposed,WindExposed,,4,14.7,27.0,3.1,0.0,27.0,3.1,0.0,27.0,6.2,14.7,27.0,6.2 ;
+ KRDRD  <-3-  KARDI1=   1  KARDI2= 164  KARDX=   1  KRDNUM=  49 mTxtP =     0  mP=     0  mStk=     0
+            .2345678.1.2345678.2.2345678.3.2345678.4.2345678.5.2345678.6.2345678.7.2345678.8.2345678.9.2345678.0
+            BuildingSurface:Detailed,Office.1.0.Wall.3,Wall,ExternalWall,Office.1.0,Outdoors,,SunExposed,WindExp
+            osed,,4,14.7,27.0,3.1,0.0,27.0,3.1,0.0,27.0,6.2,14.7,27.0,6.2 ; 
+ KRDRD  --> kardi1=   1  KARDI2= 164 KARDX= 165  mTxtP=     0  mStk=     0
+      *  50 * BuildingSurface:Detailed,Office.2.0.Wall.0,Wall,ExternalWall,Office.2.0,Outdoors,,SunExposed,WindExposed,,4,0.0,27.0,6.2,0.0,0.0,6.2,0.0,0.0,9.3,0.0,27.0,9.3 ;
+ KRDRD  <-3-  KARDI1=   1  KARDI2= 160  KARDX=   1  KRDNUM=  50 mTxtP =     0  mP=     0  mStk=     0
+            .2345678.1.2345678.2.2345678.3.2345678.4.2345678.5.2345678.6.2345678.7.2345678.8.2345678.9.2345678.0
+            BuildingSurface:Detailed,Office.2.0.Wall.0,Wall,ExternalWall,Office.2.0,Outdoors,,SunExposed,WindExp
+            osed,,4,0.0,27.0,6.2,0.0,0.0,6.2,0.0,0.0,9.3,0.0,27.0,9.3 ; 
+ KRDRD  --> kardi1=   1  KARDI2= 160 KARDX= 161  mTxtP=     0  mStk=     0
+      *  51 * BuildingSurface:Detailed,Office.2.0.Wall.1,Wall,ExternalWall,Office.2.0,Outdoors,,SunExposed,WindExposed,,4,0.0,0.0,6.2,14.7,0.0,6.2,14.7,0.0,9.3,0.0,0.0,9.3 ;
+ KRDRD  <-3-  KARDI1=   1  KARDI2= 160  KARDX=   1  KRDNUM=  51 mTxtP =     0  mP=     0  mStk=     0
+            .2345678.1.2345678.2.2345678.3.2345678.4.2345678.5.2345678.6.2345678.7.2345678.8.2345678.9.2345678.0
+            BuildingSurface:Detailed,Office.2.0.Wall.1,Wall,ExternalWall,Office.2.0,Outdoors,,SunExposed,WindExp
+            osed,,4,0.0,0.0,6.2,14.7,0.0,6.2,14.7,0.0,9.3,0.0,0.0,9.3 ; 
+ KRDRD  --> kardi1=   1  KARDI2= 160 KARDX= 161  mTxtP=     0  mStk=     0
+      *  52 * BuildingSurface:Detailed,Office.2.0.Wall.2,Wall,ExternalWall,Office.2.0,Outdoors,,SunExposed,WindExposed,,4,14.7,0.0,6.2,14.7,27.0,6.2,14.7,27.0,9.3,14.7,0.0,9.3 ;
+ KRDRD  <-3-  KARDI1=   1  KARDI2= 164  KARDX=   1  KRDNUM=  52 mTxtP =     0  mP=     0  mStk=     0
+            .2345678.1.2345678.2.2345678.3.2345678.4.2345678.5.2345678.6.2345678.7.2345678.8.2345678.9.2345678.0
+            BuildingSurface:Detailed,Office.2.0.Wall.2,Wall,ExternalWall,Office.2.0,Outdoors,,SunExposed,WindExp
+            osed,,4,14.7,0.0,6.2,14.7,27.0,6.2,14.7,27.0,9.3,14.7,0.0,9.3 ; 
+ KRDRD  --> kardi1=   1  KARDI2= 164 KARDX= 165  mTxtP=     0  mStk=     0
+      *  53 * BuildingSurface:Detailed,Office.2.0.Wall.3,Wall,ExternalWall,Office.2.0,Outdoors,,SunExposed,WindExposed,,4,14.7,27.0,6.2,0.0,27.0,6.2,0.0,27.0,9.3,14.7,27.0,9.3 ;
+ KRDRD  <-3-  KARDI1=   1  KARDI2= 164  KARDX=   1  KRDNUM=  53 mTxtP =     0  mP=     0  mStk=     0
+            .2345678.1.2345678.2.2345678.3.2345678.4.2345678.5.2345678.6.2345678.7.2345678.8.2345678.9.2345678.0
+            BuildingSurface:Detailed,Office.2.0.Wall.3,Wall,ExternalWall,Office.2.0,Outdoors,,SunExposed,WindExp
+            osed,,4,14.7,27.0,6.2,0.0,27.0,6.2,0.0,27.0,9.3,14.7,27.0,9.3 ; 
+ KRDRD  --> kardi1=   1  KARDI2= 164 KARDX= 165  mTxtP=     0  mStk=     0
+      *  54 * FenestrationSurface:Detailed,Office.0.0.Wall.0.window.0,Window,Glazing,Office.0.0.Wall.0,,,,,4,0.0,20.89425,0.70103,0.0,6.10575,0.70103,0.0,6.10575,2.39897,0.0,20.89425,2.39897 ;
+ KRDRD  <-3-  KARDI1=   1  KARDI2= 179  KARDX=   1  KRDNUM=  54 mTxtP =     0  mP=     0  mStk=     0
+            .2345678.1.2345678.2.2345678.3.2345678.4.2345678.5.2345678.6.2345678.7.2345678.8.2345678.9.2345678.0
+            FenestrationSurface:Detailed,Office.0.0.Wall.0.window.0,Window,Glazing,Office.0.0.Wall.0,,,,,4,0.0,2
+            0.89425,0.70103,0.0,6.10575,0.70103,0.0,6.10575,2.39897,0.0,20.89425,2.39897 ; 
+ KRDRD  --> kardi1=   1  KARDI2= 179 KARDX= 180  mTxtP=     0  mStk=     0
+      *  55 * FenestrationSurface:Detailed,Office.0.0.Wall.1.window.0,Window,Glazing,Office.0.0.Wall.1,,,,,4,3.32424,0.0,0.70103,11.37576,0.0,0.70103,11.37576,0.0,2.39897,3.32424,0.0,2.39897 ;
+ KRDRD  <-3-  KARDI1=   1  KARDI2= 179  KARDX=   1  KRDNUM=  55 mTxtP =     0  mP=     0  mStk=     0
+            .2345678.1.2345678.2.2345678.3.2345678.4.2345678.5.2345678.6.2345678.7.2345678.8.2345678.9.2345678.0
+            FenestrationSurface:Detailed,Office.0.0.Wall.1.window.0,Window,Glazing,Office.0.0.Wall.1,,,,,4,3.324
+            24,0.0,0.70103,11.37576,0.0,0.70103,11.37576,0.0,2.39897,3.32424,0.0,2.39897 ; 
+ KRDRD  --> kardi1=   1  KARDI2= 179 KARDX= 180  mTxtP=     0  mStk=     0
+      *  56 * FenestrationSurface:Detailed,Office.0.0.Wall.2.window.0,Window,Glazing,Office.0.0.Wall.2,,,,,4,14.7,6.10575,0.70103,14.7,20.89425,0.70103,14.7,20.89425,2.39897,14.7,6.10575,2.39897 ;
+ KRDRD  <-3-  KARDI1=   1  KARDI2= 183  KARDX=   1  KRDNUM=  56 mTxtP =     0  mP=     0  mStk=     0
+            .2345678.1.2345678.2.2345678.3.2345678.4.2345678.5.2345678.6.2345678.7.2345678.8.2345678.9.2345678.0
+            FenestrationSurface:Detailed,Office.0.0.Wall.2.window.0,Window,Glazing,Office.0.0.Wall.2,,,,,4,14.7,
+            6.10575,0.70103,14.7,20.89425,0.70103,14.7,20.89425,2.39897,14.7,6.10575,2.39897 ; 
+ KRDRD  --> kardi1=   1  KARDI2= 183 KARDX= 184  mTxtP=     0  mStk=     0
+      *  57 * FenestrationSurface:Detailed,Office.0.0.Wall.3.window.0,Window,Glazing,Office.0.0.Wall.3,,,,,4,11.37576,27.0,0.70103,3.32424,27.0,0.70103,3.32424,27.0,2.39897,11.37576,27.0,2.39897 ;
+ KRDRD  <-3-  KARDI1=   1  KARDI2= 183  KARDX=   1  KRDNUM=  57 mTxtP =     0  mP=     0  mStk=     0
+            .2345678.1.2345678.2.2345678.3.2345678.4.2345678.5.2345678.6.2345678.7.2345678.8.2345678.9.2345678.0
+            FenestrationSurface:Detailed,Office.0.0.Wall.3.window.0,Window,Glazing,Office.0.0.Wall.3,,,,,4,11.37
+            576,27.0,0.70103,3.32424,27.0,0.70103,3.32424,27.0,2.39897,11.37576,27.0,2.39897 ; 
+ KRDRD  --> kardi1=   1  KARDI2= 183 KARDX= 184  mTxtP=     0  mStk=     0
+      *  58 * FenestrationSurface:Detailed,Office.1.0.Wall.0.window.0,Window,Glazing,Office.1.0.Wall.0,,,,,4,0.0,20.89425,3.80103,0.0,6.10575,3.80103,0.0,6.10575,5.49897,0.0,20.89425,5.49897 ;
+ KRDRD  <-3-  KARDI1=   1  KARDI2= 179  KARDX=   1  KRDNUM=  58 mTxtP =     0  mP=     0  mStk=     0
+            .2345678.1.2345678.2.2345678.3.2345678.4.2345678.5.2345678.6.2345678.7.2345678.8.2345678.9.2345678.0
+            FenestrationSurface:Detailed,Office.1.0.Wall.0.window.0,Window,Glazing,Office.1.0.Wall.0,,,,,4,0.0,2
+            0.89425,3.80103,0.0,6.10575,3.80103,0.0,6.10575,5.49897,0.0,20.89425,5.49897 ; 
+ KRDRD  --> kardi1=   1  KARDI2= 179 KARDX= 180  mTxtP=     0  mStk=     0
+      *  59 * FenestrationSurface:Detailed,Office.1.0.Wall.1.window.0,Window,Glazing,Office.1.0.Wall.1,,,,,4,3.32424,0.0,3.80103,11.37576,0.0,3.80103,11.37576,0.0,5.49897,3.32424,0.0,5.49897 ;
+ KRDRD  <-3-  KARDI1=   1  KARDI2= 179  KARDX=   1  KRDNUM=  59 mTxtP =     0  mP=     0  mStk=     0
+            .2345678.1.2345678.2.2345678.3.2345678.4.2345678.5.2345678.6.2345678.7.2345678.8.2345678.9.2345678.0
+            FenestrationSurface:Detailed,Office.1.0.Wall.1.window.0,Window,Glazing,Office.1.0.Wall.1,,,,,4,3.324
+            24,0.0,3.80103,11.37576,0.0,3.80103,11.37576,0.0,5.49897,3.32424,0.0,5.49897 ; 
+ KRDRD  --> kardi1=   1  KARDI2= 179 KARDX= 180  mTxtP=     0  mStk=     0
+      *  60 * FenestrationSurface:Detailed,Office.1.0.Wall.2.window.0,Window,Glazing,Office.1.0.Wall.2,,,,,4,14.7,6.10575,3.80103,14.7,20.89425,3.80103,14.7,20.89425,5.49897,14.7,6.10575,5.49897 ;
+ KRDRD  <-3-  KARDI1=   1  KARDI2= 183  KARDX=   1  KRDNUM=  60 mTxtP =     0  mP=     0  mStk=     0
+            .2345678.1.2345678.2.2345678.3.2345678.4.2345678.5.2345678.6.2345678.7.2345678.8.2345678.9.2345678.0
+            FenestrationSurface:Detailed,Office.1.0.Wall.2.window.0,Window,Glazing,Office.1.0.Wall.2,,,,,4,14.7,
+            6.10575,3.80103,14.7,20.89425,3.80103,14.7,20.89425,5.49897,14.7,6.10575,5.49897 ; 
+ KRDRD  --> kardi1=   1  KARDI2= 183 KARDX= 184  mTxtP=     0  mStk=     0
+      *  61 * FenestrationSurface:Detailed,Office.1.0.Wall.3.window.0,Window,Glazing,Office.1.0.Wall.3,,,,,4,11.37576,27.0,3.80103,3.32424,27.0,3.80103,3.32424,27.0,5.49897,11.37576,27.0,5.49897 ;
+ KRDRD  <-3-  KARDI1=   1  KARDI2= 183  KARDX=   1  KRDNUM=  61 mTxtP =     0  mP=     0  mStk=     0
+            .2345678.1.2345678.2.2345678.3.2345678.4.2345678.5.2345678.6.2345678.7.2345678.8.2345678.9.2345678.0
+            FenestrationSurface:Detailed,Office.1.0.Wall.3.window.0,Window,Glazing,Office.1.0.Wall.3,,,,,4,11.37
+            576,27.0,3.80103,3.32424,27.0,3.80103,3.32424,27.0,5.49897,11.37576,27.0,5.49897 ; 
+ KRDRD  --> kardi1=   1  KARDI2= 183 KARDX= 184  mTxtP=     0  mStk=     0
+      *  62 * FenestrationSurface:Detailed,Office.2.0.Wall.0.window.0,Window,Glazing,Office.2.0.Wall.0,,,,,4,0.0,20.89425,6.90103,0.0,6.10575,6.90103,0.0,6.10575,8.59897,0.0,20.89425,8.59897 ;
+ KRDRD  <-3-  KARDI1=   1  KARDI2= 179  KARDX=   1  KRDNUM=  62 mTxtP =     0  mP=     0  mStk=     0
+            .2345678.1.2345678.2.2345678.3.2345678.4.2345678.5.2345678.6.2345678.7.2345678.8.2345678.9.2345678.0
+            FenestrationSurface:Detailed,Office.2.0.Wall.0.window.0,Window,Glazing,Office.2.0.Wall.0,,,,,4,0.0,2
+            0.89425,6.90103,0.0,6.10575,6.90103,0.0,6.10575,8.59897,0.0,20.89425,8.59897 ; 
+ KRDRD  --> kardi1=   1  KARDI2= 179 KARDX= 180  mTxtP=     0  mStk=     0
+      *  63 * FenestrationSurface:Detailed,Office.2.0.Wall.1.window.0,Window,Glazing,Office.2.0.Wall.1,,,,,4,3.32424,0.0,6.90103,11.37576,0.0,6.90103,11.37576,0.0,8.59897,3.32424,0.0,8.59897 ;
+ KRDRD  <-3-  KARDI1=   1  KARDI2= 179  KARDX=   1  KRDNUM=  63 mTxtP =     0  mP=     0  mStk=     0
+            .2345678.1.2345678.2.2345678.3.2345678.4.2345678.5.2345678.6.2345678.7.2345678.8.2345678.9.2345678.0
+            FenestrationSurface:Detailed,Office.2.0.Wall.1.window.0,Window,Glazing,Office.2.0.Wall.1,,,,,4,3.324
+            24,0.0,6.90103,11.37576,0.0,6.90103,11.37576,0.0,8.59897,3.32424,0.0,8.59897 ; 
+ KRDRD  --> kardi1=   1  KARDI2= 179 KARDX= 180  mTxtP=     0  mStk=     0
+      *  64 * FenestrationSurface:Detailed,Office.2.0.Wall.2.window.0,Window,Glazing,Office.2.0.Wall.2,,,,,4,14.7,6.10575,6.90103,14.7,20.89425,6.90103,14.7,20.89425,8.59897,14.7,6.10575,8.59897 ;
+ KRDRD  <-3-  KARDI1=   1  KARDI2= 183  KARDX=   1  KRDNUM=  64 mTxtP =     0  mP=     0  mStk=     0
+            .2345678.1.2345678.2.2345678.3.2345678.4.2345678.5.2345678.6.2345678.7.2345678.8.2345678.9.2345678.0
+            FenestrationSurface:Detailed,Office.2.0.Wall.2.window.0,Window,Glazing,Office.2.0.Wall.2,,,,,4,14.7,
+            6.10575,6.90103,14.7,20.89425,6.90103,14.7,20.89425,8.59897,14.7,6.10575,8.59897 ; 
+ KRDRD  --> kardi1=   1  KARDI2= 183 KARDX= 184  mTxtP=     0  mStk=     0
+      *  65 * FenestrationSurface:Detailed,Office.2.0.Wall.3.window.0,Window,Glazing,Office.2.0.Wall.3,,,,,4,11.37576,27.0,6.90103,3.32424,27.0,6.90103,3.32424,27.0,8.59897,11.37576,27.0,8.59897 ;
+ KRDRD  <-3-  KARDI1=   1  KARDI2= 183  KARDX=   1  KRDNUM=  65 mTxtP =     0  mP=     0  mStk=     0
+            .2345678.1.2345678.2.2345678.3.2345678.4.2345678.5.2345678.6.2345678.7.2345678.8.2345678.9.2345678.0
+            FenestrationSurface:Detailed,Office.2.0.Wall.3.window.0,Window,Glazing,Office.2.0.Wall.3,,,,,4,11.37
+            576,27.0,6.90103,3.32424,27.0,6.90103,3.32424,27.0,8.59897,11.37576,27.0,8.59897 ; 
+ KRDRD  --> kardi1=   1  KARDI2= 183 KARDX= 184  mTxtP=     0  mStk=     0
+      *  66 * BuildingSurface:Detailed,Office.2.0.Roof,Roof,Roof,Office.2.0,Outdoors,,SunExposed,WindExposed,,4,0.0,0.0,9.3,14.7,0.0,9.3,14.7,27.0,9.3,0.0,27.0,9.3 ;
+ KRDRD  <-3-  KARDI1=   1  KARDI2= 152  KARDX=   1  KRDNUM=  66 mTxtP =     0  mP=     0  mStk=     0
+            .2345678.1.2345678.2.2345678.3.2345678.4.2345678.5.2345678.6.2345678.7.2345678.8.2345678.9.2345678.0
+            BuildingSurface:Detailed,Office.2.0.Roof,Roof,Roof,Office.2.0,Outdoors,,SunExposed,WindExposed,,4,0.
+            0,0.0,9.3,14.7,0.0,9.3,14.7,27.0,9.3,0.0,27.0,9.3 ; 
+ KRDRD  --> kardi1=   1  KARDI2= 152 KARDX= 153  mTxtP=     0  mStk=     0
+      *  67 * People,Office,Office,Office.People,Area/Person,,,22,0.1,,Office.Activity,3.82e-08,,ZoneAveraged,,Always1,DynamicClothingModelASHRAE55,,,Always1,Fanger ;
+ KRDRD  <-3-  KARDI1=   1  KARDI2= 153  KARDX=   1  KRDNUM=  67 mTxtP =     0  mP=     0  mStk=     0
+            .2345678.1.2345678.2.2345678.3.2345678.4.2345678.5.2345678.6.2345678.7.2345678.8.2345678.9.2345678.0
+            People,Office,Office,Office.People,Area/Person,,,22,0.1,,Office.Activity,3.82e-08,,ZoneAveraged,,Alw
+            ays1,DynamicClothingModelASHRAE55,,,Always1,Fanger ; 
+ KRDRD  --> kardi1=   1  KARDI2= 153 KARDX= 154  mTxtP=     0  mStk=     0
+      *  68 * HVACTemplate:Thermostat,Office,Office.HeatingSetPoint,,Office.CoolingSetPoint, ;
+ KRDRD  <-3-  KARDI1=   1  KARDI2=  81  KARDX=   1  KRDNUM=  68 mTxtP =     0  mP=     0  mStk=     0
+            .2345678.1.2345678.2.2345678.3.2345678.4.2345678.5.2345678.6.2345678.7.2345678.8.2345678.9.2345678.0
+            HVACTemplate:Thermostat,Office,Office.HeatingSetPoint,,Office.CoolingSetPoint, ; 
+ KRDRD  --> kardi1=   1  KARDI2=  81 KARDX=  82  mTxtP=     0  mStk=     0
+      *  69 * HVACTemplate:Plant:MixedWaterLoop,OnlyWaterLoop,,Intermittent,Default,,,34,,20,ConstantFlow,179352,SinglePump,Yes,Yes,Water,6,SequentialLoad ;
+ KRDRD  <-3-  KARDI1=   1  KARDI2= 143  KARDX=   1  KRDNUM=  69 mTxtP =     0  mP=     0  mStk=     0
+            .2345678.1.2345678.2.2345678.3.2345678.4.2345678.5.2345678.6.2345678.7.2345678.8.2345678.9.2345678.0
+            HVACTemplate:Plant:MixedWaterLoop,OnlyWaterLoop,,Intermittent,Default,,,34,,20,ConstantFlow,179352,S
+            inglePump,Yes,Yes,Water,6,SequentialLoad ; 
+ KRDRD  --> kardi1=   1  KARDI2= 143 KARDX= 144  mTxtP=     0  mStk=     0
+      *  70 * HVACTemplate:Plant:Boiler,Boiler1,HotWaterBoiler,autosize,0.95,Electricity,1,1.2,0.1,1.1,0.9,99 ;
+ KRDRD  <-3-  KARDI1=   1  KARDI2=  98  KARDX=   1  KRDNUM=  70 mTxtP =     0  mP=     0  mStk=     0
+            .2345678.1.2345678.2.2345678.3.2345678.4.2345678.5.2345678.6.2345678.7.2345678.8.2345678.9.2345678.0
+            HVACTemplate:Plant:Boiler,Boiler1,HotWaterBoiler,autosize,0.95,Electricity,1,1.2,0.1,1.1,0.9,99 ; 
+ KRDRD  --> kardi1=   1  KARDI2=  98 KARDX=  99  mTxtP=     0  mStk=     0
+      *  71 * HVACTemplate:Plant:Tower,MainTower,SingleSpeed,autosize,autosize,autosize,autosize,autosize,1,1.2 ;
+ KRDRD  <-3-  KARDI1=   1  KARDI2= 100  KARDX=   1  KRDNUM=  71 mTxtP =     0  mP=     0  mStk=     0
+            .2345678.1.2345678.2.2345678.3.2345678.4.2345678.5.2345678.6.2345678.7.2345678.8.2345678.9.2345678.0
+            HVACTemplate:Plant:Tower,MainTower,SingleSpeed,autosize,autosize,autosize,autosize,autosize,1,1.2 ; 
+ KRDRD  --> kardi1=   1  KARDI2= 100 KARDX= 101  mTxtP=     0  mStk=     0
+      *  72 * HVACTemplate:Zone:WaterToAirHeatPump,Office.0.0,Office,autosize,autosize,,1.2,1.2,Flow/Person,0.00944,,,,,DrawThrough,0.7,75,0.9,Coil:Cooling:WaterToAirHeatPump:EquationFit,autosize,autosize,3.2,Coil:Heating:WaterToAirHeatPump:EquationFit,autosize,3.2,,autosize,2.5,60,0.01,60,,Electric,SupplyAirTemperature,12.5,,SupplyAirTemperature,50,,,, ;
+ KRDRD  <-3-  KARDI1=   1  KARDI2= 344  KARDX=   1  KRDNUM=  72 mTxtP =     0  mP=     0  mStk=     0
+            .2345678.1.2345678.2.2345678.3.2345678.4.2345678.5.2345678.6.2345678.7.2345678.8.2345678.9.2345678.0
+            HVACTemplate:Zone:WaterToAirHeatPump,Office.0.0,Office,autosize,autosize,,1.2,1.2,Flow/Person,0.0094
+            4,,,,,DrawThrough,0.7,75,0.9,Coil:Cooling:WaterToAirHeatPump:EquationFit,autosize,autosize,3.2,Coil:
+            Heating:WaterToAirHeatPump:EquationFit,autosize,3.2,,autosize,2.5,60,0.01,60,,Electric,SupplyAirTemp
+            erature,12.5,,SupplyAirTemperature,50,,,, ; 
+ KRDRD  --> kardi1=   1  KARDI2= 344 KARDX= 345  mTxtP=     0  mStk=     0
+      *  73 * HVACTemplate:Zone:WaterToAirHeatPump,Office.1.0,Office,autosize,autosize,,1.2,1.2,Flow/Person,0.00944,,,,,DrawThrough,0.7,75,0.9,Coil:Cooling:WaterToAirHeatPump:EquationFit,autosize,autosize,3.2,Coil:Heating:WaterToAirHeatPump:EquationFit,autosize,3.2,,autosize,2.5,60,0.01,60,,Electric,SupplyAirTemperature,12.5,,SupplyAirTemperature,50,,,, ;
+ KRDRD  <-3-  KARDI1=   1  KARDI2= 344  KARDX=   1  KRDNUM=  73 mTxtP =     0  mP=     0  mStk=     0
+            .2345678.1.2345678.2.2345678.3.2345678.4.2345678.5.2345678.6.2345678.7.2345678.8.2345678.9.2345678.0
+            HVACTemplate:Zone:WaterToAirHeatPump,Office.1.0,Office,autosize,autosize,,1.2,1.2,Flow/Person,0.0094
+            4,,,,,DrawThrough,0.7,75,0.9,Coil:Cooling:WaterToAirHeatPump:EquationFit,autosize,autosize,3.2,Coil:
+            Heating:WaterToAirHeatPump:EquationFit,autosize,3.2,,autosize,2.5,60,0.01,60,,Electric,SupplyAirTemp
+            erature,12.5,,SupplyAirTemperature,50,,,, ; 
+ KRDRD  --> kardi1=   1  KARDI2= 344 KARDX= 345  mTxtP=     0  mStk=     0
+      *  74 * HVACTemplate:Zone:WaterToAirHeatPump,Office.2.0,Office,autosize,autosize,,1.2,1.2,Flow/Person,0.00944,,,,,DrawThrough,0.7,75,0.9,Coil:Cooling:WaterToAirHeatPump:EquationFit,autosize,autosize,3.2,Coil:Heating:WaterToAirHeatPump:EquationFit,autosize,3.2,,autosize,2.5,60,0.01,60,,Electric,SupplyAirTemperature,12.5,,SupplyAirTemperature,50,,,, ;
+ KRDRD  <-3-  KARDI1=   1  KARDI2= 344  KARDX=   1  KRDNUM=  74 mTxtP =     0  mP=     0  mStk=     0
+            .2345678.1.2345678.2.2345678.3.2345678.4.2345678.5.2345678.6.2345678.7.2345678.8.2345678.9.2345678.0
+            HVACTemplate:Zone:WaterToAirHeatPump,Office.2.0,Office,autosize,autosize,,1.2,1.2,Flow/Person,0.0094
+            4,,,,,DrawThrough,0.7,75,0.9,Coil:Cooling:WaterToAirHeatPump:EquationFit,autosize,autosize,3.2,Coil:
+            Heating:WaterToAirHeatPump:EquationFit,autosize,3.2,,autosize,2.5,60,0.01,60,,Electric,SupplyAirTemp
+            erature,12.5,,SupplyAirTemperature,50,,,, ; 
+ KRDRD  --> kardi1=   1  KARDI2= 344 KARDX= 345  mTxtP=     0  mStk=     0
+      *  75 * Output:Diagnostics,DisplayAdvancedReportVariables ;
+ KRDRD  <-3-  KARDI1=   1  KARDI2=  52  KARDX=   1  KRDNUM=  75 mTxtP =     0  mP=     0  mStk=     0
+            .2345678.1.2345678.2.2345678.3.2345678.4.2345678.5.2345678.6.2345678.7.2345678.8.2345678.9.2345678.0
+            Output:Diagnostics,DisplayAdvancedReportVariables ; 
+ KRDRD  --> kardi1=   1  KARDI2=  52 KARDX=  53  mTxtP=     0  mStk=     0
+      *  76 * Output:Diagnostics,DisplayExtraWarnings ;
+ KRDRD  <-3-  KARDI1=   1  KARDI2=  42  KARDX=   1  KRDNUM=  76 mTxtP =     0  mP=     0  mStk=     0
+            .2345678.1.2345678.2.2345678.3.2345678.4.2345678.5.2345678.6.2345678.7.2345678.8.2345678.9.2345678.0
+            Output:Diagnostics,DisplayExtraWarnings ; 
+ KRDRD  --> kardi1=   1  KARDI2=  42 KARDX=  43  mTxtP=     0  mStk=     0
+      *  77 * Output:Surfaces:Drawing,dxf ;
+ KRDRD  <-3-  KARDI1=   1  KARDI2=  30  KARDX=   1  KRDNUM=  77 mTxtP =     0  mP=     0  mStk=     0
+            .2345678.1.2345678.2.2345678.3.2345678.4.2345678.5.2345678.6.2345678.7.2345678.8.2345678.9.2345678.0
+            Output:Surfaces:Drawing,dxf ; 
+ KRDRD  --> kardi1=   1  KARDI2=  30 KARDX=  31  mTxtP=     0  mStk=     0
+      *  78 * Output:Variable,*,Zone Air System Sensible Heating Rate,Annual ;
+ KRDRD  <-3-  KARDI1=   1  KARDI2=  65  KARDX=   1  KRDNUM=  78 mTxtP =     0  mP=     0  mStk=     0
+            .2345678.1.2345678.2.2345678.3.2345678.4.2345678.5.2345678.6.2345678.7.2345678.8.2345678.9.2345678.0
+            Output:Variable,*,Zone Air System Sensible Heating Rate,Annual ; 
+ KRDRD  --> kardi1=   1  KARDI2=  65 KARDX=  66  mTxtP=     0  mStk=     0
+      *  79 * Output:Variable,*,Zone Air System Sensible Cooling Rate,Annual ;
+ KRDRD  <-3-  KARDI1=   1  KARDI2=  65  KARDX=   1  KRDNUM=  79 mTxtP =     0  mP=     0  mStk=     0
+            .2345678.1.2345678.2.2345678.3.2345678.4.2345678.5.2345678.6.2345678.7.2345678.8.2345678.9.2345678.0
+            Output:Variable,*,Zone Air System Sensible Cooling Rate,Annual ; 
+ KRDRD  --> kardi1=   1  KARDI2=  65 KARDX=  66  mTxtP=     0  mStk=     0
+      *  80 * Output:Variable,*,Zone Lights Electric Power,Annual ;
+ KRDRD  <-3-  KARDI1=   1  KARDI2=  54  KARDX=   1  KRDNUM=  80 mTxtP =     0  mP=     0  mStk=     0
+            .2345678.1.2345678.2.2345678.3.2345678.4.2345678.5.2345678.6.2345678.7.2345678.8.2345678.9.2345678.0
+            Output:Variable,*,Zone Lights Electric Power,Annual ; 
+ KRDRD  --> kardi1=   1  KARDI2=  54 KARDX=  55  mTxtP=     0  mStk=     0
+      *  81 * Output:Variable,*,Zone Water to Air Heat Pump Electric Energy,Annual ;
+ KRDRD  <-3-  KARDI1=   1  KARDI2=  71  KARDX=   1  KRDNUM=  81 mTxtP =     0  mP=     0  mStk=     0
+            .2345678.1.2345678.2.2345678.3.2345678.4.2345678.5.2345678.6.2345678.7.2345678.8.2345678.9.2345678.0
+            Output:Variable,*,Zone Water to Air Heat Pump Electric Energy,Annual ; 
+ KRDRD  --> kardi1=   1  KARDI2=  71 KARDX=  72  mTxtP=     0  mStk=     0
+      *  82 * Output:Variable,*,Boiler Electric Energy,Annual ;
+ KRDRD  <-3-  KARDI1=   1  KARDI2=  50  KARDX=   1  KRDNUM=  82 mTxtP =     0  mP=     0  mStk=     0
+            .2345678.1.2345678.2.2345678.3.2345678.4.2345678.5.2345678.6.2345678.7.2345678.8.2345678.9.2345678.0
+            Output:Variable,*,Boiler Electric Energy,Annual ; 
+ KRDRD  --> kardi1=   1  KARDI2=  50 KARDX=  51  mTxtP=     0  mStk=     0
+      *  83 * Output:Variable,*,Chiller Electric Energy,Annual ;
+ KRDRD  <-3-  KARDI1=   1  KARDI2=  51  KARDX=   1  KRDNUM=  83 mTxtP =     0  mP=     0  mStk=     0
+            .2345678.1.2345678.2.2345678.3.2345678.4.2345678.5.2345678.6.2345678.7.2345678.8.2345678.9.2345678.0
+            Output:Variable,*,Chiller Electric Energy,Annual ; 
+ KRDRD  --> kardi1=   1  KARDI2=  51 KARDX=  52  mTxtP=     0  mStk=     0
+      *  84 * Output:Variable,*,Cooling Tower Fan Electric Energy,Annual ;
+ KRDRD  <-3-  KARDI1=   1  KARDI2=  61  KARDX=   1  KRDNUM=  84 mTxtP =     0  mP=     0  mStk=     0
+            .2345678.1.2345678.2.2345678.3.2345678.4.2345678.5.2345678.6.2345678.7.2345678.8.2345678.9.2345678.0
+            Output:Variable,*,Cooling Tower Fan Electric Energy,Annual ; 
+ KRDRD  --> kardi1=   1  KARDI2=  61 KARDX=  62  mTxtP=     0  mStk=     0
+
+
+ ****************************** EPMacro processing terminated.
+ KRDRD  <-3-  KARDI1=   1  KARDI2=  12  KARDX=   1  KRDNUM=  84 mTxtP =     0  mP=     0  mStk=     0
+            .2345678.1.2345678.2.2345678.3.2345678.4.2345678.5.2345678.6.2345678.7.2345678.8.2345678.9.2345678.0
+            ..  END ..  

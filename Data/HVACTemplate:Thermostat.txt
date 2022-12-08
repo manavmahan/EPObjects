@@ -1,2 +1,2 @@
 Name,HeatingSetpointScheduleName,ConstantHeatingSetpoint,CoolingSetpointScheduleName,ConstantCoolingSetpoint
-Office_Thermostat,Office_HeatingSetPointSchedule, ,Office_CoolingSetPointSchedule, 
+Office,Office.HeatingSetPoint, ,Office.CoolingSetPoint, 
