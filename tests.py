@@ -25,9 +25,6 @@ class TestInialiser(unittest.TestCase):
     def testReadFileElectricEquipment(self):
         self.assertEqual("ElectricEquipment,Equipment_Office,Office,Office_EquipmentSchedule,Watts/area,,12,,,0.1,;", str(self.idfObjects['ElectricEquipment'][0]))
 
-    def testReadFileGlobalGeometryRules(self):
-        self.assertEqual("GlobalGeometryRules,UpperLeftCorner,Counterclockwise,Relative,Relative,Relative					;", str(self.idfObjects['GlobalGeometryRules'][0]))
-
     def testReadFileHVACTemplatePlantBoiler(self):
         self.assertEqual("HVACTemplate:Plant:Boiler,Boiler1,HotWaterBoiler,autosize,0.95,Electric,1,1.2,0.1,1.1,0.9,99;",
         str(self.idfObjects['HVACTemplate:Plant:Boiler'][0]))
@@ -125,6 +122,9 @@ class TestInialiser(unittest.TestCase):
     def testReadFileZoneList(self):
         self.assertEqual("ZoneList,Office,Office:0:1,Office:0:2;", str(self.idfObjects['ZoneList'][0]))
 
+
+    def testReadFileZoneVentilationDesignFlowRate(self):
+        self.assertEqual("ZoneVentilation:DesignFlowRate,NaturalVentilation_Office,Office,Office_VentilationSchedule,AirChanges/Hour,0,0.001,0.00944,2,Natural,1,1,1,0,0,0,23, ,24.9, ,1;", str(self.idfObjects['ZoneVentilation:DesignFlowRate'][0]))
 
 if __name__ == '__main__':
     unittest.main()

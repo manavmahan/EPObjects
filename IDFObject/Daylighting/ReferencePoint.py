@@ -1,7 +1,7 @@
-from GeometryObject import XYZ
-from IDFObject import IDFObject
+from GeometryObject.XYZ import XYZ
+from IDFObject.IDFObject import IDFObject
     
-class ReferencePoint(IDFObject.IDFObject):
+class ReferencePoint(IDFObject):
     __IDFName__ = 'Daylighting:ReferencePoint'
     Properties = [
         'Name',
@@ -14,4 +14,4 @@ class ReferencePoint(IDFObject.IDFObject):
         self.Initialise()
 
     def Initialise(self):
-        self.Point = XYZ.XYZ(self.Point)
+        self.Point = XYZ(self.Point)

@@ -18,12 +18,14 @@ def CreatelWallsByPointsAndHeight(points: XYZList, height: float, zoneName: str)
         p4.IncreaseHeight(height)
         xyzs = XYZList(p1, p2, p3, p4)
 
-        surface = Detailed(Detailed.ExternalWall)
-        surface.Name = f'{zoneName}.Wall.{len(surfaces)}'
-        surface.XYZs = xyzs
-        surface.ZoneName = zoneName
+        wall = dict(
+            Name = f'{zoneName}.Wall.{len(surfaces)}',
+            XYZs = xyzs,
+            ZoneName = zoneName,
+        )
+        wall.update(Detailed.ExternalWall)
+        surface = Detailed(wall)
         surfaces += [surface]
-    
     return surfaces
 
 def CreateWallsByPointsHeightAndFloorCount(points: XYZList, height: float, floorCount: int)-> list:

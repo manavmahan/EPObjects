@@ -39,6 +39,14 @@ class XYZ:
     def ChangeZCoordinate(self, z: float) -> None:
         self.Coords[2] = round(z, self.__round)
 
+    def Distance(self, point):
+        return np.sqrt(np.sum(np.square(self - point)))
+
+    def DistanceFromLine(self, line):
+        p1 = line[0]
+        p2 = line[1]
+        return np.linalg.norm(np.cross(p2-p1, p1-self.Coords))/np.linalg.norm(p2-p1)
+
     def IncreaseHeight(self, h: float) -> None:
         self.Coords[2] += round(h, self.__round)
 

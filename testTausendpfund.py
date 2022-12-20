@@ -6,13 +6,24 @@ from ListObject import ListObject
 from GeometryObject.XYZList import XYZList
 from GeometryObject.Wall import CreateWallsByPointsHeightAndFloorCount, CreateFenestration, CreateFloors, CreateRoof
 
+from IDFObject.BuildingSurface.Detailed import Detailed as BuildingSurface
+
+from IDFObject.FenestrationSurface.Detailed import Detailed as FenestrationSurface
+
 from IDFObject.Construction import Construction
 
+from IDFObject.ElectricEquipment import ElectricEquipment
+
 from IDFObject.HVACTemplate.Zone.WaterToAirHeatPump import WaterToAirHeatPump
+
+from IDFObject.Lights import Lights
 
 from IDFObject.People import People
 
 from IDFObject.Zone import Zone
+
+from IDFObject.ZoneInfiltration.DesignFlowRate import DesignFlowRate
+
 from IDFObject.ZoneList import ZoneList
 
 from Initialiser import InitialiseObject
@@ -24,19 +35,20 @@ for obj in [
     "Version",
     "Building",
     'RunPeriod',
+    'Timestep',
     "ConvergenceLimits",
     "GlobalGeometryRules",
 
     "Material",
     "WindowMaterial:SimpleGlazingSystem",
+    "WindowMaterial:Shade",
 
     "Schedule:Compact",
     "SimulationControl",
     "Site:GroundTemperature:BuildingSurface",
     "Site:Location",
     "SizingPeriod:WeatherFileDays",
-    
-    ]:
+]:
     epObjects += InitialiseObject('Data', obj)
 
 for cons in [
@@ -70,11 +82,33 @@ for w in walls:
 
 epObjects += CreateRoof (points, 3.1, 3)
 
+surfaces = [x for x in epObjects if isinstance(x, BuildingSurface)]
+fenestrations = [x for x in epObjects if isinstance(x, FenestrationSurface)]
+for zone in [x for x in epObjects if isinstance(x, Zone)]:
+    zone.AddSurfaces(surfaces, fenestrations)
+    epObjects += zone.GenerateDaylightControl('Office')
+    epObjects += zone.GenerateWindowShadingControl()
+
 people = People(getattr(People, "Default"))
 people.Name = "Office"
 people.ZoneListName = "Office"
 epObjects += [people]
 
+electricEquipment = ElectricEquipment(getattr(ElectricEquipment, "Default"))
+electricEquipment.Name = "Office"
+electricEquipment.ZoneListName = "Office"
+epObjects += [electricEquipment]
+
+lights = Lights(getattr(Lights, "Default"))
+lights.Name = "Office"
+lights.ZoneListName = "Office"
+epObjects += [lights]
+
+infiltration = DesignFlowRate(getattr(DesignFlowRate, "Default"))
+infiltration.Name = "Office"
+infiltration.ZoneListName = "Office"
+epObjects += [infiltration]
+epObjects += [officeZoneList.GetNaturalVentilationObject()]
 
 epObjects += InitialiseObject('Data', "HVACTemplate:Thermostat")
 epObjects += InitialiseObject('Data', "HVACTemplate:Plant:MixedWaterLoop",)
@@ -95,3 +129,4 @@ for obj in [
     epObjects += InitialiseObject('Data', obj)
 
 print ('\n'.join([str(obj) for obj in epObjects]))
+# print ('\n'.join([str(obj) for obj in epObjects]))

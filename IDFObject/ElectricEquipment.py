@@ -1,10 +1,10 @@
-from IDFObject import IDFObject
+from IDFObject.IDFObject import IDFObject
     
-class ElectricEquipment(IDFObject.IDFObject):
+class ElectricEquipment(IDFObject):
     __IDFName__ = 'ElectricEquipment'
     Properties = [
         'Name',
-        'ZoneorZoneListName',
+        'ZoneListName',
         'ScheduleName',
         'DesignLevelCalculationMethod',
         'DesignLevel',
@@ -17,3 +17,14 @@ class ElectricEquipment(IDFObject.IDFObject):
 
     def __init__(self, propertiesDict: dict()):
         super().__init__(self.Properties, propertiesDict)
+
+ElectricEquipment.Default = dict(
+    ScheduleName = 'Office.ElectricEquipment',
+    DesignLevelCalculationMethod = 'Watts/area',
+    DesignLevel = '',
+    WattsperZoneFloorArea = 12,
+    WattsperPerson = '',
+    FractionLatent = '',
+    FractionRadiant = 0.1,
+    FractionLost = '',
+)

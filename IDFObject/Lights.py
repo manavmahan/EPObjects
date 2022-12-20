@@ -1,10 +1,10 @@
-from IDFObject import IDFObject
+from IDFObject.IDFObject import IDFObject
     
-class Lights(IDFObject.IDFObject):
+class Lights(IDFObject):
     __IDFName__ = 'Lights'
     Properties = [
         'Name',
-        'ZoneorZoneListName',
+        'ZoneListName',
         'ScheduleName',
         'DesignLevelCalculationMethod',
         'LightingLevel',
@@ -18,3 +18,15 @@ class Lights(IDFObject.IDFObject):
 
     def __init__(self, propertiesDict: dict()):
         super().__init__(self.Properties, propertiesDict)
+
+Lights.Default = dict(
+    ScheduleName = 'Office.Lights',
+    DesignLevelCalculationMethod = 'Watts/area',
+    LightingLevel = '',
+    WattsperZoneFloorArea = 7,
+    WattsperPerson = '',
+    ReturnAirFraction = '',
+    FractionRadiant = 0.1,
+    FractionVisible = 0.18,
+    FractionReplaceable = '',
+)

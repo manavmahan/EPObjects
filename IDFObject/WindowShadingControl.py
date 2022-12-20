@@ -16,11 +16,26 @@ class WindowShadingControl(IDFObject.IDFObject):
         'ShadingDeviceMaterialName',
         'TypeofSlatAngleControlforBlinds',
         'SlatAngleScheduleName',
-        'Setpoint2',
+        'Setpoint',
         'DaylightingControlObjectName',
         'MultipleSurfaceControlType',
-        'FenestrationSurface1Name',
+        'FenestrationSurfaceName',
     ]
 
     def __init__(self, propertiesDict: dict()):
         super().__init__(self.Properties, propertiesDict)
+
+WindowShadingControl.Default = dict(
+    ShadingControlSequenceNumber = '',
+    ShadingType = "InteriorShade",
+    ConstructionwithShadingName = '',
+    ShadingControlType = "OnIfHighZoneAirTemperature",
+    ScheduleName = '',
+    Setpoint = 23,
+    ShadingControlIsScheduled = "NO",
+    GlareControlIsActive = "NO",
+    ShadingDeviceMaterialName = "ROLLSHADE",
+    TypeofSlatAngleControlforBlinds = '',
+    SlatAngleScheduleName = '',
+    MultipleSurfaceControlType = '',
+)

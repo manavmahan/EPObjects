@@ -2,8 +2,8 @@ import math
 import numpy as np
 import unittest
 
-from xyz import XYZ
-from xyzList import XYZList
+from XYZ import XYZ
+from XYZList import XYZList
 
 class TestXYZ(unittest.TestCase):
     origin = XYZ()
@@ -37,8 +37,8 @@ class TestXYZList(unittest.TestCase):
         xyzList = XYZList()
         xyzList.AddXYZ(XYZ(0,0,0))
         xyzList.AddXYZ(np.array([0,1,0]))
-        xyzList.AddXYZ(np.array(((1,1,0), (0,1,0))))
-        self.assertEqual('4 #Number of XYZs\n0.0,0.0,0.0,\n0.0,1.0,0.0,\n1.0,1.0,0.0,\n0.0,1.0,0.0; #List of XYZs', xyzList.WriteToIDF())
+        xyzList.AddXYZ(np.array(((1,1,0), (1,0,0))))
+        self.assertEqual('4,0.0,0.0,0.0,0.0,1.0,0.0,1.0,1.0,0.0,1.0,0.0,0.0', str(xyzList))
 
     def testArea(self):
         xyzList = XYZList(np.array(((0,0,4), (1,0,4), (1,1,4), (0,1,4))))
@@ -51,6 +51,21 @@ class TestXYZList(unittest.TestCase):
     def testAreaXYZPlane(self):
         xyzList = XYZList(np.array(((0,0,0), (1,1,0), (1,1,1), (0,0,1))))
         self.assertAlmostEqual(xyzList.Area, 1.414215)
+
+class TestOffset(unittest.TestCase):
+    # def testOffsetLeft(self):
+    #     xyzList = XYZList(np.array(((0,0,4), (1,0,4), (1,1,4), (0,1,4))))
+    #     self.assertRaises(NotImplementedError("This function is only available for inner offsets."), xyzList.Offset(0.25))
+        
+    def testOffsetRight(self):
+        xyzList = XYZList(np.array(((0,0,4), (1,0,4), (1,1,4), (0,1,4))))
+        offset = xyzList.Offset(-0.25)
+        self.assertEqual('4,0.25,0.25,4.0,0.75,0.25,4.0,0.75,0.75,4.0,0.25,0.75,4.0', str(offset))
+
+    # def testOffsetRightInclined(self):
+    #     xyzList = XYZList(np.array(((0,0,0), (1,0,1), (1,1,1), (0,1,0))))
+    #     offset = xyzList.Offset(-0.25)
+    #     self.assertEqual('4,0.25,0.25,4.0,0.75,0.25,4.0,0.75,0.75,4.0,0.25,0.75,4.0', str(offset))
 
 if __name__ == '__main__':
     unittest.main()

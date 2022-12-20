@@ -1,5 +1,13 @@
 from enum import Enum
 
+class Direction(Enum):
+    N = "North"
+    E = "East"
+    W = "West"
+    S = "South"
+    def __str__(self):
+        return str(self.value)
+
 class Distribution(Enum):
     Normal = 'Normal'
     Triangular = 'Triangular'

@@ -1,7 +1,7 @@
 KeyValue,VariableName,ReportingFrequency
 *,Zone Air System Sensible Heating Rate,Annual
 *,Zone Air System Sensible Cooling Rate,Annual
-*,Zone Lights Electric Power,Annual
+*,Zone Lights Electric Energy,Annual
 *,Zone Water to Air Heat Pump Electric Energy,Annual
 *,Boiler Electric Energy,Annual
 *,Chiller Electric Energy,Annual

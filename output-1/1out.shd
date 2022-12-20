@@ -3,46 +3,46 @@ Shadowing Combinations
 ..In the following, only the first 10 reference surfaces will be shown.
 ..But all surfaces are used in the calculations.
 ==================================
-Surface=OFFICE.0.0.WALL.0 is used as Receiving Surface in calculations and is convex.
+Surface=OFFICE.0.0.WALL.0.WEST is used as Receiving Surface in calculations and is convex.
 Number of general casting surfaces=0
 Number of back surfaces=0
 Number of receiving sub surfaces=1
-....Surface=OFFICE.0.0.WALL.0.WINDOW.0
+....Surface=OFFICE.0.0.WALL.0.WEST.WINDOW.0
 ==================================
-Surface=OFFICE.0.0.WALL.0.WINDOW.0 is not used as Receiving Surface in calculations.
+Surface=OFFICE.0.0.WALL.0.WEST.WINDOW.0 is not used as Receiving Surface in calculations.
 Number of general casting surfaces=0
 Number of back surfaces=0
 Number of receiving sub surfaces=0
 ==================================
-Surface=OFFICE.0.0.WALL.1 is used as Receiving Surface in calculations and is convex.
+Surface=OFFICE.0.0.WALL.1.SOUTH is used as Receiving Surface in calculations and is convex.
 Number of general casting surfaces=0
 Number of back surfaces=0
 Number of receiving sub surfaces=1
-....Surface=OFFICE.0.0.WALL.1.WINDOW.0
+....Surface=OFFICE.0.0.WALL.1.SOUTH.WINDOW.0
 ==================================
-Surface=OFFICE.0.0.WALL.1.WINDOW.0 is not used as Receiving Surface in calculations.
+Surface=OFFICE.0.0.WALL.1.SOUTH.WINDOW.0 is not used as Receiving Surface in calculations.
 Number of general casting surfaces=0
 Number of back surfaces=0
 Number of receiving sub surfaces=0
 ==================================
-Surface=OFFICE.0.0.WALL.2 is used as Receiving Surface in calculations and is convex.
+Surface=OFFICE.0.0.WALL.2.EAST is used as Receiving Surface in calculations and is convex.
 Number of general casting surfaces=0
 Number of back surfaces=0
 Number of receiving sub surfaces=1
-....Surface=OFFICE.0.0.WALL.2.WINDOW.0
+....Surface=OFFICE.0.0.WALL.2.EAST.WINDOW.0
 ==================================
-Surface=OFFICE.0.0.WALL.2.WINDOW.0 is not used as Receiving Surface in calculations.
+Surface=OFFICE.0.0.WALL.2.EAST.WINDOW.0 is not used as Receiving Surface in calculations.
 Number of general casting surfaces=0
 Number of back surfaces=0
 Number of receiving sub surfaces=0
 ==================================
-Surface=OFFICE.0.0.WALL.3 is used as Receiving Surface in calculations and is convex.
+Surface=OFFICE.0.0.WALL.3.NORTH is used as Receiving Surface in calculations and is convex.
 Number of general casting surfaces=0
 Number of back surfaces=0
 Number of receiving sub surfaces=1
-....Surface=OFFICE.0.0.WALL.3.WINDOW.0
+....Surface=OFFICE.0.0.WALL.3.NORTH.WINDOW.0
 ==================================
-Surface=OFFICE.0.0.WALL.3.WINDOW.0 is not used as Receiving Surface in calculations.
+Surface=OFFICE.0.0.WALL.3.NORTH.WINDOW.0 is not used as Receiving Surface in calculations.
 Number of general casting surfaces=0
 Number of back surfaces=0
 Number of receiving sub surfaces=0
@@ -57,46 +57,46 @@ Number of general casting surfaces=0
 Number of back surfaces=0
 Number of receiving sub surfaces=0
 ==================================
-Surface=OFFICE.1.0.WALL.0 is used as Receiving Surface in calculations and is convex.
+Surface=OFFICE.1.0.WALL.0.WEST is used as Receiving Surface in calculations and is convex.
 Number of general casting surfaces=0
 Number of back surfaces=0
 Number of receiving sub surfaces=1
-....Surface=OFFICE.1.0.WALL.0.WINDOW.0
+....Surface=OFFICE.1.0.WALL.0.WEST.WINDOW.0
 ==================================
-Surface=OFFICE.1.0.WALL.0.WINDOW.0 is not used as Receiving Surface in calculations.
+Surface=OFFICE.1.0.WALL.0.WEST.WINDOW.0 is not used as Receiving Surface in calculations.
 Number of general casting surfaces=0
 Number of back surfaces=0
 Number of receiving sub surfaces=0
 ==================================
-Surface=OFFICE.1.0.WALL.1 is used as Receiving Surface in calculations and is convex.
+Surface=OFFICE.1.0.WALL.1.SOUTH is used as Receiving Surface in calculations and is convex.
 Number of general casting surfaces=0
 Number of back surfaces=0
 Number of receiving sub surfaces=1
-....Surface=OFFICE.1.0.WALL.1.WINDOW.0
+....Surface=OFFICE.1.0.WALL.1.SOUTH.WINDOW.0
 ==================================
-Surface=OFFICE.1.0.WALL.1.WINDOW.0 is not used as Receiving Surface in calculations.
+Surface=OFFICE.1.0.WALL.1.SOUTH.WINDOW.0 is not used as Receiving Surface in calculations.
 Number of general casting surfaces=0
 Number of back surfaces=0
 Number of receiving sub surfaces=0
 ==================================
-Surface=OFFICE.1.0.WALL.2 is used as Receiving Surface in calculations and is convex.
+Surface=OFFICE.1.0.WALL.2.EAST is used as Receiving Surface in calculations and is convex.
 Number of general casting surfaces=0
 Number of back surfaces=0
 Number of receiving sub surfaces=1
-....Surface=OFFICE.1.0.WALL.2.WINDOW.0
+....Surface=OFFICE.1.0.WALL.2.EAST.WINDOW.0
 ==================================
-Surface=OFFICE.1.0.WALL.2.WINDOW.0 is not used as Receiving Surface in calculations.
+Surface=OFFICE.1.0.WALL.2.EAST.WINDOW.0 is not used as Receiving Surface in calculations.
 Number of general casting surfaces=0
 Number of back surfaces=0
 Number of receiving sub surfaces=0
 ==================================
-Surface=OFFICE.1.0.WALL.3 is used as Receiving Surface in calculations and is convex.
+Surface=OFFICE.1.0.WALL.3.NORTH is used as Receiving Surface in calculations and is convex.
 Number of general casting surfaces=0
 Number of back surfaces=0
 Number of receiving sub surfaces=1
-....Surface=OFFICE.1.0.WALL.3.WINDOW.0
+....Surface=OFFICE.1.0.WALL.3.NORTH.WINDOW.0
 ==================================
-Surface=OFFICE.1.0.WALL.3.WINDOW.0 is not used as Receiving Surface in calculations.
+Surface=OFFICE.1.0.WALL.3.NORTH.WINDOW.0 is not used as Receiving Surface in calculations.
 Number of general casting surfaces=0
 Number of back surfaces=0
 Number of receiving sub surfaces=0
@@ -111,46 +111,46 @@ Number of general casting surfaces=0
 Number of back surfaces=0
 Number of receiving sub surfaces=0
 ==================================
-Surface=OFFICE.2.0.WALL.0 is used as Receiving Surface in calculations and is convex.
+Surface=OFFICE.2.0.WALL.0.WEST is used as Receiving Surface in calculations and is convex.
 Number of general casting surfaces=0
 Number of back surfaces=0
 Number of receiving sub surfaces=1
-....Surface=OFFICE.2.0.WALL.0.WINDOW.0
+....Surface=OFFICE.2.0.WALL.0.WEST.WINDOW.0
 ==================================
-Surface=OFFICE.2.0.WALL.0.WINDOW.0 is not used as Receiving Surface in calculations.
+Surface=OFFICE.2.0.WALL.0.WEST.WINDOW.0 is not used as Receiving Surface in calculations.
 Number of general casting surfaces=0
 Number of back surfaces=0
 Number of receiving sub surfaces=0
 ==================================
-Surface=OFFICE.2.0.WALL.1 is used as Receiving Surface in calculations and is convex.
+Surface=OFFICE.2.0.WALL.1.SOUTH is used as Receiving Surface in calculations and is convex.
 Number of general casting surfaces=0
 Number of back surfaces=0
 Number of receiving sub surfaces=1
-....Surface=OFFICE.2.0.WALL.1.WINDOW.0
+....Surface=OFFICE.2.0.WALL.1.SOUTH.WINDOW.0
 ==================================
-Surface=OFFICE.2.0.WALL.1.WINDOW.0 is not used as Receiving Surface in calculations.
+Surface=OFFICE.2.0.WALL.1.SOUTH.WINDOW.0 is not used as Receiving Surface in calculations.
 Number of general casting surfaces=0
 Number of back surfaces=0
 Number of receiving sub surfaces=0
 ==================================
-Surface=OFFICE.2.0.WALL.2 is used as Receiving Surface in calculations and is convex.
+Surface=OFFICE.2.0.WALL.2.EAST is used as Receiving Surface in calculations and is convex.
 Number of general casting surfaces=0
 Number of back surfaces=0
 Number of receiving sub surfaces=1
-....Surface=OFFICE.2.0.WALL.2.WINDOW.0
+....Surface=OFFICE.2.0.WALL.2.EAST.WINDOW.0
 ==================================
-Surface=OFFICE.2.0.WALL.2.WINDOW.0 is not used as Receiving Surface in calculations.
+Surface=OFFICE.2.0.WALL.2.EAST.WINDOW.0 is not used as Receiving Surface in calculations.
 Number of general casting surfaces=0
 Number of back surfaces=0
 Number of receiving sub surfaces=0
 ==================================
-Surface=OFFICE.2.0.WALL.3 is used as Receiving Surface in calculations and is convex.
+Surface=OFFICE.2.0.WALL.3.NORTH is used as Receiving Surface in calculations and is convex.
 Number of general casting surfaces=0
 Number of back surfaces=0
 Number of receiving sub surfaces=1
-....Surface=OFFICE.2.0.WALL.3.WINDOW.0
+....Surface=OFFICE.2.0.WALL.3.NORTH.WINDOW.0
 ==================================
-Surface=OFFICE.2.0.WALL.3.WINDOW.0 is not used as Receiving Surface in calculations.
+Surface=OFFICE.2.0.WALL.3.NORTH.WINDOW.0 is not used as Receiving Surface in calculations.
 Number of general casting surfaces=0
 Number of back surfaces=0
 Number of receiving sub surfaces=0

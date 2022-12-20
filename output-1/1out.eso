@@ -1,34 +1,40 @@
-Program Version,EnergyPlus, Version 9.2.0-921312fa1d, YMD=2022.12.08 16:32
+Program Version,EnergyPlus, Version 9.2.0-921312fa1d, YMD=2022.12.21 00:03
 1,5,Environment Title[],Latitude[deg],Longitude[deg],Time Zone[],Elevation[m]
 2,8,Day of Simulation[],Month[],Day of Month[],DST Indicator[1=yes 0=no],Hour[],StartMinute[],EndMinute[],DayType
 3,5,Cumulative Day of Simulation[],Month[],Day of Month[],DST Indicator[1=yes 0=no],DayType  ! When Daily Report Variables Requested
 4,2,Cumulative Days of Simulation[],Month[]  ! When Monthly Report Variables Requested
 5,1,Cumulative Days of Simulation[] ! When Run Period Report Variables Requested
 6,1,Calendar Year of Simulation[] ! When Annual Report Variables Requested
-93,11,OFFICE.0.0,Zone Air System Sensible Heating Rate [W] !Annual [Value,Min,Month,Day,Hour,Minute,Max,Month,Day,Hour,Minute]
-94,11,OFFICE.0.0,Zone Air System Sensible Cooling Rate [W] !Annual [Value,Min,Month,Day,Hour,Minute,Max,Month,Day,Hour,Minute]
-133,11,OFFICE.1.0,Zone Air System Sensible Heating Rate [W] !Annual [Value,Min,Month,Day,Hour,Minute,Max,Month,Day,Hour,Minute]
-134,11,OFFICE.1.0,Zone Air System Sensible Cooling Rate [W] !Annual [Value,Min,Month,Day,Hour,Minute,Max,Month,Day,Hour,Minute]
-173,11,OFFICE.2.0,Zone Air System Sensible Heating Rate [W] !Annual [Value,Min,Month,Day,Hour,Minute,Max,Month,Day,Hour,Minute]
-174,11,OFFICE.2.0,Zone Air System Sensible Cooling Rate [W] !Annual [Value,Min,Month,Day,Hour,Minute,Max,Month,Day,Hour,Minute]
-382,11,OFFICE.0.0 WAHP,Zone Water to Air Heat Pump Electric Energy [J] !Annual [Value,Min,Month,Day,Hour,Minute,Max,Month,Day,Hour,Minute]
-383,11,OFFICE.1.0 WAHP,Zone Water to Air Heat Pump Electric Energy [J] !Annual [Value,Min,Month,Day,Hour,Minute,Max,Month,Day,Hour,Minute]
-384,11,OFFICE.2.0 WAHP,Zone Water to Air Heat Pump Electric Energy [J] !Annual [Value,Min,Month,Day,Hour,Minute,Max,Month,Day,Hour,Minute]
-410,11,BOILER1,Boiler Electric Energy [J] !Annual [Value,Min,Month,Day,Hour,Minute,Max,Month,Day,Hour,Minute]
-448,11,MAINTOWER,Cooling Tower Fan Electric Energy [J] !Annual [Value,Min,Month,Day,Hour,Minute,Max,Month,Day,Hour,Minute]
+80,11,OFFICE.0.0,Zone Lights Electric Energy [J] !Annual [Value,Min,Month,Day,Hour,Minute,Max,Month,Day,Hour,Minute]
+106,11,OFFICE.1.0,Zone Lights Electric Energy [J] !Annual [Value,Min,Month,Day,Hour,Minute,Max,Month,Day,Hour,Minute]
+132,11,OFFICE.2.0,Zone Lights Electric Energy [J] !Annual [Value,Min,Month,Day,Hour,Minute,Max,Month,Day,Hour,Minute]
+345,11,OFFICE.0.0,Zone Air System Sensible Heating Rate [W] !Annual [Value,Min,Month,Day,Hour,Minute,Max,Month,Day,Hour,Minute]
+346,11,OFFICE.0.0,Zone Air System Sensible Cooling Rate [W] !Annual [Value,Min,Month,Day,Hour,Minute,Max,Month,Day,Hour,Minute]
+385,11,OFFICE.1.0,Zone Air System Sensible Heating Rate [W] !Annual [Value,Min,Month,Day,Hour,Minute,Max,Month,Day,Hour,Minute]
+386,11,OFFICE.1.0,Zone Air System Sensible Cooling Rate [W] !Annual [Value,Min,Month,Day,Hour,Minute,Max,Month,Day,Hour,Minute]
+425,11,OFFICE.2.0,Zone Air System Sensible Heating Rate [W] !Annual [Value,Min,Month,Day,Hour,Minute,Max,Month,Day,Hour,Minute]
+426,11,OFFICE.2.0,Zone Air System Sensible Cooling Rate [W] !Annual [Value,Min,Month,Day,Hour,Minute,Max,Month,Day,Hour,Minute]
+721,11,OFFICE.0.0 WAHP,Zone Water to Air Heat Pump Electric Energy [J] !Annual [Value,Min,Month,Day,Hour,Minute,Max,Month,Day,Hour,Minute]
+722,11,OFFICE.1.0 WAHP,Zone Water to Air Heat Pump Electric Energy [J] !Annual [Value,Min,Month,Day,Hour,Minute,Max,Month,Day,Hour,Minute]
+723,11,OFFICE.2.0 WAHP,Zone Water to Air Heat Pump Electric Energy [J] !Annual [Value,Min,Month,Day,Hour,Minute,Max,Month,Day,Hour,Minute]
+749,11,BOILER1,Boiler Electric Energy [J] !Annual [Value,Min,Month,Day,Hour,Minute,Max,Month,Day,Hour,Minute]
+787,11,MAINTOWER,Cooling Tower Fan Electric Energy [J] !Annual [Value,Min,Month,Day,Hour,Minute,Max,Month,Day,Hour,Minute]
 End of Data Dictionary
 1,RUNPERIOD1,  48.13,  11.70,   1.00, 529.00
 6,2017
-93,690.9904960766959,0.0, 1, 2,19,45,16542.36482208968, 1, 2, 7,45
-94,429.4983835855622,0.0, 1, 1, 1,15,7889.793623091377, 7,31, 7,45
-133,504.62881608056099,0.0, 1, 2,19,45,20648.460954764356, 1, 2, 7,45
-134,807.1645962592514,0.0, 1, 1, 1,15,12676.404017436496, 7,31, 7,45
-173,983.2217310889546,0.0, 1, 2,19,45,24419.757467853087, 1, 2, 7,45
-174,660.941192760786,0.0, 1, 1, 1,15,12426.528808066409, 8, 7, 7,45
-382,18123901861.87035,0.0, 1, 2,19,45,15269435.21238599, 2,13, 7,45
-383,19116969825.471418,0.0, 1, 2,19,45,13931936.733062786, 1, 2, 7,45
-384,23200573453.541093,0.0, 1, 2,19,45,17208599.64850848, 1, 2, 7,45
-410,67497593324.66131,0.0, 1, 2,19,45,30332750.721231428, 2,13, 7,45
-448,661956176.0984335,0.0, 1, 1, 1,15,365235.4714649351, 8, 3,17,60
+80,31162043228.608098,166698.0, 1, 1, 1,10,1666979.9999999998, 1, 2, 8,40
+106,31271323427.958337,166698.0, 1, 1, 1,10,1666979.9999999998, 1, 2, 8,40
+132,31150595664.830163,166698.0, 1, 1, 1,10,1666979.9999999998, 1, 2, 8,40
+345,826.7570028063415,0.0, 1, 2,19,40,30887.027986468034, 1, 2, 7,40
+346,651.172435765588,0.0, 1, 1, 1,10,12263.806092376757, 8, 4,17,20
+385,616.8783288300305,0.0, 1, 2,19,40,31220.74677776893, 2,13, 7,40
+386,930.002212306451,0.0, 1, 1, 1,10,15544.963111486206, 7,24, 7,40
+425,1173.9205660403086,0.0, 1, 2,19,40,34355.17132146645, 2,13, 7,40
+426,847.9994846648626,0.0, 1, 1, 1,10,15850.010018407218, 7,24, 7,40
+721,21410820209.08449,0.0, 1, 2,19,40,15153305.306365777, 2,13, 7,40
+722,22465988793.467214,0.0, 1, 2,19,40,14192721.939506984, 2,13, 7,40
+723,28118401226.509698,0.0, 1, 2,19,40,15931686.860492414, 2,13, 7,40
+749,68052333032.71754,0.0, 1, 2,19,40,33298894.346757775, 2,13, 8,10
+787,894801119.7209457,0.0, 1, 1, 1,10,389749.34729518598, 8, 3,17,30
 End of Data
- Number of Records Written=          11
+ Number of Records Written=          14

@@ -1,8 +1,11 @@
 import numpy as np
 from scipy.spatial.transform import Rotation
+from shapely.geometry import LinearRing
+from shapely.geometry import Point
+from shapely.geometry.polygon import Polygon
 
-from .Plane import Plane
-from .XYZ import XYZ
+from GeometryObject.Plane import Plane
+from GeometryObject.XYZ import XYZ
 
 class XYZList:
     XYZs = np.empty(shape=(0,3))
@@ -37,6 +40,8 @@ class XYZList:
         return self.XYZs(*args, **kwds)
 
     def __init__(self, *xyzs) -> None:
+        if len(xyzs) == 0:
+            return
         if isinstance(xyzs[0], str):
             xyzsNew = np.array(xyzs[0].split(';')[1:], dtype=np.float16).reshape(-1,3)
         else:
@@ -48,17 +53,28 @@ class XYZList:
         return f'''{len(self.XYZs)},{','.join(str(XYZ(p)) for p in self.XYZs)}'''
 
     def AddXYZ(self, xyz):
+        nXYZ = None
         if isinstance(xyz, XYZ):
-            self.XYZs = np.concatenate((self.XYZs, xyz.Coords.reshape(-1, 3)), axis=0)
+            nXYZ = xyz.Coords.reshape(-1, 3)
         elif isinstance(xyz, np.ndarray):
-            if len(xyz) == 3:
-                self.XYZs = np.concatenate((self.XYZs, xyz.reshape(-1, 3)), axis=0)
-            elif xyz.shape[1] == 3:
-                self.XYZs = np.concatenate((self.XYZs, xyz), axis=0)
+            if len(xyz) == 3: nXYZ = xyz.reshape(-1, 3)
+            elif xyz.shape[1] == 3: 
+                self.AddXYZs(xyz)
+                return
             else:
                 raise Exception(f"Invalid argument type: {xyz}")
         else:
             raise Exception(f"Invalid argument type: {xyz}")
+
+        if nXYZ is None: return
+        nXYZ = np.round(nXYZ, self.__round)
+        
+        if not any(np.equal(self.XYZs, nXYZ).all(1)):
+            self.XYZs = np.concatenate((self.XYZs, nXYZ.reshape(-1, 3)), axis=0)
+
+    def AddXYZs(self, xyzs):
+        for xyz in xyzs:
+            self.AddXYZ(xyz)
 
     def ChangeZCoordinate(self, z: float) -> None:
         self.XYZs[:, 2] = round(z, self.__round)
@@ -86,6 +102,27 @@ class XYZList:
         x = xyzs[:, 0]
         y = xyzs[:, 1]
         return np.round(np.dot(x, np.roll(y, 1)) - np.dot(y, np.roll(x, 1)), 5)
+
+    def IsInside(self, point):
+        polygon = Polygon(self.XYZs)
+        return polygon.contains(Point(point))
+
+    def Offset(self, distance: float):
+        if distance > 0:
+            raise NotImplementedError("This function is only available for inner offsets.")
+        rotation = self.Plane.RotationMatrix()
+        if rotation is not None:
+            raise NotImplementedError("This function is only available for only planes parallel to XY.")
+        xyzs = rotation.apply(self.XYZs) if rotation is not None else self.XYZs
+        
+        lineString = LinearRing(xyzs)
+        offset = lineString.parallel_offset(distance, resolution=0, join_style=2)
+
+        offset = np.concatenate([np.array(offset.coords), np.ones([len(offset.coords), 1]) * self.XYZs[0, 2]], axis=1)
+        if rotation is not None: 
+            reverseRotation = rotation.inv()
+            reverseRotation.apply(offset)
+        return XYZList(offset)
 
     def Rotate(self, angle: float, axis=np.array((0, 0, 1))):
         matrix = Rotation.from_rotvec(angle * axis)
