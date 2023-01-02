@@ -39,9 +39,28 @@ class Controls(IDFObject):
 
     def __init__(self, propertiesDict: dict()):
         super().__init__(self.Properties, propertiesDict)
-        self.Initialise(propertiesDict['DLPoints'], propertiesDict['Illuminance'])
+        self.Initialise()
 
-    def Initialise(self, points, illuminance):
+    def Initialise(self,):
+        if  not hasattr(self, 'DaylightingReferencePoints'):
+            return
+        
+        dlpArray = self.DaylightingReferencePoints.split(',')
+        n = int (len(dlpArray) // 3)
+        dlPoints = []
+        for i, point in enumerate(dlpArray[0::3]):
+            dlPoints += [
+                ReferencePoint(
+                    dict(
+                        Name = point,
+                        PartControlled = dlpArray[i*3 + 1],
+                        IlluminanceSetpoint = dlpArray[i*3 + 2],
+                    )
+                )
+            ]
+        self.DaylightingReferencePoints = ListObject(dlPoints)
+
+    def AddDLPoints(self, points, illuminance):
         dlPoints = []
         n = len(points)
         for i, point in enumerate(points):

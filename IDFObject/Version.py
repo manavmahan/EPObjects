@@ -1,6 +1,7 @@
-from IDFObject import IDFObject
+import json
+from IDFObject.IDFObject import IDFObject
     
-class Version(IDFObject.IDFObject):
+class Version(IDFObject):
     __IDFName__ = 'Version'
     Properties = [
         'VersionIdentifier',

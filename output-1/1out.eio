@@ -1,4 +1,4 @@
-Program Version,EnergyPlus, Version 9.2.0-921312fa1d, YMD=2022.12.21 00:03
+Program Version,EnergyPlus, Version 9.2.0-921312fa1d, YMD=2023.01.02 05:34
 ! <Version>, Version ID
  Version, 9.2.0
 ! <Timesteps per Hour>, #TimeSteps, Minutes per TimeStep {minutes}
@@ -32,7 +32,7 @@ Site:Location,MUNICH - DEU IWEC Data WMO#=108660,48.13,11.70,1.00,529.00,95129,1
 ! <Site Water Mains Temperature Information>,Calculation Method{},Water Mains Temperature Schedule Name{},Annual Average Outdoor Air Temperature{C},Maximum Difference In Monthly Average Outdoor Air Temperatures{deltaC},Fixed Default Water Mains Temperature{C}
 Site Water Mains Temperature Information,FixedDefault,NA,NA,NA,10.0
 ! <Building Information>, Building Name,North Axis {deg},Terrain,  Loads Convergence Tolerance Value,Temperature Convergence Tolerance Value,  Solar Distribution,Maximum Number of Warmup Days,Minimum Number of Warmup Days
- Building Information,Building1,0.000,Suburbs,4.00000E-002,0.40000,FullExterior,10,6
+ Building Information,Building1,0.000,Suburbs,4.00000E-002,0.40000,FullExterior,25,6
 ! <Inside Convection Algorithm>, Algorithm {Simple | TARP | CeilingDiffuser | AdaptiveConvectionAlgorithm}
 Inside Convection Algorithm,TARP
 ! <Outside Convection Algorithm>, Algorithm {SimpleCombined | TARP | MoWitt | DOE-2 | AdaptiveConvectionAlgorithm}
@@ -58,31 +58,31 @@ Surface Heat Transfer Algorithm, CTF - ConductionTransferFunction,200,0.10,1000.
 ! <Shading Summary>, Number of Fixed Detached Shades, Number of Building Detached Shades, Number of Attached Shades
  Shading Summary,0,0,0
 ! <Zone Summary>, Number of Zones, Number of Zone Surfaces, Number of SubSurfaces
- Zone Summary,3,30,12
+ Zone Summary,3,33,12
 ! <Zone Information>,Zone Name,North Axis {deg},Origin X-Coordinate {m},Origin Y-Coordinate {m},Origin Z-Coordinate {m},Centroid X-Coordinate {m},Centroid Y-Coordinate {m},Centroid Z-Coordinate {m},Type,Zone Multiplier,Zone List Multiplier,Minimum X {m},Maximum X {m},Minimum Y {m},Maximum Y {m},Minimum Z {m},Maximum Z {m},Ceiling Height {m},Volume {m3},Zone Inside Convection Algorithm {Simple-Detailed-CeilingDiffuser-TrombeWall},Zone Outside Convection Algorithm {Simple-Detailed-Tarp-MoWitt-DOE-2-BLAST}, Floor Area {m2},Exterior Gross Wall Area {m2},Exterior Net Wall Area {m2},Exterior Window Area {m2}, Number of Surfaces, Number of SubSurfaces, Number of Shading SubSurfaces,  Part of Total Building Area
- Zone Information, OFFICE.0.0,0.0,0.00,0.00,0.00,7.35,13.50,1.55,1,1,1,0.00,14.70,0.00,27.00,0.00,3.10,3.10,1230.39,TARP,DOE-2,396.90,258.54,180.98,77.56,6,4,0,Yes
- Zone Information, OFFICE.1.0,0.0,0.00,0.00,0.00,7.35,13.50,4.65,1,1,1,0.00,14.70,0.00,27.00,3.10,6.20,3.10,1230.39,TARP,DOE-2,396.90,258.54,180.98,77.56,6,4,0,Yes
- Zone Information, OFFICE.2.0,0.0,0.00,0.00,0.00,7.35,13.50,7.75,1,1,1,0.00,14.70,0.00,27.00,6.20,9.30,3.10,1230.39,TARP,DOE-2,396.90,258.54,180.98,77.56,6,4,0,Yes
+ Zone Information, OFFICE.0.0,0.0,0.00,0.00,0.00,13.12,15.37,1.55,1,1,1,0.00,26.23,0.00,30.73,0.00,3.10,3.10,1230.39,TARP,DOE-2,396.90,258.54,180.98,77.56,6,4,0,Yes
+ Zone Information, OFFICE.1.0,0.0,0.00,0.00,0.00,13.12,15.37,4.65,1,1,1,0.00,26.23,0.00,30.73,3.10,6.20,3.10,1230.39,TARP,DOE-2,396.90,258.54,180.98,77.56,6,4,0,Yes
+ Zone Information, OFFICE.2.0,0.0,0.00,0.00,0.00,13.12,15.37,7.75,1,1,1,0.00,26.23,0.00,30.73,6.20,9.30,3.10,1230.39,TARP,DOE-2,396.90,258.54,180.98,77.56,6,4,0,Yes
 ! <Zone Internal Gains Nominal>,Zone Name, Floor Area {m2},# Occupants,Area per Occupant {m2/person},Occupant per Area {person/m2},Interior Lighting {W/m2},Electric Load {W/m2},Gas Load {W/m2},Other Load {W/m2},Hot Water Eq {W/m2},Steam Equipment {W/m2},Sum Loads per Area {W/m2},Outdoor Controlled Baseboard Heat
- Zone Internal Gains Nominal, OFFICE.0.0,396.90,18.0,22.000,4.545E-002,7.000,12.000,0.000,0.000,0.000,0.000,19.000,No
- Zone Internal Gains Nominal, OFFICE.1.0,396.90,18.0,22.000,4.545E-002,7.000,12.000,0.000,0.000,0.000,0.000,19.000,No
- Zone Internal Gains Nominal, OFFICE.2.0,396.90,18.0,22.000,4.545E-002,7.000,12.000,0.000,0.000,0.000,0.000,19.000,No
+ Zone Internal Gains Nominal, OFFICE.0.0,396.90,19.8,20.000,5.000E-002,6.000,10.000,0.000,0.000,0.000,0.000,16.000,No
+ Zone Internal Gains Nominal, OFFICE.1.0,396.90,19.8,20.000,5.000E-002,6.000,10.000,0.000,0.000,0.000,0.000,16.000,No
+ Zone Internal Gains Nominal, OFFICE.2.0,396.90,19.8,20.000,5.000E-002,6.000,10.000,0.000,0.000,0.000,0.000,16.000,No
 ! <People Internal Gains Nominal>,Name,Schedule Name,Zone Name,Zone Floor Area {m2},# Zone Occupants,Number of People {},People/Floor Area {person/m2},Floor Area per person {m2/person},Fraction Radiant,Fraction Convected,Sensible Fraction Calculation,Activity level,ASHRAE 55 Warnings,Carbon Dioxide Generation Rate,Nominal Minimum Number of People,Nominal Maximum Number of People,MRT Calculation Type,Work Efficiency, Clothing Insulation Calculation Method,Clothing Insulation Calculation Method Schedule,Clothing,Air Velocity,Fanger Calculation,Pierce Calculation,KSU Calculation
- People Internal Gains Nominal, OFFICE.0.0 OFFICE,OFFICE.PEOPLE,OFFICE.0.0,396.90,18.0,18.0,4.545E-002,22.000,0.100,0.900,AutoCalculate,OFFICE.ACTIVITY,No,3.8200E-008,0,18,Zone Averaged,ALWAYS1,Dynamic Clothing Model ASHRAE55,N/A,Constant-1.0,ALWAYS1,Yes,No,No
- People Internal Gains Nominal, OFFICE.1.0 OFFICE,OFFICE.PEOPLE,OFFICE.1.0,396.90,18.0,18.0,4.545E-002,22.000,0.100,0.900,AutoCalculate,OFFICE.ACTIVITY,No,3.8200E-008,0,18,Zone Averaged,ALWAYS1,Dynamic Clothing Model ASHRAE55,N/A,Constant-1.0,ALWAYS1,Yes,No,No
- People Internal Gains Nominal, OFFICE.2.0 OFFICE,OFFICE.PEOPLE,OFFICE.2.0,396.90,18.0,18.0,4.545E-002,22.000,0.100,0.900,AutoCalculate,OFFICE.ACTIVITY,No,3.8200E-008,0,18,Zone Averaged,ALWAYS1,Dynamic Clothing Model ASHRAE55,N/A,Constant-1.0,ALWAYS1,Yes,No,No
+ People Internal Gains Nominal, OFFICE.0.0 PEOPLE.OFFICE,OFFICE.PEOPLE,OFFICE.0.0,396.90,19.8,19.8,5.000E-002,20.000,0.100,0.900,AutoCalculate,OFFICE.ACTIVITY,No,3.8200E-008,0,20,Zone Averaged,ALWAYS1,Dynamic Clothing Model ASHRAE55,N/A,Constant-1.0,ALWAYS0.1,Yes,No,No
+ People Internal Gains Nominal, OFFICE.1.0 PEOPLE.OFFICE,OFFICE.PEOPLE,OFFICE.1.0,396.90,19.8,19.8,5.000E-002,20.000,0.100,0.900,AutoCalculate,OFFICE.ACTIVITY,No,3.8200E-008,0,20,Zone Averaged,ALWAYS1,Dynamic Clothing Model ASHRAE55,N/A,Constant-1.0,ALWAYS0.1,Yes,No,No
+ People Internal Gains Nominal, OFFICE.2.0 PEOPLE.OFFICE,OFFICE.PEOPLE,OFFICE.2.0,396.90,19.8,19.8,5.000E-002,20.000,0.100,0.900,AutoCalculate,OFFICE.ACTIVITY,No,3.8200E-008,0,20,Zone Averaged,ALWAYS1,Dynamic Clothing Model ASHRAE55,N/A,Constant-1.0,ALWAYS0.1,Yes,No,No
 ! <Lights Internal Gains Nominal>,Name,Schedule Name,Zone Name,Zone Floor Area {m2},# Zone Occupants,Lighting Level {W},Lights/Floor Area {W/m2},Lights per person {W/person},Fraction Return Air,Fraction Radiant,Fraction Short Wave,Fraction Convected,Fraction Replaceable,End-Use Category,Nominal Minimum Lighting Level {W},Nominal Maximum Lighting Level {W}
- Lights Internal Gains Nominal, OFFICE.0.0 OFFICE,OFFICE.LIGHTS,OFFICE.0.0,396.90,18.0,2778.300,7.000,154.000,0.000,0.100,0.180,0.720,1.000,General,277.830,2778.300
- Lights Internal Gains Nominal, OFFICE.1.0 OFFICE,OFFICE.LIGHTS,OFFICE.1.0,396.90,18.0,2778.300,7.000,154.000,0.000,0.100,0.180,0.720,1.000,General,277.830,2778.300
- Lights Internal Gains Nominal, OFFICE.2.0 OFFICE,OFFICE.LIGHTS,OFFICE.2.0,396.90,18.0,2778.300,7.000,154.000,0.000,0.100,0.180,0.720,1.000,General,277.830,2778.300
+ Lights Internal Gains Nominal, OFFICE.0.0 LIGHTS.OFFICE,OFFICE.LIGHTS,OFFICE.0.0,396.90,19.8,2381.400,6.000,120.000,0.000,0.100,0.180,0.720,1.000,General,238.140,2381.400
+ Lights Internal Gains Nominal, OFFICE.1.0 LIGHTS.OFFICE,OFFICE.LIGHTS,OFFICE.1.0,396.90,19.8,2381.400,6.000,120.000,0.000,0.100,0.180,0.720,1.000,General,238.140,2381.400
+ Lights Internal Gains Nominal, OFFICE.2.0 LIGHTS.OFFICE,OFFICE.LIGHTS,OFFICE.2.0,396.90,19.8,2381.400,6.000,120.000,0.000,0.100,0.180,0.720,1.000,General,238.140,2381.400
 ! <ElectricEquipment Internal Gains Nominal>,Name,Schedule Name,Zone Name,Zone Floor Area {m2},# Zone Occupants,Equipment Level {W},Equipment/Floor Area {W/m2},Equipment per person {W/person},Fraction Latent,Fraction Radiant,Fraction Lost,Fraction Convected,End-Use SubCategory,Nominal Minimum Equipment Level {W},Nominal Maximum Equipment Level {W}
- ElectricEquipment Internal Gains Nominal, OFFICE.0.0 OFFICE,OFFICE.ELECTRICEQUIPMENT,OFFICE.0.0,396.90,18.0,4762.800,12.000,264.000,0.000,0.100,0.000,0.900,General,476.280,4762.800
- ElectricEquipment Internal Gains Nominal, OFFICE.1.0 OFFICE,OFFICE.ELECTRICEQUIPMENT,OFFICE.1.0,396.90,18.0,4762.800,12.000,264.000,0.000,0.100,0.000,0.900,General,476.280,4762.800
- ElectricEquipment Internal Gains Nominal, OFFICE.2.0 OFFICE,OFFICE.ELECTRICEQUIPMENT,OFFICE.2.0,396.90,18.0,4762.800,12.000,264.000,0.000,0.100,0.000,0.900,General,476.280,4762.800
+ ElectricEquipment Internal Gains Nominal, OFFICE.0.0 PEOPLE.OFFICE,OFFICE.ELECTRICEQUIPMENT,OFFICE.0.0,396.90,19.8,3969.000,10.000,200.000,0.000,0.100,0.000,0.900,General,396.900,3969.000
+ ElectricEquipment Internal Gains Nominal, OFFICE.1.0 PEOPLE.OFFICE,OFFICE.ELECTRICEQUIPMENT,OFFICE.1.0,396.90,19.8,3969.000,10.000,200.000,0.000,0.100,0.000,0.900,General,396.900,3969.000
+ ElectricEquipment Internal Gains Nominal, OFFICE.2.0 PEOPLE.OFFICE,OFFICE.ELECTRICEQUIPMENT,OFFICE.2.0,396.90,19.8,3969.000,10.000,200.000,0.000,0.100,0.000,0.900,General,396.900,3969.000
 ! <Solar View Factor Check Values>,Zone/Enclosure Name,Original Check Value,Calculated Fixed Check Value,Final Check Value,Number of Iterations,Fixed RowSum Convergence,Used RowSum Convergence
-Solar View Factor Check Values,OFFICE.0.0,1.776357E-015,8.069431E-004,8.069431E-004,14,8.069431E-004,8.069431E-004
-Solar View Factor Check Values,OFFICE.1.0,1.776357E-015,8.069431E-004,8.069431E-004,14,8.069431E-004,8.069431E-004
-Solar View Factor Check Values,OFFICE.2.0,1.776357E-015,8.069431E-004,8.069431E-004,14,8.069431E-004,8.069431E-004
+Solar View Factor Check Values,OFFICE.0.0,1.776357E-015,6.945272E-004,6.945272E-004,12,6.945272E-004,6.945272E-004
+Solar View Factor Check Values,OFFICE.1.0,1.776357E-015,6.945272E-004,6.945272E-004,12,6.945272E-004,6.945272E-004
+Solar View Factor Check Values,OFFICE.2.0,1.776357E-015,6.945272E-004,6.945272E-004,12,6.945272E-004,6.945272E-004
 ! <Shadowing/Sun Position Calculations Annual Simulations>, Calculation Method, Value {days}, Allowable Number Figures in Shadow Overlap {}, Polygon Clipping Algorithm, Sky Diffuse Modeling Algorithm, External Shading Calculation Method, Output External Shading Calculation Results, Disable Self-Shading Within Shading Zone Groups, Disable Self-Shading From Shading Zone Groups to Other Zones
 Shadowing/Sun Position Calculations Annual Simulations,AverageOverDaysInFrequency,20,15000,SutherlandHodgman,SimpleSkyDiffuseModeling,InternalCalculation,No,No,No
 ! <Zone/Window Adjacency Daylighting Counts>, Zone Name, Number of Exterior Windows, Number of Exterior Windows in Adjacent Zones
@@ -94,17 +94,20 @@ Zone/Window Adjacency Daylighting Matrix, OFFICE.0.0,0
 Zone/Window Adjacency Daylighting Matrix, OFFICE.1.0,0
 Zone/Window Adjacency Daylighting Matrix, OFFICE.2.0,0
 ! <Surface View Factor Check Values>,Zone/Enclosure Name,Original Check Value,Calculated Fixed Check Value,Final Check Value,Number of Iterations,Fixed RowSum Convergence,Used RowSum Convergence
-Surface View Factor Check Values,OFFICE.0.0,1.776357E-015,8.069431E-004,8.069431E-004,14,8.069431E-004,8.069431E-004
-Surface View Factor Check Values,OFFICE.1.0,1.776357E-015,8.069431E-004,8.069431E-004,14,8.069431E-004,8.069431E-004
-Surface View Factor Check Values,OFFICE.2.0,1.776357E-015,8.069431E-004,8.069431E-004,14,8.069431E-004,8.069431E-004
+Surface View Factor Check Values,OFFICE.0.0,1.776357E-015,6.945272E-004,6.945272E-004,12,6.945272E-004,6.945272E-004
+Surface View Factor Check Values,OFFICE.1.0,1.776357E-015,6.945272E-004,6.945272E-004,12,6.945272E-004,6.945272E-004
+Surface View Factor Check Values,OFFICE.2.0,1.776357E-015,6.945272E-004,6.945272E-004,12,6.945272E-004,6.945272E-004
 ! <ZoneInfiltration Airflow Stats Nominal>,Name,Schedule Name,Zone Name, Zone Floor Area {m2}, # Zone Occupants,Design Volume Flow Rate {m3/s},Volume Flow Rate/Floor Area {m3/s-m2},Volume Flow Rate/Exterior Surface Area {m3/s-m2},ACH - Air Changes per Hour,Equation A - Constant Term Coefficient {},Equation B - Temperature Term Coefficient {1/C},Equation C - Velocity Term Coefficient {s/m}, Equation D - Velocity Squared Term Coefficient {s2/m2}
- ZoneInfiltration Airflow Stats Nominal, OFFICE.0.0 OFFICE,ALWAYS1,OFFICE.0.0,396.90,18.0,0.106,2.669E-004,4.098E-004,0.310,0.606,3.636E-002,0.118,0.000
- ZoneInfiltration Airflow Stats Nominal, OFFICE.1.0 OFFICE,ALWAYS1,OFFICE.1.0,396.90,18.0,0.106,2.669E-004,4.098E-004,0.310,0.606,3.636E-002,0.118,0.000
- ZoneInfiltration Airflow Stats Nominal, OFFICE.2.0 OFFICE,ALWAYS1,OFFICE.2.0,396.90,18.0,0.106,2.669E-004,1.616E-004,0.310,0.606,3.636E-002,0.118,0.000
+ ZoneInfiltration Airflow Stats Nominal, OFFICE.0.0 INFILTRATION FOR OFFICE,ALWAYS1,OFFICE.0.0,396.90,19.8,0.110,2.783E-004,4.273E-004,0.323,0.606,3.636E-002,0.118,0.000
+ ZoneInfiltration Airflow Stats Nominal, OFFICE.1.0 INFILTRATION FOR OFFICE,ALWAYS1,OFFICE.1.0,396.90,19.8,0.110,2.783E-004,4.273E-004,0.323,0.606,3.636E-002,0.118,0.000
+ ZoneInfiltration Airflow Stats Nominal, OFFICE.2.0 INFILTRATION FOR OFFICE,ALWAYS1,OFFICE.2.0,396.90,19.8,0.110,2.783E-004,1.685E-004,0.323,0.606,3.636E-002,0.118,0.000
 ! <ZoneVentilation Airflow Stats Nominal>,Name,Schedule Name,Zone Name, Zone Floor Area {m2}, # Zone Occupants,Design Volume Flow Rate {m3/s},Volume Flow Rate/Floor Area {m3/s-m2},Volume Flow Rate/person Area {m3/s-person},ACH - Air Changes per Hour,Fan Type {Exhaust;Intake;Natural},Fan Pressure Rise {Pa},Fan Efficiency {},Equation A - Constant Term Coefficient {},Equation B - Temperature Term Coefficient {1/C},Equation C - Velocity Term Coefficient {s/m}, Equation D - Velocity Squared Term Coefficient {s2/m2},Minimum Indoor Temperature{C}/Schedule,Maximum Indoor Temperature{C}/Schedule,Delta Temperature{C}/Schedule,Minimum Outdoor Temperature{C}/Schedule,Maximum Outdoor Temperature{C}/Schedule,Maximum WindSpeed{m/s}
- ZoneVentilation Airflow Stats Nominal, OFFICE.0.0 NATURAL VENTILATION FOR OFFICE,OFFICE.PEOPLE,OFFICE.0.0,396.90,18.0,0.684,1.722E-003,3.789E-002,2.000,Natural,0.000,1.0,1.000,0.000,0.000,0.000,23.00,24.90,1.00,-100.00,100.00,40.00
- ZoneVentilation Airflow Stats Nominal, OFFICE.1.0 NATURAL VENTILATION FOR OFFICE,OFFICE.PEOPLE,OFFICE.1.0,396.90,18.0,0.684,1.722E-003,3.789E-002,2.000,Natural,0.000,1.0,1.000,0.000,0.000,0.000,23.00,24.90,1.00,-100.00,100.00,40.00
- ZoneVentilation Airflow Stats Nominal, OFFICE.2.0 NATURAL VENTILATION FOR OFFICE,OFFICE.PEOPLE,OFFICE.2.0,396.90,18.0,0.684,1.722E-003,3.789E-002,2.000,Natural,0.000,1.0,1.000,0.000,0.000,0.000,23.00,24.90,1.00,-100.00,100.00,40.00
+ ZoneVentilation Airflow Stats Nominal, OFFICE.0.0 DEFAULT VENTILATION FOR OFFICE,OFFICE.PEOPLE,OFFICE.0.0,396.90,19.8,0.187,4.720E-004,9.440E-003,0.548,Balanced,1.000,1.0,1.000,0.000,0.000,0.000,-100.00,100.00,1.00,-100.00,100.00,40.00
+ ZoneVentilation Airflow Stats Nominal, OFFICE.1.0 DEFAULT VENTILATION FOR OFFICE,OFFICE.PEOPLE,OFFICE.1.0,396.90,19.8,0.187,4.720E-004,9.440E-003,0.548,Balanced,1.000,1.0,1.000,0.000,0.000,0.000,-100.00,100.00,1.00,-100.00,100.00,40.00
+ ZoneVentilation Airflow Stats Nominal, OFFICE.2.0 DEFAULT VENTILATION FOR OFFICE,OFFICE.PEOPLE,OFFICE.2.0,396.90,19.8,0.187,4.720E-004,9.440E-003,0.548,Balanced,1.000,1.0,1.000,0.000,0.000,0.000,-100.00,100.00,1.00,-100.00,100.00,40.00
+ ZoneVentilation Airflow Stats Nominal, OFFICE.0.0 NATURAL VENTILATION FOR OFFICE,OFFICE.PEOPLE,OFFICE.0.0,396.90,19.8,0.684,1.722E-003,3.444E-002,2.000,Natural,0.000,1.0,1.000,0.000,0.000,0.000,23.00,24.90,1.00,-100.00,100.00,40.00
+ ZoneVentilation Airflow Stats Nominal, OFFICE.1.0 NATURAL VENTILATION FOR OFFICE,OFFICE.PEOPLE,OFFICE.1.0,396.90,19.8,0.684,1.722E-003,3.444E-002,2.000,Natural,0.000,1.0,1.000,0.000,0.000,0.000,23.00,24.90,1.00,-100.00,100.00,40.00
+ ZoneVentilation Airflow Stats Nominal, OFFICE.2.0 NATURAL VENTILATION FOR OFFICE,OFFICE.PEOPLE,OFFICE.2.0,396.90,19.8,0.684,1.722E-003,3.444E-002,2.000,Natural,0.000,1.0,1.000,0.000,0.000,0.000,23.00,24.90,1.00,-100.00,100.00,40.00
 ! <AirFlow Model>, Simple
  AirFlow Model, Simple
 ! <RoomAir Model>, Zone Name, Mixing/Mundt/UCSDDV/UCSDCV/UCSDUFI/UCSDUFE/User Defined
@@ -128,133 +131,133 @@ Zone Volume Capacitance Multiplier,   1.000 ,   1.000,   1.000,   1.000
  Cooling Sizing Factor Information, Zone OFFICE.1.0,   1.2000    
  Cooling Sizing Factor Information, Zone OFFICE.2.0,   1.2000    
 ! <Sky Daylight Factors>, MonthAndDay, Zone Name, Window Name, Daylight Fac: Ref Pt #1, Daylight Fac: Ref Pt #2
- Clear Sky Daylight Factors,07/18,OFFICE.0.0,OFFICE.0.0.WALL.0.WEST.WINDOW.0,2.0489E-003,2.1466E-003
- Clear Turbid Sky Daylight Factors,07/18,OFFICE.0.0,OFFICE.0.0.WALL.0.WEST.WINDOW.0,1.6812E-003,1.7973E-003
- Intermediate Sky Daylight Factors,07/18,OFFICE.0.0,OFFICE.0.0.WALL.0.WEST.WINDOW.0,1.1356E-003,1.2711E-003
- Overcast Sky Daylight Factors,07/18,OFFICE.0.0,OFFICE.0.0.WALL.0.WEST.WINDOW.0,1.4066E-003,1.4066E-003
- Clear Sky Daylight Factors,07/18,OFFICE.0.0,OFFICE.0.0.WALL.1.SOUTH.WINDOW.0,9.0670E-004,4.9174E-004
- Clear Turbid Sky Daylight Factors,07/18,OFFICE.0.0,OFFICE.0.0.WALL.1.SOUTH.WINDOW.0,8.5076E-004,4.8003E-004
- Intermediate Sky Daylight Factors,07/18,OFFICE.0.0,OFFICE.0.0.WALL.1.SOUTH.WINDOW.0,6.1853E-004,3.9078E-004
- Overcast Sky Daylight Factors,07/18,OFFICE.0.0,OFFICE.0.0.WALL.1.SOUTH.WINDOW.0,3.9884E-004,2.7000E-004
- Clear Sky Daylight Factors,07/18,OFFICE.0.0,OFFICE.0.0.WALL.2.EAST.WINDOW.0,9.2570E-004,9.6445E-004
- Clear Turbid Sky Daylight Factors,07/18,OFFICE.0.0,OFFICE.0.0.WALL.2.EAST.WINDOW.0,8.0611E-004,8.4996E-004
- Intermediate Sky Daylight Factors,07/18,OFFICE.0.0,OFFICE.0.0.WALL.2.EAST.WINDOW.0,6.1468E-004,6.5749E-004
- Overcast Sky Daylight Factors,07/18,OFFICE.0.0,OFFICE.0.0.WALL.2.EAST.WINDOW.0,6.2089E-004,6.2089E-004
- Clear Sky Daylight Factors,07/18,OFFICE.0.0,OFFICE.0.0.WALL.3.NORTH.WINDOW.0,2.7771E-004,5.5451E-004
- Clear Turbid Sky Daylight Factors,07/18,OFFICE.0.0,OFFICE.0.0.WALL.3.NORTH.WINDOW.0,2.2915E-004,4.3729E-004
- Intermediate Sky Daylight Factors,07/18,OFFICE.0.0,OFFICE.0.0.WALL.3.NORTH.WINDOW.0,1.6656E-004,2.4704E-004
- Overcast Sky Daylight Factors,07/18,OFFICE.0.0,OFFICE.0.0.WALL.3.NORTH.WINDOW.0,2.7000E-004,3.9884E-004
- Clear Sky Daylight Factors,07/18,OFFICE.1.0,OFFICE.1.0.WALL.0.WEST.WINDOW.0,2.0558E-003,2.1535E-003
- Clear Turbid Sky Daylight Factors,07/18,OFFICE.1.0,OFFICE.1.0.WALL.0.WEST.WINDOW.0,1.6867E-003,1.8028E-003
- Intermediate Sky Daylight Factors,07/18,OFFICE.1.0,OFFICE.1.0.WALL.0.WEST.WINDOW.0,1.1398E-003,1.2753E-003
- Overcast Sky Daylight Factors,07/18,OFFICE.1.0,OFFICE.1.0.WALL.0.WEST.WINDOW.0,1.4126E-003,1.4126E-003
- Clear Sky Daylight Factors,07/18,OFFICE.1.0,OFFICE.1.0.WALL.1.SOUTH.WINDOW.0,9.1507E-004,5.0012E-004
- Clear Turbid Sky Daylight Factors,07/18,OFFICE.1.0,OFFICE.1.0.WALL.1.SOUTH.WINDOW.0,8.5903E-004,4.8830E-004
- Intermediate Sky Daylight Factors,07/18,OFFICE.1.0,OFFICE.1.0.WALL.1.SOUTH.WINDOW.0,6.2491E-004,3.9716E-004
- Overcast Sky Daylight Factors,07/18,OFFICE.1.0,OFFICE.1.0.WALL.1.SOUTH.WINDOW.0,4.0226E-004,2.7343E-004
- Clear Sky Daylight Factors,07/18,OFFICE.1.0,OFFICE.1.0.WALL.2.EAST.WINDOW.0,9.3410E-004,9.7285E-004
- Clear Turbid Sky Daylight Factors,07/18,OFFICE.1.0,OFFICE.1.0.WALL.2.EAST.WINDOW.0,8.1334E-004,8.5719E-004
- Intermediate Sky Daylight Factors,07/18,OFFICE.1.0,OFFICE.1.0.WALL.2.EAST.WINDOW.0,6.2037E-004,6.6319E-004
- Overcast Sky Daylight Factors,07/18,OFFICE.1.0,OFFICE.1.0.WALL.2.EAST.WINDOW.0,6.2686E-004,6.2686E-004
- Clear Sky Daylight Factors,07/18,OFFICE.1.0,OFFICE.1.0.WALL.3.NORTH.WINDOW.0,2.8055E-004,5.5734E-004
- Clear Turbid Sky Daylight Factors,07/18,OFFICE.1.0,OFFICE.1.0.WALL.3.NORTH.WINDOW.0,2.3095E-004,4.3909E-004
- Intermediate Sky Daylight Factors,07/18,OFFICE.1.0,OFFICE.1.0.WALL.3.NORTH.WINDOW.0,1.6722E-004,2.4770E-004
- Overcast Sky Daylight Factors,07/18,OFFICE.1.0,OFFICE.1.0.WALL.3.NORTH.WINDOW.0,2.7343E-004,4.0226E-004
- Clear Sky Daylight Factors,07/18,OFFICE.2.0,OFFICE.2.0.WALL.0.WEST.WINDOW.0,2.0558E-003,2.1535E-003
- Clear Turbid Sky Daylight Factors,07/18,OFFICE.2.0,OFFICE.2.0.WALL.0.WEST.WINDOW.0,1.6867E-003,1.8028E-003
- Intermediate Sky Daylight Factors,07/18,OFFICE.2.0,OFFICE.2.0.WALL.0.WEST.WINDOW.0,1.1398E-003,1.2753E-003
- Overcast Sky Daylight Factors,07/18,OFFICE.2.0,OFFICE.2.0.WALL.0.WEST.WINDOW.0,1.4126E-003,1.4126E-003
- Clear Sky Daylight Factors,07/18,OFFICE.2.0,OFFICE.2.0.WALL.1.SOUTH.WINDOW.0,9.1507E-004,5.0012E-004
- Clear Turbid Sky Daylight Factors,07/18,OFFICE.2.0,OFFICE.2.0.WALL.1.SOUTH.WINDOW.0,8.5903E-004,4.8830E-004
- Intermediate Sky Daylight Factors,07/18,OFFICE.2.0,OFFICE.2.0.WALL.1.SOUTH.WINDOW.0,6.2491E-004,3.9716E-004
- Overcast Sky Daylight Factors,07/18,OFFICE.2.0,OFFICE.2.0.WALL.1.SOUTH.WINDOW.0,4.0226E-004,2.7343E-004
- Clear Sky Daylight Factors,07/18,OFFICE.2.0,OFFICE.2.0.WALL.2.EAST.WINDOW.0,9.3410E-004,9.7285E-004
- Clear Turbid Sky Daylight Factors,07/18,OFFICE.2.0,OFFICE.2.0.WALL.2.EAST.WINDOW.0,8.1334E-004,8.5719E-004
- Intermediate Sky Daylight Factors,07/18,OFFICE.2.0,OFFICE.2.0.WALL.2.EAST.WINDOW.0,6.2037E-004,6.6319E-004
- Overcast Sky Daylight Factors,07/18,OFFICE.2.0,OFFICE.2.0.WALL.2.EAST.WINDOW.0,6.2686E-004,6.2686E-004
- Clear Sky Daylight Factors,07/18,OFFICE.2.0,OFFICE.2.0.WALL.3.NORTH.WINDOW.0,2.8055E-004,5.5734E-004
- Clear Turbid Sky Daylight Factors,07/18,OFFICE.2.0,OFFICE.2.0.WALL.3.NORTH.WINDOW.0,2.3095E-004,4.3909E-004
- Intermediate Sky Daylight Factors,07/18,OFFICE.2.0,OFFICE.2.0.WALL.3.NORTH.WINDOW.0,1.6722E-004,2.4770E-004
- Overcast Sky Daylight Factors,07/18,OFFICE.2.0,OFFICE.2.0.WALL.3.NORTH.WINDOW.0,2.7343E-004,4.0226E-004
+ Clear Sky Daylight Factors,07/18,OFFICE.0.0,OFFICE.0.0.WALL.0.WEST.WINDOW.0,2.2138E-003,2.3802E-003
+ Clear Turbid Sky Daylight Factors,07/18,OFFICE.0.0,OFFICE.0.0.WALL.0.WEST.WINDOW.0,1.8986E-003,2.0824E-003
+ Intermediate Sky Daylight Factors,07/18,OFFICE.0.0,OFFICE.0.0.WALL.0.WEST.WINDOW.0,1.3795E-003,1.5272E-003
+ Overcast Sky Daylight Factors,07/18,OFFICE.0.0,OFFICE.0.0.WALL.0.WEST.WINDOW.0,1.3206E-003,1.3206E-003
+ Clear Sky Daylight Factors,07/18,OFFICE.0.0,OFFICE.0.0.WALL.1.SOUTH.WINDOW.0,8.0352E-004,4.2474E-004
+ Clear Turbid Sky Daylight Factors,07/18,OFFICE.0.0,OFFICE.0.0.WALL.1.SOUTH.WINDOW.0,7.4248E-004,4.1069E-004
+ Intermediate Sky Daylight Factors,07/18,OFFICE.0.0,OFFICE.0.0.WALL.1.SOUTH.WINDOW.0,5.3976E-004,3.3270E-004
+ Overcast Sky Daylight Factors,07/18,OFFICE.0.0,OFFICE.0.0.WALL.1.SOUTH.WINDOW.0,3.6232E-004,2.3443E-004
+ Clear Sky Daylight Factors,07/18,OFFICE.0.0,OFFICE.0.0.WALL.2.EAST.WINDOW.0,7.6530E-004,7.7553E-004
+ Clear Turbid Sky Daylight Factors,07/18,OFFICE.0.0,OFFICE.0.0.WALL.2.EAST.WINDOW.0,6.3267E-004,6.4945E-004
+ Intermediate Sky Daylight Factors,07/18,OFFICE.0.0,OFFICE.0.0.WALL.2.EAST.WINDOW.0,4.3639E-004,4.6720E-004
+ Overcast Sky Daylight Factors,07/18,OFFICE.0.0,OFFICE.0.0.WALL.2.EAST.WINDOW.0,5.5524E-004,5.5524E-004
+ Clear Sky Daylight Factors,07/18,OFFICE.0.0,OFFICE.0.0.WALL.3.NORTH.WINDOW.0,2.4963E-004,5.2610E-004
+ Clear Turbid Sky Daylight Factors,07/18,OFFICE.0.0,OFFICE.0.0.WALL.3.NORTH.WINDOW.0,2.0524E-004,4.1217E-004
+ Intermediate Sky Daylight Factors,07/18,OFFICE.0.0,OFFICE.0.0.WALL.3.NORTH.WINDOW.0,1.4617E-004,2.2321E-004
+ Overcast Sky Daylight Factors,07/18,OFFICE.0.0,OFFICE.0.0.WALL.3.NORTH.WINDOW.0,2.3443E-004,3.6232E-004
+ Clear Sky Daylight Factors,07/18,OFFICE.1.0,OFFICE.1.0.WALL.0.WEST.WINDOW.0,2.2168E-003,2.3832E-003
+ Clear Turbid Sky Daylight Factors,07/18,OFFICE.1.0,OFFICE.1.0.WALL.0.WEST.WINDOW.0,1.9012E-003,2.0850E-003
+ Intermediate Sky Daylight Factors,07/18,OFFICE.1.0,OFFICE.1.0.WALL.0.WEST.WINDOW.0,1.3816E-003,1.5293E-003
+ Overcast Sky Daylight Factors,07/18,OFFICE.1.0,OFFICE.1.0.WALL.0.WEST.WINDOW.0,1.3225E-003,1.3225E-003
+ Clear Sky Daylight Factors,07/18,OFFICE.1.0,OFFICE.1.0.WALL.1.SOUTH.WINDOW.0,8.0616E-004,4.2738E-004
+ Clear Turbid Sky Daylight Factors,07/18,OFFICE.1.0,OFFICE.1.0.WALL.1.SOUTH.WINDOW.0,7.4506E-004,4.1326E-004
+ Intermediate Sky Daylight Factors,07/18,OFFICE.1.0,OFFICE.1.0.WALL.1.SOUTH.WINDOW.0,5.4173E-004,3.3467E-004
+ Overcast Sky Daylight Factors,07/18,OFFICE.1.0,OFFICE.1.0.WALL.1.SOUTH.WINDOW.0,3.6340E-004,2.3551E-004
+ Clear Sky Daylight Factors,07/18,OFFICE.1.0,OFFICE.1.0.WALL.2.EAST.WINDOW.0,7.6734E-004,7.7757E-004
+ Clear Turbid Sky Daylight Factors,07/18,OFFICE.1.0,OFFICE.1.0.WALL.2.EAST.WINDOW.0,6.3421E-004,6.5099E-004
+ Intermediate Sky Daylight Factors,07/18,OFFICE.1.0,OFFICE.1.0.WALL.2.EAST.WINDOW.0,4.3743E-004,4.6825E-004
+ Overcast Sky Daylight Factors,07/18,OFFICE.1.0,OFFICE.1.0.WALL.2.EAST.WINDOW.0,5.5713E-004,5.5713E-004
+ Clear Sky Daylight Factors,07/18,OFFICE.1.0,OFFICE.1.0.WALL.3.NORTH.WINDOW.0,2.5057E-004,5.2703E-004
+ Clear Turbid Sky Daylight Factors,07/18,OFFICE.1.0,OFFICE.1.0.WALL.3.NORTH.WINDOW.0,2.0584E-004,4.1277E-004
+ Intermediate Sky Daylight Factors,07/18,OFFICE.1.0,OFFICE.1.0.WALL.3.NORTH.WINDOW.0,1.4638E-004,2.2342E-004
+ Overcast Sky Daylight Factors,07/18,OFFICE.1.0,OFFICE.1.0.WALL.3.NORTH.WINDOW.0,2.3551E-004,3.6340E-004
+ Clear Sky Daylight Factors,07/18,OFFICE.2.0,OFFICE.2.0.WALL.0.WEST.WINDOW.0,2.2168E-003,2.3832E-003
+ Clear Turbid Sky Daylight Factors,07/18,OFFICE.2.0,OFFICE.2.0.WALL.0.WEST.WINDOW.0,1.9012E-003,2.0850E-003
+ Intermediate Sky Daylight Factors,07/18,OFFICE.2.0,OFFICE.2.0.WALL.0.WEST.WINDOW.0,1.3816E-003,1.5293E-003
+ Overcast Sky Daylight Factors,07/18,OFFICE.2.0,OFFICE.2.0.WALL.0.WEST.WINDOW.0,1.3225E-003,1.3225E-003
+ Clear Sky Daylight Factors,07/18,OFFICE.2.0,OFFICE.2.0.WALL.1.SOUTH.WINDOW.0,8.0616E-004,4.2738E-004
+ Clear Turbid Sky Daylight Factors,07/18,OFFICE.2.0,OFFICE.2.0.WALL.1.SOUTH.WINDOW.0,7.4506E-004,4.1326E-004
+ Intermediate Sky Daylight Factors,07/18,OFFICE.2.0,OFFICE.2.0.WALL.1.SOUTH.WINDOW.0,5.4173E-004,3.3467E-004
+ Overcast Sky Daylight Factors,07/18,OFFICE.2.0,OFFICE.2.0.WALL.1.SOUTH.WINDOW.0,3.6340E-004,2.3551E-004
+ Clear Sky Daylight Factors,07/18,OFFICE.2.0,OFFICE.2.0.WALL.2.EAST.WINDOW.0,7.6734E-004,7.7757E-004
+ Clear Turbid Sky Daylight Factors,07/18,OFFICE.2.0,OFFICE.2.0.WALL.2.EAST.WINDOW.0,6.3421E-004,6.5099E-004
+ Intermediate Sky Daylight Factors,07/18,OFFICE.2.0,OFFICE.2.0.WALL.2.EAST.WINDOW.0,4.3743E-004,4.6825E-004
+ Overcast Sky Daylight Factors,07/18,OFFICE.2.0,OFFICE.2.0.WALL.2.EAST.WINDOW.0,5.5713E-004,5.5713E-004
+ Clear Sky Daylight Factors,07/18,OFFICE.2.0,OFFICE.2.0.WALL.3.NORTH.WINDOW.0,2.5057E-004,5.2703E-004
+ Clear Turbid Sky Daylight Factors,07/18,OFFICE.2.0,OFFICE.2.0.WALL.3.NORTH.WINDOW.0,2.0584E-004,4.1277E-004
+ Intermediate Sky Daylight Factors,07/18,OFFICE.2.0,OFFICE.2.0.WALL.3.NORTH.WINDOW.0,1.4638E-004,2.2342E-004
+ Overcast Sky Daylight Factors,07/18,OFFICE.2.0,OFFICE.2.0.WALL.3.NORTH.WINDOW.0,2.3551E-004,3.6340E-004
 ! <Zone Sizing Information>, Zone Name, Load Type, Calc Des Load {W}, User Des Load {W}, Calc Des Air Flow Rate {m3/s}, User Des Air Flow Rate {m3/s}, Design Day Name, Date/Time of Peak, Temperature at Peak {C}, Humidity Ratio at Peak {kgWater/kgDryAir}, Floor Area {m2}, # Occupants, Calc Outdoor Air Flow Rate {m3/s}, Calc DOAS Heat Addition Rate {W}
- Zone Sizing Information, OFFICE.0.0, Cooling, 11374.26596, 13649.11915, 0.73099, 0.87718, SUMMER INCLUDING EXTREME SUMMER DAYS, 7/23 16:50:00, 31.00000, 1.27295E-002, 396.90000, 18.04091, 0.17031, 0.00000
- Zone Sizing Information, OFFICE.0.0, Heating, 16238.43805, 19486.12566, 0.44638, 0.53565, WINTER INCLUDING EXTREME WINTER DAYS, 1/27 07:30:00, -10.00000, 1.48460E-003, 396.90000, 18.04091, 0.17031, 0.00000
- Zone Sizing Information, OFFICE.1.0, Cooling, 14144.91905, 16973.90286, 0.90904, 1.09085, SUMMER INCLUDING EXTREME SUMMER DAYS, 7/23 16:50:00, 31.00000, 1.27295E-002, 396.90000, 18.04091, 0.17031, 0.00000
- Zone Sizing Information, OFFICE.1.0, Heating, 16021.33216, 19225.59859, 0.43980, 0.52775, WINTER INCLUDING EXTREME WINTER DAYS, 1/27 07:30:00, -10.00000, 1.48460E-003, 396.90000, 18.04091, 0.17031, 0.00000
- Zone Sizing Information, OFFICE.2.0, Cooling, 14496.07902, 17395.29483, 0.93161, 1.11793, SUMMER INCLUDING EXTREME SUMMER DAYS, 7/23 16:50:00, 31.00000, 1.27295E-002, 396.90000, 18.04091, 0.17031, 0.00000
- Zone Sizing Information, OFFICE.2.0, Heating, 18414.28357, 22097.14028, 0.50839, 0.61007, WINTER INCLUDING EXTREME WINTER DAYS, 1/27 07:30:00, -10.00000, 1.48460E-003, 396.90000, 18.04091, 0.17031, 0.00000
+ Zone Sizing Information, OFFICE.0.0, Cooling, 9893.40982, 11872.09179, 0.63580, 0.76296, SUMMER INCLUDING EXTREME SUMMER DAYS, 7/23 16:50:00, 31.00000, 1.27295E-002, 396.89997, 19.84500, 0.18734, 0.00000
+ Zone Sizing Information, OFFICE.0.0, Heating, 17860.06702, 21432.08042, 0.49099, 0.58918, WINTER INCLUDING EXTREME WINTER DAYS, 1/27 07:30:00, -10.00000, 1.48460E-003, 396.89997, 19.84500, 0.18734, 0.00000
+ Zone Sizing Information, OFFICE.1.0, Cooling, 11972.61001, 14367.13202, 0.76942, 0.92330, SUMMER INCLUDING EXTREME SUMMER DAYS, 7/23 17:00:00, 30.90000, 1.25540E-002, 396.89997, 19.84500, 0.18734, 0.00000
+ Zone Sizing Information, OFFICE.1.0, Heating, 17760.68514, 21312.82217, 0.48806, 0.58567, WINTER INCLUDING EXTREME WINTER DAYS, 1/27 07:30:00, -10.00000, 1.48460E-003, 396.89997, 19.84500, 0.18734, 0.00000
+ Zone Sizing Information, OFFICE.2.0, Cooling, 12013.45491, 14416.14589, 0.77205, 0.92646, SUMMER INCLUDING EXTREME SUMMER DAYS, 7/23 17:10:00, 30.85000, 1.26212E-002, 396.89997, 19.84500, 0.18734, 0.00000
+ Zone Sizing Information, OFFICE.2.0, Heating, 19308.58992, 23170.30790, 0.53226, 0.63871, WINTER INCLUDING EXTREME WINTER DAYS, 1/27 07:30:00, -10.00000, 1.48460E-003, 396.89997, 19.84500, 0.18734, 0.00000
 ! <Component Sizing Information>, Component Type, Component Name, Input Field Description, Value
- Component Sizing Information, ZoneHVAC:WaterToAirHeatPump, OFFICE.0.0 WAHP, Design Size Cooling Supply Air Flow Rate [m3/s], 0.87718
- Component Sizing Information, ZoneHVAC:WaterToAirHeatPump, OFFICE.0.0 WAHP, Design Size Heating Supply Air Flow Rate [m3/s], 0.87718
+ Component Sizing Information, ZoneHVAC:WaterToAirHeatPump, OFFICE.0.0 WAHP, Design Size Cooling Supply Air Flow Rate [m3/s], 0.76296
+ Component Sizing Information, ZoneHVAC:WaterToAirHeatPump, OFFICE.0.0 WAHP, Design Size Heating Supply Air Flow Rate [m3/s], 0.76296
  Component Sizing Information, ZoneHVAC:WaterToAirHeatPump, OFFICE.0.0 WAHP, User-Specified No Load Supply Air Flow Rate [m3/s], 0.00000
- Component Sizing Information, ZoneHVAC:WaterToAirHeatPump, OFFICE.0.0 WAHP, Design Size Outdoor Air Flow Rate During Cooling Operation [m3/s], 0.17031
- Component Sizing Information, ZoneHVAC:WaterToAirHeatPump, OFFICE.0.0 WAHP, Design Size Outdoor Air Flow Rate During Heating Operation [m3/s], 0.17031
+ Component Sizing Information, ZoneHVAC:WaterToAirHeatPump, OFFICE.0.0 WAHP, Design Size Outdoor Air Flow Rate During Cooling Operation [m3/s], 0.18734
+ Component Sizing Information, ZoneHVAC:WaterToAirHeatPump, OFFICE.0.0 WAHP, Design Size Outdoor Air Flow Rate During Heating Operation [m3/s], 0.18734
  Component Sizing Information, ZoneHVAC:WaterToAirHeatPump, OFFICE.0.0 WAHP, Design Size Outdoor Air Flow Rate When No Cooling or Heating is Needed [m3/s], 0.00000
  Component Sizing Information, ZoneHVAC:WaterToAirHeatPump, OFFICE.0.0 WAHP, Design Size Maximum Supply Air Temperature from Supplemental Heater [C], 50.00000
- Component Sizing Information, COIL:COOLING:WATERTOAIRHEATPUMP:EQUATIONFIT, OFFICE.0.0 WAHP COOLING COIL, Design Size Rated Air Flow Rate [m3/s], 0.87718
- Component Sizing Information, COIL:COOLING:WATERTOAIRHEATPUMP:EQUATIONFIT, OFFICE.0.0 WAHP COOLING COIL, Design Size Rated Total Cooling Capacity [W], 19789.61311
- Component Sizing Information, COIL:COOLING:WATERTOAIRHEATPUMP:EQUATIONFIT, OFFICE.0.0 WAHP COOLING COIL, Design Size Rated Sensible Cooling Capacity [W], 13058.24126
- Component Sizing Information, COIL:COOLING:WATERTOAIRHEATPUMP:EQUATIONFIT, OFFICE.0.0 WAHP COOLING COIL, Design Size Rated Water Flow Rate [m3/s], 7.93567E-004
- Component Sizing Information, COIL:HEATING:WATERTOAIRHEATPUMP:EQUATIONFIT, OFFICE.0.0 WAHP HEATING COIL, Design Size Rated Air Flow Rate [m3/s], 0.87718
- Component Sizing Information, COIL:HEATING:WATERTOAIRHEATPUMP:EQUATIONFIT, OFFICE.0.0 WAHP HEATING COIL, Design Size Rated Heating Capacity [W], 19789.61311
- Component Sizing Information, COIL:HEATING:WATERTOAIRHEATPUMP:EQUATIONFIT, OFFICE.0.0 WAHP HEATING COIL, Design Size Rated Water Flow Rate [m3/s], 7.93567E-004
- Component Sizing Information, Fan:OnOff, OFFICE.0.0 WAHP SUPPLY FAN, Design Size Maximum Flow Rate [m3/s], 0.87718
- Component Sizing Information, Coil:Heating:Electric, OFFICE.0.0 WAHP SUPP HEATING COIL, Design Size Nominal Capacity [W], 24422.89899
- Component Sizing Information, ZoneHVAC:WaterToAirHeatPump, OFFICE.1.0 WAHP, Design Size Cooling Supply Air Flow Rate [m3/s], 1.09085
- Component Sizing Information, ZoneHVAC:WaterToAirHeatPump, OFFICE.1.0 WAHP, Design Size Heating Supply Air Flow Rate [m3/s], 1.09085
+ Component Sizing Information, COIL:COOLING:WATERTOAIRHEATPUMP:EQUATIONFIT, OFFICE.0.0 WAHP COOLING COIL, Design Size Rated Air Flow Rate [m3/s], 0.76296
+ Component Sizing Information, COIL:COOLING:WATERTOAIRHEATPUMP:EQUATIONFIT, OFFICE.0.0 WAHP COOLING COIL, Design Size Rated Total Cooling Capacity [W], 17951.52341
+ Component Sizing Information, COIL:COOLING:WATERTOAIRHEATPUMP:EQUATIONFIT, OFFICE.0.0 WAHP COOLING COIL, Design Size Rated Sensible Cooling Capacity [W], 11534.54154
+ Component Sizing Information, COIL:COOLING:WATERTOAIRHEATPUMP:EQUATIONFIT, OFFICE.0.0 WAHP COOLING COIL, Design Size Rated Water Flow Rate [m3/s], 7.19859E-004
+ Component Sizing Information, COIL:HEATING:WATERTOAIRHEATPUMP:EQUATIONFIT, OFFICE.0.0 WAHP HEATING COIL, Design Size Rated Air Flow Rate [m3/s], 0.76296
+ Component Sizing Information, COIL:HEATING:WATERTOAIRHEATPUMP:EQUATIONFIT, OFFICE.0.0 WAHP HEATING COIL, Design Size Rated Heating Capacity [W], 17951.52341
+ Component Sizing Information, COIL:HEATING:WATERTOAIRHEATPUMP:EQUATIONFIT, OFFICE.0.0 WAHP HEATING COIL, Design Size Rated Water Flow Rate [m3/s], 7.19859E-004
+ Component Sizing Information, Fan:OnOff, OFFICE.0.0 WAHP SUPPLY FAN, Design Size Maximum Flow Rate [m3/s], 0.76296
+ Component Sizing Information, Coil:Heating:Electric, OFFICE.0.0 WAHP SUPP HEATING COIL, Design Size Nominal Capacity [W], 26864.22060
+ Component Sizing Information, ZoneHVAC:WaterToAirHeatPump, OFFICE.1.0 WAHP, Design Size Cooling Supply Air Flow Rate [m3/s], 0.92330
+ Component Sizing Information, ZoneHVAC:WaterToAirHeatPump, OFFICE.1.0 WAHP, Design Size Heating Supply Air Flow Rate [m3/s], 0.92330
  Component Sizing Information, ZoneHVAC:WaterToAirHeatPump, OFFICE.1.0 WAHP, User-Specified No Load Supply Air Flow Rate [m3/s], 0.00000
- Component Sizing Information, ZoneHVAC:WaterToAirHeatPump, OFFICE.1.0 WAHP, Design Size Outdoor Air Flow Rate During Cooling Operation [m3/s], 0.17031
- Component Sizing Information, ZoneHVAC:WaterToAirHeatPump, OFFICE.1.0 WAHP, Design Size Outdoor Air Flow Rate During Heating Operation [m3/s], 0.17031
+ Component Sizing Information, ZoneHVAC:WaterToAirHeatPump, OFFICE.1.0 WAHP, Design Size Outdoor Air Flow Rate During Cooling Operation [m3/s], 0.18734
+ Component Sizing Information, ZoneHVAC:WaterToAirHeatPump, OFFICE.1.0 WAHP, Design Size Outdoor Air Flow Rate During Heating Operation [m3/s], 0.18734
  Component Sizing Information, ZoneHVAC:WaterToAirHeatPump, OFFICE.1.0 WAHP, Design Size Outdoor Air Flow Rate When No Cooling or Heating is Needed [m3/s], 0.00000
  Component Sizing Information, ZoneHVAC:WaterToAirHeatPump, OFFICE.1.0 WAHP, Design Size Maximum Supply Air Temperature from Supplemental Heater [C], 50.00000
- Component Sizing Information, COIL:COOLING:WATERTOAIRHEATPUMP:EQUATIONFIT, OFFICE.1.0 WAHP COOLING COIL, Design Size Rated Air Flow Rate [m3/s], 1.09085
- Component Sizing Information, COIL:COOLING:WATERTOAIRHEATPUMP:EQUATIONFIT, OFFICE.1.0 WAHP COOLING COIL, Design Size Rated Total Cooling Capacity [W], 23742.07900
- Component Sizing Information, COIL:COOLING:WATERTOAIRHEATPUMP:EQUATIONFIT, OFFICE.1.0 WAHP COOLING COIL, Design Size Rated Sensible Cooling Capacity [W], 16035.81676
- Component Sizing Information, COIL:COOLING:WATERTOAIRHEATPUMP:EQUATIONFIT, OFFICE.1.0 WAHP COOLING COIL, Design Size Rated Water Flow Rate [m3/s], 9.52062E-004
- Component Sizing Information, COIL:HEATING:WATERTOAIRHEATPUMP:EQUATIONFIT, OFFICE.1.0 WAHP HEATING COIL, Design Size Rated Air Flow Rate [m3/s], 1.09085
- Component Sizing Information, COIL:HEATING:WATERTOAIRHEATPUMP:EQUATIONFIT, OFFICE.1.0 WAHP HEATING COIL, Design Size Rated Heating Capacity [W], 23742.07900
- Component Sizing Information, COIL:HEATING:WATERTOAIRHEATPUMP:EQUATIONFIT, OFFICE.1.0 WAHP HEATING COIL, Design Size Rated Water Flow Rate [m3/s], 9.52062E-004
- Component Sizing Information, Fan:OnOff, OFFICE.1.0 WAHP SUPPLY FAN, Design Size Maximum Flow Rate [m3/s], 1.09085
- Component Sizing Information, Coil:Heating:Electric, OFFICE.1.0 WAHP SUPP HEATING COIL, Design Size Nominal Capacity [W], 24149.76704
- Component Sizing Information, ZoneHVAC:WaterToAirHeatPump, OFFICE.2.0 WAHP, Design Size Cooling Supply Air Flow Rate [m3/s], 1.11793
- Component Sizing Information, ZoneHVAC:WaterToAirHeatPump, OFFICE.2.0 WAHP, Design Size Heating Supply Air Flow Rate [m3/s], 1.11793
+ Component Sizing Information, COIL:COOLING:WATERTOAIRHEATPUMP:EQUATIONFIT, OFFICE.1.0 WAHP COOLING COIL, Design Size Rated Air Flow Rate [m3/s], 0.92330
+ Component Sizing Information, COIL:COOLING:WATERTOAIRHEATPUMP:EQUATIONFIT, OFFICE.1.0 WAHP COOLING COIL, Design Size Rated Total Cooling Capacity [W], 20883.72846
+ Component Sizing Information, COIL:COOLING:WATERTOAIRHEATPUMP:EQUATIONFIT, OFFICE.1.0 WAHP COOLING COIL, Design Size Rated Sensible Cooling Capacity [W], 13758.54059
+ Component Sizing Information, COIL:COOLING:WATERTOAIRHEATPUMP:EQUATIONFIT, OFFICE.1.0 WAHP COOLING COIL, Design Size Rated Water Flow Rate [m3/s], 8.37441E-004
+ Component Sizing Information, COIL:HEATING:WATERTOAIRHEATPUMP:EQUATIONFIT, OFFICE.1.0 WAHP HEATING COIL, Design Size Rated Air Flow Rate [m3/s], 0.92330
+ Component Sizing Information, COIL:HEATING:WATERTOAIRHEATPUMP:EQUATIONFIT, OFFICE.1.0 WAHP HEATING COIL, Design Size Rated Heating Capacity [W], 20883.72846
+ Component Sizing Information, COIL:HEATING:WATERTOAIRHEATPUMP:EQUATIONFIT, OFFICE.1.0 WAHP HEATING COIL, Design Size Rated Water Flow Rate [m3/s], 8.37441E-004
+ Component Sizing Information, Fan:OnOff, OFFICE.1.0 WAHP SUPPLY FAN, Design Size Maximum Flow Rate [m3/s], 0.92330
+ Component Sizing Information, Coil:Heating:Electric, OFFICE.1.0 WAHP SUPP HEATING COIL, Design Size Nominal Capacity [W], 26742.67707
+ Component Sizing Information, ZoneHVAC:WaterToAirHeatPump, OFFICE.2.0 WAHP, Design Size Cooling Supply Air Flow Rate [m3/s], 0.92646
+ Component Sizing Information, ZoneHVAC:WaterToAirHeatPump, OFFICE.2.0 WAHP, Design Size Heating Supply Air Flow Rate [m3/s], 0.92646
  Component Sizing Information, ZoneHVAC:WaterToAirHeatPump, OFFICE.2.0 WAHP, User-Specified No Load Supply Air Flow Rate [m3/s], 0.00000
- Component Sizing Information, ZoneHVAC:WaterToAirHeatPump, OFFICE.2.0 WAHP, Design Size Outdoor Air Flow Rate During Cooling Operation [m3/s], 0.17031
- Component Sizing Information, ZoneHVAC:WaterToAirHeatPump, OFFICE.2.0 WAHP, Design Size Outdoor Air Flow Rate During Heating Operation [m3/s], 0.17031
+ Component Sizing Information, ZoneHVAC:WaterToAirHeatPump, OFFICE.2.0 WAHP, Design Size Outdoor Air Flow Rate During Cooling Operation [m3/s], 0.18734
+ Component Sizing Information, ZoneHVAC:WaterToAirHeatPump, OFFICE.2.0 WAHP, Design Size Outdoor Air Flow Rate During Heating Operation [m3/s], 0.18734
  Component Sizing Information, ZoneHVAC:WaterToAirHeatPump, OFFICE.2.0 WAHP, Design Size Outdoor Air Flow Rate When No Cooling or Heating is Needed [m3/s], 0.00000
  Component Sizing Information, ZoneHVAC:WaterToAirHeatPump, OFFICE.2.0 WAHP, Design Size Maximum Supply Air Temperature from Supplemental Heater [C], 50.00000
- Component Sizing Information, COIL:COOLING:WATERTOAIRHEATPUMP:EQUATIONFIT, OFFICE.2.0 WAHP COOLING COIL, Design Size Rated Air Flow Rate [m3/s], 1.11793
- Component Sizing Information, COIL:COOLING:WATERTOAIRHEATPUMP:EQUATIONFIT, OFFICE.2.0 WAHP COOLING COIL, Design Size Rated Total Cooling Capacity [W], 24257.59085
- Component Sizing Information, COIL:COOLING:WATERTOAIRHEATPUMP:EQUATIONFIT, OFFICE.2.0 WAHP COOLING COIL, Design Size Rated Sensible Cooling Capacity [W], 16416.25408
- Component Sizing Information, COIL:COOLING:WATERTOAIRHEATPUMP:EQUATIONFIT, OFFICE.2.0 WAHP COOLING COIL, Design Size Rated Water Flow Rate [m3/s], 9.72734E-004
- Component Sizing Information, COIL:HEATING:WATERTOAIRHEATPUMP:EQUATIONFIT, OFFICE.2.0 WAHP HEATING COIL, Design Size Rated Air Flow Rate [m3/s], 1.11793
- Component Sizing Information, COIL:HEATING:WATERTOAIRHEATPUMP:EQUATIONFIT, OFFICE.2.0 WAHP HEATING COIL, Design Size Rated Heating Capacity [W], 24257.59085
- Component Sizing Information, COIL:HEATING:WATERTOAIRHEATPUMP:EQUATIONFIT, OFFICE.2.0 WAHP HEATING COIL, Design Size Rated Water Flow Rate [m3/s], 9.72734E-004
- Component Sizing Information, Fan:OnOff, OFFICE.2.0 WAHP SUPPLY FAN, Design Size Maximum Flow Rate [m3/s], 1.11793
- Component Sizing Information, Coil:Heating:Electric, OFFICE.2.0 WAHP SUPP HEATING COIL, Design Size Nominal Capacity [W], 26998.25320
- Component Sizing Information, PlantLoop, ONLYWATERLOOP MIXED WATER LOOP, Maximum Loop Flow Rate [m3/s], 3.26203E-003
- Component Sizing Information, PlantLoop, ONLYWATERLOOP MIXED WATER LOOP, Plant Loop Volume [m3], 0.39144
- Component Sizing Information, Pump:ConstantSpeed, ONLYWATERLOOP MIXED SUPPLY PUMP, Design Flow Rate [m3/s], 3.26203E-003
- Component Sizing Information, Pump:ConstantSpeed, ONLYWATERLOOP MIXED SUPPLY PUMP, Design Power Consumption [W], 833.40805
- Component Sizing Information, Boiler:HotWater, BOILER1, Design Size Nominal Capacity [W], 80533.60897
- Component Sizing Information, Boiler:HotWater, BOILER1, Design Size Design Water Flow Rate [m3/s], 3.26203E-003
- Component Sizing Information, CoolingTower:SingleSpeed, MAINTOWER, Design Water Flow Rate [m3/s], 3.26203E-003
- Component Sizing Information, CoolingTower:SingleSpeed, MAINTOWER, Fan Power at Design Air Flow Rate [W], 858.93660
- Component Sizing Information, CoolingTower:SingleSpeed, MAINTOWER, Design Air Flow Rate [m3/s], 2.40757
- Component Sizing Information, CoolingTower:SingleSpeed, MAINTOWER, U-Factor Times Area Value at Design Air Flow Rate [W/C], 1961.04754
- Component Sizing Information, CoolingTower:SingleSpeed, MAINTOWER, Free Convection Regime Air Flow Rate [m3/s], 0.24076
- Component Sizing Information, CoolingTower:SingleSpeed, MAINTOWER, Free Convection U-Factor Times Area Value [W/K], 196.10475
+ Component Sizing Information, COIL:COOLING:WATERTOAIRHEATPUMP:EQUATIONFIT, OFFICE.2.0 WAHP COOLING COIL, Design Size Rated Air Flow Rate [m3/s], 0.92646
+ Component Sizing Information, COIL:COOLING:WATERTOAIRHEATPUMP:EQUATIONFIT, OFFICE.2.0 WAHP COOLING COIL, Design Size Rated Total Cooling Capacity [W], 20962.78816
+ Component Sizing Information, COIL:COOLING:WATERTOAIRHEATPUMP:EQUATIONFIT, OFFICE.2.0 WAHP COOLING COIL, Design Size Rated Sensible Cooling Capacity [W], 13805.60126
+ Component Sizing Information, COIL:COOLING:WATERTOAIRHEATPUMP:EQUATIONFIT, OFFICE.2.0 WAHP COOLING COIL, Design Size Rated Water Flow Rate [m3/s], 8.40612E-004
+ Component Sizing Information, COIL:HEATING:WATERTOAIRHEATPUMP:EQUATIONFIT, OFFICE.2.0 WAHP HEATING COIL, Design Size Rated Air Flow Rate [m3/s], 0.92646
+ Component Sizing Information, COIL:HEATING:WATERTOAIRHEATPUMP:EQUATIONFIT, OFFICE.2.0 WAHP HEATING COIL, Design Size Rated Heating Capacity [W], 20962.78816
+ Component Sizing Information, COIL:HEATING:WATERTOAIRHEATPUMP:EQUATIONFIT, OFFICE.2.0 WAHP HEATING COIL, Design Size Rated Water Flow Rate [m3/s], 8.40612E-004
+ Component Sizing Information, Fan:OnOff, OFFICE.2.0 WAHP SUPPLY FAN, Design Size Maximum Flow Rate [m3/s], 0.92646
+ Component Sizing Information, Coil:Heating:Electric, OFFICE.2.0 WAHP SUPP HEATING COIL, Design Size Nominal Capacity [W], 28578.02486
+ Component Sizing Information, PlantLoop, ONLYWATERLOOP MIXED WATER LOOP, Maximum Loop Flow Rate [m3/s], 2.87749E-003
+ Component Sizing Information, PlantLoop, ONLYWATERLOOP MIXED WATER LOOP, Plant Loop Volume [m3], 0.34530
+ Component Sizing Information, Pump:ConstantSpeed, ONLYWATERLOOP MIXED SUPPLY PUMP, Design Flow Rate [m3/s], 2.87749E-003
+ Component Sizing Information, Pump:ConstantSpeed, ONLYWATERLOOP MIXED SUPPLY PUMP, Design Power Consumption [W], 735.16293
+ Component Sizing Information, Boiler:HotWater, BOILER1, Design Size Nominal Capacity [W], 71040.01934
+ Component Sizing Information, Boiler:HotWater, BOILER1, Design Size Design Water Flow Rate [m3/s], 2.87749E-003
+ Component Sizing Information, CoolingTower:SingleSpeed, MAINTOWER, Design Water Flow Rate [m3/s], 2.87749E-003
+ Component Sizing Information, CoolingTower:SingleSpeed, MAINTOWER, Fan Power at Design Air Flow Rate [W], 757.68209
+ Component Sizing Information, CoolingTower:SingleSpeed, MAINTOWER, Design Air Flow Rate [m3/s], 2.12376
+ Component Sizing Information, CoolingTower:SingleSpeed, MAINTOWER, U-Factor Times Area Value at Design Air Flow Rate [W/C], 1729.87225
+ Component Sizing Information, CoolingTower:SingleSpeed, MAINTOWER, Free Convection Regime Air Flow Rate [m3/s], 0.21238
+ Component Sizing Information, CoolingTower:SingleSpeed, MAINTOWER, Free Convection U-Factor Times Area Value [W/K], 172.98722
 ! <Environment>,Environment Name,Environment Type, Start Date, End Date, Start DayOfWeek, Duration {#days}, Source:Start DayOfWeek,  Use Daylight Saving, Use Holidays, Apply Weekend Holiday Rule,  Use Rain Values, Use Snow Values
 ! <Environment:Special Days>, Special Day Name, Special Day Type, Source, Start Date, Duration {#days}
 ! <Environment:Daylight Saving>, Daylight Saving Indicator, Source, Start Date, End Date
 ! <Environment:WarmupDays>, NumberofWarmupDays
 Environment,RUNPERIOD1,WeatherFileRunPeriod,01/01/2017,12/31/2017,Sunday,365,Use RunPeriod Specified Day,No,No,No,Yes,Yes
 Environment:Daylight Saving,No,RunPeriod Object
-Environment:WarmupDays, 10
+Environment:WarmupDays, 11
 ! <Warmup Convergence Information>,Zone Name,Environment Type/Name,Average Warmup Temperature Difference {deltaC},Std Dev Warmup Temperature Difference {deltaC},Max Temperature Pass/Fail Convergence,Min Temperature Pass/Fail Convergence,Average Warmup Load Difference {W},Std Dev Warmup Load Difference {W},Heating Load Pass/Fail Convergence,Cooling Load Pass/Fail Convergence
- Warmup Convergence Information,OFFICE.0.0,RunPeriod: RUNPERIOD1,2.3883660162E-006,3.5170451984E-006,Pass,Pass,7.2467170968E-003,6.1500256405E-003,Pass,Pass
- Warmup Convergence Information,OFFICE.1.0,RunPeriod: RUNPERIOD1,1.8962470681E-006,2.7827003387E-006,Pass,Pass,8.6481161600E-003,6.9030429401E-003,Pass,Pass
- Warmup Convergence Information,OFFICE.2.0,RunPeriod: RUNPERIOD1,2.3533578965E-006,3.4545064186E-006,Pass,Pass,6.9074892156E-003,5.3128966052E-003,Pass,Pass
+ Warmup Convergence Information,OFFICE.0.0,RunPeriod: RUNPERIOD1,2.4706287987E-006,3.6662837468E-006,Pass,Pass,9.2440662707E-003,7.8627329785E-003,Pass,Pass
+ Warmup Convergence Information,OFFICE.1.0,RunPeriod: RUNPERIOD1,2.0713733978E-006,3.1016736122E-006,Pass,Pass,1.0655505854E-002,8.5957688230E-003,Pass,Pass
+ Warmup Convergence Information,OFFICE.2.0,RunPeriod: RUNPERIOD1,2.3671486078E-006,3.5244130604E-006,Pass,Pass,9.4016067490E-003,7.2982872729E-003,Pass,Pass
 ! <Program Control Information:Threads/Parallel Sims>, Threading Supported,Maximum Number of Threads, Env Set Threads (OMP_NUM_THREADS), EP Env Set Threads (EP_OMP_NUM_THREADS), IDF Set Threads, Number of Threads Used (Interior Radiant Exchange), Number Nominal Surfaces, Number Parallel Sims
 Program Control:Threads/Parallel Sims, No,1, N/A, N/A, N/A, N/A, N/A, N/A
 End of Data

@@ -23,8 +23,15 @@ class Frequency(Enum):
 
 class ParameterType(Enum):
     # Building Operation
+    Occupants = "Occupants"
+    Occupancy = "Occupancy"
+    StartTime = "Start Time"
+    EndTime = "End Time"
+    LightHeatGain = "Light Heat Gain"
+    EquipmentHeatGain = "Equipment Heat Gain"
 
-    # Thermal Properties
+    # Envelope Properties
+    Permeability = "Permeability"
     GValue = "g-value"
     UValue = "u-value"
 

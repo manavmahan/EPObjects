@@ -1,5 +1,5 @@
 
- Meters for 7,OFFICE.0.0 OFFICE:Lights Electric Energy [J]
+ Meters for 7,OFFICE.0.0 LIGHTS.OFFICE:Lights Electric Energy [J]
   OnMeter=Electricity:Facility [J]
   OnMeter=Electricity:Building [J]
   OnMeter=Electricity:Zone:OFFICE.0.0 [J]
@@ -7,7 +7,7 @@
   OnMeter=InteriorLights:Electricity:Zone:OFFICE.0.0 [J]
   OnMeter=General:InteriorLights:Electricity [J]
 
- Meters for 81,OFFICE.1.0 OFFICE:Lights Electric Energy [J]
+ Meters for 81,OFFICE.1.0 LIGHTS.OFFICE:Lights Electric Energy [J]
   OnMeter=Electricity:Facility [J]
   OnMeter=Electricity:Building [J]
   OnMeter=Electricity:Zone:OFFICE.1.0 [J]
@@ -15,7 +15,7 @@
   OnMeter=InteriorLights:Electricity:Zone:OFFICE.1.0 [J]
   OnMeter=General:InteriorLights:Electricity [J]
 
- Meters for 107,OFFICE.2.0 OFFICE:Lights Electric Energy [J]
+ Meters for 107,OFFICE.2.0 LIGHTS.OFFICE:Lights Electric Energy [J]
   OnMeter=Electricity:Facility [J]
   OnMeter=Electricity:Building [J]
   OnMeter=Electricity:Zone:OFFICE.2.0 [J]
@@ -23,7 +23,7 @@
   OnMeter=InteriorLights:Electricity:Zone:OFFICE.2.0 [J]
   OnMeter=General:InteriorLights:Electricity [J]
 
- Meters for 133,OFFICE.0.0 OFFICE:Electric Equipment Electric Energy [J]
+ Meters for 133,OFFICE.0.0 PEOPLE.OFFICE:Electric Equipment Electric Energy [J]
   OnMeter=Electricity:Facility [J]
   OnMeter=Electricity:Building [J]
   OnMeter=Electricity:Zone:OFFICE.0.0 [J]
@@ -31,7 +31,7 @@
   OnMeter=InteriorEquipment:Electricity:Zone:OFFICE.0.0 [J]
   OnMeter=General:InteriorEquipment:Electricity [J]
 
- Meters for 170,OFFICE.1.0 OFFICE:Electric Equipment Electric Energy [J]
+ Meters for 170,OFFICE.1.0 PEOPLE.OFFICE:Electric Equipment Electric Energy [J]
   OnMeter=Electricity:Facility [J]
   OnMeter=Electricity:Building [J]
   OnMeter=Electricity:Zone:OFFICE.1.0 [J]
@@ -39,7 +39,7 @@
   OnMeter=InteriorEquipment:Electricity:Zone:OFFICE.1.0 [J]
   OnMeter=General:InteriorEquipment:Electricity [J]
 
- Meters for 183,OFFICE.2.0 OFFICE:Electric Equipment Electric Energy [J]
+ Meters for 183,OFFICE.2.0 PEOPLE.OFFICE:Electric Equipment Electric Energy [J]
   OnMeter=Electricity:Facility [J]
   OnMeter=Electricity:Building [J]
   OnMeter=Electricity:Zone:OFFICE.2.0 [J]
@@ -318,12 +318,12 @@
   OnMeter=CarbonEquivalentEmissions:Carbon Equivalent [kg]
 
  For Meter=Electricity:Facility [J], ResourceType=Electricity, contents are:
-  OFFICE.0.0 OFFICE:Lights Electric Energy
-  OFFICE.1.0 OFFICE:Lights Electric Energy
-  OFFICE.2.0 OFFICE:Lights Electric Energy
-  OFFICE.0.0 OFFICE:Electric Equipment Electric Energy
-  OFFICE.1.0 OFFICE:Electric Equipment Electric Energy
-  OFFICE.2.0 OFFICE:Electric Equipment Electric Energy
+  OFFICE.0.0 LIGHTS.OFFICE:Lights Electric Energy
+  OFFICE.1.0 LIGHTS.OFFICE:Lights Electric Energy
+  OFFICE.2.0 LIGHTS.OFFICE:Lights Electric Energy
+  OFFICE.0.0 PEOPLE.OFFICE:Electric Equipment Electric Energy
+  OFFICE.1.0 PEOPLE.OFFICE:Electric Equipment Electric Energy
+  OFFICE.2.0 PEOPLE.OFFICE:Electric Equipment Electric Energy
   OFFICE.0.0:Zone Ventilation Fan Electric Energy
   OFFICE.1.0:Zone Ventilation Fan Electric Energy
   OFFICE.2.0:Zone Ventilation Fan Electric Energy
@@ -345,68 +345,68 @@
   ONLYWATERLOOP MIXED SUPPLY PUMP:Pump Electric Energy
 
  For Meter=Electricity:Building [J], ResourceType=Electricity, Group=Building, contents are:
-  OFFICE.0.0 OFFICE:Lights Electric Energy
-  OFFICE.1.0 OFFICE:Lights Electric Energy
-  OFFICE.2.0 OFFICE:Lights Electric Energy
-  OFFICE.0.0 OFFICE:Electric Equipment Electric Energy
-  OFFICE.1.0 OFFICE:Electric Equipment Electric Energy
-  OFFICE.2.0 OFFICE:Electric Equipment Electric Energy
+  OFFICE.0.0 LIGHTS.OFFICE:Lights Electric Energy
+  OFFICE.1.0 LIGHTS.OFFICE:Lights Electric Energy
+  OFFICE.2.0 LIGHTS.OFFICE:Lights Electric Energy
+  OFFICE.0.0 PEOPLE.OFFICE:Electric Equipment Electric Energy
+  OFFICE.1.0 PEOPLE.OFFICE:Electric Equipment Electric Energy
+  OFFICE.2.0 PEOPLE.OFFICE:Electric Equipment Electric Energy
   OFFICE.0.0:Zone Ventilation Fan Electric Energy
   OFFICE.1.0:Zone Ventilation Fan Electric Energy
   OFFICE.2.0:Zone Ventilation Fan Electric Energy
 
  For Meter=Electricity:Zone:OFFICE.0.0 [J], ResourceType=Electricity, Group=Zone, contents are:
-  OFFICE.0.0 OFFICE:Lights Electric Energy
-  OFFICE.0.0 OFFICE:Electric Equipment Electric Energy
+  OFFICE.0.0 LIGHTS.OFFICE:Lights Electric Energy
+  OFFICE.0.0 PEOPLE.OFFICE:Electric Equipment Electric Energy
   OFFICE.0.0:Zone Ventilation Fan Electric Energy
 
  For Meter=InteriorLights:Electricity [J], ResourceType=Electricity, EndUse=InteriorLights, contents are:
-  OFFICE.0.0 OFFICE:Lights Electric Energy
-  OFFICE.1.0 OFFICE:Lights Electric Energy
-  OFFICE.2.0 OFFICE:Lights Electric Energy
+  OFFICE.0.0 LIGHTS.OFFICE:Lights Electric Energy
+  OFFICE.1.0 LIGHTS.OFFICE:Lights Electric Energy
+  OFFICE.2.0 LIGHTS.OFFICE:Lights Electric Energy
 
  For Meter=InteriorLights:Electricity:Zone:OFFICE.0.0 [J], ResourceType=Electricity, EndUse=InteriorLights, Group=Zone, contents are:
-  OFFICE.0.0 OFFICE:Lights Electric Energy
+  OFFICE.0.0 LIGHTS.OFFICE:Lights Electric Energy
 
  For Meter=General:InteriorLights:Electricity [J], ResourceType=Electricity, EndUse=InteriorLights, contents are:
-  OFFICE.0.0 OFFICE:Lights Electric Energy
-  OFFICE.1.0 OFFICE:Lights Electric Energy
-  OFFICE.2.0 OFFICE:Lights Electric Energy
+  OFFICE.0.0 LIGHTS.OFFICE:Lights Electric Energy
+  OFFICE.1.0 LIGHTS.OFFICE:Lights Electric Energy
+  OFFICE.2.0 LIGHTS.OFFICE:Lights Electric Energy
 
  For Meter=Electricity:Zone:OFFICE.1.0 [J], ResourceType=Electricity, Group=Zone, contents are:
-  OFFICE.1.0 OFFICE:Lights Electric Energy
-  OFFICE.1.0 OFFICE:Electric Equipment Electric Energy
+  OFFICE.1.0 LIGHTS.OFFICE:Lights Electric Energy
+  OFFICE.1.0 PEOPLE.OFFICE:Electric Equipment Electric Energy
   OFFICE.1.0:Zone Ventilation Fan Electric Energy
 
  For Meter=InteriorLights:Electricity:Zone:OFFICE.1.0 [J], ResourceType=Electricity, EndUse=InteriorLights, Group=Zone, contents are:
-  OFFICE.1.0 OFFICE:Lights Electric Energy
+  OFFICE.1.0 LIGHTS.OFFICE:Lights Electric Energy
 
  For Meter=Electricity:Zone:OFFICE.2.0 [J], ResourceType=Electricity, Group=Zone, contents are:
-  OFFICE.2.0 OFFICE:Lights Electric Energy
-  OFFICE.2.0 OFFICE:Electric Equipment Electric Energy
+  OFFICE.2.0 LIGHTS.OFFICE:Lights Electric Energy
+  OFFICE.2.0 PEOPLE.OFFICE:Electric Equipment Electric Energy
   OFFICE.2.0:Zone Ventilation Fan Electric Energy
 
  For Meter=InteriorLights:Electricity:Zone:OFFICE.2.0 [J], ResourceType=Electricity, EndUse=InteriorLights, Group=Zone, contents are:
-  OFFICE.2.0 OFFICE:Lights Electric Energy
+  OFFICE.2.0 LIGHTS.OFFICE:Lights Electric Energy
 
  For Meter=InteriorEquipment:Electricity [J], ResourceType=Electricity, EndUse=InteriorEquipment, contents are:
-  OFFICE.0.0 OFFICE:Electric Equipment Electric Energy
-  OFFICE.1.0 OFFICE:Electric Equipment Electric Energy
-  OFFICE.2.0 OFFICE:Electric Equipment Electric Energy
+  OFFICE.0.0 PEOPLE.OFFICE:Electric Equipment Electric Energy
+  OFFICE.1.0 PEOPLE.OFFICE:Electric Equipment Electric Energy
+  OFFICE.2.0 PEOPLE.OFFICE:Electric Equipment Electric Energy
 
  For Meter=InteriorEquipment:Electricity:Zone:OFFICE.0.0 [J], ResourceType=Electricity, EndUse=InteriorEquipment, Group=Zone, contents are:
-  OFFICE.0.0 OFFICE:Electric Equipment Electric Energy
+  OFFICE.0.0 PEOPLE.OFFICE:Electric Equipment Electric Energy
 
  For Meter=General:InteriorEquipment:Electricity [J], ResourceType=Electricity, EndUse=InteriorEquipment, contents are:
-  OFFICE.0.0 OFFICE:Electric Equipment Electric Energy
-  OFFICE.1.0 OFFICE:Electric Equipment Electric Energy
-  OFFICE.2.0 OFFICE:Electric Equipment Electric Energy
+  OFFICE.0.0 PEOPLE.OFFICE:Electric Equipment Electric Energy
+  OFFICE.1.0 PEOPLE.OFFICE:Electric Equipment Electric Energy
+  OFFICE.2.0 PEOPLE.OFFICE:Electric Equipment Electric Energy
 
  For Meter=InteriorEquipment:Electricity:Zone:OFFICE.1.0 [J], ResourceType=Electricity, EndUse=InteriorEquipment, Group=Zone, contents are:
-  OFFICE.1.0 OFFICE:Electric Equipment Electric Energy
+  OFFICE.1.0 PEOPLE.OFFICE:Electric Equipment Electric Energy
 
  For Meter=InteriorEquipment:Electricity:Zone:OFFICE.2.0 [J], ResourceType=Electricity, EndUse=InteriorEquipment, Group=Zone, contents are:
-  OFFICE.2.0 OFFICE:Electric Equipment Electric Energy
+  OFFICE.2.0 PEOPLE.OFFICE:Electric Equipment Electric Energy
 
  For Meter=Fans:Electricity [J], ResourceType=Electricity, EndUse=Fans, contents are:
   OFFICE.0.0:Zone Ventilation Fan Electric Energy

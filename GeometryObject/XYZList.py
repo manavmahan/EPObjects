@@ -8,76 +8,56 @@ from GeometryObject.Plane import Plane
 from GeometryObject.XYZ import XYZ
 
 class XYZList:
-    XYZs = np.empty(shape=(0,3))
+    Round = 5
 
-    __round = 5
-
-    __area = None
     @property
     def Area(self,):
-        if self.__area is None:
+        if not self.__area:
             self.__area = self.GetArea()
-        return 0.5 * np.abs(self.__area)
+        return np.abs(self.__area)
 
     @property
     def IsCounterClockwise(self,):
-        if self.__area is None:
+        if not self.__area:
             self.__area = self.GetArea()
         return self.__area < 0
 
-    __plane = None
     @property
     def Plane(self):
-        if self.__plane is not None:
-            return Plane
-
-        if self.XYZs.shape[0] < 2:
-            return None
-        __plane = Plane(XYZ(self.XYZs[0]), XYZ(self.XYZs[1]), XYZ(self.XYZs[2]))
-        return __plane
+        if not self.__plane:
+            if self.XYZs.shape[0] < 2:
+                return self.__plane
+            self.__plane = Plane(XYZ(self.XYZs[0]), XYZ(self.XYZs[1]), XYZ(self.XYZs[2]))
+        return self.__plane
 
     def __call__(self, *args, **kwds):
         return self.XYZs(*args, **kwds)
 
-    def __init__(self, *xyzs) -> None:
-        if len(xyzs) == 0:
-            return
-        if isinstance(xyzs[0], str):
-            xyzsNew = np.array(xyzs[0].split(';')[1:], dtype=np.float16).reshape(-1,3)
-        else:
+    def __init__(self, xyzs) -> None:
+        self.__area = None
+        self.__plane = None
+        if isinstance(xyzs, str):
+            string = xyzs.split(',')
+            xyzsNew = np.array(string[1:], dtype=np.float_).reshape(int(string[0]), 3)
+        elif isinstance(xyzs, np.ndarray):
+            if xyzs.shape[1] != 3: raise Exception(f"Invalid argument type: {xyzs}")
             xyzsNew = np.copy(xyzs)
-        for xyz in xyzsNew:
-            self.AddXYZ(xyz)
+        elif all (isinstance(x, XYZ) for x in xyzs):
+            xyzsNew = np.empty(shape=(0, 3))
+            for xyz in xyzs:
+                xyzsNew = np.vstack([xyzsNew, xyz.Coords.reshape(-1, 3)],)
+        else:
+            raise Exception(f"Invalid argument type: {xyzs}")
+
+        xyzsNew.round(self.Round)
+        indices = np.sort(np.unique(xyzsNew, axis=0, return_index=True)[1])
+        self.XYZs = xyzsNew[indices]
 
     def __str__(self) -> str:
         return f'''{len(self.XYZs)},{','.join(str(XYZ(p)) for p in self.XYZs)}'''
 
-    def AddXYZ(self, xyz):
-        nXYZ = None
-        if isinstance(xyz, XYZ):
-            nXYZ = xyz.Coords.reshape(-1, 3)
-        elif isinstance(xyz, np.ndarray):
-            if len(xyz) == 3: nXYZ = xyz.reshape(-1, 3)
-            elif xyz.shape[1] == 3: 
-                self.AddXYZs(xyz)
-                return
-            else:
-                raise Exception(f"Invalid argument type: {xyz}")
-        else:
-            raise Exception(f"Invalid argument type: {xyz}")
-
-        if nXYZ is None: return
-        nXYZ = np.round(nXYZ, self.__round)
-        
-        if not any(np.equal(self.XYZs, nXYZ).all(1)):
-            self.XYZs = np.concatenate((self.XYZs, nXYZ.reshape(-1, 3)), axis=0)
-
-    def AddXYZs(self, xyzs):
-        for xyz in xyzs:
-            self.AddXYZ(xyz)
-
     def ChangeZCoordinate(self, z: float) -> None:
-        self.XYZs[:, 2] = round(z, self.__round)
+        self.XYZs[:, 2] = round(z, self.Round)
 
     def Copy(self):
         return XYZList(self.XYZs)
@@ -101,7 +81,7 @@ class XYZList:
         xyzs = rotation.apply(self.XYZs) if rotation is not None else self.XYZs
         x = xyzs[:, 0]
         y = xyzs[:, 1]
-        return np.round(np.dot(x, np.roll(y, 1)) - np.dot(y, np.roll(x, 1)), 5)
+        return np.round(0.5 * (np.dot(x, np.roll(y, 1)) - np.dot(y, np.roll(x, 1))), 5)
 
     def IsInside(self, point):
         polygon = Polygon(self.XYZs)

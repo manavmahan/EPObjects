@@ -1,6 +1,4 @@
 class ListObject:
-    Values = None
-
     def __init__(self, values = list()):
         self.Values = values
 

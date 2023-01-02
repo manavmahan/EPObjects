@@ -26,9 +26,15 @@ class Detailed(IDFObject):
     def Area(self):
         if not self.__area:
             self.__area = self.XYZs.Area
-            if (self.__fenestrationArea):
-                self.__area -= self.__fenestrationArea
         return self.__area
+    
+    @property
+    def NetArea(self):
+        if not self.__netArea:
+            self.__netArea = self.Area
+            if (self.FenestrationArea):
+                self.__netArea -= self.FenestrationArea
+        return self.__netArea
 
     @property
     def Direction(self):
@@ -46,16 +52,17 @@ class Detailed(IDFObject):
     def __init__(self, properties: dict()) -> None:
         super().__init__(self.Properties, properties)
         self.__area = None
+        self.__netArea = None
         self.__direction = None
         self.__fenestrationArea = None
         self.Initialise()
 
     def Initialise(self):
         if not hasattr(self, 'XYZs'):
-            return
+            raise Exception(f"Cannot initialise XYZs for {self.Properties['Name']}!")
 
         if self.XYZs is None:
-            raise Exception(f"Cannot iniialise XYZs for {self.Properties['Name']}!")
+            raise Exception(f"Cannot initialise XYZs for {self.Properties['Name']}!")
 
         if isinstance(self.XYZs, str):
             self.XYZs = XYZList(self.XYZs)

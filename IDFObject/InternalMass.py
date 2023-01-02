@@ -5,9 +5,13 @@ class InternalMass(IDFObject.IDFObject):
     Properties = [
         'Name',
         'ConstructionName',
-        'ZoneorZoneListName',
+        'ZoneName',
         'SurfaceArea',
     ]
 
     def __init__(self, propertiesDict: dict()):
         super().__init__(self.Properties, propertiesDict)
+
+InternalMass.Default = dict(
+    ConstructionName = "Mass",
+)

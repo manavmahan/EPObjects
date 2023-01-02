@@ -19,10 +19,9 @@ class ElectricEquipment(IDFObject):
         super().__init__(self.Properties, propertiesDict)
 
 ElectricEquipment.Default = dict(
-    ScheduleName = 'Office.ElectricEquipment',
     DesignLevelCalculationMethod = 'Watts/area',
     DesignLevel = '',
-    WattsperZoneFloorArea = 12,
+    WattsperZoneFloorArea = 10,
     WattsperPerson = '',
     FractionLatent = '',
     FractionRadiant = 0.1,

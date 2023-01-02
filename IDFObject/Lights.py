@@ -20,10 +20,9 @@ class Lights(IDFObject):
         super().__init__(self.Properties, propertiesDict)
 
 Lights.Default = dict(
-    ScheduleName = 'Office.Lights',
     DesignLevelCalculationMethod = 'Watts/area',
     LightingLevel = '',
-    WattsperZoneFloorArea = 7,
+    WattsperZoneFloorArea = 6,
     WattsperPerson = '',
     ReturnAirFraction = '',
     FractionRadiant = 0.1,

@@ -2,8 +2,7 @@ import numpy as np
 from scipy.spatial.transform import Rotation
 
 class XYZ:
-    __round = 5
-    Coords = np.zeros((3), dtype=np.float64)
+    Round = 5
 
     def __call__(self, *args, **kwds):
         return self.Coords(*args, **kwds)
@@ -23,9 +22,9 @@ class XYZ:
             return 
 
         if len(args) == 1:
-            self.Coords = np.round(args[0], self.__round)
+            self.Coords = np.round(args[0], self.Round)
         elif len(args) == 3:
-            self.Coords = np.round(args, self.__round)
+            self.Coords = np.round(args, self.Round)
 
     def __mul__(self, a):
         return self.Coords * a.Coords
@@ -37,7 +36,7 @@ class XYZ:
         return self.__str__()
 
     def ChangeZCoordinate(self, z: float) -> None:
-        self.Coords[2] = round(z, self.__round)
+        self.Coords[2] = round(z, self.Round)
 
     def Distance(self, point):
         return np.sqrt(np.sum(np.square(self - point)))
@@ -48,7 +47,7 @@ class XYZ:
         return np.linalg.norm(np.cross(p2-p1, p1-self.Coords))/np.linalg.norm(p2-p1)
 
     def IncreaseHeight(self, h: float) -> None:
-        self.Coords[2] += round(h, self.__round)
+        self.Coords[2] += round(h, self.Round)
 
     def Move(self, newOrigin):
         if isinstance(newOrigin, XYZ):

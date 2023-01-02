@@ -57,6 +57,11 @@ Number of general casting surfaces=0
 Number of back surfaces=0
 Number of receiving sub surfaces=0
 ==================================
+Surface=INTERNALMASS.OFFICE.0.0 is not used as Receiving Surface in calculations.
+Number of general casting surfaces=0
+Number of back surfaces=0
+Number of receiving sub surfaces=0
+==================================
 Surface=OFFICE.1.0.WALL.0.WEST is used as Receiving Surface in calculations and is convex.
 Number of general casting surfaces=0
 Number of back surfaces=0
@@ -111,6 +116,11 @@ Number of general casting surfaces=0
 Number of back surfaces=0
 Number of receiving sub surfaces=0
 ==================================
+Surface=INTERNALMASS.OFFICE.1.0 is not used as Receiving Surface in calculations.
+Number of general casting surfaces=0
+Number of back surfaces=0
+Number of receiving sub surfaces=0
+==================================
 Surface=OFFICE.2.0.WALL.0.WEST is used as Receiving Surface in calculations and is convex.
 Number of general casting surfaces=0
 Number of back surfaces=0
@@ -161,6 +171,11 @@ Number of back surfaces=0
 Number of receiving sub surfaces=0
 ==================================
 Surface=OFFICE.2.0.ROOF is used as Receiving Surface in calculations and is convex.
+Number of general casting surfaces=0
+Number of back surfaces=0
+Number of receiving sub surfaces=0
+==================================
+Surface=INTERNALMASS.OFFICE.2.0 is not used as Receiving Surface in calculations.
 Number of general casting surfaces=0
 Number of back surfaces=0
 Number of receiving sub surfaces=0

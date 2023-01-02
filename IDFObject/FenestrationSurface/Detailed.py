@@ -20,12 +20,9 @@ class Detailed(IDFObject):
         'XYZs',
     ]
     
-    __area = None
     @property
     def Area(self):
-        if not self.__area:
-            self.__area = self.XYZs.Area
-        return self.__area
+        return self.XYZs.Area
 
     def __init__(self, properties: dict()) -> None:
         super().__init__(self.Properties, properties)
@@ -33,13 +30,13 @@ class Detailed(IDFObject):
 
     def Initialise(self):
         if not hasattr(self, 'XYZs'):
-            return
+            raise Exception(f"Cannot iniialise XYZs for {self.Name}!")
 
-        if self.Properties.XYZs == None:
-            raise Exception(f"Cannot iniialise XYZs for {self.Properties.Name}!")
+        if self.XYZs == None:
+            raise Exception(f"Cannot iniialise XYZs for {self.Name}!")
 
-        if isinstance(self.Properties.XYZs, str):
-            self.Properties.XYZs = XYZList(self.Properties.XYZs)
+        if isinstance(self.XYZs, str):
+            self.XYZs = XYZList(self.XYZs)
 
 Detailed.ExternalWindow = dict(
     SurfaceType = SurfaceType.Window,

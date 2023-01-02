@@ -12,6 +12,8 @@ from IDFObject.Daylighting.ReferencePoint import ReferencePoint
 
 from IDFObject.IDFObject import IDFObject
 
+from IDFObject.InternalMass import InternalMass
+
 from IDFObject.WindowShadingControl import WindowShadingControl
 
 class Zone(IDFObject):
@@ -21,39 +23,24 @@ class Zone(IDFObject):
     ]
 
     @property
-    def Surfaces(self): return self.__surfaces
+    def ExternalSurfaceArea(self):
+        return sum ([x.Area for x in self.__surfaces if x.OutsideBoundaryCondition == 'Outdoors' or x.OutsideBoundaryCondition == 'Ground'])
+
+    @property
+    def NetVolume(self):
+        wall = next(x for x in self.__surfaces if x.ZoneName==self.Name and x.SurfaceType == SurfaceType.Wall).XYZs.XYZs
+        return self.FloorArea * (wall[2][2] - wall[1][2])
+
+    @property
+    def FloorArea(self):
+        return sum(x.Area for x in self.__surfaces if x.ZoneName==self.Name and x.SurfaceType==SurfaceType.Floor)
 
     def __init__(self, properties: dict()) -> None:
         super().__init__(self.Properties, properties)
-        self.__surfaces = list()
-        self.__ceilingArea = 0
-        self.__floorArea = 0
-        self.__wallArea = 0
-        self.__windowArea = 0
-        self.__roofArea = 0
-
-    def AddSurface(self, surface: Detailed, fenestrations: list()):
-        if surface.Area == None or surface.Area == 0:
-            raise Exception(f"Cannot add surface without area {surface}.")
-
-        match surface.SurfaceType:
-            case SurfaceType.Ceiling:
-                self.__ceilingArea += surface.Area
-
-            case SurfaceType.Floor:
-                self.__floorArea += surface.Area
-            
-            case SurfaceType.Roof:
-                self.__roofArea += surface.Area
-
-            case SurfaceType.Wall:
-                self.__wallArea += surface.Area
-                surface.Fenestrations = [x for x in fenestrations if x.BuildingSurfaceName == surface.Name]
-                self.__windowArea += sum([x.Area for x in surface.Fenestrations])
 
     def AddSurfaces(self, surfaces: list(), fenestrations: list()):
+        self.__surfaces = list()
         for surface in [x for x in surfaces if x.ZoneName == self.Name]:
-            self.AddSurface(surface, fenestrations)
             self.__surfaces += [surface]
 
     def GenerateDaylightControl(self, zoneListName):
@@ -73,18 +60,17 @@ class Zone(IDFObject):
             ZoneName = self.Name,
             AvailabilityScheduleName = f"{zoneListName}.People",
             GlareCalculationDaylightingReferencePointName = epObjects[-1].Name,
-            DLPoints = [x.Name for x in epObjects],
-            Illuminance = 500,
         )
         control.update(Controls.Default)
         control = Controls(control)
+        control.AddDLPoints([x.Name for x in epObjects], illuminance = 500,)
         epObjects += [control]
         return epObjects
 
     def GenerateDaylightPoints(self, distance = 3.0):
-        points = XYZList()
-        floors = [x for x in self.Surfaces if x.SurfaceType == SurfaceType.Floor]
-        for wall in [x for x in self.Surfaces if x.SurfaceType == SurfaceType.Wall]:
+        points = []
+        floors = [x for x in self.__surfaces if x.SurfaceType == SurfaceType.Floor]
+        for wall in [x for x in self.__surfaces if x.SurfaceType == SurfaceType.Wall]:
             if wall.OutsideBoundaryCondition != "Outdoors":
                 continue
             w1 = wall.XYZs.XYZs[0]
@@ -98,42 +84,53 @@ class Zone(IDFObject):
             p2 = - distance * perpendicular + midPoint
 
             if any([f.XYZs.IsInside(p1) for f in floors]):
-                points.AddXYZ(p1)
+                points += [p1]
             
             if any([f.XYZs.IsInside(p2) for f in floors]):
-                points.AddXYZ(p2)
+                points += [p2]
         
-        if len(points.XYZs) == 0:
+        if len(points) == 0:
             distance = distance - 0.2
             self.GenerateDaylightPoints(distance)
 
+        points = XYZList(np.array(points))
         points.ChangeZCoordinate(0.9 + p1[2])
         return points
 
     def GenerateDaylightPointsBasedOnFloor(self):
-        points = XYZList()
-        floors = [x for x in self.Surfaces if x.SurfaceType == SurfaceType.Floor]
-        walls = [x for x in self.Surfaces if x.SurfaceType == SurfaceType.Wall and x.OutsideBoundaryCondition != "Outdoors"]
+        points = []
+        floors = [x for x in self.__surfaces if x.SurfaceType == SurfaceType.Floor]
+        walls = [x for x in self.__surfaces if x.SurfaceType == SurfaceType.Wall and x.OutsideBoundaryCondition != "Outdoors"]
         for floor in floors:
             xyz = floor.XYZs.XYZs
             for p1, p2, p3 in zip(xyz, np.roll(xyz, 1, axis=0), np.roll(xyz, 2, axis=0)):
                 p = np.average(np.array([p1, p2, p3]), axis=0)
                 if floor.XYZs.IsInside(p):
-                    points.AddXYZ(p)
+                    points += [p]
 
             p = np.average(xyz, axis=0)
             if floor.XYZs.IsInside(p):
-                points.AddXYZ(p)
+                points += [p]
         
-        for p in points.XYZs:
+        for p in points:
             if any([XYZ(p).DistanceFromLine(wall) < 0.2 for wall in walls]):
                 del p
 
+        points = XYZList(np.array(points))
         points.ChangeZCoordinate(0.9 + p[2])
         return points
 
+    def GenerateInternalMass(self, internalMassPerFloorArea, massOfInternalMaterial):
+        mass = dict(
+            Name = f"InternalMass.{self.Name}",
+            ZoneName = self.Name,
+            SurfaceArea = self.FloorArea * internalMassPerFloorArea / massOfInternalMaterial,
+        )
+        mass.update(InternalMass.Default)
+        return [InternalMass(mass)]
+
     def GenerateWindowShadingControl(self):
-        walls = [x for x in self.Surfaces if x.SurfaceType == SurfaceType.Wall]
+        walls = [x for x in self.__surfaces if x.SurfaceType == SurfaceType.Wall]
         epObjects = []
         for wall in walls:
             if not hasattr(wall, "Fenestrations"):

@@ -3,8 +3,8 @@ Brick*Wall,Smooth,0.18,2.3,2300,1100,0.9,0.7,0.7
 Concrete*Floor,Smooth,0.2,2.3,2300,800,0.9,0.7,0.7
 Concrete*Roof,Smooth,0.25,2.3,2300,800,0.9,0.7,0.7
 Mass,Smooth,0.12,2.3,500,1000,0.8,0.8,0.7
-Insulation,Smooth,0.05,0.035,20,1000,0.9,0.7,0.7
+Insulation,Smooth,0.18,0.035,20,1000,0.9,0.7,0.7
 PerimeterInsulation,Smooth,0.05,0.035,20,1000,0.9,0.7,0.7
 Plaster,Smooth,0.02,0.7,1400,1000,0.9,0.7,0.7
-Plasterboard,Rough,0.05,0.16,800,800,0.9,0.6,0.6
+PlasterBoard,Rough,0.05,0.16,800,800,0.9,0.6,0.6
 Screed*Floor,Smooth,0.08,1.4,2000,1000,0.9,0.7,0.7

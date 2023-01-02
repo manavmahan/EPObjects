@@ -29,14 +29,12 @@ class People(IDFObject.IDFObject):
         super().__init__(self.Properties, propertiesDict)
 
 People.Default = dict(
-    NumberofPeopleScheduleName = 'Office.People',
     NumberofPeopleCalculationMethod = 'Area/Person',
     NumberofPeople = '',
     PeopleperZoneFloorArea = '',
-    ZoneFloorAreaperPerson = 22,
+    ZoneFloorAreaperPerson = 20,
     FractionRadiant = 0.1,
     SensibleHeatFraction = '',
-    ActivityLevelScheduleName = 'Office.Activity',
     CarbonDioxideGenerationRate = 3.82E-08,
     EnableASHRAE55ComfortWarnings = '',
     MeanRadiantTemperatureCalculationType = 'ZoneAveraged',
@@ -45,6 +43,6 @@ People.Default = dict(
     ClothingInsulationCalculationMethod = 'DynamicClothingModelASHRAE55',
     ClothingInsulationCalculationMethodScheduleName = '',
     ClothingInsulationScheduleName = '',
-    AirVelocityScheduleName = 'Always1',
+    AirVelocityScheduleName = 'Always0.1',
     ThermalComfortModel1Type = 'Fanger',
 )
