@@ -1,4 +1,4 @@
-Program Version,EnergyPlus, Version 9.2.0-921312fa1d, YMD=2023.01.02 05:34,
+Program Version,EnergyPlus, Version 9.2.0-921312fa1d, YMD=2023.01.02 12:16,
    ************* Beginning Zone Sizing Calculations
    ** Warning ** Site:GroundTemperature:BuildingSurface: Some values fall outside the range of 15-25C.
    **   ~~~   ** These values may be inappropriate.  Please consult the Input Output Reference for more details.
@@ -14,6 +14,9 @@ Program Version,EnergyPlus, Version 9.2.0-921312fa1d, YMD=2023.01.02 05:34,
    ** Warning ** CheckUsedConstructions: There are 1 nominally unused constructions in input.
    **   ~~~   ** Each Unused construction is shown.
    ************* Construction=INTERNALWALL
+   ** Warning ** MapShadeDeploymentOrderToLoopNumber: found empty map for window in zone OFFICE.0.0
+   ** Warning ** MapShadeDeploymentOrderToLoopNumber: found empty map for window in zone OFFICE.1.0
+   ** Warning ** MapShadeDeploymentOrderToLoopNumber: found empty map for window in zone OFFICE.2.0
    ************* Beginning Plant Sizing Calculations
    ************* Testing Individual Branch Integrity
    ************* All Branches passed integrity testing
@@ -39,5 +42,5 @@ Program Version,EnergyPlus, Version 9.2.0-921312fa1d, YMD=2023.01.02 05:34,
    ************* ..object. You may remove the constructions indicated (when you use the DisplayExtraWarnings option).
    *************
    ************* EnergyPlus Warmup Error Summary. During Warmup: 0 Warning; 0 Severe Errors.
-   ************* EnergyPlus Sizing Error Summary. During Sizing: 11 Warning; 0 Severe Errors.
-   ************* EnergyPlus Completed Successfully-- 12 Warning; 0 Severe Errors; Elapsed Time=00hr 00min  5.56sec
+   ************* EnergyPlus Sizing Error Summary. During Sizing: 14 Warning; 0 Severe Errors.
+   ************* EnergyPlus Completed Successfully-- 15 Warning; 0 Severe Errors; Elapsed Time=00hr 00min  5.91sec

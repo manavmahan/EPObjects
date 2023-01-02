@@ -1,6 +1,6 @@
-from IDFObject import IDFObject
+from IDFObject.IDFObject import IDFObject
     
-class WindowShadingControl(IDFObject.IDFObject):
+class WindowShadingControl(IDFObject):
     __IDFName__ = 'WindowShadingControl'
     Properties = [
         'Name',
@@ -16,7 +16,7 @@ class WindowShadingControl(IDFObject.IDFObject):
         'ShadingDeviceMaterialName',
         'TypeofSlatAngleControlforBlinds',
         'SlatAngleScheduleName',
-        'Setpoint',
+        'Setpoint2',
         'DaylightingControlObjectName',
         'MultipleSurfaceControlType',
         'FenestrationSurfaceName',
@@ -37,5 +37,6 @@ WindowShadingControl.Default = dict(
     ShadingDeviceMaterialName = "ROLLSHADE",
     TypeofSlatAngleControlforBlinds = '',
     SlatAngleScheduleName = '',
+    Setpoint2 = '',
     MultipleSurfaceControlType = '',
 )

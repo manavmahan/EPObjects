@@ -92,7 +92,7 @@ walls = CreateWallsByPointsHeightAndFloorCount(points, 3.1, 3)
 epObjects += walls
 
 for w in walls:
-    epObjects += list( CreateFenestration(w, 0.3) )
+    epObjects += list( CreateFenestration(w, 0.33) )
 
 epObjects += CreateRoof (points, 3.1, 3)
 

@@ -50,4 +50,5 @@ class IDFJsonDecoder(JSONDecoder):
         for cls in IDFObject.__subclasses__():
             if list(dct.keys()) == cls.Properties:
                 return cls(dct)
-        return dct
+        classes = '\n' + '\n'.join([f'{x.__name__} : {x.Properties}' for x in IDFObject.__subclasses__()])
+        raise Exception(f"Cannot find subclass for {list(dct.keys())} from {classes}")

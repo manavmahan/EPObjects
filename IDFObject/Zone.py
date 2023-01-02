@@ -41,6 +41,7 @@ class Zone(IDFObject):
     def AddSurfaces(self, surfaces: list(), fenestrations: list()):
         self.__surfaces = list()
         for surface in [x for x in surfaces if x.ZoneName == self.Name]:
+            surface.Fenestrations = [x for x in fenestrations if x.BuildingSurfaceName == surface.Name]
             self.__surfaces += [surface]
 
     def GenerateDaylightControl(self, zoneListName):
@@ -139,14 +140,14 @@ class Zone(IDFObject):
             for fenestration in wall.Fenestrations:
                 if wall.Direction == Direction.N:
                     continue
-
-                wsc = dict(
+                
+                wsc = dict(WindowShadingControl.Default)
+                wsc1 = dict(
                     Name = f"WindowShadingControl.{fenestration.Name}",
                     ZoneName = self.Name,
                     DaylightingControlObjectName = f"DaylightControl.{self.Name}",
                     FenestrationSurfaceName = fenestration.Name,
                 )
-                wsc.update(WindowShadingControl.Default)
-                wsc = WindowShadingControl(wsc)
-                epObjects += [wsc]
+                wsc.update(wsc1)
+                epObjects += [WindowShadingControl(wsc)]
         return epObjects
