@@ -1,6 +1,7 @@
 import json
 
-from IDFObject.BuildingSurface.Detailed import Detailed as BuildingSurface
+from IDFObject.Building import Building
+from IDFObject.BuildingSurface.Detailed import Detailed as Surface
 from IDFObject.Construction import Construction
 from IDFObject.ConvergenceLimits import ConvergenceLimits
 from IDFObject.ElectricEquipment import ElectricEquipment
@@ -55,7 +56,7 @@ for construction in constructions:
     cons = Construction(getattr(Construction, construction), materials)
     insulationLayer = cons.AdjustUValue(constructions[construction])
     if insulationLayer: 
-        epObjects += [insulationLayer[0]]
+        epObjects += [insulationLayer]
 
     if construction == "Glazing":
         cons.AdjustGValue(0.35)
@@ -63,7 +64,7 @@ for construction in constructions:
 
 zoneLists = list(x for x in epObjects if isinstance(x, (ZoneList)))
 
-surfaces = [x for x in epObjects if isinstance(x, BuildingSurface)]
+surfaces = [x for x in epObjects if isinstance(x, Surface)]
 fenestrations = [x for x in epObjects if isinstance(x, FenestrationSurface)]
 
 massMaterial = next(x for x in epObjects if isinstance(x, Material) and x.Name=="Mass")
