@@ -14,18 +14,22 @@ def CreatelWallsByPointsAndHeight(points: XYZList, height: float, zoneName: str)
     for p1, p2 in zip(np.roll(points.XYZs, 1, axis=0), points.XYZs,):
         p1 = XYZ(p1)
         p2 = XYZ(p2)
+        
         p3 = XYZ(p2.Coords)
         p3.IncreaseHeight(height)
+        
         p4 = XYZ(p1.Coords)
         p4.IncreaseHeight(height)
-        xyzs = XYZList([p1, p2, p3, p4])
 
-        wall = dict(
-            Name = f'{zoneName}.Wall.{len(surfaces)}',
-            XYZs = xyzs,
-            ZoneName = zoneName,
+        wall = dict(Detailed.ExternalWall)
+        wall.update(
+            dict(
+                Name = f'{zoneName}.Wall.{len(surfaces)}',
+                XYZs = XYZList([p1, p2, p3, p4]),
+                ZoneName = zoneName,
+            )
         )
-        wall.update(Detailed.ExternalWall)
+
         surface = Detailed(wall)
         surfaces += [surface]
     return surfaces
@@ -35,9 +39,8 @@ def CreateWallsByPointsHeightAndFloorCount(points: XYZList, height: float, floor
     for i in range(floorCount):
         points = XYZList(points.XYZs)
         for p in points.XYZs:
-            p[2] = i*height
+            p[2] = i * height
         surfaces += CreatelWallsByPointsAndHeight(points, height, f'Office.{i}.0')
-    
     return surfaces
 
 def CreateFenestration(wall: Detailed, wwr: float, count: int = 1)-> list():
@@ -46,9 +49,13 @@ def CreateFenestration(wall: Detailed, wwr: float, count: int = 1)-> list():
         mid = 0.5 * (wall.XYZs.XYZs[0] + wall.XYZs.XYZs[2])
         
         window = dict(Window.ExternalWindow)
-        window['Name'] = f'{wall.Name}.window.{i}'
-        window['BuildingSurfaceName'] = wall.Name
-        window['XYZs'] = XYZList(np.array([mid + (v - mid) * openingFactor for v in wall.XYZs.XYZs]))
+        window.update(
+            dict(
+                Name = f'{wall.Name}.window.{i}',
+                BuildingSurfaceName = wall.Name,
+                XYZs = XYZList(np.array([mid + (v - mid) * openingFactor for v in wall.XYZs.XYZs]))
+            )
+        )
 
         window = Window(window)
         wall.FenestrationArea = window.Area
@@ -67,6 +74,7 @@ def CreateFloors(points: XYZList, height: float, floorCount: int)-> list:
         points1 = points.Copy()
         points1.Flip()
         points1.ChangeZCoordinate(i * height)
+        
         surface["ZoneName"] = f'Office.{i}.0'
         surface["Name"] = f'Office.{i}.0.Floor'
         surface["XYZs"] = points1

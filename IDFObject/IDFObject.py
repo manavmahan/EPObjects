@@ -1,5 +1,4 @@
 from json import JSONEncoder, JSONDecoder
-import numpy as np
 import inspect
 import sys
 

@@ -52,7 +52,7 @@ class SamplingScheme(Enum):
 class SurfaceType(Enum):
     Ceiling = "Ceiling"
     Floor = "Floor"
-    Roof = "Roof"    
+    Roof = "Roof"
     Wall = "Wall"
     Window = "Window"
 

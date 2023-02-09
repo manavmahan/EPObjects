@@ -18,7 +18,6 @@ def GetLHSMatrix(numSamples, numParameters) -> np.ndarray:
             s[j] = rs.uniform(low=j * d, high=(j + 1) * d)
         rs.shuffle(s)
         result[:, i] = s
-    print (result)
     return result
 
 @staticmethod

@@ -36,13 +36,14 @@ class Construction(IDFObject):
         super().__init__(self.Properties, properties)
         self.MaterialsName = ListObject(self.MaterialsName.split(';'))
         self.Materials = list()
-        if materials is not None:
-            self.Initialise(materials)
+        self.Initialise(materials)
 
     def __updateMaterialNames(self):
         self.MaterialsName = ListObject([x.Name for x in self.Materials])
 
     def Initialise(self, materials: list()):
+        if materials is None:
+            return
         for mName in self.MaterialsName.Values:
             self.Materials += [next(x for x in materials if x.Name==mName)]
 
@@ -50,7 +51,7 @@ class Construction(IDFObject):
         if self.Materials[0].SolarHeatGainCoefficient != requiredGValue:
             self.Materials[0].SolarHeatGainCoefficient = requiredGValue
 
-    def AdjustUValue(self, requiredUValue, insulation: str):
+    def AdjustUValue(self, requiredUValue, insulation: str="Insulation"):
         if not requiredUValue: return
         if (self.UValue == requiredUValue):
             return
@@ -79,12 +80,12 @@ class Construction(IDFObject):
 
 Construction.ExternalWall = dict(
     Name = 'ExternalWall',
-    MaterialsName = 'Plaster;Insulation;Brick*Wall;Plaster'
+    MaterialsName = 'Plaster;Insulation;Brick.Wall;Plaster'
 )
 
 Construction.FloorCeiling = dict(
     Name = 'FloorCeiling',
-    MaterialsName = 'Concrete*Floor;Insulation;Screed*Floor'
+    MaterialsName = 'Concrete.Floor;Insulation;Screed.Floor'
 )
 
 Construction.Glazing = dict(
@@ -94,7 +95,7 @@ Construction.Glazing = dict(
 
 Construction.GroundFloor = dict(
     Name = 'GroundFloor',
-    MaterialsName = 'PerimeterInsulation;Insulation;Concrete*Floor;Screed*Floor'
+    MaterialsName = 'PerimeterInsulation;Insulation;Concrete.Floor;Screed.Floor'
 )
 
 Construction.InternalWall = dict(
@@ -109,5 +110,5 @@ Construction.Mass = dict(
 
 Construction.Roof = dict(
     Name = 'Roof',
-    MaterialsName = 'PerimeterInsulation;Insulation;Concrete*Roof;Plaster'
+    MaterialsName = 'PerimeterInsulation;Insulation;Concrete.Roof;Plaster'
 )

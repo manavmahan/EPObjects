@@ -1,61 +1,43 @@
 import json
-import math
-import numpy as np
-
-from ListObject import ListObject
-
-from GeometryObject.XYZList import XYZList
-
-from GeometryObject.Wall import CreateWallsByPointsHeightAndFloorCount, CreateFenestration, CreateFloors, CreateRoof
 
 from IDFObject.BuildingSurface.Detailed import Detailed as BuildingSurface
-
-from IDFObject.FenestrationSurface.Detailed import Detailed as FenestrationSurface
-
 from IDFObject.Construction import Construction
-
+from IDFObject.ConvergenceLimits import ConvergenceLimits
 from IDFObject.ElectricEquipment import ElectricEquipment
-
+from IDFObject.FenestrationSurface.Detailed import Detailed as FenestrationSurface
+from IDFObject.GlobalGeometryRules import GlobalGeometryRules
+from IDFObject.HVACTemplate.Plant.Boiler import Boiler
+from IDFObject.HVACTemplate.Plant.MixedWaterLoop import MixedWaterLoop
+from IDFObject.HVACTemplate.Plant.Tower import Tower
 from IDFObject.HVACTemplate.Zone.WaterToAirHeatPump import WaterToAirHeatPump
+from IDFObject.HVACTemplate.Thermostat import Thermostat
+from IDFObject.Material import Material
+from IDFObject.Output.Surfaces.Drawing import Drawing
+from IDFObject.Output.Table.SummaryReports import SummaryReports
+from IDFObject.Output.Diagnostics import Diagnostics
+from IDFObject.Output.PreprocessorMessage import PreprocessorMessage
+from IDFObject.Output.Variable import Variable
+from IDFObject.Output.VariableDictionary import VariableDictionary
+from IDFObject.OutputControl.Table.Style import Style
+from IDFObject.RunPeriod import RunPeriod
+from IDFObject.Schedule.Compact import Compact
+from IDFObject.ScheduleTypeLimits import ScheduleTypeLimits
+from IDFObject.SimulationControl import SimulationControl
+from IDFObject.Site.GroundTemperature.BuildingSurface import BuildingSurface
+from IDFObject.Site.Location import Location
+from IDFObject.SizingPeriod.WeatherFileDays import WeatherFileDays
+from IDFObject.Timestep import Timestep
+from IDFObject.Version import Version
+from IDFObject.WindowMaterial.Shade import Shade
+from IDFObject.WindowMaterial.SimpleGlazingSystem import SimpleGlazingSystem
+from IDFObject.Zone import Zone
+from IDFObject.ZoneInfiltration.DesignFlowRate import DesignFlowRate
+from IDFObject.ZoneList import ZoneList
 
 from IDFObject.IDFObject import IDFObject, IDFJsonEncoder, IDFJsonDecoder
 
-from IDFObject.Material import Material
-
-from IDFObject.Version import Version
-
-from IDFObject.WindowMaterial.SimpleGlazingSystem import SimpleGlazingSystem
-
-from IDFObject.Zone import Zone
-
-from IDFObject.ZoneInfiltration.DesignFlowRate import DesignFlowRate
-
-from IDFObject.ZoneList import ZoneList
-
-from Initialiser import InitialiseObject
-
-
-epObjects = []
-
-for obj in [
-    "Version",
-    "Building",
-    'RunPeriod',
-    'Timestep',
-    "ConvergenceLimits",
-    "GlobalGeometryRules",
-
-    "Material",
-    "WindowMaterial:SimpleGlazingSystem",
-    "WindowMaterial:Shade",
-
-    "Schedule:Compact",
-    "SimulationControl",
-    "Site:GroundTemperature:BuildingSurface",
-    "Site:Location",
-    "SizingPeriod:WeatherFileDays",
-]:
-    epObjects += InitialiseObject('Data', obj)
+with open('Test/Tausendpfund.json') as f:
+    epObjects = json.load(f, cls=IDFJsonDecoder)
 
 materials = list(x for x in epObjects if isinstance(x, (Material, SimpleGlazingSystem)))
 
@@ -68,33 +50,18 @@ constructions = {
     'InternalWall': 0.4,
     'Mass': None,
 }
+
 for construction in constructions:
     cons = Construction(getattr(Construction, construction), materials)
-    insulationLayer = cons.AdjustUValue(constructions[construction], "Insulation")
+    insulationLayer = cons.AdjustUValue(constructions[construction])
+    if insulationLayer: 
+        epObjects += [insulationLayer[0]]
+
     if construction == "Glazing":
         cons.AdjustGValue(0.35)
-    if insulationLayer: epObjects += [insulationLayer]
     epObjects += [cons]
 
-officeZoneList = ZoneList(dict(Name = "Office", ZoneNames = ListObject()))
-epObjects += [officeZoneList]
-for i in range(3):
-    epObjects += [Zone(dict(Name = f'Office.{i}.0'))]
-    officeZoneList.AddZone (f'Office.{i}.0')
-
-points = XYZList(np.array(((0,0,0), (14.7,0,0), (14.7,27,0), (0,27,0))))
-points.Rotate(math.pi/6)
-points.DisplaceToOrigin()
-
-epObjects += CreateFloors(points, 3.1, 3)
-walls = CreateWallsByPointsHeightAndFloorCount(points, 3.1, 3)
-
-epObjects += walls
-
-for w in walls:
-    epObjects += list( CreateFenestration(w, 0.33) )
-
-epObjects += CreateRoof (points, 3.1, 3)
+zoneLists = list(x for x in epObjects if isinstance(x, (ZoneList)))
 
 surfaces = [x for x in epObjects if isinstance(x, BuildingSurface)]
 fenestrations = [x for x in epObjects if isinstance(x, FenestrationSurface)]
@@ -104,47 +71,28 @@ massOfInternalMaterial = massMaterial.Thickness * massMaterial.Density * massMat
 
 for zone in [x for x in epObjects if isinstance(x, Zone)]:
     zone.AddSurfaces(surfaces, fenestrations)
-    epObjects += zone.GenerateDaylightControl('Office')
-    epObjects += zone.GenerateWindowShadingControl()
     epObjects += zone.GenerateInternalMass(60, massOfInternalMaterial)
-
-epObjects += [officeZoneList.GetPeopleObject(20)]
-epObjects += [officeZoneList.GetLightsObject(6)]
-epObjects += [officeZoneList.GetElectricEquipmentObject(10)]
 
 externalSurfaceArea = sum([x.ExternalSurfaceArea for x in epObjects if isinstance(x, Zone)])
 netVolume = sum([x.NetVolume for x in epObjects if isinstance(x, Zone)])
 ach = round(0.1 + 0.07 * 6 * externalSurfaceArea / (0.8 * netVolume), 5)
 
-epObjects += [officeZoneList.GetInfiltrationObject(ach)]
-epObjects += [officeZoneList.GetDefaultVentilationObject()]
-epObjects += [officeZoneList.GetNaturalVentilationObject()]
+for zoneList in zoneLists:
+    epObjects += [zoneList.GetPeopleObject(20)]
+    epObjects += [zoneList.GetLightsObject(6)]
+    epObjects += [zoneList.GetElectricEquipmentObject(10)]
+    epObjects += [zoneList.GetInfiltrationObject(ach)]
+    epObjects += [zoneList.GetDefaultVentilationObject()]
+    epObjects += [zoneList.GetNaturalVentilationObject()]
 
-epObjects += InitialiseObject('Data', "HVACTemplate:Thermostat")
-epObjects += InitialiseObject('Data', "HVACTemplate:Plant:MixedWaterLoop",)
-epObjects += InitialiseObject('Data', "HVACTemplate:Plant:Boiler",)
-epObjects += InitialiseObject('Data', "HVACTemplate:Plant:Tower",)
-
-for z in officeZoneList.ZoneNames.Values:
+for zone in [x for x in epObjects if isinstance(x, Zone)]:
     hvac = WaterToAirHeatPump(WaterToAirHeatPump.Default)
-    hvac.ZoneName = z
+    hvac.ZoneName = zone.Name
     hvac.TemplateThermostatName = "Office"
     epObjects += [hvac]
 
-for obj in [
-    "OutputControl:Table:Style",
-    "Output:Diagnostics",
-    "Output:Surfaces:Drawing",
-    "Output:Variable",
-]:
-    epObjects += InitialiseObject('Data', obj)
-
 # print ('\n'.join([str(obj) for obj in epObjects]))
 # print ('\n'.join([str(obj) for obj in epObjects]))
-
-import json
-
-zone = next(x for x in epObjects if isinstance(x, Zone))
 
 for x in epObjects:
     # if isinstance(x, BuildingSurface):
