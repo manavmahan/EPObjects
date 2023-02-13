@@ -5,7 +5,8 @@ from EnumTypes import Direction, SurfaceType
 from GeometryObject.XYZ import XYZ
 from GeometryObject.XYZList import XYZList
 
-from IDFObject.BuildingSurface.Detailed import Detailed 
+from IDFObject.BuildingSurface.Detailed import Detailed as Surface
+from IDFObject.FenestrationSurface.Detailed import Detailed as FenestrationSurface
 
 from IDFObject.Daylighting.Controls import Controls
 from IDFObject.Daylighting.ReferencePoint import ReferencePoint

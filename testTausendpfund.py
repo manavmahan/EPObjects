@@ -1,84 +1,18 @@
 import json
 
-from IDFObject.Building import Building
-from IDFObject.BuildingSurface.Detailed import Detailed as Surface
-from IDFObject.Construction import Construction
-from IDFObject.ConvergenceLimits import ConvergenceLimits
-from IDFObject.ElectricEquipment import ElectricEquipment
-from IDFObject.FenestrationSurface.Detailed import Detailed as FenestrationSurface
-from IDFObject.GlobalGeometryRules import GlobalGeometryRules
-from IDFObject.HVACTemplate.Plant.Boiler import Boiler
-from IDFObject.HVACTemplate.Plant.MixedWaterLoop import MixedWaterLoop
-from IDFObject.HVACTemplate.Plant.Tower import Tower
-from IDFObject.HVACTemplate.Zone.WaterToAirHeatPump import WaterToAirHeatPump
-from IDFObject.HVACTemplate.Thermostat import Thermostat
-from IDFObject.Material import Material
-from IDFObject.Output.Surfaces.Drawing import Drawing
-from IDFObject.Output.Table.SummaryReports import SummaryReports
-from IDFObject.Output.Diagnostics import Diagnostics
-from IDFObject.Output.PreprocessorMessage import PreprocessorMessage
-from IDFObject.Output.Variable import Variable
-from IDFObject.Output.VariableDictionary import VariableDictionary
-from IDFObject.OutputControl.Table.Style import Style
-from IDFObject.RunPeriod import RunPeriod
-from IDFObject.Schedule.Compact import Compact
-from IDFObject.ScheduleTypeLimits import ScheduleTypeLimits
-from IDFObject.SimulationControl import SimulationControl
-from IDFObject.Site.GroundTemperature.BuildingSurface import BuildingSurface
-from IDFObject.Site.Location import Location
-from IDFObject.SizingPeriod.WeatherFileDays import WeatherFileDays
-from IDFObject.Timestep import Timestep
-from IDFObject.Version import Version
-from IDFObject.WindowMaterial.Shade import Shade
-from IDFObject.WindowMaterial.SimpleGlazingSystem import SimpleGlazingSystem
-from IDFObject.Zone import Zone
-from IDFObject.ZoneInfiltration.DesignFlowRate import DesignFlowRate
-from IDFObject.ZoneList import ZoneList
-
-from IDFObject.IDFObject import IDFObject, IDFJsonEncoder, IDFJsonDecoder
+from Helper.Modules import *
+from Helper.IDFHelper import CreateConstructions, SetBestMatchConstruction, InitialiseZoneSurfaces, SetInternalMass
 
 with open('Test/Tausendpfund.json') as f:
     epObjects = json.load(f, cls=IDFJsonDecoder)
 
-materials = list(x for x in epObjects if isinstance(x, (Material, SimpleGlazingSystem)))
-
-constructions = {
-    'ExternalWall': 0.18,
-    'FloorCeiling': 0.4,
-    'GroundFloor': 0.18,
-    'Roof': 0.15,
-    'Glazing': 0.87,
-    'InternalWall': 0.4,
-    'Mass': None,
-}
-
-for construction in constructions:
-    cons = Construction(getattr(Construction, construction), materials)
-    insulationLayer = cons.AdjustUValue(constructions[construction])
-    if insulationLayer: 
-        epObjects += [insulationLayer]
-
-    if construction == "Glazing":
-        cons.AdjustGValue(0.35)
-    epObjects += [cons]
-
-zoneLists = list(x for x in epObjects if isinstance(x, (ZoneList)))
-
-surfaces = [x for x in epObjects if isinstance(x, Surface)]
-fenestrations = [x for x in epObjects if isinstance(x, FenestrationSurface)]
-
-massMaterial = next(x for x in epObjects if isinstance(x, Material) and x.Name=="Mass")
-massOfInternalMaterial = massMaterial.Thickness * massMaterial.Density * massMaterial.SpecificHeat / 1000
-
-for zone in [x for x in epObjects if isinstance(x, Zone)]:
-    zone.AddSurfaces(surfaces, fenestrations)
-    epObjects += zone.GenerateInternalMass(60, massOfInternalMaterial)
+InitialiseZoneSurfaces(epObjects)
+SetInternalMass(epObjects)
 
 externalSurfaceArea = sum([x.ExternalSurfaceArea for x in epObjects if isinstance(x, Zone)])
 netVolume = sum([x.NetVolume for x in epObjects if isinstance(x, Zone)])
 ach = round(0.1 + 0.07 * 6 * externalSurfaceArea / (0.8 * netVolume), 5)
-
-for zoneList in zoneLists:
+for zoneList in list(x for x in epObjects if isinstance(x, (ZoneList))):
     epObjects += [zoneList.GetPeopleObject(20)]
     epObjects += [zoneList.GetLightsObject(6)]
     epObjects += [zoneList.GetElectricEquipmentObject(10)]
@@ -92,15 +26,71 @@ for zone in [x for x in epObjects if isinstance(x, Zone)]:
     hvac.TemplateThermostatName = "Office"
     epObjects += [hvac]
 
-# print ('\n'.join([str(obj) for obj in epObjects]))
-# print ('\n'.join([str(obj) for obj in epObjects]))
+from Probabilistic.Parameter import ProbabilisticParameters
+nSamples = 50
 
-for x in epObjects:
-    # if isinstance(x, BuildingSurface):
+print ('Generating Samples...')
+pps = ProbabilisticParameters.ReadCsv('Probabilistic/1.csv')
+samples = pps.GenerateSamplesAsDF(nSamples,)
 
-    s = json.dumps(x, cls=IDFJsonEncoder)
-    o = json.loads(s, cls=IDFJsonDecoder)
-    print (o.IDF,)
+print ('Generating IDF files...')
+for i, sample in samples.iterrows():
+    objs = list(epObjects)
     
-    # break
-    # print (Zone(json.loads(str)))
+    CreateConstructions(sample, objs)
+    SetBestMatchConstruction(objs)
+
+    with open(f'Test/{i}.idf', 'w') as f:
+        f.write('\n'.join((x.IDF for x in objs)))
+
+print ('Simulating IDF files...')
+import os
+os.system('python3 runEP.py /Users/manav/repos/EPObjects/Test/')
+
+print ('Reading IDF files...')
+import pandas as pd
+from Probabilistic.EnergyPredictions import EnergyPrediction, ProbabilisticEnergyPrediction
+
+pEnergies = []
+for i in range(nSamples):
+    data = pd.read_csv(f'Test/{i}.csv', index_col=0)
+    data = data[[c for c in data.columns if 'Energy' in c]]
+    pEnergies += [EnergyPrediction(None, data)]
+
+d = ProbabilisticEnergyPrediction(None, pEnergies)
+
+print ('Training regressor...')
+from MLModels.Generator import Generator, TrainRegressor
+from MLModels.MLModel import GetScalingLayer
+
+col = ["NN", "RC", "LR",]
+N1 = [50, 100, 200]
+N2 = [0,]
+REG = [1e-03, 1e-05, 1e-07]
+LR = [1e-03, 1e-04, 1e-05]
+
+nn = [[nn1, nn2] for nn1 in N1 for nn2 in N2]
+hyperparameters = pd.DataFrame([[n, r, l,] 
+                                    for n in nn
+                                    for r in REG
+                                    for l in LR
+                                ], columns = col).sample(n=8,)
+
+TrainRegressor(hyperparameters, samples, d.Values['Total'], f'Test/MLModel/Regressor')
+
+print ('Training generator...')
+m = Generator(10, len(samples.columns), f'Test/MLModel/Generator')
+m.TuneHyperparameters(hyperparameters, f'Test/MLModel/Regressor.h5', d.Values['Total'].loc[[0]], GetScalingLayer(samples, True))
+
+print ('Determining parameters...')
+import numpy as np
+
+dfs = pd.DataFrame(columns=samples.columns)
+for i in range(50):
+    ar = m.Predict(100, i).mean(axis=0)
+    dfs.loc[i] = ar
+
+for p in dfs.columns:
+    print (p, np.percentile(dfs[p], 2.5), np.percentile(dfs[p], 97.5))
+
+print (samples.head(1))

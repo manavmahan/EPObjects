@@ -52,6 +52,7 @@ known_warnings = [
                     'Output:PreprocessorMessage',
                     'Site:GroundTemperature:BuildingSurface',
                     'ProcessScheduleInput',
+                    'CheckUsedConstructions',
                     'Report Variables were requested but not generated',
                     'CheckConvexity',
                     'DXFOut',

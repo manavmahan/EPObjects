@@ -5,7 +5,9 @@ from EnumTypes import Direction, SurfaceType
 from GeometryObject.XYZList import XYZList
 
 from IDFObject.Construction import Construction
+from IDFObject.FenestrationSurface.Detailed import Detailed as Fenestration
 from IDFObject.IDFObject import IDFObject
+from IDFObject.ZoneList import ZoneList
 
 class Detailed(IDFObject):
     __IDFName__ = "BuildingSurface:Detailed"
@@ -83,11 +85,11 @@ class Detailed(IDFObject):
             if math.pi/4 < self.XYZs.Plane.AngleFromXAxis <= 3 * math.pi/4:
                 self.__direction = Direction.N
 
-            if not self.Name.endswith(str(self.Direction)): self.Name += f'.{self.Direction}'
+            # if not self.Name.endswith(str(self.Direction)): self.Name += f'.{self.Direction}'
 
 Detailed.ExternalWall = dict(
     SurfaceType = SurfaceType.Wall,
-    ConstructionName = Construction.ExternalWall['Name'],
+    ConstructionName = Construction.WallExternal['Name'],
     OutsideBoundaryCondition = 'Outdoors',
     SunExposure = 'SunExposed',
     WindExposure = 'WindExposed',
@@ -95,9 +97,9 @@ Detailed.ExternalWall = dict(
     ViewFactor = '',
 )
 
-Detailed.FloorCeiling = dict(
+Detailed.FloorInternal = dict(
     SurfaceType = SurfaceType.Floor,
-    ConstructionName = Construction.FloorCeiling['Name'],
+    ConstructionName = Construction.FloorInternal['Name'],
     OutsideBoundaryCondition = 'Adiabatic',
     SunExposure = 'NoSun',
     WindExposure = 'NoWind',
@@ -105,9 +107,9 @@ Detailed.FloorCeiling = dict(
     ViewFactor = '',
 )
 
-Detailed.GroundFloor = dict(
+Detailed.FloorGround = dict(
     SurfaceType = SurfaceType.Floor,
-    ConstructionName = Construction.GroundFloor['Name'],
+    ConstructionName = Construction.FloorGround['Name'],
     OutsideBoundaryCondition = 'Ground',
     SunExposure = 'NoSun',
     WindExposure = 'NoWind',

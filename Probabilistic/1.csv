@@ -1,3 +1,5 @@
-u-value,Office,Office.0.0,Wall,Office.0.0.External.Wall.West.0,0.2,0.05,Uniform
-u-value,,,Floor,,0.2,0.05,Uniform
-g-value,,,Window,,0.8,0.05,Uniform
+u-value:Roof,0.175,0.025,Uniform
+u-value:WallExternal,0.2,0.05,Uniform
+u-value:FloorGround,0.2,0.05,Uniform
+u-value:Window,0.8,0.05,Uniform
+g-value:Window,0.6,0.05,Uniform
