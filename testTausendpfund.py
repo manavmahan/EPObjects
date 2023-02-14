@@ -27,7 +27,7 @@ for zone in [x for x in epObjects if isinstance(x, Zone)]:
     epObjects += [hvac]
 
 from Probabilistic.Parameter import ProbabilisticParameters
-nSamples = 50
+nSamples = 500
 
 print ('Generating Samples...')
 pps = ProbabilisticParameters.ReadCsv('Probabilistic/1.csv')
@@ -40,12 +40,12 @@ for i, sample in samples.iterrows():
     CreateConstructions(sample, objs)
     SetBestMatchConstruction(objs)
 
-    with open(f'Test/{i}.idf', 'w') as f:
+    with open(f'Test/IDFFiles/{i}.idf', 'w') as f:
         f.write('\n'.join((x.IDF for x in objs)))
 
 print ('Simulating IDF files...')
 import os
-os.system('python3 runEP.py /Users/manav/repos/EPObjects/Test/')
+os.system(f'python3 runEP.py {os.getcwd()}/Test/')
 
 print ('Reading IDF files...')
 import pandas as pd
@@ -53,7 +53,7 @@ from Probabilistic.EnergyPredictions import EnergyPrediction, ProbabilisticEnerg
 
 pEnergies = []
 for i in range(nSamples):
-    data = pd.read_csv(f'Test/{i}.csv', index_col=0)
+    data = pd.read_csv(f'Test/IDFFiles/{i}.csv', index_col=0)
     data = data[[c for c in data.columns if 'Energy' in c]]
     pEnergies += [EnergyPrediction(None, data)]
 

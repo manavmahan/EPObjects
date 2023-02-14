@@ -1,4 +1,4 @@
-Program Version,EnergyPlus, Version 9.2.0-921312fa1d, YMD=2023.02.13 17:03,
+Program Version,EnergyPlus, Version 9.2.0-921312fa1d, YMD=2023.02.14 10:35,
    ** Warning ** Output:PreprocessorMessage="ExpandObjects" has the following Warning condition:
    **   ~~~   ** Cannot find Energy+.idd as specified in Energy+.ini.
    ** Warning ** Output:PreprocessorMessage="ExpandObjects" has the following Warning conditions:
@@ -49,4 +49,4 @@ Program Version,EnergyPlus, Version 9.2.0-921312fa1d, YMD=2023.02.13 17:03,
    *************
    ************* EnergyPlus Warmup Error Summary. During Warmup: 0 Warning; 0 Severe Errors.
    ************* EnergyPlus Sizing Error Summary. During Sizing: 11 Warning; 0 Severe Errors.
-   ************* EnergyPlus Completed Successfully-- 14 Warning; 0 Severe Errors; Elapsed Time=00hr 00min 10.38sec
+   ************* EnergyPlus Completed Successfully-- 14 Warning; 0 Severe Errors; Elapsed Time=00hr 00min 12.36sec
