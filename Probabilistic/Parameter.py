@@ -117,21 +117,19 @@ class ProbabilisticParameter:
         elif self.Distribution == Distribution.Triangular:
             result = triang(loc=self.Mean, scale=self.Variation, c=0.5).ppf(samplingArray)
         elif self.Distribution == Distribution.Uniform:
-            result = self.Min + (2.0 * self.Variation) * samplingArray
+            result = self.Min + 2 * self.Variation * samplingArray
         return np.round(result, 5)
 
     @staticmethod
     def ReadCsv(line):
         values = line.split(',')
         parameter = Parameter(values[0])
-        mean = float(values[1])
-        
         distribution = Distribution(values[3])
 
         if distribution == Distribution.Uniform or distribution == Distribution.Triangular:
-            return ProbabilisticParameter(parameter, distribution=distribution, mean=mean, variation=float(values[2]))
+            return ProbabilisticParameter(parameter, distribution=distribution, mean=float(values[1]), variation=float(values[2]))
         else:
-            return ProbabilisticParameter(parameter, distribution=distribution, mean=mean, standardDeviation=float(values[2]))
+            return ProbabilisticParameter(parameter, distribution=distribution, mean=float(values[1]), standardDeviation=float(values[2]))
 
 class ProbabilisticParameters:
     def __init__(self, parameters: list()):
@@ -168,4 +166,4 @@ class ProbabilisticParameters:
         if file is not None:
             with open(file) as f:
                 parameters = f.readlines()
-        return ProbabilisticParameters( [ProbabilisticParameter.ReadCsv(x.replace('\n', '')) for x in parameters] )
+        return ProbabilisticParameters( [ProbabilisticParameter.ReadCsv(x.replace('\n', '')) for x in parameters if not x.startswith('#')] )

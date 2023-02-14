@@ -27,7 +27,7 @@ for zone in [x for x in epObjects if isinstance(x, Zone)]:
     epObjects += [hvac]
 
 from Probabilistic.Parameter import ProbabilisticParameters
-nSamples = 500
+nSamples = 50
 
 print ('Generating Samples...')
 pps = ProbabilisticParameters.ReadCsv('Probabilistic/1.csv')
@@ -45,7 +45,7 @@ for i, sample in samples.iterrows():
 
 print ('Simulating IDF files...')
 import os
-os.system(f'python3 runEP.py {os.getcwd()}/Test/')
+os.system(f'python3 runEP.py {os.getcwd()}/Test')
 
 print ('Reading IDF files...')
 import pandas as pd
@@ -64,8 +64,8 @@ from MLModels.Generator import Generator, TrainRegressor
 from MLModels.MLModel import GetScalingLayer
 
 col = ["NN", "RC", "LR",]
-N1 = [50, 100, 200]
-N2 = [0,]
+N1 = [10, 25, 50]
+N2 = [0]#[10, 25, 50]
 REG = [1e-03, 1e-05, 1e-07]
 LR = [1e-03, 1e-04, 1e-05]
 

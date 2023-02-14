@@ -11,6 +11,15 @@ def TrainRegressor(hyperparameters, X, Y, filePath):
     regressor = Regressor(X.columns, Y.columns, filePath)
     regressor.TuneHyperparameters(hyperparameters, X, Y)
 
+@tf.function
+def TrainStep(model, actual):
+    noise = tf.random.normal([1000, model.NumInputs],)
+    with tf.GradientTape() as gen_tape:
+        predictions = model.Model(noise, training=True)
+        gen_loss = tf.keras.losses.mean_squared_error(actual, predictions)
+        gradients_of_generator = gen_tape.gradient(gen_loss, model.Model.trainable_variables)
+        model.Optimiser.apply_gradients(zip(gradients_of_generator, model.Model.trainable_variables))
+
 class Generator():
     def __init__(self, numInputs, numOutputs, filePath):
         self.NumInputs = numInputs
@@ -30,18 +39,9 @@ class Generator():
         model.add(revScalingX)
         self.Generator = model
         outputs = appendModel(self.Generator.output)
-        self.Model = tf.keras.Model(inputs=model.inputs, outputs=outputs)
+        self.Model = tf.keras.Model(inputs=self.Generator.inputs, outputs=outputs)
         self.Model.compile(loss=tf.keras.losses.mean_squared_error)
-        self.__optimiser = tf.keras.optimizers.Adam(learning_rate=hyperparameters['LR'])
-
-    @tf.function
-    def __trainStep(self, actual):
-        noise = tf.random.normal([1000, self.NumInputs],)
-        with tf.GradientTape() as gen_tape:
-            predictions = self.Model(noise, training=True)
-            gen_loss = tf.keras.losses.mean_squared_error(actual, predictions)
-            gradients_of_generator = gen_tape.gradient(gen_loss, self.Model.trainable_variables)
-            self.__optimiser.apply_gradients(zip(gradients_of_generator, self.Model.trainable_variables))
+        self.Optimiser = tf.keras.optimizers.Adam(learning_rate=hyperparameters['LR'])
 
     def __trainModel(self, hyperparameters, appendModelPath, actual, revScalingX):
         '''
@@ -52,7 +52,7 @@ class Generator():
 
         self.__createModel(hyperparameters, appendModel, revScalingX)
         for _ in range(1000):
-            self.__trainStep(actual)
+            TrainStep(self, actual)
 
         loss = tf.keras.losses.MeanSquaredError()
         return loss(actual, self.Model(tf.random.normal([len(actual), self.NumInputs]), training=False)).numpy()

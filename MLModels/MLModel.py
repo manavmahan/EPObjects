@@ -52,7 +52,7 @@ class Regressor():
                                            kernel_regularizer=tf.keras.regularizers.L2(hyperparameters['RC'])) )
 
         model.add(tf.keras.layers.Dense(self.NumOutputs))
-        if revScalingY is not None: model.add(revScalingY)
+        # if revScalingY is not None: model.add(revScalingY)
         
         model.compile(loss=tf.keras.losses.mean_squared_error, optimizer=tf.keras.optimizers.Adam(learning_rate=hyperparameters['LR']),)
         model.summary()
