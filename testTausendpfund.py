@@ -1,9 +1,9 @@
 import json
-
+import numpy as np
 from Helper.Modules import *
 from Helper.IDFHelper import CreateConstructions, SetBestMatchConstruction, InitialiseZoneSurfaces, SetInternalMass
 
-with open('Test/Tausendpfund.json') as f:
+with open('Tausendpfund.json') as f:
     epObjects = json.load(f, cls=IDFJsonDecoder)
 
 InitialiseZoneSurfaces(epObjects)
@@ -60,36 +60,32 @@ for i in range(nSamples):
 d = ProbabilisticEnergyPrediction(None, pEnergies)
 
 print ('Training regressor...')
-from MLModels.Generator import Generator, TrainRegressor
+from MLModels.Helper import TrainGenerator, TrainRegressor
 from MLModels.MLModel import GetScalingLayer
 
 col = ["NN", "RC", "LR",]
-N1 = [10, 25, 50]
-N2 = [0]#[10, 25, 50]
-REG = [1e-03, 1e-05, 1e-07]
-LR = [1e-03, 1e-04, 1e-05]
+N1 = [10, 20, 40]
+N2 = [10, 20, 40]
+REG = [1e-05, 1e-07, 1e-09]
+LR = [1e-3, 3e-4, 1e-4]
 
 nn = [[nn1, nn2] for nn1 in N1 for nn2 in N2]
 hyperparameters = pd.DataFrame([[n, r, l,] 
                                     for n in nn
                                     for r in REG
                                     for l in LR
-                                ], columns = col).sample(n=8,)
+                                ], columns = col).sample(n=50,)
 
-TrainRegressor(hyperparameters, samples, d.Values['Total'], f'Test/MLModel/Regressor')
+# TrainRegressor(hyperparameters, samples, d.Values['Total'], f'Test/MLModel/Regressor')
 
 print ('Training generator...')
-m = Generator(10, len(samples.columns), f'Test/MLModel/Generator')
-m.TuneHyperparameters(hyperparameters, f'Test/MLModel/Regressor.h5', d.Values['Total'].loc[[0]], GetScalingLayer(samples, True))
+targetValues = np.array([d.Values['Total'].loc[0] for _ in range(1000)])
+m = TrainGenerator(hyperparameters, 100, samples.columns, f'Test/MLModel/Generator', f'Test/MLModel/Regressor.h5', targetValues, GetScalingLayer(samples, True))
 
 print ('Determining parameters...')
-import numpy as np
+dfs = m.Predict(100,)
 
-dfs = pd.DataFrame(columns=samples.columns)
-for i in range(50):
-    ar = m.Predict(100, i).mean(axis=0)
-    dfs.loc[i] = ar
-
+print (dfs.shape)
 for p in dfs.columns:
     print (p, np.percentile(dfs[p], 2.5), np.percentile(dfs[p], 97.5))
 

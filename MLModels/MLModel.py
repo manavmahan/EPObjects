@@ -4,6 +4,9 @@ import os
 import pandas as pd
 import shutil
 import tensorflow as tf
+tf._logging.disable(tf._logging.DEBUG)
+tf._logging.disable(tf._logging.INFO)
+tf._logging.disable(tf._logging.WARNING)
 
 EarlyStopping = tf.keras.callbacks.EarlyStopping(min_delta=1e-05, 
                                                  patience=20, 
@@ -52,10 +55,9 @@ class Regressor():
                                            kernel_regularizer=tf.keras.regularizers.L2(hyperparameters['RC'])) )
 
         model.add(tf.keras.layers.Dense(self.NumOutputs))
-        # if revScalingY is not None: model.add(revScalingY)
+        if revScalingY is not None: model.add(revScalingY)
         
         model.compile(loss=tf.keras.losses.mean_squared_error, optimizer=tf.keras.optimizers.Adam(learning_rate=hyperparameters['LR']),)
-        model.summary()
         return model
 
     def __trainModel(self, hyperparameters, X, Y, scalingX, revScalingY=None):
@@ -63,7 +65,7 @@ class Regressor():
         training ANN model based on the hyperparameters
         '''        
         model = self.__createModel(hyperparameters, scalingX, revScalingY)
-        model.fit(X, Y, validation_split=0.2, epochs=1000, verbose=0, callbacks=[EarlyStopping],)
+        model.fit(X, Y, validation_split=0.2, epochs=1000, verbose=1, callbacks=[EarlyStopping],)
 
         loss = tf.keras.losses.MeanSquaredError()
         return model, loss( model(X, training=False), Y).numpy()

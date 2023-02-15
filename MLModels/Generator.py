@@ -1,29 +1,18 @@
 from functools import reduce
+import glob
 import numpy as np
 import os
 import pandas as pd
 import shutil
 import tensorflow as tf
 
-from MLModels.MLModel import Regressor
-
-def TrainRegressor(hyperparameters, X, Y, filePath):
-    regressor = Regressor(X.columns, Y.columns, filePath)
-    regressor.TuneHyperparameters(hyperparameters, X, Y)
-
-@tf.function
-def TrainStep(model, actual):
-    noise = tf.random.normal([1000, model.NumInputs],)
-    with tf.GradientTape() as gen_tape:
-        predictions = model.Model(noise, training=True)
-        gen_loss = tf.keras.losses.mean_squared_error(actual, predictions)
-        gradients_of_generator = gen_tape.gradient(gen_loss, model.Model.trainable_variables)
-        model.Optimiser.apply_gradients(zip(gradients_of_generator, model.Model.trainable_variables))
+from MLModels.MLModel import EarlyStopping
 
 class Generator():
-    def __init__(self, numInputs, numOutputs, filePath):
+    def __init__(self, numInputs, parameters, filePath):
         self.NumInputs = numInputs
-        self.NumOutputs = numOutputs
+        self.NumOutputs = len(parameters)
+        self.Parameters = parameters
         self.FilePath = filePath
 
     def __createModel(self, hyperparameters, appendModel, revScalingX):
@@ -32,16 +21,14 @@ class Generator():
 
         for nn in [n for n in hyperparameters['NN'] if n>0]:
             model.add( tf.keras.layers.Dense(nn, 
-                                           activation=tf.keras.activations.relu, 
-                                           kernel_regularizer=tf.keras.regularizers.L2(hyperparameters['RC'])) )
+                                           activation=tf.keras.activations.relu,) )
 
-        model.add(tf.keras.layers.Dense(self.NumOutputs))
+        model.add(tf.keras.layers.Dense(self.NumOutputs,))
         model.add(revScalingX)
         self.Generator = model
         outputs = appendModel(self.Generator.output)
         self.Model = tf.keras.Model(inputs=self.Generator.inputs, outputs=outputs)
-        self.Model.compile(loss=tf.keras.losses.mean_squared_error)
-        self.Optimiser = tf.keras.optimizers.Adam(learning_rate=hyperparameters['LR'])
+        self.Model.compile(loss=tf.keras.losses.mean_squared_error, optimizer=tf.keras.optimizers.Adam(learning_rate=hyperparameters['LR']))
 
     def __trainModel(self, hyperparameters, appendModelPath, actual, revScalingX):
         '''
@@ -50,36 +37,32 @@ class Generator():
         appendModel = tf.keras.models.load_model(appendModelPath)
         appendModel.trainable = False
 
-        self.__createModel(hyperparameters, appendModel, revScalingX)
-        for _ in range(1000):
-            TrainStep(self, actual)
-
         loss = tf.keras.losses.MeanSquaredError()
+        self.__createModel(hyperparameters, appendModel, revScalingX)
+        self.Model.fit(tf.random.normal((len(actual), self.NumInputs)), actual, verbose=1, epochs=1000, validation_split=0.2, callbacks=[EarlyStopping])
         return loss(actual, self.Model(tf.random.normal([len(actual), self.NumInputs]), training=False)).numpy()
         
     def TuneHyperparameters(self, hyperparameters, appendModelPath, actual, revScalingX):
-        path = f'{self.FilePath}/Tuning'
+        path = self.FilePath
         if os.path.exists(path): shutil.rmtree(path)
         os.makedirs(path)
 
         df = pd.DataFrame(columns = ['Settings', 'Loss'])
-            
-        i = 0
         for i, hp in hyperparameters.iterrows():
             tf.keras.backend.clear_session()
             loss = self.__trainModel(hp, appendModelPath, actual, revScalingX)
             df.loc[i] = [[str(x) for x in hp.values], loss]
-            self.Generator.save(f"{path}/M{i}.h5")
+            self.Generator.save(f"{path}/G{i}.h5")
+            self.Model.save(f"{path}/M{i}.h5")
             df.to_csv(f"{path}/tuning.csv")
-                
-        # copy the best fit model to the model location
-        df = pd.read_csv(f"{path}/tuning.csv", index_col=0)
-        m = df["Loss"].idxmin()
-        shutil.copyfile(f"{path}/M{i}.h5", f"{self.FilePath}.h5")  
 
     def Predict(self, numSamples, seed=0):
         '''
         makes predictions using the ML model
         '''
-        model = tf.keras.models.load_model(f"{self.FilePath}.h5")
-        return model(tf.random.normal([numSamples, self.NumInputs], seed=seed), training=False).numpy()
+        dfs = pd.DataFrame(columns=self.Parameters)
+        for modelPath in (glob.glob(f'{self.FilePath}/G*.h5')):
+            model = tf.keras.models.load_model(modelPath)
+            prediction = model(tf.random.normal([numSamples, self.NumInputs],), training=False).numpy().mean(axis=0)
+            dfs.loc[modelPath] = prediction
+        return dfs
