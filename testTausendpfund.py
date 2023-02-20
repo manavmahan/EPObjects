@@ -1,9 +1,10 @@
 import json
+import os
 import numpy as np
 from Helper.Modules import *
 from Helper.IDFHelper import CreateConstructions, SetBestMatchConstruction, InitialiseZoneSurfaces, SetInternalMass
 
-with open('Tausendpfund.json') as f:
+with open(f'{os.getcwd()}/Tausendpfund.json') as f:
     epObjects = json.load(f, cls=IDFJsonDecoder)
 
 InitialiseZoneSurfaces(epObjects)
@@ -27,7 +28,7 @@ for zone in [x for x in epObjects if isinstance(x, Zone)]:
     epObjects += [hvac]
 
 from Probabilistic.Parameter import ProbabilisticParameters
-nSamples = 50
+nSamples = 100
 
 print ('Generating Samples...')
 pps = ProbabilisticParameters.ReadCsv('Probabilistic/1.csv')
@@ -61,32 +62,33 @@ d = ProbabilisticEnergyPrediction(None, pEnergies)
 
 print ('Training regressor...')
 from MLModels.Helper import TrainGenerator, TrainRegressor
-from MLModels.MLModel import GetScalingLayer
+from MLModels.Regressor import GetScalingLayer
 
 col = ["NN", "RC", "LR",]
-N1 = [10, 20, 40]
-N2 = [10, 20, 40]
-REG = [1e-05, 1e-07, 1e-09]
-LR = [1e-3, 3e-4, 1e-4]
+N1 = [5, 10, 20,]
+N2 = [0, 5, 10,]
+RC = [1e-3, 3e-4, 1e-4,]
+LR = [1e-3, 3e-4, 1e-4,]
 
 nn = [[nn1, nn2] for nn1 in N1 for nn2 in N2]
 hyperparameters = pd.DataFrame([[n, r, l,] 
                                     for n in nn
-                                    for r in REG
+                                    for r in RC
                                     for l in LR
-                                ], columns = col).sample(n=50,)
+                                ], columns = col).sample(n=4,)
+hyperparameters.index = range(len(hyperparameters))
 
-# TrainRegressor(hyperparameters, samples, d.Values['Total'], f'Test/MLModel/Regressor')
+r = TrainRegressor(hyperparameters[:4], samples, d.Values['Total'], f'Test/MLModel/Regressor', scalingDF_X=pps.GetScalingDF() , training=False)
 
 print ('Training generator...')
-targetValues = np.array([d.Values['Total'].loc[0] for _ in range(1000)])
-m = TrainGenerator(hyperparameters, 100, samples.columns, f'Test/MLModel/Generator', f'Test/MLModel/Regressor.h5', targetValues, GetScalingLayer(samples, True))
+targetValues = np.array([d.Values['Total'].loc[0] for _ in range(100)])
+m = TrainGenerator(hyperparameters, 25, samples.columns, f'Test/MLModel/Generator', f'{r.FilePath}.h5', targetValues, GetScalingLayer(samples, scaledDF=pps.GetScalingDF(), reverse=True), True)
 
 print ('Determining parameters...')
 dfs = m.Predict(100,)
 
-print (dfs.shape)
+# print (dfs.shape)
 for p in dfs.columns:
-    print (p, np.percentile(dfs[p], 2.5), np.percentile(dfs[p], 97.5))
+    print (p, np.min(dfs[p]), np.percentile(dfs[p], 2.5), np.percentile(dfs[p], 50), dfs[p].mean(), np.percentile(dfs[p], 97.5), np.max(dfs[p]))
 
 print (samples.head(1))

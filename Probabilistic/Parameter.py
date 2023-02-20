@@ -111,6 +111,9 @@ class ProbabilisticParameter:
             value["StandardDeviation"] = self.StandardDeviation
         return value
 
+    def GetScalingDF(self):
+        return pd.Series([self.Min, self.Max-self.Min], name=str(self.Parameter))
+
     def GetScaledParameters(self, samplingArray):
         if self.Distribution == Distribution.Normal:
             result = norm(loc=self.Mean, scale=self.StandardDeviation).ppf(samplingArray)
@@ -138,6 +141,7 @@ class ProbabilisticParameters:
 
     def __iter__(self):
         self.current = self.__parameters[0]
+        self.__index = 0
         return self
 
     def __next__(self):
@@ -161,9 +165,17 @@ class ProbabilisticParameters:
     def GenerateSamplesAsDF(self, numSamples : int, samplingScheme=SamplingScheme.LHS):
         return pd.DataFrame(self.GenerateSamples(numSamples, samplingScheme), columns=(str(x) for x in self.__parameters))
 
+    def GetScalingDF(self):
+        df = pd.DataFrame(columns=['Min', 'Range'])
+        for _, pp in enumerate(self.__parameters):
+            df.loc[str(pp.Parameter)] = pp.GetScalingDF().values
+        return df
+
     @staticmethod
-    def ReadCsv(file=None, parameters=None):
-        if file is not None:
+    def ReadCsv(file, parameters=None):
+        try:
             with open(file) as f:
                 parameters = f.readlines()
+        except:
+            if parameters is None: raise Exception(f'Cannot find file: {file}')
         return ProbabilisticParameters( [ProbabilisticParameter.ReadCsv(x.replace('\n', '')) for x in parameters if not x.startswith('#')] )

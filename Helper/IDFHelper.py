@@ -55,9 +55,6 @@ def SetBestMatchConstruction(epObjects,):
 
 # Zone
 
-from IDFObject.BuildingSurface.Detailed import Detailed as BuildingSurface
-from IDFObject.FenestrationSurface.Detailed import Detailed as FenestrationSurface
-from IDFObject.Material import Material
 from IDFObject.Zone import Zone
 
 def GetExternalSurfaceArea(epObjects):
@@ -66,7 +63,6 @@ def GetExternalSurfaceArea(epObjects):
 def InitialiseZoneSurfaces(epObjects):
     surfaces = [x for x in epObjects if isinstance(x, BuildingSurface)]
     fenestrations = [x for x in epObjects if isinstance(x, FenestrationSurface)]
-
     for zone in [x for x in epObjects if isinstance(x, Zone)]:
         zone.AddSurfaces(surfaces, fenestrations)
 
