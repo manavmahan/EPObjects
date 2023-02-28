@@ -41,8 +41,8 @@ def GetScalingLayer(dataset=None, scaledDF=None, reverse=False, allColumnsEqual=
 
 def GetScalingParameters(dataDF, allColumnsEqual):
     df = pd.DataFrame(index = dataDF.columns)
-    df['Min'] = dataDF.min(axis=0) if allColumnsEqual else dataDF.values.min() * np.ones(len(dataDF.columns))
-    df['Max'] = dataDF.max(axis=0) if allColumnsEqual else dataDF.values.max() * np.ones(len(dataDF.columns))
+    df['Min'] = dataDF.values.min() * np.ones(len(dataDF.columns)) if allColumnsEqual else dataDF.min(axis=0) 
+    df['Max'] = dataDF.values.max() * np.ones(len(dataDF.columns)) if allColumnsEqual else dataDF.max(axis=0)
     df['Range'] = df['Max'] - df['Min']
     return df
 
@@ -77,7 +77,7 @@ class Regressor():
             history = model.fit(XTrain, YTrain, validation_data=[XVal, YVal], epochs=1000, verbose=0, callbacks=[EarlyStoppingValLoss],)
             return model, min(history.history['val_loss']) 
 
-    def GetBestHyperparameters(self, hyperparametersSet, X, Y, scalingDF_X, numFolds=4):
+    def GetBestHyperparameters(self, hyperparametersSet, X, Y, scalingDF_X, numFolds=5):
         print (f'Searching best hyperparameters using {numFolds} folds cross validation...')
         if os.path.exists(self.FilePath): shutil.rmtree(self.FilePath)
         os.makedirs(self.FilePath)
@@ -99,6 +99,7 @@ class Regressor():
                 loss += [foldLoss]
                 f += 1
             loss = np.array(loss).mean()
+            print (f'Cross-validation loss:\t{loss}')
             if loss < bestLoss:
                 bestLoss = loss
                 bestHP = hp
@@ -110,7 +111,7 @@ class Regressor():
         hp, loss, scalingX, scalingY = self.GetBestHyperparameters(hyperparametersSet, X, Y, scalingDF_X)
 
         t_tuning = time.time()
-        print (f'Hyperparameter Tuning\t: {(t_tuning-t):.0f}')
+        print (f'Hyperparameter Tuning\t: {(t_tuning-t):.0f} seconds')
 
         print (f'Training the final model on {dict(hp)}...')
         modelLoss = float('inf')
@@ -121,7 +122,7 @@ class Regressor():
             print (f'MSE:\t{modelLoss};\tMean (Y):\t{Y.mean()}')
             i += 1
         t_training = time.time()
-        print (f'Total training Tuning\t: {(t_training-t):.0f}')
+        print (f'Total training Tuning\t: {(t_training-t):.0f} seconds')
         model.save(f"{self.FilePath}.h5")
 
     def Predict(self, data,):

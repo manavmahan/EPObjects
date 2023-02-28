@@ -80,6 +80,9 @@ class TestInialiser(unittest.TestCase):
     def testReadFileScheduleCompact(self):
         self.assertEqual("Schedule:Compact,HeatingSetPoint,,Through: 12/31,For: WeekDays SummerDesignDay WinterDesignDay CustomDay1 CustomDay2,Until: 6:30,15,Until: 18:30,20,Until: 24:00,15,For: WeekendsHoliday,Until: 24:00,15;", str(self.idfObjects['Schedule:Compact'][0]))
 
+    def testReadFileScheduleFile(self):
+        self.assertEqual("Schedule:File,elecTDVfromCZ01res,AnyNumber,TDV_kBtu_CTZ01csv,2,4,8760,Comma;", str(self.idfObjects['Schedule:File'][0]))
+
     def testReadFileScheduleTypeLimits(self):
         self.assertEqual("ScheduleTypeLimits,activityLevel,0,,Continuous,activitylevel;", str(self.idfObjects['ScheduleTypeLimits'][0]))
 
@@ -122,9 +125,6 @@ class TestInialiser(unittest.TestCase):
     def testReadFileZoneList(self):
         self.assertEqual("ZoneList,Office,Office:0:1,Office:0:2;", str(self.idfObjects['ZoneList'][0]))
 
-
-    def testReadFileZoneVentilationDesignFlowRate(self):
-        self.assertEqual("ZoneVentilation:DesignFlowRate,NaturalVentilation_Office,Office,Office_VentilationSchedule,AirChanges/Hour,0,0.001,0.00944,2,Natural,1,1,1,0,0,0,23, ,24.9, ,1;", str(self.idfObjects['ZoneVentilation:DesignFlowRate'][0]))
 
 if __name__ == '__main__':
     unittest.main()

@@ -1,7 +1,7 @@
 import os
 import pandas as pd
 
-RepoPath = '/Users/manav/repos/EPObjects'
+RepoPath = '/home/ubuntu/repos/EPObjects'
 
 def Automate(root, file):
     name = file[:-4]
@@ -13,8 +13,9 @@ def Automate(root, file):
     if os.path.isfile(pyFileName):
         return
     
+    print (pyFileName)
     df = pd.read_csv(f'{root}/{file}')
-    properties = ",\n        ".join(f"'{x}'" for x in df.columns) + ','
+    properties = ",\n".join(f"'{x}'" for x in df.columns) + ','
     
     lines = f'''from IDFObject.IDFObject import IDFObject
     

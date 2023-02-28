@@ -71,3 +71,11 @@ def SetInternalMass(epObjects, massPerSqM=30):
     massOfInternalMaterial = massMaterial.Thickness * massMaterial.Density * massMaterial.SpecificHeat / 1000
     for zone in [x for x in epObjects if isinstance(x, Zone)]:
         epObjects += zone.GenerateInternalMass(massPerSqM, massOfInternalMaterial)
+
+from IDFObject.Output.Variable import Variable
+from EnumTypes import Frequency
+
+def SetReportingFrequency(epObjects, frequency):
+    variables = [x for x in epObjects if isinstance(x, Variable)]
+    for v in variables:
+        v.ReportingFrequency = frequency.name
