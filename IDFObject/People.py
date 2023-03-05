@@ -46,3 +46,22 @@ People.Default = dict(
     AirVelocityScheduleName = 'Always0.1',
     ThermalComfortModel1Type = 'Fanger',
 )
+
+People.Zone = dict(
+    NumberofPeopleCalculationMethod = 'People',
+    NumberofPeople = '',
+    PeopleperZoneFloorArea = '',
+    ZoneFloorAreaperPerson = '',
+    FractionRadiant = 0.1,
+    SensibleHeatFraction = '',
+    CarbonDioxideGenerationRate = 3.82E-08,
+    EnableASHRAE55ComfortWarnings = '',
+    MeanRadiantTemperatureCalculationType = 'ZoneAveraged',
+    SurfaceNameAngleFactorListName = '',
+    WorkEfficiencyScheduleName = 'Always1',
+    ClothingInsulationCalculationMethod = 'DynamicClothingModelASHRAE55',
+    ClothingInsulationCalculationMethodScheduleName = '',
+    ClothingInsulationScheduleName = '',
+    AirVelocityScheduleName = 'Always0.1',
+    ThermalComfortModel1Type = 'Fanger',
+)

@@ -48,7 +48,7 @@ class Generator():
         self.Generator = model
         outputs = appendModel(self.Generator.output)
         self.Model = Model(inputs=self.Generator.inputs, outputs=outputs)
-        self.Model.compile(loss=mean_squared_error, optimizer=Adam(learning_rate=hyperparameters['LR']))
+        self.Model.compile(loss='mean_absolute_percentage_error', optimizer=Adam(learning_rate=hyperparameters['LR']))
 
     def __trainModel(self, hyperparameters, appendModelPath, actual, revScalingX):
         appendModel = load_model(appendModelPath)

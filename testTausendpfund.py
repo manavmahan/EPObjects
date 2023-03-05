@@ -5,9 +5,10 @@ import numpy as np
 from EPLogger import Logger
 
 from Helper.Modules import *
-from Helper.IDFHelper import CreateConstructions, SetBestMatchConstruction, InitialiseZoneSurfaces, SetInternalMass, SetReportingFrequency
-from Helper.ScheduleHelper import CreateOfficeSchedule, DefaultOfficeSchedules
+from Helper.ConstructionHelper import CreateConstructions, SetBestMatchConstruction, InitialiseZoneSurfaces, SetInternalMass, SetReportingFrequency
 
+from Helper.ScheduleHelper import CreateOfficeSchedule, DefaultOfficeSchedules
+from Helper.RunPeriodHelper import SetRunPeriod
 from EnumTypes import Frequency
 
 import pandas as pd
@@ -20,32 +21,43 @@ simulate, trainRegressor, trainGenerator = True, True, True
 with open(f'{os.getcwd()}/Tausendpfund.json') as f:
     epObjects = json.load(f, cls=IDFJsonDecoder)
 
+epObjects += SetRunPeriod()
+
 # SetReportingFrequency(epObjects, Frequency.Annual)
 
 InitialiseZoneSurfaces(epObjects)
-SetInternalMass(epObjects, 30)
+SetInternalMass(epObjects, 25)
 epObjects += list(CreateOfficeSchedule(2017, DefaultOfficeSchedules, f'{RepoPath}/Test/IDFFiles/Schedule.txt'))
 
 externalSurfaceArea = sum([x.ExternalSurfaceArea for x in epObjects if isinstance(x, Zone)])
 netVolume = sum([x.NetVolume for x in epObjects if isinstance(x, Zone)])
-ach = round(0.1 + 0.07 * 6.0 * externalSurfaceArea / (0.8 * netVolume), 5)
+ach = round(0.1 + 0.07 * 6.6 * externalSurfaceArea / netVolume, 5)
 
-for zoneList in list(x for x in epObjects if isinstance(x, (ZoneList))):
-    epObjects += [zoneList.GetPeopleObject(24)]
-    epObjects += [zoneList.GetLightsObject(6)]
-    epObjects += [zoneList.GetElectricEquipmentObject(12.5)]
+zonelistVariables = dict(
+    Office = dict(Lights = 6.0, Equipment = 15,),
+    Toilet = dict(Lights = 4.5, Equipment = 5,),
+    Stairs = dict(Lights = 4.5, Equipment = 5,),
+    Corridor = dict(Lights = 4.5, Equipment = 10,),
+    Service = dict(Lights = 1.0, Equipment = 25,),
+    Technic = dict(Lights = 1.0, Equipment = 10,),
+)
+
+zoneLists = list(x for x in epObjects if isinstance(x, ZoneList)) 
+for zoneList in zoneLists:
+    epObjects += [zoneList.GetThermostatObject()]
+    epObjects += [zoneList.GetLightsObject(zonelistVariables[zoneList.Name]['Lights'])]
+    epObjects += [zoneList.GetElectricEquipmentObject(zonelistVariables[zoneList.Name]['Equipment'])]
     epObjects += [zoneList.GetInfiltrationObject(ach)]
-    epObjects += [zoneList.GetDefaultVentilationObject()]
-    epObjects += [zoneList.GetNaturalVentilationObject()]
+    epObjects += [zoneList.GetDefaultVentilationObject(zoneList.Name != 'Office')]
+    # epObjects += [zoneList.GetNaturalVentilationObject()]
 
 for zone in [x for x in epObjects if isinstance(x, Zone)]:
-    hvac = WaterToAirHeatPump(WaterToAirHeatPump.Default)
-    hvac.ZoneName = zone.Name
-    hvac.TemplateThermostatName = "Office"
-    epObjects += [hvac]
+    zoneListName = next(x for x in zoneLists if zone.Name in x.IDF).Name
+    if "Office" in zone.Name: epObjects += [zone.GetPeopleObject(4, zoneListName)]
+    epObjects += [zone.GetWaterToAirHeatPumpObject(zoneListName)]
 
 from Probabilistic.Parameter import ProbabilisticParameters
-nSamples = 120
+nSamples = 200
 
 Logger.StartTask('Generating Samples')
 
@@ -56,6 +68,9 @@ Logger.StartTask('Generating IDF files')
 
 if simulate:
     os.system(f'rm Test/IDFFiles/*.csv')
+    os.system(f'rm Test/IDFFiles/*.idf')
+    os.system(f'rm Test/IDFFiles/*.dxf')
+    os.system(f'rm Test/IDFFiles/*.err')
     for i, sample in samples.iterrows():
         objs = list(epObjects)
 
@@ -67,6 +82,7 @@ if simulate:
 
     Logger.StartTask('Simulations')
     os.system(f'python3 runEP.py {os.getcwd()}/Test')
+    Logger.FinishTask('Simulations')
 
 Logger.StartTask('Reading files')
 
@@ -100,12 +116,14 @@ r = GetRegressor(hyperparameters[:4], samples.columns, d.Values['Total'].columns
 Logger.FinishTask('Training regressor')
 
 Logger.StartTask('Training generator')
-target2017 = np.array([5.795,6.123,4.208,1.49,0.75,3.535,1.189,2.568,1.006,5.01,5.322,6.972])
-target2018 = np.array([5.423,5.728,4.453,2.751,1.142,2.441,0.8,2.405,1.623,4.226,6.361,4.722])
+target2017 = np.array([5.423,5.728,4.453,2.751,1.142,2.441,0.800,2.405,1.623,4.226,6.361,4.722])
+target2018 = np.array([6.167,6.519,3.963,0.228,0.359,4.630,1.577,2.731,0.391,5.793,4.283,9.222])
 
-target2017 = np.array((target2017, target2018)).mean(axis=0)
+# target2017 = np.array((target2017, target2018)).mean(axis=0)
 # targetValues = np.array([np.array(target2017).sum() for _ in range(100)])
 targetValues = np.concatenate(([target2017 for _ in range(50)], [target2017 for _ in range(50)]))
+
+np.random.shuffle(targetValues)
 
 revScalingDF_X = pps.GetScalingDF()
 m = GetGenerator(hyperparameters, 20, samples.columns, f'Test/MLModel/Generator', f'{r.FilePath}.h5', targetValues, revScalingDF=revScalingDF_X, training=simulate or trainRegressor or trainGenerator)

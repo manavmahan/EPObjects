@@ -16,6 +16,8 @@ class Logger:
 
         Logger.Tasks[task] = dict(
             StartTime = time(),
+            FinishTime = None,
+            Duration = None,
         )
 
         print (f'{FormatTime(t)} : Started {task} - {m}')
@@ -33,4 +35,4 @@ class Logger:
 
     def PrintSummary():
         for task in Logger.Tasks:
-            print (f'{task} : {Logger[task]["Duration"]}')
+            print (f'{task} : {Logger.Tasks[task]["Duration"]}')

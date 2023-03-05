@@ -48,12 +48,32 @@ DesignFlowRate.Default = dict(
     DeltaTemperature = 1,
 )
 
+DesignFlowRate.Minimal = dict(
+    DesignFlowRateCalculationMethod = "AirChanges/Hour",
+    DesignFlowRate = 0,
+    FlowRateperZoneFloorArea = 0,
+    FlowRateperPerson = 0,
+    AirChangesperHour = 0.05,
+    VentilationType = "Balanced",
+    FanPressureRise = 1,
+    FanTotalEfficiency = 1,
+    ConstantTermCoefficient = 1,
+    TemperatureTermCoefficient = 0,
+    VelocityTermCoefficient = 0,
+    VelocitySquaredTermCoefficient = 0,
+    MinimumIndoorTemperature = -100,
+    MinimumIndoorTemperatureSchedule = '',
+    MaximumIndoorTemperature = 100,
+    MaximumIndoorTemperatureSchedule = '' ,
+    DeltaTemperature = 1,
+)
+
 DesignFlowRate.Natural = dict(
     DesignFlowRateCalculationMethod = "AirChanges/Hour",
     DesignFlowRate = 0,
     FlowRateperZoneFloorArea = 0,
     FlowRateperPerson = 0,
-    AirChangesperHour = 2,
+    AirChangesperHour = 1,
     VentilationType = "Natural",
     FanPressureRise = 0,
     FanTotalEfficiency = 0.1,
@@ -61,9 +81,9 @@ DesignFlowRate.Natural = dict(
     TemperatureTermCoefficient = 0,
     VelocityTermCoefficient = 0,
     VelocitySquaredTermCoefficient = 0,
-    MinimumIndoorTemperature = 23,
+    MinimumIndoorTemperature = 22,
     MinimumIndoorTemperatureSchedule = '',
-    MaximumIndoorTemperature = 24.9,
+    MaximumIndoorTemperature = 23.9,
     MaximumIndoorTemperatureSchedule = '' ,
     DeltaTemperature = 1,
 )

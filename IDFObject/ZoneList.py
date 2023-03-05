@@ -7,6 +7,8 @@ from IDFObject.Lights import Lights
 
 from IDFObject.People import People
 
+from IDFObject.HVACTemplate.Thermostat import Thermostat
+
 from IDFObject.ZoneInfiltration.DesignFlowRate import DesignFlowRate as Infiltration
 
 from IDFObject.ZoneVentilation.DesignFlowRate import DesignFlowRate as Ventilation
@@ -29,12 +31,12 @@ class ZoneList(IDFObject):
         if isinstance(self.ZoneNames, str):
             self.ZoneNames = ListObject(self.ZoneNames.split(';'))
 
-    def GetDefaultVentilationObject(self) -> Ventilation:
-        ventilation = dict(Ventilation.Default)
+    def GetDefaultVentilationObject(self, minimal=False) -> Ventilation:
+        ventilation = dict(Ventilation.Minimal if minimal else Ventilation.Default) 
         ventilation.update(dict(
             Name = f"Default Ventilation for {self.Name}",
             ZoneListName = self.Name,
-            ScheduleName = f"{self.Name}.People"
+            ScheduleName = 'Always1' if minimal else f"{self.Name}.People",
         ))
         return Ventilation(ventilation)
 
@@ -62,8 +64,8 @@ class ZoneList(IDFObject):
         ee = dict(ElectricEquipment.Default)
         ee.update(
             dict(
-                Name = f"People.{self.Name}",
-                ZoneListName = "Office",
+                Name = f"ElectricEquipment.{self.Name}",
+                ZoneListName = self.Name,
                 ScheduleName = f"{self.Name}.ElectricEquipment",
                 WattsperZoneFloorArea = wpm,
             )
@@ -75,7 +77,7 @@ class ZoneList(IDFObject):
         lights.update(
             dict(
                 Name = f"Lights.{self.Name}",
-                ZoneListName = "Office",
+                ZoneListName = self.Name,
                 ScheduleName = f"{self.Name}.Lights",
                 WattsperZoneFloorArea = wpm,
             )
@@ -87,10 +89,22 @@ class ZoneList(IDFObject):
         people.update(
             dict(
                 Name = f"People.{self.Name}",
-                ZoneListName = "Office",
+                ZoneListName = self.Name,
                 NumberofPeopleScheduleName = f"{self.Name}.People",
                 ActivityLevelScheduleName = f"{self.Name}.Activity",
                 ZoneFloorAreaperPerson = occupancy,
             )
         )
         return People(people)
+
+    def GetThermostatObject(self, fixedSetPoints=None) -> Thermostat:
+        t = Thermostat(Thermostat.Default)
+        t.Name = f"Thermostat.{self.Name}"
+
+        if fixedSetPoints:
+            t.ConstantHeatingSetpoint = fixedSetPoints[0]
+            t.ConstantCoolingSetpoint = fixedSetPoints[1]
+        else:
+            t.HeatingSetpointScheduleName = f"{self.Name}.HeatingSetpoint"
+            t.CoolingSetpointScheduleName = f"{self.Name}.CoolingSetpoint"
+        return t

@@ -1,5 +1,6 @@
 # Byte-compiled / optimized / DLL files
-Test/
+Tausendpfund/MLModel
+Tausendpfund/IDFFiles
 __pycache__/
 *.py[cod]
 *$py.class

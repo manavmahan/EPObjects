@@ -11,9 +11,13 @@ from IDFObject.FenestrationSurface.Detailed import Detailed as FenestrationSurfa
 from IDFObject.Daylighting.Controls import Controls
 from IDFObject.Daylighting.ReferencePoint import ReferencePoint
 
+from IDFObject.HVACTemplate.Zone.WaterToAirHeatPump import WaterToAirHeatPump
+
 from IDFObject.IDFObject import IDFObject
 
 from IDFObject.InternalMass import InternalMass
+
+from IDFObject.People import People
 
 from IDFObject.WindowShadingControl import WindowShadingControl
 
@@ -152,3 +156,22 @@ class Zone(IDFObject):
                 wsc.update(wsc1)
                 epObjects += [WindowShadingControl(wsc)]
         return epObjects
+
+    def GetWaterToAirHeatPumpObject(self, zonelistName):
+        hvac = WaterToAirHeatPump(WaterToAirHeatPump.Default)
+        hvac.ZoneName = self.Name
+        hvac.TemplateThermostatName = f'Thermostat.{zonelistName}'
+        return hvac
+
+    def GetPeopleObject(self, persons, zonelistName):
+        people = dict(People.Zone)
+        people.update(
+            dict(
+                Name = f"People.{self.Name}",
+                ZoneListName = self.Name,
+                NumberofPeopleScheduleName = f"{zonelistName}.People",
+                ActivityLevelScheduleName = f"{zonelistName}.Activity",
+                NumberofPeople = persons,
+            )
+        )
+        return People(people)
