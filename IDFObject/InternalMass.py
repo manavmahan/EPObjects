@@ -6,7 +6,7 @@ class InternalMass(IDFObject.IDFObject):
         'Name',
         'ConstructionName',
         'ZoneName',
-        # 'SpaceName',
+        'SpaceName',
         'SurfaceArea',
     ]
 

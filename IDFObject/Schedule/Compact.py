@@ -13,6 +13,8 @@ class Compact(IDFObject):
         super().__init__(self.Properties, propertiesDict)
 
     def ChangeValues(values):
+        for key in values:
+            self.Fields.replace(key, valuse[Key])
 
 
 Compact.HeatingCoolingSeason = dict(

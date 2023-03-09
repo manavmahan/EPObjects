@@ -35,8 +35,9 @@ epObjects += list(CreateOfficeSchedule(2018, DefaultOfficeSchedules, f'{RepoPath
 
 externalSurfaceArea = sum([x.ExternalSurfaceArea for x in epObjects if isinstance(x, Zone)])
 netVolume = sum([x.NetVolume for x in epObjects if isinstance(x, Zone)])
-ach = 0.31#round(0.1 + 0.07 * 6.0 * externalSurfaceArea / netVolume, 5)
-print (ach)
+
+ach = round(0.1 + 0.07 * 6.6 * externalSurfaceArea / netVolume, 5)
+
 zonelistVariables = dict(
     Office = dict(Lights = 6.0, Equipment = 15,),
     Toilet = dict(Lights = 4.5, Equipment = 5,),
@@ -52,7 +53,7 @@ for zoneList in zoneLists:
     epObjects += [zoneList.GetLightsObject(zonelistVariables[zoneList.Name]['Lights'])]
     epObjects += [zoneList.GetElectricEquipmentObject(zonelistVariables[zoneList.Name]['Equipment'])]
     epObjects += [zoneList.GetInfiltrationObject(ach)]
-    epObjects += [zoneList.GetDefaultVentilationObject(zoneList.Name != 'Office')]
+    # epObjects += [zoneList.GetDefaultVentilationObject(zoneList.Name != 'Office')]
     # epObjects += [zoneList.GetNaturalVentilationObject()]
 
 for zone in [x for x in epObjects if isinstance(x, Zone)]:

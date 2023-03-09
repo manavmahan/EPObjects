@@ -4,6 +4,7 @@ class ScheduleTypeLimits(IDFObject):
     __IDFName__ = 'ScheduleTypeLimits'
     Properties = [
         'Name',
+        'Fields',
     ]
 
     def __init__(self, propertiesDict: dict()):
@@ -11,4 +12,5 @@ class ScheduleTypeLimits(IDFObject):
 
 ScheduleTypeLimits.AnyNumber = dict(
     Name = "Any Number",
+    Fields = '',
 )

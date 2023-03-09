@@ -7,9 +7,9 @@ from EnumTypes import Frequency
 Converter = 2.77778e-10
 Energies = [
     # 'Lights Electric Energy',
-    'Water to Air Heat Pump Electric Energy',
-    'Boiler Electric Energy',
-    'Cooling Tower Fan Electric Energy',
+    'Water to Air Heat Pump Electricity Energy',
+    'Boiler Electricity Energy',
+    'Cooling Tower Fan Electricity Energy',
 ]
 
 class EnergyPrediction:
