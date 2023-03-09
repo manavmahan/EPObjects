@@ -16,6 +16,7 @@ class Detailed(IDFObject):
         'SurfaceType',
         'ConstructionName',
         'ZoneName',
+        # 'SpaceName',
         'OutsideBoundaryCondition',
         'OutsideBoundaryConditionObject',
         'SunExposure',

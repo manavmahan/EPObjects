@@ -24,3 +24,18 @@ class Boiler(IDFObject.IDFObject):
 
     def Initialise(self):
         pass
+
+Boiler.Default = {
+    "Name": "Boiler",
+    "BoilerType": 
+    "HotWaterBoiler", 
+    "Capacity": "autosize", 
+    "Efficiency": 0.95, 
+    "FuelType": "Electricity", 
+    "Priority": 1, 
+    "SizingFactor": 1.2, 
+    "MinimumPartLoadRatio": 0.1, 
+    "MaximumPartLoadRatio": 1.1, 
+    "OptimumPartLoadRatio": 0.9, 
+    "WaterOutletUpperTemperatureLimit": 99
+}

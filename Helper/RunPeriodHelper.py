@@ -19,9 +19,9 @@ def GetRunPeriodsFromFile(file):
     for m, row in df.iterrows():
         r = RunPeriod(RunPeriod.Default)
         r.Name = f'RunPeriod{m}'
-        r.BeginYear, r.EndYear = row['BeginYear'], row['EndYear']
-        r.BeginMonth, r.EndMonth = row['BeginYear'], row['EndYear']
-        r.BeginDayofMonth, r.EndDayofMonth = row['BeginDayofMonth'], row['EndDayofMonth']
+        r.BeginYear, r.EndYear = int(row['BeginYear']), int(row['EndYear'])
+        r.BeginMonth, r.EndMonth = int(row['BeginMonth']), int(row['EndMonth'])
+        r.BeginDayofMonth, r.EndDayofMonth = int(row['BeginDay']), int(row['EndDay'])
         periods += [r]
     
     return periods, df['Values']

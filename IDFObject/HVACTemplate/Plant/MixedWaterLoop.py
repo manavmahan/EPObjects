@@ -24,3 +24,23 @@ class MixedWaterLoop(IDFObject.IDFObject):
 
     def __init__(self, propertiesDict: dict()):
         super().__init__(self.Properties, propertiesDict)
+
+MixedWaterLoop.Default = {
+    "Name": "OnlyWaterLoop", 
+    "PumpScheduleName": " ", 
+    "PumpControlType": "Intermittent", 
+    "OperationSchemeType": "Default", 
+    "EquipmentOperationSchemesName": " ",
+    "HighTemperatureSetpointScheduleName": " ", 
+    "HighTemperatureDesignSetpoint": 34, 
+    "LowTemperatureSetpointScheduleName": " ", 
+    "LowTemperatureDesignSetpoint": 20, 
+    "WaterPumpConfiguration": "ConstantFlow", 
+    "WaterPumpRatedHead": 179352, 
+    "WaterPumpType": "SinglePump", 
+    "SupplySideBypassPipe": "Yes", 
+    "DemandSideBypassPipe": "Yes", 
+    "FluidType": "Water", 
+    "LoopDesignDeltaTemperature": 6, 
+    "LoadDistributionScheme": "SequentialLoad"
+}

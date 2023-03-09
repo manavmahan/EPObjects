@@ -1,5 +1,6 @@
 from IDFObject.IDFObject import IDFObject
-    
+from IDFObject.ScheduleTypeLimits import ScheduleTypeLimits
+
 class File(IDFObject):
     __IDFName__ = 'Schedule:File'
     Properties = [
@@ -16,7 +17,7 @@ class File(IDFObject):
         super().__init__(self.Properties, propertiesDict)
 
 File.Default = dict(
-    ScheduleTypeLimit = '',
+    ScheduleTypeLimit = ScheduleTypeLimits.AnyNumber['Name'],
     RowstoSkipatTop = 1,
     NumberofHoursofData = 8760,
     ColumnSeparator = ',',

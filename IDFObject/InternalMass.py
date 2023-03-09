@@ -6,6 +6,7 @@ class InternalMass(IDFObject.IDFObject):
         'Name',
         'ConstructionName',
         'ZoneName',
+        # 'SpaceName',
         'SurfaceArea',
     ]
 
@@ -14,4 +15,5 @@ class InternalMass(IDFObject.IDFObject):
 
 InternalMass.Default = dict(
     ConstructionName = "Mass",
+    SpaceName = '',
 )

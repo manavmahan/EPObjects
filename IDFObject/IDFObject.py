@@ -16,7 +16,8 @@ class IDFObject():
 
     @property
     def IDF(self) -> str:
-        return f'''{self.__IDFName__},{','.join(str(getattr(self, x)).rstrip() for x in self.Properties)};'''
+        try: return f'''{self.__IDFName__},{','.join(str(getattr(self, x)).rstrip() for x in self.Properties)};'''
+        except: raise Exception(self.__IDFName__)
 
     def Initialise(self):
         '''
@@ -35,8 +36,11 @@ class IDFJsonEncoder(JSONEncoder):
         if isinstance(obj, (XYZList)): 
             return str(obj)
 
-        if isinstance(obj, (IDFObject)): 
-            return dict(obj.ToDict())
+        if isinstance(obj, (IDFObject)):
+            try:
+                return dict(obj.ToDict())
+            except:
+                raise Exception(obj.__IDFName__)
 
         if not isinstance(obj, str):
             return str(obj)

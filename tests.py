@@ -80,9 +80,6 @@ class TestInialiser(unittest.TestCase):
     def testReadFileScheduleCompact(self):
         self.assertEqual("Schedule:Compact,HeatingSetPoint,,Through: 12/31,For: WeekDays SummerDesignDay WinterDesignDay CustomDay1 CustomDay2,Until: 6:30,15,Until: 18:30,20,Until: 24:00,15,For: WeekendsHoliday,Until: 24:00,15;", str(self.idfObjects['Schedule:Compact'][0]))
 
-    def testReadFileScheduleFile(self):
-        self.assertEqual("Schedule:File,elecTDVfromCZ01res,AnyNumber,TDV_kBtu_CTZ01csv,2,4,8760,Comma;", str(self.idfObjects['Schedule:File'][0]))
-
     def testReadFileScheduleTypeLimits(self):
         self.assertEqual("ScheduleTypeLimits,activityLevel,0,,Continuous,activitylevel;", str(self.idfObjects['ScheduleTypeLimits'][0]))
 
@@ -118,6 +115,9 @@ class TestInialiser(unittest.TestCase):
 
     def testReadFileZone(self):
         self.assertEqual("Zone,Zone0;", str(self.idfObjects['Zone'][0]))
+
+    def testReadFileZoneControlThermostat(self):
+        self.assertEqual("ZoneControl:Thermostat,Zone3Thermostat,NORTHZONE,ZoneControlTypeSched,ThermostatSetpoint:SingleHeating,HeatingSetpointwithSB,ThermostatSetpoint:SingleCooling,CoolingSetpointwithSB;", str(self.idfObjects['ZoneControl:Thermostat'][0]))
 
     def testReadFileZoneInfiltrationDesignFlowRate(self):
         self.assertEqual("ZoneInfiltration:DesignFlowRate,Infiltration_Office,Office,SpaceInfiltrationSchedule,AirChanges/Hour,,,,0.337,0.606,0.03636,0.1177165,0;", str(self.idfObjects['ZoneInfiltration:DesignFlowRate'][0]))

@@ -1,0 +1,2 @@
+ZoneName,ListName:ZoneEquipment,ListName:ZoneAirInletNodes,ListName:ZoneAirExhaustNodes,ZoneAirNodeName,ZoneReturnAirNodeorNodeListName
+SPACE3-1,SPACE3-1Eq,SPACE3-1InNodes, ,SPACE3-1Node,SPACE3-1OutNode

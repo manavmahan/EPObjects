@@ -16,6 +16,8 @@ def Automate(root, file):
     print (pyFileName)
     df = pd.read_csv(f'{root}/{file}')
     properties = ",\n".join(f"'{x}'" for x in df.columns) + ','
+
+    default = "dict(\n" + ",\n".join(f"{x} = '{y}'" for (x, y) in zip(df.columns, df.values[0])) + '\n)'
     
     lines = f'''from IDFObject.IDFObject import IDFObject
     
@@ -27,6 +29,8 @@ class {f[-1]}(IDFObject):
 
     def __init__(self, propertiesDict: dict()):
         super().__init__(self.Properties, propertiesDict)
+
+    {f[-1]}.Default = {default}
 '''
 
     with open(pyFileName, 'w') as fileWrite:

@@ -1,4 +1,5 @@
 from bs4 import BeautifulSoup
+import os
 
 from datetime import date, datetime, timedelta 
 import pandas as pd
@@ -7,6 +8,7 @@ import numpy as np
 import urllib.request
 
 from IDFObject.Schedule.File import File as ScheduleFile
+from IDFObject.Schedule.Compact import Compact
 
 Days = np.array([0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31])
 def GetKnownHolidays(year: int, location='Munich'):
@@ -51,8 +53,8 @@ def CreateZoneListSchedule(year, zonelistName, variables):
         column = pd.Series([variables[schedule]['Value'][int(x)] for x in sch], name=f'{zonelistName}.{schedule}')
         if 'People' in schedule: column = column * vacationHours
 
-        IncreaseHeatingSetpoints(column, 'Heating', [5, 8, 9], 2)
-        IncreaseHeatingSetpoints(column, 'Heating', [0, 1, 11], -2)
+        IncreaseHeatingSetpoints(column, 'Heating', [5, 9, 10], 2)
+        # IncreaseHeatingSetpoints(column, 'Heating', [1, 2, 12], -2)
         columns += [column]
     return columns
 
@@ -88,12 +90,12 @@ def GetHeatingCoolingSeason():
         heatingSeason[24*h[0]:24*h[1]] = 1
 
     coolingSeason = np.abs(heatingSeason - np.ones_like(heatingSeason))
-    return pd.Series(heatingSeason, name="HeatingSeason"), pd.Seies(coolingSeason, name="CoolingSeason")
+    return pd.Series(heatingSeason, name="HeatingSeason"), pd.Series(coolingSeason, name="CoolingSeason")
 
 def GetVacationHours():
     # design days: Jan 06-12, Apr 05-11, Jul 13-19, Aug 10-16, Oct 20-26, Dec 08-14
     vacations = (
-        (0, 7, 0.25),
+        (0, 7, 0.5),
         (7, 14, 0.5),                                  
         (sum(Days[:4]) +  7, sum(Days[:4]) + 14, 0.5), 
         (sum(Days[:5]) + 17, sum(Days[:4]) + 31, 0.5), 
@@ -102,7 +104,7 @@ def GetVacationHours():
         (sum(Days[:8]) + 17, sum(Days[:8]) + 24, 0.5), 
         (sum(Days[:9]) + 21, sum(Days[:9]) + 28, 0.5), 
         (sum(Days[:12])+ 17,sum(Days[:12]) + 24, 0.5), 
-        (sum(Days[:12])+ 24,sum(Days[:12]) + 31, 0.25)
+        (sum(Days[:12])+ 24,sum(Days[:12]) + 31, 0.5)
     )
     vacationHours = np.ones(24 * 365)
     for vacation in vacations:
@@ -114,7 +116,7 @@ DefaultOfficeSchedules = dict(
         HeatingSetPoint = dict(
             Hour1 = 7,
             Hour2 = 17,
-            Value = (15, 21),
+            Value = (15, 20),
         ),
 
         CoolingSetPoint = dict(
@@ -151,7 +153,7 @@ DefaultOfficeSchedules = dict(
         HeatingSetPoint = dict(
             Hour1 = 7,
             Hour2 = 17,
-            Value = (15, 21),
+            Value = (15, 20),
         ),
 
         CoolingSetPoint = dict(
@@ -188,7 +190,7 @@ DefaultOfficeSchedules = dict(
         HeatingSetPoint = dict(
             Hour1 = 7,
             Hour2 = 17,
-            Value = (15, 21),
+            Value = (15, 20),
         ),
 
         CoolingSetPoint = dict(
@@ -263,7 +265,7 @@ DefaultOfficeSchedules = dict(
         HeatingSetPoint = dict(
             Hour1 = 7,
             Hour2 = 17,
-            Value = (15, 21),
+            Value = (15, 20),
         ),
 
         CoolingSetPoint = dict(
