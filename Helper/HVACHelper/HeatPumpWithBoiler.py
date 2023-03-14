@@ -9,11 +9,12 @@ def AddHeatPumps(epObjects):
         zoneWAHP = GetWaterToAirHeatPumpObject(zone, zoneListName)
         epObjects.append(zoneWAHP)
 
+    epObjects.append(MixedWaterLoop(MixedWaterLoop.Default))
+    epObjects.append(Tower(Tower.Default))
+
 def AddHeatPumpsWithBoiler(epObjects):
     AddHeatPumps(epObjects)
     epObjects.append(Boiler(Boiler.Default))
-    epObjects.append(MixedWaterLoop(MixedWaterLoop.Default))
-    epObjects.append(Tower(Tower.Default))
 
 def GetWaterToAirHeatPumpObject(zone, zonelistName):
     hvac = WaterToAirHeatPump(WaterToAirHeatPump.Default)

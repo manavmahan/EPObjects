@@ -21,6 +21,8 @@ from IDFObject.People import People
 
 from IDFObject.WindowShadingControl import WindowShadingControl
 
+from IDFObject.ZoneInfiltration.DesignFlowRate import DesignFlowRate as Infiltration
+
 class Zone(IDFObject):
     __IDFName__ = "Zone"
     Properties = [
@@ -175,3 +177,14 @@ class Zone(IDFObject):
             )
         )
         return People(people)
+
+    def GetInfiltrationObject(self, ach):
+        infiltration = dict(Infiltration.Default)
+        infiltration.update(dict(
+                Name = f"Infiltration for {self.Name}",
+                ZoneListName = self.Name,
+                ScheduleName = f"Generic.Always1",
+                AirChangesperHour = ach,
+            )
+        )
+        return Infiltration(infiltration)

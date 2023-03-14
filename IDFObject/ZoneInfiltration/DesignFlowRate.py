@@ -21,7 +21,7 @@ class DesignFlowRate(IDFObject):
         super().__init__(self.Properties, propertiesDict)
 
 DesignFlowRate.Default = dict(
-    ScheduleName = "Always1",
+    ScheduleName = "Generic.Always1",
     DesignFlowRateCalculationMethod = 'AirChanges/Hour',
     DesignFlowRate = '',
     FlowperZoneFloorArea = '',

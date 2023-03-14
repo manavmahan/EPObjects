@@ -36,7 +36,7 @@ class ZoneList(IDFObject):
         ventilation.update(dict(
             Name = f"Default Ventilation for {self.Name}",
             ZoneListName = self.Name,
-            ScheduleName = 'Always1' if minimal else f"{self.Name}.People",
+            ScheduleName = 'Generic.Always1' if minimal else f"{self.Name}.People",
         ))
         return Ventilation(ventilation)
 
@@ -45,7 +45,7 @@ class ZoneList(IDFObject):
         infiltration.update(dict(
                 Name = f"Infiltration for {self.Name}",
                 ZoneListName = self.Name,
-                ScheduleName = f"Always1",
+                ScheduleName = f"Generic.Always1",
                 AirChangesperHour = ach,
             )
         )

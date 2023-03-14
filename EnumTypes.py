@@ -35,11 +35,17 @@ class ParameterType(Enum):
     GValue = "g-value"
     UValue = "u-value"
 
-    # InternalMass
+    # Internal Mass
     InternalMass = "Internal Mass"
+
+    # Internal Heat Gains
+    People = "People"
 
     # System Efficiency
     BoilerEfficiency = "Boiler Efficiency"
+
+    # Zone Conditions
+    HeatingSetpoint = "HeatingSetpoint"
 
     def __str__(self):
         return str(self.value)

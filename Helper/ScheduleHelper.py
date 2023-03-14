@@ -1,339 +1,334 @@
-from bs4 import BeautifulSoup
-import os
-
-from datetime import date, datetime, timedelta 
-import pandas as pd
-import numpy as np
-
-import urllib.request
-
-from IDFObject.Schedule.File import File as ScheduleFile
+import re
 from IDFObject.Schedule.Compact import Compact
-
-Days = np.array([0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31])
-def GetKnownHolidays(year: int, location='Munich'):
-    address = f'https://leaveboard.com/public-holidays/germany-bavaria-public-holidays-{year}/'
-    contents = BeautifulSoup(urllib.request.urlopen(address).read(), "html.parser")
-    holidays = []
-    for holiday in contents.body.find_all('span', attrs={'class':'float-right d-none d-md-inline'}):
-        day = datetime.strptime(holiday.text, "%A %B %d, %Y")
-        holidays += [day.day + Days[:day.month].sum() - 1]
-    return np.array(holidays)
-
-def GetSpecificDay(year: int, day: int):
-    firstDay = date(year, 1, 1)
-    while firstDay.weekday() != day:
-        firstDay += timedelta(days=1)
-    return np.arange(firstDay.day-1, 365, 7)
-
-def GetWeekend(year: int):
-    return np.concatenate((GetSpecificDay(year, 5), GetSpecificDay(year, 6)))
-
-def GetWorkingDays(year: int):
-    workingDays = np.ones(365)
-    workingDays[GetKnownHolidays(year)] = 0
-    workingDays[GetWeekend(year)] = 0
-    return workingDays.reshape(-1, 1)
-
-def GetOnOff(workingDays, hours1, hours2):
-    day = np.array( [0] * hours1 + [1] * (hours2 - hours1) + [0] * (24 - hours2) ).reshape(1, -1)
-    return (workingDays * day).reshape(-1)
-
-def CreateZoneListSchedule(year, zonelistName, variables):
-    workingDays = GetWorkingDays(year)
-    vacationHours = GetVacationHours()
-    heatingCoolingSeason = GetHeatingCoolingSeason()
-
-    columns = []
-    for schedule in variables:
-        sch = GetOnOff(workingDays, variables[schedule]['Hour1'], variables[schedule]['Hour2'])
-        if 'Heating' in schedule: sch = sch * heatingCoolingSeason[0]
-        if 'Cooling' in schedule: sch = sch * heatingCoolingSeason[1]
-
-        column = pd.Series([variables[schedule]['Value'][int(x)] for x in sch], name=f'{zonelistName}.{schedule}')
-        if 'People' in schedule: column = column * vacationHours
-
-        IncreaseHeatingSetpoints(column, 'Heating', [5, 9, 10], 2)
-        # IncreaseHeatingSetpoints(column, 'Heating', [1, 2, 12], -2)
-        columns += [column]
-    return columns
-
-def IncreaseHeatingSetpoints(column, key, months, increase=2):
-    if not key in column.name: return
-    for month in months: column[sum(Days[:month]) * 24 : sum(Days[:month+1]) * 24] += increase
-
-def CreateOfficeSchedule(year, zonelists, file):
-    cols = []
-    for zl in zonelists:
-        cols += CreateZoneListSchedule(year, zl, zonelists[zl])
-
-    cols += GetHeatingCoolingSeason()
-    
-    dfs = pd.concat(cols, axis=1,)
-    dfs.to_csv(file, index=False)
-    for i, c in enumerate(dfs.columns):
-        d = dict(ScheduleFile.Default)
-        d.update(dict(
-            Name = c,
-            NameofFile = file,
-            ColumnNumber = i+1, 
-        ))
-        yield ScheduleFile(d)
-
-def GetHeatingCoolingSeason():
-    heating = (
-        (0, sum(Days[:5])),            # cooling from the last week of May
-        (sum(Days[:9]), sum(Days)),    # heating from the second week of Sep
-    )
-    heatingSeason = np.zeros(24 * 365)
-    for h in heating:
-        heatingSeason[24*h[0]:24*h[1]] = 1
-
-    coolingSeason = np.abs(heatingSeason - np.ones_like(heatingSeason))
-    return pd.Series(heatingSeason, name="HeatingSeason"), pd.Series(coolingSeason, name="CoolingSeason")
-
-def GetVacationHours():
-    # design days: Jan 06-12, Apr 05-11, Jul 13-19, Aug 10-16, Oct 20-26, Dec 08-14
-    vacations = (
-        (0, 7, 0.5),
-        (7, 14, 0.5),                                  
-        (sum(Days[:4]) +  7, sum(Days[:4]) + 14, 0.5), 
-        (sum(Days[:5]) + 17, sum(Days[:4]) + 31, 0.5), 
-        (sum(Days[:6]) + 16, sum(Days[:6]) + 30, 0.5), 
-        (sum(Days[:7]) + 20, sum(Days[:7]) + 27, 0.5), 
-        (sum(Days[:8]) + 17, sum(Days[:8]) + 24, 0.5), 
-        (sum(Days[:9]) + 21, sum(Days[:9]) + 28, 0.5), 
-        (sum(Days[:12])+ 17,sum(Days[:12]) + 24, 0.5), 
-        (sum(Days[:12])+ 24,sum(Days[:12]) + 31, 0.5)
-    )
-    vacationHours = np.ones(24 * 365)
-    for vacation in vacations:
-        vacationHours[24*vacation[0]:24*vacation[1]] = vacation[2]
-    return vacationHours
+from IDFObject.ScheduleTypeLimits import ScheduleTypeLimits
 
 DefaultOfficeSchedules = dict(
+    Generic = dict(
+        Always1 = dict(
+            Type = 'SingleValue',
+            v1 = 1,
+        ),
+
+        Always01 = dict(
+            Type = 'SingleValue',
+            v1 = 0.1,
+        ),
+    ),
+
     Office = dict(
-        HeatingSetPoint = dict(
-            Hour1 = 7,
-            Hour2 = 17,
-            Value = (15, 20),
+        HeatingSetpoint = dict(
+            Type = 'FourAndHalfDays',
+            t1 = '07:00',
+            t2 = '17:00',
+            t3 = '13:00',
+            v1 = 15,
+            v2 = 20,
         ),
-
-        CoolingSetPoint = dict(
-            Hour1 = 7,
-            Hour2 = 17,
-            Value = (30, 24),
+        CoolingSetpoint = dict(
+            Type = 'FourAndHalfDays',
+            t1 = '07:00',
+            t2 = '17:00',
+            t3 = '13:00',
+            v1 = 30,
+            v2 = 25,
         ),
-
         ElectricEquipment = dict(
-            Hour1 = 7,
-            Hour2 = 17,
-            Value = (0.1, 1),
+            Type = 'FourAndHalfDays',
+            t1 = '07:30',
+            t2 = '17:00',
+            t3 = '13:00',
+            v1 = 0.1,
+            v2 = 1.0,
         ),
-
         Lights = dict(
-            Hour1 = 7,
-            Hour2 = 17,
-            Value = (0.1, 1),
+            Type = 'FourAndHalfDays',
+            t1 = '07:30',
+            t2 = '17:00',
+            t3 = '13:00',
+            v1 = 0.1,
+            v2 = 1.0,
         ),
-
         People = dict(
-            Hour1 = 8,
-            Hour2 = 17,
-            Value = (0, 1),
+            Type = 'FourAndHalfDays',
+            t1 = '07:30',
+            t2 = '17:00',
+            t3 = '13:00',
+            v1 = 0.0,
+            v2 = 1.0,
         ),
-
         Activity = dict(
-            Hour1 = 0,
-            Hour2 = 24,
-            Value = (140, 140),
+            Type = 'SingleValue',
+            v1 = 140,
         ),
     ),
+
     Stairs = dict(
-        HeatingSetPoint = dict(
-            Hour1 = 7,
-            Hour2 = 17,
-            Value = (15, 20),
+        HeatingSetpoint = dict(
+            Type = 'FourAndHalfDays',
+            t1 = '07:00',
+            t2 = '17:00',
+            t3 = '13:00',
+            v1 = 15,
+            v2 = 20,
         ),
-
-        CoolingSetPoint = dict(
-            Hour1 = 7,
-            Hour2 = 17,
-            Value = (30, 24),
+        CoolingSetpoint = dict(
+            Type = 'FourAndHalfDays',
+            t1 = '07:00',
+            t2 = '17:00',
+            t3 = '13:00',
+            v1 = 30,
+            v2 = 25,
         ),
-
         ElectricEquipment = dict(
-            Hour1 = 7,
-            Hour2 = 17,
-            Value = (0.1, 1),
+            Type = 'FourAndHalfDays',
+            t1 = '07:30',
+            t2 = '17:00',
+            t3 = '13:00',
+            v1 = 0.1,
+            v2 = 1.0,
         ),
-
         Lights = dict(
-            Hour1 = 7,
-            Hour2 = 17,
-            Value = (0.1, 1),
+            Type = 'FourAndHalfDays',
+            t1 = '07:30',
+            t2 = '17:00',
+            t3 = '13:00',
+            v1 = 0.1,
+            v2 = 1.0,
         ),
-
         People = dict(
-            Hour1 = 8,
-            Hour2 = 17,
-            Value = (0, 1),
+            Type = 'FourAndHalfDays',
+            t1 = '07:30',
+            t2 = '17:00',
+            t3 = '13:00',
+            v1 = 0.0,
+            v2 = 1.0,
         ),
-
         Activity = dict(
-            Hour1 = 0,
-            Hour2 = 24,
-            Value = (200, 200),
+            Type = 'SingleValue',
+            v1 = 140,
         ),
     ),
+
     Toilet = dict(
-        HeatingSetPoint = dict(
-            Hour1 = 7,
-            Hour2 = 17,
-            Value = (15, 20),
+        HeatingSetpoint = dict(
+            Type = 'FourAndHalfDays',
+            t1 = '07:00',
+            t2 = '17:00',
+            t3 = '13:00',
+            v1 = 15,
+            v2 = 20,
         ),
-
-        CoolingSetPoint = dict(
-            Hour1 = 7,
-            Hour2 = 17,
-            Value = (30, 24),
+        CoolingSetpoint = dict(
+            Type = 'FourAndHalfDays',
+            t1 = '07:00',
+            t2 = '17:00',
+            t3 = '13:00',
+            v1 = 30,
+            v2 = 25,
         ),
-
         ElectricEquipment = dict(
-            Hour1 = 7,
-            Hour2 = 17,
-            Value = (0.1, 1),
+            Type = 'FourAndHalfDays',
+            t1 = '07:30',
+            t2 = '17:00',
+            t3 = '13:00',
+            v1 = 0.1,
+            v2 = 1.0,
         ),
-
         Lights = dict(
-            Hour1 = 7,
-            Hour2 = 17,
-            Value = (0.1, 1),
+            Type = 'FourAndHalfDays',
+            t1 = '07:30',
+            t2 = '17:00',
+            t3 = '13:00',
+            v1 = 0.1,
+            v2 = 1.0,
         ),
-
         People = dict(
-            Hour1 = 8,
-            Hour2 = 17,
-            Value = (0, 1),
+            Type = 'FourAndHalfDays',
+            t1 = '07:30',
+            t2 = '17:00',
+            t3 = '13:00',
+            v1 = 0.0,
+            v2 = 1.0,
         ),
-
         Activity = dict(
-            Hour1 = 0,
-            Hour2 = 24,
-            Value = (200, 200),
+            Type = 'SingleValue',
+            v1 = 140,
         ),
     ),
+
     Service = dict(
-        HeatingSetPoint = dict(
-            Hour1 = 0,
-            Hour2 = 24,
-            Value = (0, 0),
+        HeatingSetpoint = dict(
+            Type = 'FourAndHalfDays',
+            t1 = '07:00',
+            t2 = '17:00',
+            t3 = '13:00',
+            v1 = 15,
+            v2 = 20,
         ),
-
-        CoolingSetPoint = dict(
-            Hour1 = 0,
-            Hour2 = 24,
-            Value = (20, 20),
+        CoolingSetpoint = dict(
+            Type = 'FourAndHalfDays',
+            t1 = '07:00',
+            t2 = '17:00',
+            t3 = '13:00',
+            v1 = 30,
+            v2 = 25,
         ),
-
         ElectricEquipment = dict(
-            Hour1 = 0,
-            Hour2 = 24,
-            Value = (1, 1),
+            Type = 'FourAndHalfDays',
+            t1 = '07:30',
+            t2 = '17:00',
+            t3 = '13:00',
+            v1 = 0.1,
+            v2 = 1.0,
         ),
-
         Lights = dict(
-            Hour1 = 7,
-            Hour2 = 17,
-            Value = (0.1, 1),
+            Type = 'FourAndHalfDays',
+            t1 = '07:30',
+            t2 = '17:00',
+            t3 = '13:00',
+            v1 = 0.1,
+            v2 = 1.0,
         ),
-
         People = dict(
-            Hour1 = 7,
-            Hour2 = 20,
-            Value = (0, 0),
+            Type = 'FourAndHalfDays',
+            t1 = '07:30',
+            t2 = '17:00',
+            t3 = '13:00',
+            v1 = 0.0,
+            v2 = 1.0,
         ),
-
         Activity = dict(
-            Hour1 = 0,
-            Hour2 = 24,
-            Value = (200, 200),
+            Type = 'SingleValue',
+            v1 = 140,
         ),
     ),
 
     Corridor = dict(
-        HeatingSetPoint = dict(
-            Hour1 = 7,
-            Hour2 = 17,
-            Value = (15, 20),
+        HeatingSetpoint = dict(
+            Type = 'FourAndHalfDays',
+            t1 = '07:00',
+            t2 = '17:00',
+            t3 = '13:00',
+            v1 = 15,
+            v2 = 20,
         ),
-
-        CoolingSetPoint = dict(
-            Hour1 = 7,
-            Hour2 = 17,
-            Value = (30, 24),
+        CoolingSetpoint = dict(
+            Type = 'FourAndHalfDays',
+            t1 = '07:00',
+            t2 = '17:00',
+            t3 = '13:00',
+            v1 = 30,
+            v2 = 25,
         ),
-
         ElectricEquipment = dict(
-            Hour1 = 7,
-            Hour2 = 17,
-            Value = (0.1, 1),
+            Type = 'FourAndHalfDays',
+            t1 = '07:30',
+            t2 = '17:00',
+            t3 = '13:00',
+            v1 = 0.1,
+            v2 = 1.0,
         ),
-
         Lights = dict(
-            Hour1 = 7,
-            Hour2 = 17,
-            Value = (0.1, 1),
+            Type = 'FourAndHalfDays',
+            t1 = '07:30',
+            t2 = '17:00',
+            t3 = '13:00',
+            v1 = 0.1,
+            v2 = 1.0,
         ),
-
         People = dict(
-            Hour1 = 8,
-            Hour2 = 17,
-            Value = (0, 1),
+            Type = 'FourAndHalfDays',
+            t1 = '07:30',
+            t2 = '17:00',
+            t3 = '13:00',
+            v1 = 0.0,
+            v2 = 1.0,
         ),
-
         Activity = dict(
-            Hour1 = 0,
-            Hour2 = 24,
-            Value = (200, 200),
+            Type = 'SingleValue',
+            v1 = 140,
         ),
     ),
 
     Technic = dict(
-        HeatingSetPoint = dict(
-            Hour1 = 0,
-            Hour2 = 24,
-            Value = (0, 0),
+        HeatingSetpoint = dict(
+            Type = 'FourAndHalfDays',
+            t1 = '07:00',
+            t2 = '17:00',
+            t3 = '13:00',
+            v1 = 15,
+            v2 = 20,
         ),
-
-        CoolingSetPoint = dict(
-            Hour1 = 0,
-            Hour2 = 24,
-            Value = (35, 35),
+        CoolingSetpoint = dict(
+            Type = 'FourAndHalfDays',
+            t1 = '07:00',
+            t2 = '17:00',
+            t3 = '13:00',
+            v1 = 30,
+            v2 = 25,
         ),
-
         ElectricEquipment = dict(
-            Hour1 = 0,
-            Hour2 = 24,
-            Value = (1, 1),
+            Type = 'FourAndHalfDays',
+            t1 = '07:30',
+            t2 = '17:00',
+            t3 = '13:00',
+            v1 = 0.1,
+            v2 = 1.0,
         ),
-
         Lights = dict(
-            Hour1 = 0,
-            Hour2 = 24,
-            Value = (1, 1),
+            Type = 'FourAndHalfDays',
+            t1 = '07:30',
+            t2 = '17:00',
+            t3 = '13:00',
+            v1 = 0.1,
+            v2 = 1.0,
         ),
-
         People = dict(
-            Hour1 = 0,
-            Hour2 = 24,
-            Value = (0, 0),
+            Type = 'FourAndHalfDays',
+            t1 = '07:30',
+            t2 = '17:00',
+            t3 = '13:00',
+            v1 = 0.0,
+            v2 = 1.0,
         ),
-
         Activity = dict(
-            Hour1 = 0,
-            Hour2 = 24,
-            Value = (200, 200),
+            Type = 'SingleValue',
+            v1 = 140,
         ),
     )
 )
+
+def GetOfficeSchedules():
+    objs = list()
+    objs.append(ScheduleTypeLimits(ScheduleTypeLimits.AnyNumber))
+
+    for zoneList in DefaultOfficeSchedules:
+        schedules = DefaultOfficeSchedules[zoneList]
+        for schedule in schedules:
+            d = schedules[schedule]
+            s = Compact(getattr(Compact, d['Type']))
+            s.Name = f'{zoneList}.{schedule}'
+            s.ChangeValues(d)
+            objs.append(s)
+
+    return objs
+
+def SetBestMatchSetpoints(probabilisticParameters, epObjects):
+    schedules = list(x for x in epObjects if isinstance(x, Compact))
+    for parameter in probabilisticParameters.index:
+        if not re.fullmatch('.*Set.*point.*', parameter): continue
+
+        (scheduleName, names) = parameter.split(':')
+
+        for name in names.split('|'):
+            try:
+                schedule = next(x for x in schedules if x.Name==f'{name}.{scheduleName}')
+                epObjects.remove(schedule)
+            except: pass
+
+            d = DefaultOfficeSchedules[name][scheduleName]
+            d['v2'] = probabilisticParameters[parameter]
+            s = Compact(getattr(Compact, d['Type']))
+            s.Name = f'{name}.{scheduleName}'
+            s.ChangeValues(d)
+            epObjects.append(s)

@@ -1,5 +1,5 @@
-BeginYear,BeginMonth,BeginDay,EndYear,EndMonth,EndDay,Values
-2017,11,01,2017,11,30,5.322
-2017,12,01,2017,12,31,6.972
-2018,01,01,2018,01,31,5.795
-2018,02,01,2018,02,28,6.123
+Name,BeginYear,BeginMonth,BeginDay,EndYear,EndMonth,EndDay,value1,value2
+November,2017,11,01,2017,11,30,6.361,4.283
+December,2017,12,01,2017,12,31,4.722,9.222
+January,2018,01,01,2018,01,31,5.423,6.167
+February,2018,02,01,2018,02,28,5.728,6.519

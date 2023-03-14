@@ -1,3 +1,4 @@
+import math
 import numpy as np
 import pandas as pd
 
@@ -124,8 +125,7 @@ class ProbabilisticParameter:
         return np.round(result, 5)
 
     @staticmethod
-    def ReadCsv(line):
-        values = line.split(',')
+    def ReadCsv(*values):
         parameter = Parameter(values[0])
         distribution = Distribution(values[3])
 
@@ -171,11 +171,21 @@ class ProbabilisticParameters:
             df.loc[str(pp.Parameter)] = pp.GetScalingDF().values
         return df
 
+    def GetScalingDFFromFile(self, file):
+        ra = pd.read_csv(file)
+        df = pd.DataFrame(columns=['Min', 'Range'])
+        for _, pp in enumerate(self.__parameters):
+            df.loc[str(pp.Parameter)] = pp.GetScalingDF().values
+        
+            low = 0 if math.isnan(ra.loc[str(pp.Parameter), 'Low']) else ra.loc[str(pp.Parameter), 'Low']
+            high = 1 if math.isnan(ra.loc[str(pp.Parameter), 'High']) else ra.loc[str(pp.Parameter), 'High']
+            
+            df.loc[str(pp.Parameter), 'Min'] += df.loc[str(pp.Parameter), 'Range'] * low
+            df.loc[str(pp.Parameter), 'Range'] *= (high-low)
+
+        return df
+
     @staticmethod
-    def ReadCsv(file, parameters=None):
-        try:
-            with open(file) as f:
-                parameters = f.readlines()
-        except:
-            if parameters is None: raise Exception(f'Cannot find file: {file}')
-        return ProbabilisticParameters( [ProbabilisticParameter.ReadCsv(x.replace('\n', '')) for x in parameters if not x.startswith('#')] )
+    def ReadCsv(file,):
+        parameters = pd.read_csv(file)
+        return ProbabilisticParameters([ProbabilisticParameter.ReadCsv(x.name, *x.values) for _, x in parameters.iterrows() if not x.name.startswith('#')] )

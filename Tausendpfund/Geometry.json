@@ -16,7 +16,7 @@
     {"Name": "PlasterBoard", "Roughness": "Rough", "Thickness": 0.05, "Conductivity": 0.16, "Density": 800, "SpecificHeat": 800, "ThermalAbsorptance": 0.9, "SolarAbsorptance": 0.6, "VisibleAbsorptance": 0.6},
     {"Name": "Screed.Floor", "Roughness": "Smooth", "Thickness": 0.08, "Conductivity": 1.4, "Density": 2000, "SpecificHeat": 1000, "ThermalAbsorptance": 0.9, "SolarAbsorptance": 0.7, "VisibleAbsorptance": 0.7},
     {"Name": "Window", "UFactor": 0.87, "SolarHeatGainCoefficient": 0.35, "VisibleTransmittance": 0.1},
-    {"Name": "RollShade", "SolarTransmittance": 0.3, "SolarReflectance": 0.5, "VisibleTransmittance": 0.3, "VisibleReflectance": 0.5, "InfraredHemisphericalEmissivity": 0.9, "InfraredTransmittance": 0.05, "Thickness": 0.003, "Conductivity": 0.1, "ShadetoGlassDistance": 0.05, "TopOpeningMultiplier": 0, "BottomOpeningMultiplier": 0.5, "Left-SideOpeningMultiplier": 0.5, "Right-SideOpeningMultiplier": 0, "AirflowPermeability": " "},
+    {"Name": "RollShade", "SolarTransmittance": 0.3, "SolarReflectance": 0.5, "VisibleTransmittance": 0.3, "VisibleReflectance": 0.5, "InfraredHemisphericalEmissivity": 0.9, "InfraredTransmittance": 0.05, "Thickness": 0.003, "Conductivity": 0.1, "ShadetoGlassDistance": 0.05, "TopOpeningMultiplier": 0, "BottomOpeningMultiplier": 0.5, "LeftSideOpeningMultiplier": 0.5, "RightSideOpeningMultiplier": 0, "AirflowPermeability": " "},
     
     {"Name": "WallExternal", "MaterialsName": "Plaster,Insulation,Brick.Wall,Plaster"},
     {"Name": "WallInternal", "MaterialsName": "PlasterBoard,Insulation,PlasterBoard"},
@@ -29,9 +29,6 @@
     {"Name": "Window", "MaterialsName": "Window"},
  
     {"Name": "Mass", "MaterialsName": "Mass"},
-
-    {"Name": "Always1", "ScheduleTypeLimitsName": " ", "Fields": "Through: 12/31,For: AllDays,Until: 24:00,1"},
-    {"Name": "Always0.1", "ScheduleTypeLimitsName": " ", "Fields": "Through: 12/31,For: AllDays,Until: 24:00,0.1"},
     
     {"DoZoneSizingCalculation": "Yes", "DoSystemSizingCalculation": "Yes", "DoPlantSizingCalculationRun": "Yes", "SimulationforSizingPeriods": "No", "RunSimulationforSizingPeriods": "Yes"},
     {"JanuaryGroundTemperature": 6.17, "FebruaryGroundTemperature": 5.07, "MarchGroundTemperature": 5.33, "AprilGroundTemperature": 6.27, "MayGroundTemperature": 9.35, "JuneGroundTemperature": 12.12, "JulyGroundTemperature": 14.32, "AugustGroundTemperature": 15.48, "SeptemberGroundTemperature": 15.2, "OctoberGroundTemperature": 13.62, "NovemberGroundTemperature": 11.08, "DecemberGroundTemperature": 8.41},
@@ -47,12 +44,9 @@
     {"Name": "Autumn days", "BeginMonth": 10, "BeginDayofMonth": 20, "EndMonth": 10, "EndDayofMonth": 26, "DayofWeekforStartDay": "CustomDay1", "UseWeatherFileDaylightSavingPeriod": "Yes", "UseWeatherFileRainandSnowIndicators": "Yes"},
     {"Name": "Spring days", "BeginMonth": 4, "BeginDayofMonth": 5, "EndMonth": 4, "EndDayofMonth": 11, "DayofWeekforStartDay": "CustomDay2", "UseWeatherFileDaylightSavingPeriod": "Yes", "UseWeatherFileRainandSnowIndicators": "Yes"},
 
-
-    {"Name": "OnlyWaterLoop", "PumpScheduleName": " ", "PumpControlType": "Intermittent", "OperationSchemeType": "Default", "EquipmentOperationSchemesName": " ", "HighTemperatureSetpointScheduleName": " ", "HighTemperatureDesignSetpoint": 34, "LowTemperatureSetpointScheduleName": " ", "LowTemperatureDesignSetpoint": 20, "WaterPumpConfiguration": "ConstantFlow", "WaterPumpRatedHead": 179352, "WaterPumpType": "SinglePump", "SupplySideBypassPipe": "Yes", "DemandSideBypassPipe": "Yes", "FluidType": "Water", "LoopDesignDeltaTemperature": 6, "LoadDistributionScheme": "SequentialLoad"},
-    {"Name": "MainTower", "TowerType": "SingleSpeed", "HighSpeedNominalCapacity": "autosize", "HighSpeedFanPower": "autosize", "LowSpeedNominalCapacity": "autosize", "LowSpeedFanPower": "autosize", "FreeConvectionCapacity": "autosize", "Priority": 1, "SizingFactor": 1.2},
-
+    
     {"ColumnSeparator": "XMLandHTML"},
-    {"Keys": "DisplayAdvancedReportVariables,DisplayExtraWarnings"},
+    {"Keys": "DisplayAdvancedReportVariables, DisplayExtraWarnings"},
     {"ReportType": "dxf"},
     {"KeyValue": "*", "VariableName": "Zone Air System Sensible Heating Rate", "ReportingFrequency": "RunPeriod"},
     {"KeyValue": "*", "VariableName": "Zone Air System Sensible Cooling Rate", "ReportingFrequency": "RunPeriod"},

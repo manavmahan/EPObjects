@@ -3,7 +3,7 @@ import os
 import pandas as pd
 import shutil
 
-from sklearn.model_selection import KFold
+from sklearn.model_selection import KFold, train_test_split
 
 from tensorflow.keras.activations import relu, sigmoid, hard_sigmoid
 
@@ -85,7 +85,7 @@ class Regressor():
         kfold = KFold(n_splits=numFolds, shuffle=True)
         
         scalingX = GetScalingLayer(X, scalingDF_X)
-        scalingY = GetScalingLayer(Y, allColumnsEqual=True, reverse=True)
+        scalingY = GetScalingLayer(Y, allColumnsEqual=False, reverse=True)
 
         bestLoss = float('inf')
         bestHP = None
@@ -107,23 +107,17 @@ class Regressor():
         return bestHP, bestLoss, scalingX, scalingY
 
     def TuneHyperparameters(self, hyperparametersSet, X, Y, scalingDF_X=None):
-        t = time.time()
-        hp, loss, scalingX, scalingY = self.GetBestHyperparameters(hyperparametersSet, X, Y, scalingDF_X)
+        scalingX = GetScalingLayer(X, scalingDF_X)
+        scalingY = GetScalingLayer(Y, allColumnsEqual=False, reverse=True)
 
-        t_tuning = time.time()
-        print (f'Hyperparameter Tuning\t: {(t_tuning-t):.0f} seconds')
-
-        print (f'Training the final model on {dict(hp)}...')
         modelLoss = float('inf')
-        i = 0
-        while loss < modelLoss:
-            if i>0: (f'Too high model loss; Iteration:\t{i}')
-            model, modelLoss = self.__trainModel(hp, X, Y, None, None, scalingX, scalingY)
-            print (f'MSE:\t{modelLoss};\tMean (Y):\t{Y.mean()}')
-            i += 1
-        t_training = time.time()
-        print (f'Total training Tuning\t: {(t_training-t):.0f} seconds')
-        model.save(f"{self.FilePath}.h5")
+        for i, hp in hyperparametersSet.iterrows():
+            X_train, X_val, Y_train, Y_val = train_test_split(X, Y, test_size=0.2, random_state=0)
+            m, loss = self.__trainModel(hp, X, Y, X_val, Y_val, scalingX, scalingY)
+            print (f'MSE:\t{loss};\tMean (Y):\n{Y.mean()}')
+            if loss < modelLoss:
+                modelLoss = loss
+                m.save(f"{self.FilePath}.h5")
 
     def Predict(self, data,):
         model = load_model(f"{self.FilePath}.h5")

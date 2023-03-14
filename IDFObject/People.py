@@ -39,11 +39,11 @@ People.Default = dict(
     EnableASHRAE55ComfortWarnings = '',
     MeanRadiantTemperatureCalculationType = 'ZoneAveraged',
     SurfaceNameAngleFactorListName = '',
-    WorkEfficiencyScheduleName = 'Always1',
+    WorkEfficiencyScheduleName = 'Generic.Always1',
     ClothingInsulationCalculationMethod = 'DynamicClothingModelASHRAE55',
     ClothingInsulationCalculationMethodScheduleName = '',
     ClothingInsulationScheduleName = '',
-    AirVelocityScheduleName = 'Always0.1',
+    AirVelocityScheduleName = 'Generic.Always01',
     ThermalComfortModel1Type = 'Fanger',
 )
 
@@ -58,10 +58,10 @@ People.Zone = dict(
     EnableASHRAE55ComfortWarnings = '',
     MeanRadiantTemperatureCalculationType = 'ZoneAveraged',
     SurfaceNameAngleFactorListName = '',
-    WorkEfficiencyScheduleName = 'Always1',
+    WorkEfficiencyScheduleName = 'Generic.Always1',
     ClothingInsulationCalculationMethod = 'DynamicClothingModelASHRAE55',
     ClothingInsulationCalculationMethodScheduleName = '',
     ClothingInsulationScheduleName = '',
-    AirVelocityScheduleName = 'Always0.1',
+    AirVelocityScheduleName = 'Generic.Always01',
     ThermalComfortModel1Type = 'Fanger',
 )
