@@ -23,7 +23,7 @@ from Probabilistic.Parameter import ProbabilisticParameters
 RepoPath = '/home/ubuntu/repos/EPObjects/Tausendpfund/'
 NumSamples = 40
 
-simulate, trainRegressor, trainGenerator = False, False, True
+simulate, trainRegressor, trainGenerator = True, False, True
 
 with open(f'{RepoPath}/Geometry.json') as f:
     epObjects = json.load(f, cls=IDFJsonDecoder)

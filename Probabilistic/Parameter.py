@@ -172,7 +172,7 @@ class ProbabilisticParameters:
         return df
 
     def GetScalingDFFromFile(self, file):
-        ra = pd.read_csv(file)
+        ra = pd.read_csv(file, index_col=0)
         df = pd.DataFrame(columns=['Min', 'Range'])
         for _, pp in enumerate(self.__parameters):
             df.loc[str(pp.Parameter)] = pp.GetScalingDF().values
@@ -187,5 +187,5 @@ class ProbabilisticParameters:
 
     @staticmethod
     def ReadCsv(file,):
-        parameters = pd.read_csv(file)
-        return ProbabilisticParameters([ProbabilisticParameter.ReadCsv(x.name, *x.values) for _, x in parameters.iterrows() if not x.name.startswith('#')] )
+        parameters = pd.read_csv(file, index_col=0)
+        return ProbabilisticParameters([ProbabilisticParameter.ReadCsv(x.name, *x.values) for _, x in parameters.iterrows()if not x.name.startswith('#')] )
