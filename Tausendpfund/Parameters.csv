@@ -5,5 +5,9 @@ u-value:FloorGround,0.20,0.05,Uniform,0,1
 u-value:Window,0.8,0.2,Uniform,0,1
 g-value:Window,0.5,0.1,Uniform,0,1
 Permeability,7.2,1.2,Uniform,0,1
-People:Office,20,4,Uniform,0,1
+Occupancy:Office,20,4,Uniform,0,1
 HeatingSetpoint:Office|Corridor|Stairs,20,2,Uniform,0,1
+InternalMass:Office,25,10,Uniform,,
+LightHeatGain:Office,7.5,2.5,Uniform,,
+EquipmentHeatGain:Office,10,2.5,Uniform,,
+HeatingCOP,2.5,0.5,Uniform,,

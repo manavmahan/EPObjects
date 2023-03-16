@@ -53,9 +53,32 @@ def SetBestMatchConstruction(epObjects,):
                 except: pass
             fenestration.ConstructionName = name
 
+
+
 # Zone
 
-from IDFObject.Zone import Zone
+from IDFObject.Zone import Zone, InternalMass
+
+def SetBestMatchInternalMass(probabilisticParameters, epObjects, ):
+    zones = list(x for x in epObjects if isinstance(x, Zone))
+    zoneLists = list(x for x in epObjects if isinstance(x, ZoneList))
+    masses = list(x for x in epObjects if isinstance(x, InternalMass))
+
+    massMaterial = next(x for x in epObjects if isinstance(x, Material) and x.Name=="Mass")
+    massOfInternalMaterial = massMaterial.Thickness * massMaterial.Density * massMaterial.SpecificHeat / 1000
+
+    selected = list(x for x in probabilisticParameters.index if re.fullmatch('InternalMass.*', x))
+    for zone in zones:
+        try: massObj = next(x for x in epObjects)
+        except: continue
+        zoneListName = next(x for x in zoneLists if zone.Name in x.IDF).Name
+        name = None
+        for lookfor in (zone.Name, zoneListName, ''):
+            try:
+                name = next(x for x in selected if lookfor in x.Name).Name
+                break
+            except: pass
+        if name: massObj.SurfaceArea = zone.FloorArea * probabilisticParameters[name] / massOfInternalMaterial,
 
 def GetExternalSurfaceArea(epObjects):
     return sum([x.ExternalSurfaceArea for x in epObjects if isinstance(x, Zone)])

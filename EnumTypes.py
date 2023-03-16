@@ -23,12 +23,8 @@ class Frequency(Enum):
 
 class ParameterType(Enum):
     # Building Operation
-    Occupants = "Occupants"
-    Occupancy = "Occupancy"
     StartTime = "Start Time"
     EndTime = "End Time"
-    LightHeatGain = "Light Heat Gain"
-    EquipmentHeatGain = "Equipment Heat Gain"
 
     # Envelope Properties
     Permeability = "Permeability"
@@ -36,13 +32,16 @@ class ParameterType(Enum):
     UValue = "u-value"
 
     # Internal Mass
-    InternalMass = "Internal Mass"
+    InternalMass = "InternalMass"
 
     # Internal Heat Gains
-    People = "People"
+    Occupancy = "Occupancy"
+    LightHeatGain = "LightHeatGain"
+    EquipmentHeatGain = "EquipmentHeatGain"
 
     # System Efficiency
-    BoilerEfficiency = "Boiler Efficiency"
+    BoilerEfficiency = "BoilerEfficiency"
+    HeatingCOP = 'HeatingCOP'
 
     # Zone Conditions
     HeatingSetpoint = "HeatingSetpoint"

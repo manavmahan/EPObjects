@@ -1,9 +1,8 @@
-from IDFObject.ZoneList import People
+import re
+from IDFObject.ZoneList import People, Lights, ElectricEquipment
 
-def AdjustZoneListVariables(epObjects, objectType, valueName, probabilisticParameters):
-    pattern = f'{objectType.__name__}.*'
+def AdjustZoneListVariables(epObjects, objectType, pattern, valueName, probabilisticParameters):
     selected = list(p for p in probabilisticParameters.index if re.fullmatch(pattern, p))
-
     objs = list(x for x in epObjects if isinstance(x, objectType))
     for obj in objs:
         name = None
@@ -15,5 +14,7 @@ def AdjustZoneListVariables(epObjects, objectType, valueName, probabilisticParam
         if name is not None:
             setattr(obj, valueName, probabilisticParameters[name])
 
-def SetBestMatchPeople(epObjects, probabilisticParameters):
-    AdjustZoneListVariables(epObjects, People, 'ZoneFloorAreaperPerson', probabilisticParameters)
+def SetBestMatchInternalHeatGains(probabilisticParameters, epObjects, ):
+    AdjustZoneListVariables(epObjects, People, 'Occupancy.*', 'ZoneFloorAreaperPerson', probabilisticParameters)
+    AdjustZoneListVariables(epObjects, Lights, 'LightHeatGain.*', 'WattsperZoneFloorArea', probabilisticParameters)
+    AdjustZoneListVariables(epObjects, ElectricEquipment, 'EquipmentHeatGain.*', 'WattsperZoneFloorArea', probabilisticParameters)

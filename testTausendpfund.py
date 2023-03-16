@@ -7,15 +7,16 @@ from EPLogger import Logger
 
 from Helper.Modules import *
 
-from Helper.ConstructionHelper import CreateConstructions, SetBestMatchConstruction, InitialiseZoneSurfaces, SetInternalMass, SetReportingFrequency
+from Helper.ConstructionHelper import CreateConstructions, SetBestMatchConstruction, InitialiseZoneSurfaces, SetInternalMass, SetReportingFrequency, SetBestMatchInternalMass
 from Helper.InfiltrationHelper import SetBestMatchPermeability
 
 from Helper.ScheduleHelper import GetOfficeSchedules, SetBestMatchSetpoints
 from Helper.RunPeriodHelper import GetRunPeriodsFromFile
 from Helper.HVACHelper.HeatPumpWithBoiler import AddHeatPumps, AddHeatPumpsWithBoiler
+from Helper.HVACHelper.SystemEfficiencyHelper import SetBestMatchSystemParameter
 from Helper.ShadingHelper import AddShading
 
-from Helper.InternalHeatGainsHelper import SetBestMatchPeople
+from Helper.InternalHeatGainsHelper import SetBestMatchInternalHeatGains
 
 from Probabilistic.EnergyPredictions import EnergyPrediction, ProbabilisticEnergyPrediction
 from Probabilistic.Parameter import ProbabilisticParameters
@@ -77,8 +78,12 @@ if simulate:
         CreateConstructions(sample, objs)
 
         SetBestMatchConstruction(objs)
+
+        SetBestMatchInternalMass(sample, objs)
         SetBestMatchPermeability(sample, objs)
         SetBestMatchSetpoints(sample, objs)
+        SetBestMatchInternalHeatGains(sample, objs)
+        SetBestMatchSystemParameter(sample, objs)
 
         with open(f'{RepoPath}/IDFFiles/{i}.idf', 'w') as f:
             f.write('\n'.join((x.IDF for x in objs)))
