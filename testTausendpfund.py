@@ -3,6 +3,9 @@ import os
 import numpy as np
 import pandas as pd
 
+from pathlib import Path
+Home = str(Path.home())
+
 from EPLogger import Logger
 
 from Helper.Modules import *
@@ -21,7 +24,7 @@ from Helper.InternalHeatGainsHelper import SetBestMatchInternalHeatGains
 from Probabilistic.EnergyPredictions import EnergyPrediction, ProbabilisticEnergyPrediction
 from Probabilistic.Parameter import ProbabilisticParameters
 
-RepoPath = '/home/ubuntu/repos/EPObjects/Tausendpfund/'
+RepoPath = f'{Home}/repos/EPObjects/Tausendpfund/'
 NumSamples = 40
 
 simulate, trainRegressor, trainGenerator = True, False, True
@@ -68,6 +71,7 @@ samples = pps.GenerateSamplesAsDF(NumSamples,)
 Logger.StartTask('Generating IDF files')
 
 if simulate:
+    if not os.path.isdir(f'{RepoPath}/IDFFiles'): os.mkdir(f'{RepoPath}/IDFFiles')
     os.system(f'rm {RepoPath}/IDFFiles/*.csv')
     os.system(f'rm {RepoPath}/IDFFiles/*.idf')
     os.system(f'rm {RepoPath}/IDFFiles/*.dxf')
@@ -105,6 +109,8 @@ d = ProbabilisticEnergyPrediction(None, pEnergies)
 
 Logger.StartTask('Training regressor')
 from Helper.MLHelper import GetGenerator, GetRegressor, GetScalingLayer
+
+if not os.path.isdir(f'{RepoPath}/MLModel'): os.mkdir(f'{RepoPath}/MLModel')
 
 col = ["NN", "RC", "LR",]
 N1 = [20, 50, 100, 200]
