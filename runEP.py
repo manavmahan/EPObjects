@@ -4,6 +4,7 @@ import multiprocessing
 from multiprocessing import Queue, Process, Pool, Value
 from functools import partial
 from datetime import datetime
+from pathlib import Path
 import shutil
 import sys
 import subprocess
@@ -62,9 +63,20 @@ known_warnings = [
                     'FixViewFactors'
                  ]
 
-ep_dir = os.path.join(home_directory, [x for x in os.listdir(home_directory) if 'EnergyPlus' in x][0])
-
 start_time = datetime.now()
+
+def get_ep_folder_from(base_dir):
+    for x in os.listdir(base_dir):
+        if 'EnergyPlus' in str(x):
+            return os.path.join(base_dir, x)
+    return None
+        
+def get_ep_folder(*args):
+    for b_dir in (os.getcwd(), Path.home()) + args:
+        dir = get_ep_folder_from(b_dir)
+        if dir is not None:
+            return dir
+    return None
 
 def create_temp_folder(full_name, temp_EP_dirs, epw_file):
     """
@@ -99,7 +111,7 @@ def get_EPW_files(idf_folder):
         for f in files:
             if f.endswith(epw_extension): return os.path.join(root, f)
 
-def simulate(idf_file, temp_dir):
+def simulate(ep_dir, idf_file, temp_dir):
     """
     Simulates the IDF file using EnergyPlus.
     """
@@ -116,13 +128,13 @@ def simulate(idf_file, temp_dir):
     shutil.copy(temp_eplus_out + err_extension, idf_file[:-4] + err_extension)
     shutil.copy(temp_eplus_out + dxf_extension, idf_file[:-4] + dxf_extension)
 
-def run_simulation(idf_file, temp_EP_dirs, processed_files, total_files):
+def run_simulation(ep_dir, idf_file, temp_EP_dirs, processed_files, total_files):
     """
     Calls the simulate function on the IDF file.
     """
     temp_dir = temp_EP_dirs.get()
     
-    simulate(idf_file, temp_dir)
+    simulate(ep_dir, idf_file, temp_dir)
 
     processed_files.value += 1
     if processed_files.value % processors == 0:
@@ -172,6 +184,9 @@ def write_err_files(temp_folder):
             f.write(f'{l}\n')
 
 if __name__ == '__main__':
+    ep_dir = get_ep_folder(None)
+    if not ep_dir: raise FileNotFoundError("Cannot find EnergyPlus installtion!")
+
     idf_folder = sys.argv[1] #input("Enter the full path to look for IDF files:\n")
 
     temp_EP_dirs = Queue()
@@ -210,7 +225,7 @@ if __name__ == '__main__':
     while start < n_files:
         upto = min (n_files, start + take)
         processes = [Process(target=run_simulation, 
-                             args=(x, temp_EP_dirs, processed_files, n_files)) for x in idf_files[start:upto]]
+                             args=(ep_dir, x, temp_EP_dirs, processed_files, n_files)) for x in idf_files[start:upto]]
         # Run processes
         for p in processes:
             p.start()
