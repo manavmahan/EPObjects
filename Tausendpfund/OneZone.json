@@ -16,7 +16,7 @@
     {"Name": "PlasterBoard", "Roughness": "Rough", "Thickness": 0.05, "Conductivity": 0.16, "Density": 800, "SpecificHeat": 800, "ThermalAbsorptance": 0.9, "SolarAbsorptance": 0.6, "VisibleAbsorptance": 0.6},
     {"Name": "Screed.Floor", "Roughness": "Smooth", "Thickness": 0.08, "Conductivity": 1.4, "Density": 2000, "SpecificHeat": 1000, "ThermalAbsorptance": 0.9, "SolarAbsorptance": 0.7, "VisibleAbsorptance": 0.7},
     {"Name": "Window", "UFactor": 0.87, "SolarHeatGainCoefficient": 0.35, "VisibleTransmittance": 0.1},
-    {"Name": "RollShade", "SolarTransmittance": 0.3, "SolarReflectance": 0.5, "VisibleTransmittance": 0.3, "VisibleReflectance": 0.5, "InfraredHemisphericalEmissivity": 0.9, "InfraredTransmittance": 0.05, "Thickness": 0.003, "Conductivity": 0.1, "ShadetoGlassDistance": 0.05, "TopOpeningMultiplier": 0, "BottomOpeningMultiplier": 0.5, "Left-SideOpeningMultiplier": 0.5, "Right-SideOpeningMultiplier": 0, "AirflowPermeability": " "},
+    {"Name": "RollShade", "SolarTransmittance": 0.3, "SolarReflectance": 0.5, "VisibleTransmittance": 0.3, "VisibleReflectance": 0.5, "InfraredHemisphericalEmissivity": 0.9, "InfraredTransmittance": 0.05, "Thickness": 0.003, "Conductivity": 0.1, "ShadetoGlassDistance": 0.05, "TopOpeningMultiplier": 0, "BottomOpeningMultiplier": 0.5, "LeftSideOpeningMultiplier": 0.5, "RightSideOpeningMultiplier": 0, "AirflowPermeability": " "},
     
     {"Name": "WallExternal", "MaterialsName": "Plaster,Insulation,Brick.Wall,Plaster"},
     {"Name": "WallInternal", "MaterialsName": "PlasterBoard,Insulation,PlasterBoard"},
@@ -52,11 +52,11 @@
     {"ReportType": "dxf"},
     {"KeyValue": "*", "VariableName": "Zone Air System Sensible Heating Rate", "ReportingFrequency": "Monthly"},
     {"KeyValue": "*", "VariableName": "Zone Air System Sensible Cooling Rate", "ReportingFrequency": "Monthly"},
-    {"KeyValue": "*", "VariableName": "Zone Lights Electric Energy", "ReportingFrequency": "Monthly"},
-    {"KeyValue": "*", "VariableName": "Zone Water to Air Heat Pump Electric Energy", "ReportingFrequency": "Monthly"},
-    {"KeyValue": "*", "VariableName": "Boiler Electric Energy", "ReportingFrequency": "Monthly"},
-    {"KeyValue": "*", "VariableName": "Chiller Electric Energy", "ReportingFrequency": "Monthly"},
-    {"KeyValue": "*", "VariableName": "Cooling Tower Fan Electric Energy", "ReportingFrequency": "Monthly"},
+    {"KeyValue": "*", "VariableName": "Zone Lights Electricity Energy", "ReportingFrequency": "Monthly"},
+    {"KeyValue": "*", "VariableName": "Zone Water to Air Heat Pump Electricity Energy", "ReportingFrequency": "Monthly"},
+    {"KeyValue": "*", "VariableName": "Boiler Electricity Energy", "ReportingFrequency": "Monthly"},
+    {"KeyValue": "*", "VariableName": "Chiller Electricity Energy", "ReportingFrequency": "Monthly"},
+    {"KeyValue": "*", "VariableName": "Cooling Tower Fan Electricity Energy", "ReportingFrequency": "Monthly"},
 
     {"Name": "Office", "ZoneNames": "Office-0-0"},
 

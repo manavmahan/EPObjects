@@ -1,1 +1,1 @@
----finished processing 40 files in 0:02:39.595004---
+---finished processing 10 files in 0:00:02.220054---

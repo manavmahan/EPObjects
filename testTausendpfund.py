@@ -25,11 +25,12 @@ from Probabilistic.EnergyPredictions import EnergyPrediction, ProbabilisticEnerg
 from Probabilistic.Parameter import ProbabilisticParameters
 
 RepoPath = f'{Home}/repos/EPObjects/Tausendpfund/'
-NumSamples = 40
+NumSamples = 10
 
 simulate, trainRegressor, trainGenerator = True, False, True
+number = 1
 
-with open(f'{RepoPath}/Geometry.json') as f:
+with open(f'{RepoPath}/OneZone.json') as f:
     epObjects = json.load(f, cls=IDFJsonDecoder)
 
 runPeriods, consumption = GetRunPeriodsFromFile(f'{RepoPath}/Consumption.csv')
@@ -71,11 +72,12 @@ samples = pps.GenerateSamplesAsDF(NumSamples,)
 Logger.StartTask('Generating IDF files')
 
 if simulate:
-    if not os.path.isdir(f'{RepoPath}/IDFFiles'): os.mkdir(f'{RepoPath}/IDFFiles')
-    os.system(f'rm {RepoPath}/IDFFiles/*.csv')
-    os.system(f'rm {RepoPath}/IDFFiles/*.idf')
-    os.system(f'rm {RepoPath}/IDFFiles/*.dxf')
-    os.system(f'rm {RepoPath}/IDFFiles/*.err')
+    idfFolder = f'{RepoPath}/IDFFiles-{number}'
+    if not os.path.isdir(idfFolder): os.mkdir(idfFolder)
+    os.system(f'rm {idfFolder}/*.csv')
+    os.system(f'rm {idfFolder}/*.idf')
+    os.system(f'rm {idfFolder}/*.dxf')
+    os.system(f'rm {idfFolder}/*.err')
     for i, sample in samples.iterrows():
         objs = list(epObjects)
 
@@ -89,7 +91,7 @@ if simulate:
         SetBestMatchInternalHeatGains(sample, objs)
         SetBestMatchSystemParameter(sample, objs)
 
-        with open(f'{RepoPath}/IDFFiles/{i}.idf', 'w') as f:
+        with open(f'{idfFolder}/{i}.idf', 'w') as f:
             f.write('\n'.join((x.IDF for x in objs)))
 
     Logger.StartTask('Simulations')
@@ -100,7 +102,7 @@ Logger.StartTask('Reading files')
 
 pEnergies = []
 for i in range(NumSamples):
-    data = pd.read_csv(f'{RepoPath}/IDFFiles/{i}.csv', index_col=0)
+    data = pd.read_csv(f'{idfFolder}/{i}.csv', index_col=0)
     data = data[[c for c in data.columns if 'Energy' in c]]
     data.index = range(len(data))
     pEnergies += [EnergyPrediction(None, data)]
@@ -110,7 +112,8 @@ d = ProbabilisticEnergyPrediction(None, pEnergies)
 Logger.StartTask('Training regressor')
 from Helper.MLHelper import GetGenerator, GetRegressor, GetScalingLayer
 
-if not os.path.isdir(f'{RepoPath}/MLModel'): os.mkdir(f'{RepoPath}/MLModel')
+MLFolder = f'{RepoPath}/MLModel-{number}'
+if not os.path.isdir(MLFolder): os.mkdir(MLFolder)
 
 col = ["NN", "RC", "LR",]
 N1 = [20, 50, 100, 200]
@@ -126,7 +129,7 @@ hyperparameters = pd.DataFrame([[n, r, l,]
                                 ], columns = col).sample(n=60,)
 hyperparameters.index = range(len(hyperparameters))
 
-r = GetRegressor(hyperparameters[:4], samples.columns, d.Values['Total'].columns, f'{RepoPath}/MLModel/Regressor', samples, d.Values['Total'], scalingDF_X=pps.GetScalingDF() , training=simulate or trainRegressor)
+r = GetRegressor(hyperparameters[:4], samples.columns, d.Values['Total'].columns, f'{MLFolder}/Regressor', samples, d.Values['Total'], scalingDF_X=pps.GetScalingDF() , training=simulate or trainRegressor)
 
 Logger.FinishTask('Training regressor')
 
@@ -149,7 +152,7 @@ consumption = consumption.values.T
 targetValues = consumption[[np.random.randint(0, len(consumption)) for _ in range(50)]]
 
 revScalingDF_X = pps.GetScalingDFFromFile(f'{RepoPath}/Parameters.csv')
-m = GetGenerator(hyperparameters, 1000, samples.columns, f'{RepoPath}/MLModel/Generator', f'{r.FilePath}.h5', targetValues, revScalingDF=revScalingDF_X, training=simulate or trainRegressor or trainGenerator)
+m = GetGenerator(hyperparameters, 1000, samples.columns, f'{MLFolder}/Generator', f'{r.FilePath}.h5', targetValues, revScalingDF=revScalingDF_X, training=simulate or trainRegressor or trainGenerator)
 
 Logger.FinishTask('Training generator')
 Logger.StartTask('Determining parameters')

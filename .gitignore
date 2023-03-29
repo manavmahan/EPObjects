@@ -1,6 +1,7 @@
 # Byte-compiled / optimized / DLL files
-*/MLModel
-*/IDFFiles
+*/MLModel-*
+*/IDFFiles-*
+
 */Temp
 __pycache__/
 *.py[cod]
