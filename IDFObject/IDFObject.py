@@ -6,12 +6,13 @@ from GeometryObject.XYZ import XYZ
 from GeometryObject.XYZList import XYZList
 
 class IDFObject():
+    
     def __init__(self, properties: list(), propertiesDict: dict()):
         for property in properties:
             if property in propertiesDict: setattr(self, property, propertiesDict[property])
 
     def ToDict(self):
-        for key in self.Properties:
+        for key in ["__IDFName__"] + self.Properties:
             yield key, getattr(self, key)
 
     @property
@@ -50,8 +51,9 @@ class IDFJsonDecoder(JSONDecoder):
         JSONDecoder.__init__(self, object_hook=self.object_hook, *args, **kwargs)
     
     def object_hook(self, dct):
-        for cls in IDFObject.__subclasses__():
-            if list(dct.keys()) == cls.Properties:
-                return cls(dct)
-        classes = '\n' + '\n'.join([f'{x.__name__} : {x.Properties}' for x in IDFObject.__subclasses__()])
-        raise Exception(f"Cannot find subclass for {list(dct.keys())} from {classes}")
+        if "__IDFName__" in dct.keys():
+            return IDFObject.SubclassesAndIDFName[dct["__IDFName__"]](dct)
+        try:
+            return IDFObject.SubclassesAndProperties[','.join(dct.keys())](dct)
+        except KeyError:
+            raise Exception(f"Cannot find subclass for {list(dct.keys())} from {IDFObject.SubclassesAndProperties}")
