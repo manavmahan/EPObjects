@@ -32,7 +32,7 @@ NumSamples = 10
 simulate, trainRegressor, trainGenerator = True, False, True
 number = 1
 
-with open(f'{ProjectDirectory}/Geometry.json') as f:
+with open(f'{ProjectDirectory}/OneZone.json') as f:
     epObjects = json.load(f, cls=IDFJsonDecoder)
 
 runPeriods, consumption = GetRunPeriodsFromFile(f'{ProjectDirectory}/Consumption.csv')
