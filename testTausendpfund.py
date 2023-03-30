@@ -8,6 +8,8 @@ Home = str(Path.home())
 
 from EPLogger import Logger
 
+from runEP import ExecuteSimulations
+
 from Helper.Modules import *
 
 from Helper.ConstructionHelper import CreateConstructions, SetBestMatchConstruction, InitialiseZoneSurfaces, SetInternalMass, SetReportingFrequency, SetBestMatchInternalMass
