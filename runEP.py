@@ -128,7 +128,7 @@ def simulate(ep_dir, idf_file, temp_dir):
     shutil.copy(temp_eplus_out + err_extension, idf_file[:-4] + err_extension)
     shutil.copy(temp_eplus_out + dxf_extension, idf_file[:-4] + dxf_extension)
 
-def run_simulation(ep_dir, idf_file, temp_EP_dirs, processed_files, total_files):
+def run_simulation(idf_file, ep_dir, temp_EP_dirs, processed_files, total_files):
     """
     Calls the simulate function on the IDF file.
     """
@@ -136,18 +136,17 @@ def run_simulation(ep_dir, idf_file, temp_EP_dirs, processed_files, total_files)
     
     simulate(ep_dir, idf_file, temp_dir)
 
-    processed_files.value += 1
-    if processed_files.value % processors == 0:
+    processed_files += 1
+    if processed_files % processors == 0:
         t = datetime.now()
-        processing_time_file = (t - start_time) / float(processed_files.value)
-        etl = processing_time_file * (total_files - processed_files.value)
+        processing_time_file = (t - start_time) / float(processed_files)
+        etl = processing_time_file * (total_files - processed_files)
         finish_time = (datetime.now() + etl).strftime("%H:%M:%S")
         sys.stdout.write(f'\nTotal Files:\t\t{total_files}' +
-                        f'\nFiles Remaining:\t{total_files - processed_files.value}' +
-                        f'\nFiles Processed:\t{processed_files.value}' +
-                        f'\nLast Processed:\t\t{idf_file}' +
+                        f'\nFiles Remaining:\t{total_files - processed_files}' +
+                        f'\nFiles Processed:\t{processed_files}' +
                         f'\nEstimated Finish Time:\t{finish_time} ({etl})' + 
-                        f'\n')
+                        f'\n', flush=True)
     temp_EP_dirs.put(temp_dir)
 
 def delete_temp_folder(idf_folder):
@@ -183,14 +182,16 @@ def write_err_files(temp_folder):
         for l in get_err_files(temp_folder):
             f.write(f'{l}\n')
 
-if __name__ == '__main__':
+def ExecuteSimulations(idf_folder):
     ep_dir = get_ep_folder(None)
     if not ep_dir: raise FileNotFoundError("Cannot find EnergyPlus installtion!")
 
-    idf_folder = sys.argv[1] #input("Enter the full path to look for IDF files:\n")
+    if not os.access(idf_folder, os.W_OK): raise PermissionError(f"User do not have write permission to the folder: {idf_folder}")
 
-    temp_EP_dirs = Queue()
-    processed_files = Value('d', 0)
+    m = multiprocessing.Manager()
+    temp_EP_dirs = m.Queue()
+    
+    processed_files = 0
     delete_temp_folder(idf_folder)
 
     epw_file = get_EPW_files(idf_folder) 
@@ -199,49 +200,24 @@ if __name__ == '__main__':
     if (epw_file_input != ''):
         epw_file = epw_file_input
     
-    if (not os.path.isfile(epw_file)):
-        print (f"Invalid Weather File: {epw_file}")
-        sys.exit()
-
+    if (not os.path.isfile(epw_file)): raise FileNotFoundError(f"Invalid Weather File: {epw_file}")
     print (f'Weather File: {epw_file}')
+    
     idf_files = get_IDF_files(idf_folder)
-
-    # print (idf_files)
-
     temp_dirs = [os.path.join(idf_folder, temp_dir, f'{temp_dir_pre}{i}') for i in range (min(processors, len(idf_files)))]
     
-    processes = [Process(target=create_temp_folder, args=(x, temp_EP_dirs, epw_file)) for x in temp_dirs]
-    # Run processes
-    for p in processes:
-        p.start()
+    with Pool(processes=processors) as pool:
+        par_func = partial(create_temp_folder, temp_EP_dirs=temp_EP_dirs, epw_file=epw_file, )
+        pool.map(par_func, temp_dirs)
 
-    # Exit the completed processes
-    for p in processes:
-        p.join()
-
-    take = processors * 4
-    n_files = len(idf_files)
-    start = 0
-    while start < n_files:
-        upto = min (n_files, start + take)
-        processes = [Process(target=run_simulation, 
-                             args=(ep_dir, x, temp_EP_dirs, processed_files, n_files)) for x in idf_files[start:upto]]
-        # Run processes
-        for p in processes:
-            p.start()
-
-        # Exit the completed processes
-        for p in processes:
-            p.join()
-
-        start = upto
-    # with Pool(processes=processors) as pool:
-    #     par_func = partial(run_simulation, temp_EP_dirs=temp_EP_dirs, processed_files=processed_files, total_files=n_files)
-    #     pool.map(par_func, idf_files)
+    with Pool(processes=processors, initargs=(processed_files)) as pool:
+        par_func = partial(run_simulation, ep_dir=ep_dir, temp_EP_dirs=temp_EP_dirs, processed_files=processed_files, total_files=len(idf_files))
+        pool.map(par_func, idf_files)
 
     delete_temp_folder(idf_folder)
     write_err_files(idf_folder)
 
     print (f'---finished processing {len(idf_files)} files in {(datetime.now() - start_time)}---')
-    with open(f'{idf_folder}/sim.txt', 'w') as f:
-        f.write(f'---finished processing {len(idf_files)} files in {(datetime.now() - start_time)}---')
+
+if __name__ == '__main__':
+    ExecuteSimulations(sys.argv[1])
