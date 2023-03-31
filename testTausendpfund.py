@@ -27,7 +27,7 @@ from Probabilistic.EnergyPredictions import EnergyPrediction, ProbabilisticEnerg
 from Probabilistic.Parameter import ProbabilisticParameters
 
 ProjectDirectory = f'{Home}/repos/EPObjects/Tausendpfund/'
-NumSamples = 10
+NumSamples = 200
 
 simulate, trainRegressor, trainGenerator = True, False, True
 number = 1

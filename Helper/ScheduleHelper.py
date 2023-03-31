@@ -39,6 +39,7 @@ def SetBestMatchSetpoints(probabilisticParameters, epObjects):
 
             d = OfficeSchedules[name][scheduleName]
             d['<v2>'] = probabilisticParameters[parameter]
+            d['<v1>'] = d['<v2>'] - 4
             s = Compact(getattr(Compact, d['Type']))
             s.Name = f'{name}.{scheduleName}'
             s.ChangeValues(d)
