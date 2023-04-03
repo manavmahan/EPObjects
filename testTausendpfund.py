@@ -29,7 +29,7 @@ from Probabilistic.Parameter import ProbabilisticParameters
 ProjectDirectory = f'{Home}/repos/EPObjects/Tausendpfund/'
 NumSamples = 200
 
-simulate, trainRegressor, trainGenerator = True, False, True
+simulate, trainRegressor, trainGenerator = False, False, True
 number = 1
 
 with open(f'{ProjectDirectory}/Geometry.json') as f:
@@ -137,10 +137,10 @@ Logger.FinishTask('Training regressor')
 
 Logger.StartTask('Training generator')
 col = ["NN", "RC", "LR",]
-N1 = [100, 200, 400,]
-N2 = [5, 10, 20]
-RC = [1e-3, 1e-4, 1e-5,]
-LR = [1e-2, 3e-3, 1e-3,]
+N1 = [40, 60, 80, 100]
+N2 = [0, 10, 20, 30]
+RC = [0,]
+LR = [1e-2, 3e-3, 1e-3, 3e-4]
 
 nn = [[nn1, nn2] for nn1 in N1 for nn2 in N2]
 hyperparameters = pd.DataFrame([[n, r, l,] 
@@ -154,7 +154,7 @@ consumption = consumption.values.T
 targetValues = consumption[[np.random.randint(0, len(consumption)) for _ in range(50)]]
 
 revScalingDF_X = pps.GetScalingDFFromFile(f'{ProjectDirectory}/Parameters.csv')
-m = GetGenerator(hyperparameters, 1000, samples.columns, f'{MLFolder}/Generator', f'{r.FilePath}.h5', targetValues, revScalingDF=revScalingDF_X, training=simulate or trainRegressor or trainGenerator)
+m = GetGenerator(hyperparameters, 100, samples.columns, f'{MLFolder}/Generator', f'{r.FilePath}.h5', targetValues, revScalingDF=revScalingDF_X, training=simulate or trainRegressor or trainGenerator)
 
 Logger.FinishTask('Training generator')
 Logger.StartTask('Determining parameters')
