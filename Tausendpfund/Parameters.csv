@@ -1,9 +1,9 @@
 Parameter,Mean,VariationOrSD,Distribution,Low,High
-u-value:Roof,0.15,0.05,Uniform,0,1
 u-value:WallExternal,0.20,0.05,Uniform,0,1
 u-value:FloorGround,0.20,0.05,Uniform,0,1
+u-value:Roof,0.15,0.05,Uniform,0,1
 u-value:Window,0.8,0.2,Uniform,0,1
-g-value:Window,0.4,0.1,Uniform,0,1
+g-value:Window,0.325,0.075,Uniform,0,1
 Permeability,6.0,0.6,Uniform,0,1
 Occupancy:Office,20,4,Uniform,0,1
 HeatingSetpoint:Office|Corridor|Stairs,21,2,Uniform,0,1

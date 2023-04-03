@@ -29,7 +29,7 @@ from Probabilistic.Parameter import ProbabilisticParameters
 ProjectDirectory = f'{Home}/repos/EPObjects/Tausendpfund/'
 NumSamples = 200
 
-simulate, trainRegressor, trainGenerator = False, False, True
+simulate, trainRegressor, trainGenerator = True, False, True
 number = 1
 
 with open(f'{ProjectDirectory}/Geometry.json') as f:

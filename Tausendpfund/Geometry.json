@@ -6,7 +6,7 @@
     {
         "__IDFName__": "Building",
         "Name": "Tausendpfund",
-        "NorthAxis": -20.0,
+        "NorthAxis": 20.0,
         "Terrain": " ",
         "LoadConvergenceTolerance": 0.04,
         "TemperatureConvergenceTolerance": 0.4,
