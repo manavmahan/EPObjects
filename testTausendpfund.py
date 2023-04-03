@@ -27,9 +27,9 @@ from Probabilistic.EnergyPredictions import EnergyPrediction, ProbabilisticEnerg
 from Probabilistic.Parameter import ProbabilisticParameters
 
 ProjectDirectory = f'{Home}/repos/EPObjects/Tausendpfund/'
-NumSamples = 10
+NumSamples = 200
 
-simulate, trainRegressor, trainGenerator = True, False, True
+simulate, trainRegressor, trainGenerator = False, False, True
 number = 1
 
 with open(f'{ProjectDirectory}/Geometry.json') as f:
@@ -104,7 +104,7 @@ Logger.StartTask('Reading files')
 
 pEnergies = []
 for i in range(NumSamples):
-    data = pd.read_csv(f'{idfFolder}/{i}.csv', index_col=0)
+    data = pd.read_csv(f'{ProjectDirectory}/IDFFiles-{number}/{i}.csv', index_col=0)
     data = data[[c for c in data.columns if 'Energy' in c]]
     data.index = range(len(data))
     pEnergies += [EnergyPrediction(None, data)]

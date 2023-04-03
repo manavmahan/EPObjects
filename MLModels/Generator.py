@@ -23,7 +23,7 @@ from tensorflow.math import add, log, abs, multiply, subtract, reduce_mean
 
 @register_keras_serializable(package='Custom', name='CustomRegularizerHardSigmoid')
 class CustomRegularizerHardSigmoid(Regularizer):
-    def __init__(self, l2=1):
+    def __init__(self, l2=100):
         self.l2 = l2
 
     def __call__(self, x):
