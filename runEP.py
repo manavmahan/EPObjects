@@ -72,7 +72,7 @@ def get_ep_folder_from(base_dir):
     return None
         
 def get_ep_folder(*args):
-    for b_dir in (os.getcwd(), Path.home()) + args:
+    for b_dir in (Path.home(), os.getcwd()) + args:
         dir = get_ep_folder_from(b_dir)
         if dir is not None:
             return dir
