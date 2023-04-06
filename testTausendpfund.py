@@ -27,7 +27,7 @@ from Probabilistic.EnergyPredictions import EnergyPrediction, ProbabilisticEnerg
 from Probabilistic.Parameter import ProbabilisticParameters
 
 ProjectDirectory = f'{Home}/repos/EPObjects/Tausendpfund/'
-NumSamples = 200
+NumSamples = 100
 
 simulate, trainRegressor, trainGenerator = False, False, True
 number = 1
@@ -137,10 +137,10 @@ Logger.FinishTask('Training regressor')
 
 Logger.StartTask('Training generator')
 col = ["NN", "RC", "LR",]
-N1 = [40, 60, 80, 100]
-N2 = [0, 10, 20, 30]
+N1 = [20, 40, 60, 80, 100]
+N2 = [0, 5, 10, 15, 20, ]
 RC = [0,]
-LR = [1e-2, 3e-3, 1e-3, 3e-4]
+LR = [1e-2, 3e-3, 1e-3, 3e-4, 1e-4,]
 
 nn = [[nn1, nn2] for nn1 in N1 for nn2 in N2]
 hyperparameters = pd.DataFrame([[n, r, l,] 
@@ -151,7 +151,7 @@ hyperparameters = pd.DataFrame([[n, r, l,]
 hyperparameters.index = range(len(hyperparameters))
 
 consumption = consumption.values.T
-targetValues = consumption[[np.random.randint(0, len(consumption)) for _ in range(50)]]
+targetValues = consumption[[np.random.randint(0, len(consumption)) for _ in range(125)]]
 
 revScalingDF_X = pps.GetScalingDFFromFile(f'{ProjectDirectory}/Parameters.csv')
 m = GetGenerator(hyperparameters, 100, samples.columns, f'{MLFolder}/Generator', f'{r.FilePath}.h5', targetValues, revScalingDF=revScalingDF_X, training=simulate or trainRegressor or trainGenerator)
