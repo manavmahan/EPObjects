@@ -1,0 +1,8 @@
+CREATE TABLE Projects (
+    Id INT AUTO_INCREMENT PRIMARY KEY,
+    Username VARCHAR(255) NOT NULL,
+    ProjectName VARCHAR(255) NOT NULL,
+    Time DATETIME NOT NULL DEFAULT NOW()
+);
+
+ALTER TABLE Projects ADD Geometry Blob;
