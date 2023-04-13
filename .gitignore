@@ -1,7 +1,8 @@
 # Byte-compiled / optimized / DLL files
 */MLModel-*
 */IDFFiles-*
-*/sim.txt
+*/sim*.txt
+*/*.pdf
 Local
 
 */Temp
