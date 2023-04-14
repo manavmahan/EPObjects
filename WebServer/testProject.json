@@ -1,5 +1,0 @@
-
-{
-    "Query":"Select UserName,ProjectName FROM Projects WHERE UserName='manav' AND ProjectName='Tausendpfund';",
-    "Fetch":true
-}

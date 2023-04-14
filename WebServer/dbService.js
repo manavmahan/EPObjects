@@ -1,4 +1,16 @@
-import express, { response } from 'express';
+import {readFile} from 'fs';
+
+var standardQueries = null;
+readFile('StandardQueries.json', 'utf8', (err, data) => {
+    if (err) {
+        console.error(err);
+        return;
+    }
+    standardQueries = JSON.parse(data);
+});
+
+
+import express from 'express';
 const app = express()
 app.use(express.json());
 
@@ -25,7 +37,7 @@ curl -X POST localhost:3001 \
     -d @./testProject.json
 */
 
-app.post('/', (req, res) => {
+const executeQuery = async (query, res) => {
     let cookieJar = new CookieJar();
 
 	let client = wrapper(axios.create({
@@ -35,15 +47,36 @@ app.post('/', (req, res) => {
         headers: headers,
 	}));
 
-    client.get('getcsrf/').then(({ config }) => {
-        let csrfToken = config.jar.toJSON()['cookies'].find(element => element['key'] == 'csrftoken')['value'];
+    let config = await client.get('getcsrf/');//.then(({ config }) => {
+    let csrfToken = config.config.jar.toJSON()['cookies'].find(element => element['key'] == 'csrftoken')['value'];
         
-        client.defaults.headers['x-csrftoken'] = csrfToken;
-        
-        client.post('database/', req.body)
-        .then(r=>{res.send(r.data)})
-        .catch(error=>{console.log(error); res.send('error'); })
-    });
+    client.defaults.headers['x-csrftoken'] = csrfToken;
+    
+    let result = await client.post('database/', query)
+    res.send( result.data );
+};
+
+app.post('/', (req, res) => {
+    let queryType = req.body['QueryType'];
+
+    if (!queryType || !standardQueries[queryType]){
+        executeQuery(req.body, res);
+        return;
+    }
+
+    // let queryData = { ... standardQueries[queryType] };
+    // // console.log( standardQueries[0]);
+    // let queryStr = queryData['Query'];
+
+    // queryStr.split(' ').filter(word => word.includes('Q_')).forEach(element => {
+    //     let key = element.substring(2)
+    //     if (! req.body[key]){
+    //         res.send(`Incomplete Request: ${queryType} - ${queryStr} missing ${key}`);
+    //         return;
+    //     }
+    //     queryStr.replace(key, req.body[key])
+    // });
+    // executeQuery(queryData, res);
 });
 
 app.listen(port, () => {

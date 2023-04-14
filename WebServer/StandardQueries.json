@@ -1,0 +1,40 @@
+{
+    "Search":{
+        "Query":"select ( Q_COLUMN_NAMES ) from Q_TABLE_NAME WHERE Q_CONDITIONS;"
+    },
+
+    "CreateTable":{
+        "Query":"create table Q_TABLE_NAME (ID INT AUTO_INCREMENT PRIMARY KEY);",
+        "Fetch":false
+    },
+
+    "DropTable":{
+        "Query":"drop table Q_TABLE_NAME;",
+        "Fetch":false
+    },
+
+    "AddColumn":{
+        "Query":"alter table Q_TABLE_NAME ADD Q_COLUMN_NAME Q_COLUMN_TYPE;",
+        "Fetch":false
+    },
+
+    "DropColumn":{
+        "Query":"alter table Q_TABLE_NAME DROP column Q_COLUMN_NAME;",
+        "Fetch":false
+    },
+
+    "InsertItem":{
+        "Query":"insert into Q_TABLE_NAME ( Q_COLUMN_NAMES ) values ( Q_COLUMN_VALUES );",
+        "Fetch":false
+    },
+
+    "UpdateItem":{
+        "Query":"update Q_TABLE_NAME set SET_VALUES where Q_CONDITIONS;",
+        "Fetch":false
+    },
+
+    "DeleteItem":{
+        "Query":"delete from Q_TABLE_NAME where Q_CONDITIONS;",
+        "Fetch":false
+    }
+}
