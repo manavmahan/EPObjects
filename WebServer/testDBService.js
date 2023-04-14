@@ -10,8 +10,8 @@ const URL = 'http://127.0.0.1:3001/'
 // }
 
 let data = {
-    "TYPE": "DROP_TABLE", 
-    "TABLE_NAME": "Projects", 
+    "TYPE": "CREATE_TABLE", 
+    "TABLE_NAME": "PROJECTS", 
 }
 
 const response = await axios.post(URL, data);

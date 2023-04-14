@@ -37,21 +37,21 @@ curl -X POST localhost:3001 \
     -d @./testProject.json
 */
 
-const executeQuery = async (query, res) => {
-    let cookieJar = new CookieJar();
+let cookieJar = new CookieJar();
 
-	let client = wrapper(axios.create({
-		jar: cookieJar,
-		withCredentials: true,
-        baseURL: URL,
-        headers: headers,
-	}));
+let client = wrapper(axios.create({
+    jar: cookieJar,
+    withCredentials: true,
+    baseURL: URL,
+    headers: headers,
+}));
 
-    let config = await client.get('getcsrf/');//.then(({ config }) => {
-    let csrfToken = config.config.jar.toJSON()['cookies'].find(element => element['key'] == 'csrftoken')['value'];
-        
-    client.defaults.headers['x-csrftoken'] = csrfToken;
+let config = await client.get('getcsrf/');//.then(({ config }) => {
+let csrfToken = config.config.jar.toJSON()['cookies'].find(element => element['key'] == 'csrftoken')['value'];
     
+client.defaults.headers['x-csrftoken'] = csrfToken;
+
+const executeQuery = async (query, res) => {      
     let result = await client.post('database/', query)
     res.send( result.data );
 };
