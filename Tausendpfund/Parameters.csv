@@ -7,7 +7,7 @@ g-value:Window,0.325,0.075,Uniform,0,1
 Permeability,6.0,0.6,Uniform,0,1
 Occupancy:Office,20.0,4.0,Uniform,0,1
 HeatingSetpoint:Office|Corridor|Stairs,21.0,2.0,Uniform,0,1
-InternalMass:Office,24.0,6.0,Uniform,,
-LightHeatGain:Office,6.0,1.5,Uniform,,
-EquipmentHeatGain:Office,8.0,2.0,Uniform,,
-HeatingCOP,2.4,0.6,Uniform,,
+InternalMass:Office,24.0,6.0,Uniform,0,1
+LightHeatGain:Office,6.0,1.5,Uniform,0,1
+EquipmentHeatGain:Office,8.0,2.0,Uniform,0,1
+HeatingCOP,2.4,0.6,Uniform,0,1

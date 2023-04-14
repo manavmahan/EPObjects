@@ -12,7 +12,10 @@ readFile('StandardQueries.json', 'utf8', (err, data) => {
 
 import express from 'express';
 const app = express()
-app.use(express.json());
+app.use(express.json({
+    limit: '200mb',
+    extended: true
+}));
 
 import axios from 'axios';
 axios.defaults.xsrfCookieName = 'csrftoken'
@@ -24,6 +27,7 @@ import { CookieJar }  from 'tough-cookie';
 const port = 3001
 
 const URL = "https://p-energyanalysis.de/"
+// const URL = "http://127.0.0.1:8080"
 const Id = "f76ba64860271dd9dd21867e387004d1"
 
 const headers = {
@@ -51,9 +55,15 @@ let csrfToken = config.config.jar.toJSON()['cookies'].find(element => element['k
     
 client.defaults.headers['x-csrftoken'] = csrfToken;
 
-const executeQuery = async (query, res) => {      
-    let result = await client.post('database/', query)
-    res.send( result.data );
+const executeQuery = async (query, res) => {
+    try{
+        let result = await client.post('database/', query)
+        res.send( result.data );
+    }
+    catch(error){
+        console.log(error);
+        res.send({'ERROR': error.response.status});
+    }
 };
 
 app.post('/', (req, res) => {

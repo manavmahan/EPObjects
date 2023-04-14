@@ -18,7 +18,7 @@ data = {
     "TYPE": "ADD_COLUMN", 
     "TABLE_NAME": "PROJECTS",
     "COLUMN_NAME": "PARAMETERS",
-    "COLUMN_TYPE": "BLOB"
+    "COLUMN_TYPE": "JSON"
 }
 
 // data = {
