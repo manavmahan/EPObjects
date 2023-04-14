@@ -29,7 +29,7 @@
     },
 
     "UPDATE_ITEM":{
-        "QUERY":"update Q_TABLE_NAME set SET_VALUES where Q_CONDITIONS ;",
+        "QUERY":"update Q_TABLE_NAME set Q_SET_VALUES where Q_CONDITIONS ;",
         "FETCH":false
     },
 
