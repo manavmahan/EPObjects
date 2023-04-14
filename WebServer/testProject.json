@@ -1,11 +1,5 @@
 
-[
-    {
-        "Query":"Select UserName,ProjectName FROM Projects WHERE UserName='manav' AND ProjectName='Tausendpfund';",
-        "Fetch":true
-    },
-    {
-        "Query":"INSERT INTO Projects (UserName,ProjectName) VALUES ('manav','Tausendpfund');",
-        "Fetch":false
-    }
-]
+{
+    "Query":"Select UserName,ProjectName FROM Projects WHERE UserName='manav' AND ProjectName='Tausendpfund';",
+    "Fetch":true
+}

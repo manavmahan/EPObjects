@@ -7,7 +7,7 @@ client = requests.session()
 
 URL = "https://p-energyanalysis.de/database/"
 Id = "f76ba64860271dd9dd21867e387004d1"
-# URL = "http://0.0.0.0:8080/database/"
+URL = "http://localhost:8080/database/"
 
 response = client.get(URL, headers={'Id': Id})
 csrfToken = response.json()['csrf_token']
@@ -23,7 +23,7 @@ class databaseTest(unittest.TestCase):
         self.assertFalse(responseJson['ErrorMsg'])
         self.assertFalse(responseJson['Result'])
 
-        time.sleep(1)
+    def testCreateTestProject(self):
         query = {
             "Query":"INSERT INTO Projects (UserName,ProjectName) VALUES ('test','test');",
             "Fetch":False
@@ -33,7 +33,7 @@ class databaseTest(unittest.TestCase):
         self.assertFalse(responseJson['ErrorMsg'])
         self.assertTrue(responseJson['Result'])
 
-        time.sleep(1)
+    def testQueryTestProjectAfterCreation(self):
         query = {
             "Query":"Select UserName,ProjectName FROM Projects WHERE UserName='test' AND ProjectName='test';",
             "Fetch":True
@@ -43,7 +43,7 @@ class databaseTest(unittest.TestCase):
         self.assertFalse(responseJson['ErrorMsg'])
         self.assertEqual(1, len(responseJson['Result']))
 
-        time.sleep(1)
+    def testDeleteTestProject(self):
         query = {
             "Query":"DELETE FROM Projects WHERE UserName='test' AND ProjectName='test';",
             "Fetch":False
@@ -53,7 +53,7 @@ class databaseTest(unittest.TestCase):
         self.assertFalse(responseJson['ErrorMsg'])
         self.assertTrue(responseJson['Result'])
 
-        time.sleep(1)
+    def testQueryTestProjectAfterDeletion(self):
         query = {
             "Query":"Select UserName,ProjectName FROM Projects WHERE UserName='test' AND ProjectName='test';",
             "Fetch":True
