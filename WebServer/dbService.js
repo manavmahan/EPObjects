@@ -57,26 +57,33 @@ const executeQuery = async (query, res) => {
 };
 
 app.post('/', (req, res) => {
-    let queryType = req.body['QueryType'];
+    let queryType = req.body['TYPE'];
 
     if (!queryType || !standardQueries[queryType]){
         executeQuery(req.body, res);
         return;
     }
 
-    // let queryData = { ... standardQueries[queryType] };
-    // // console.log( standardQueries[0]);
-    // let queryStr = queryData['Query'];
+    let queryData = { ... standardQueries[queryType] };
+    // console.log( standardQueries[0]);
+    let queryStr = queryData['QUERY'];
 
-    // queryStr.split(' ').filter(word => word.includes('Q_')).forEach(element => {
-    //     let key = element.substring(2)
-    //     if (! req.body[key]){
-    //         res.send(`Incomplete Request: ${queryType} - ${queryStr} missing ${key}`);
-    //         return;
-    //     }
-    //     queryStr.replace(key, req.body[key])
-    // });
-    // executeQuery(queryData, res);
+    let missingKeys = []
+    queryStr.split(' ').filter(word => word.includes('Q_')).forEach(element => {
+        let key = element.substring(2)
+        if (req.body[key]){
+            queryStr = queryStr.replace(element, req.body[key]);
+            // console.log(queryStr);
+        }else{
+            missingKeys.push[key];
+        }
+    });
+    if (missingKeys.length > 0){
+        res.send(`Incomplete Request: ${queryType} - ${queryStr} missing ${missingKeys}`);
+    }else{
+        queryData['QUERY'] = queryStr;
+        executeQuery(queryData, res);
+    }
 });
 
 app.listen(port, () => {
