@@ -4,32 +4,59 @@ import { Inter } from 'next/font/google'
 import * as THREE from "three";
 import { useState, useEffect } from 'react';
 
+import axios from 'axios';
+
+const URL = 'http://127.0.0.1:3001/'
+
 const inter = Inter({ subsets: ['latin'] })
 
-function ThreeScene(){
+async function _getGeometry(setGeometry,){
+  var data = {
+    "TYPE": "SEARCH", 
+    "TABLE_NAME": "PROJECTS", 
+    "COLUMN_NAMES": "GEOMETRY", 
+    "CONDITIONS": "PROJECT_NAME='TAUSENDPFUND' AND USER_NAME='MANAV'",
+  }
   
+  axios.post(URL, data)
+  .then(({data})=>{
+    setGeometry(data.RESULT[0][0]);
+  })
+  .catch((err)=> {
+    console.log(err);
+  });
+}
+
+function ThreeScene(){
+  const [geom, setGeom] = useState(null);
+  _getGeometry(setGeom);
   useEffect(()=>{
     let element = document.getElementById('scene');
-    // === THREE.JS CODE START ===
-    var scene = new THREE.Scene();
-    var camera = new THREE.PerspectiveCamera( 75, window.innerWidth/window.innerHeight, 0.1, 1000 );
-    var renderer = new THREE.WebGLRenderer();
-    renderer.setSize( window.innerWidth, window.innerHeight );
-    element.appendChild( renderer.domElement );
-    var geometry = new THREE.BoxGeometry( 1, 1, 1 );
-    var material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
-    var cube = new THREE.Mesh( geometry, material );
-    scene.add( cube );
-    camera.position.z = 5;
-    var animate = function () {
-      requestAnimationFrame( animate );
-      cube.rotation.x += 0.01;
-      cube.rotation.y += 0.01;
-      renderer.render( scene, camera );
-    };
-    animate();
+    if(geom!==null){
+      // === THREE.JS CODE START ===
+      var scene = new THREE.Scene();
+      var camera = new THREE.PerspectiveCamera( 75, window.innerWidth/window.innerHeight, 0.1, 1000 );
+      var renderer = new THREE.WebGLRenderer();
+      renderer.setSize( window.innerWidth, window.innerHeight );
+      element.replaceChildren( renderer.domElement );
+      var geometry = new THREE.BoxGeometry( 1, 1, 1 );
+      var color = (geom===null) ? 0xbbbbbb : 0xff0000;
+      var material = new THREE.MeshBasicMaterial( { color: color} );
+      var cube = new THREE.Mesh( geometry, material );
+      scene.add( cube );
+      camera.position.z = 5;
+      var animate = function () {
+        requestAnimationFrame( animate );
+        cube.rotation.x += 0.01;
+        cube.rotation.y += 0.01;
+        renderer.render( scene, camera );
+      };
+      animate();
+    }else{
+      element.replaceChildren( 'loading...' );
+    }
     // === THREE.JS EXAMPLE CODE END ===
-  }, []);
+  }, [geom]);
 }
 
 function DivElement({ id }) {

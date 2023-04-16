@@ -17,6 +17,9 @@ app.use(express.json({
     extended: true
 }));
 
+import cors from 'cors';
+app.use(cors());
+
 import axios from 'axios';
 axios.defaults.xsrfCookieName = 'csrftoken'
 axios.defaults.xsrfHeaderName = "X-CSRFTOKEN"
