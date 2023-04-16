@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "three": "^0.151.3"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.35",
+    "@types/three": "^0.150.1"
+  }
+}
