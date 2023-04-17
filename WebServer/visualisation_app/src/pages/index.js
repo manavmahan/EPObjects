@@ -19,7 +19,7 @@ async function _getGeometry(setGeometry,){
     "TYPE": "SEARCH", 
     "TABLE_NAME": "PROJECTS", 
     "COLUMN_NAMES": "GEOMETRY", 
-    "CONDITIONS": "PROJECT_NAME='TAUSENDPFUND' AND USER_NAME='MANAV'",
+    "CONDITIONS": "PROJECT_NAME='SHAPE_100_000100' AND USER_NAME='RANDOM'",
   }
   
   axios.post(URL, query)

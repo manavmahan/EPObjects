@@ -40,17 +40,20 @@ export default function GenerateBuildingElements(buildingElements)
         'paper_bgcolor':"rgba(0,0,0,0)",
         'plot_bgcolor':"rgba(0,0,0,0)",
         'margin': {'l': 0, 'r': 0, 'b': 0, 't': 0},
+        'showlegend': false,
         'hovermode': false,
     }
 
     let config = {displayModeBar:false, responsive: true};
 
     elements.forEach(e => {
-        let del = 'z';
+        let del = 'x';
         if (e['xs'].every(a=>a===e['xs'][0]))
             del = 'x';
         if (e['ys'].every(a=>a===e['ys'][0]))
             del = 'y';
+        if (e['zs'].every(a=>a===e['zs'][0]))
+            del = 'z';
         
         let face = {
             type: 'mesh3d',
@@ -64,7 +67,6 @@ export default function GenerateBuildingElements(buildingElements)
         data.push(face);
     });
     return (
-        <Plot data={data} />
+        <Plot data={data} layout={layout} config={config}/>
     )
-    return {data: data, layout: layout, config: config};
 }
