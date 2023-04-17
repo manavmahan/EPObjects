@@ -13,13 +13,18 @@
     "eslint": "8.38.0",
     "eslint-config-next": "13.3.0",
     "next": "13.3.0",
+    "plotly.js": "^2.20.0",
     "postcss": "8.4.21",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-plotly.js": "^2.6.0",
     "sleep": "^6.3.0",
     "tailwindcss": "3.3.1"
   },
   "devDependencies": {
+    "@types/plotly.js": "^2.12.18",
+    "@types/react-dom": "^18.0.11",
+    "@types/react-plotly.js": "^2.6.0",
     "@types/sleep": "^0.0.9"
   }
 }

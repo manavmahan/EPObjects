@@ -1,8 +1,18 @@
 import Image from 'next/image'
+import Script from 'next/script'
+import * as ReactDOM from 'react-dom/client';
+
 import { Inter } from 'next/font/google'
 
 import * as THREE from "three";
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useReducer } from 'react';
+
+// import Plotly from 'plotly';
+import React from 'react';
+import dynamic from "next/dynamic";
+const Plot = dynamic(() => import("react-plotly.js"), { ssr: false, });
+
+import GenerateBuildingElements from './plotly_visualisation';
 
 import axios from 'axios';
 
@@ -11,14 +21,14 @@ const URL = 'http://127.0.0.1:3001/'
 const inter = Inter({ subsets: ['latin'] })
 
 async function _getGeometry(setGeometry,){
-  var data = {
+  let query = {
     "TYPE": "SEARCH", 
     "TABLE_NAME": "PROJECTS", 
     "COLUMN_NAMES": "GEOMETRY", 
     "CONDITIONS": "PROJECT_NAME='TAUSENDPFUND' AND USER_NAME='MANAV'",
   }
   
-  axios.post(URL, data)
+  axios.post(URL, query)
   .then(({data})=>{
     setGeometry(data.RESULT[0][0]);
   })
@@ -27,12 +37,50 @@ async function _getGeometry(setGeometry,){
   });
 }
 
+function LoadPlotly(buildingElements) {
+  console.log(buildingElements)
+  const data = GenerateBuildingElements(buildingElements);
+  return (
+    <Plot data={data.PlotData} layout={data.Layout} config={data.Config}/>
+  )
+}
+
+function reducer(state, action) {
+  if (action.type === 'incremented_age') {
+    return {
+      age: state.age + 1
+    };
+  }
+  throw Error('Unknown action.');
+}
+
+function PlotlyPlot(elementId){
+  const [geom, setGeom] = useState(null);
+  const [root, setRoot] = useState(null);
+
+  _getGeometry(setGeom);
+
+  useEffect(()=>{
+    if (document && (!root)) {
+      console.log(root);
+      setRoot(ReactDOM.createRoot(document.getElementById(elementId)));
+    }
+    
+    if((geom!==null) && (root!==null)){
+      let elements = JSON.parse(geom);
+      let buildingElements = elements.filter(obj => /^(Building|Fenestration)Surface:Detailed/.test(obj['__IDFName__']));
+      root.render(LoadPlotly(buildingElements));
+    }
+  }, [geom, root, elementId]);
+}
+
 function ThreeScene(){
   const [geom, setGeom] = useState(null);
   _getGeometry(setGeom);
   useEffect(()=>{
     let element = document.getElementById('scene');
     if(geom!==null){
+      let geoms = Create3DObjects(geom);
       // === THREE.JS CODE START ===
       var scene = new THREE.Scene();
       var camera = new THREE.PerspectiveCamera( 75, window.innerWidth/window.innerHeight, 0.1, 1000 );
@@ -43,12 +91,12 @@ function ThreeScene(){
       var color = (geom===null) ? 0xbbbbbb : 0xff0000;
       var material = new THREE.MeshBasicMaterial( { color: color} );
       var cube = new THREE.Mesh( geometry, material );
-      scene.add( cube );
+      scene.add( ...geoms );
       camera.position.z = 5;
       var animate = function () {
         requestAnimationFrame( animate );
-        cube.rotation.x += 0.01;
-        cube.rotation.y += 0.01;
+        camera.rotation.x += 0.01;
+        camera.rotation.y += 0.01;
         renderer.render( scene, camera );
       };
       animate();
@@ -60,13 +108,13 @@ function ThreeScene(){
 }
 
 function DivElement({ id }) {
-  return <div id={id}></div>;
+  return <div id={id}> </div>;
 }
 
 function Home() {
-  ThreeScene();
+  PlotlyPlot('plot_div');
   return (
-    <DivElement id="scene" />
+    <DivElement id='plot_div' />
   )
 }
 
