@@ -1,5 +1,9 @@
+import React from 'react';
+import dynamic from "next/dynamic";
+const Plot = dynamic(() => import("react-plotly.js"), { ssr: false, });
+
 const colors = {Wall:'#874251', intWall:'#994251', Window:'#0288d1', Floor:'#c39b77', Ceiling:'#121414', Roof:'#c9c062', site:'#77ab59'}
-const opacity = {Wall: 0.9, intWall:0.1, Window:0.3, Floor:1.0, Ceiling:1.0, Roof:1.0, site:0.5}
+const opacity = {Wall: 0.3, ntWall:0.1, Window:0.3, Floor:0.3, Ceiling:0.3, Roof:0.3, site:0.5}
 
 function GenerateXYZs(element){
     let xyzs = element['XYZs'].split(',').slice(1);
@@ -16,11 +20,12 @@ function GenerateXYZs(element){
 
 export default function GenerateBuildingElements(buildingElements)
 {
-    const plotData = []
-    buildingElements.forEach(e => GenerateXYZs(e));
-    const [xa, ya, za] = buildingElements.map(e => [Math.max(e['xs']), Math.max(e['ys']), Math.max('zs')]);
+    let data = []
+    let elements = Array.from(buildingElements);
+    elements.forEach(e => GenerateXYZs(e));
+    const [xa, ya, za] = elements.map(e => [Math.max(e['xs']), Math.max(e['ys']), Math.max('zs')]);
 
-    const layoutBui = { 
+    let layout = { 
         'scene':{
             'xaxis': { 'visible': false, 'range': [-1, xa], },
             'yaxis': { 'visible': false, 'range': [-1, ya], },
@@ -38,9 +43,9 @@ export default function GenerateBuildingElements(buildingElements)
         'hovermode': false,
     }
 
-    const config = {displayModeBar:false, responsive: true};
+    let config = {displayModeBar:false, responsive: true};
 
-    buildingElements.forEach(e => {
+    elements.forEach(e => {
         let del = 'z';
         if (e['xs'].every(a=>a===e['xs'][0]))
             del = 'x';
@@ -56,7 +61,10 @@ export default function GenerateBuildingElements(buildingElements)
             color: colors[e.SurfaceType],
             opacity: opacity[e.SurfaceType]
         };
-        plotData.push(face);
+        data.push(face);
     });
-    return {PlotData: plotData, Layout: layoutBui, Config:config};
+    return (
+        <Plot data={data} />
+    )
+    return {data: data, layout: layout, config: config};
 }
