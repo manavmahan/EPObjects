@@ -23,6 +23,8 @@ async function _getGeometry(setGeometry, project_name, user_name){
     "CONDITIONS": `PROJECT_NAME='${project_name}' AND USER_NAME='${user_name}'`,
   }
 
+  console.log(query);
+  
   axios.post(URL, query)
   .then(({data})=>{
     if (data.ERROR)
@@ -62,7 +64,10 @@ function DivElement({ id }) {
 
 function Home() {
   const router = useRouter();
+
   const { project_name, user_name } = router.query;
+  console.log(router.query);
+  console.log(project_name, user_name);
 
   PlotlyPlot('plot_div',project_name, user_name);
   return (
