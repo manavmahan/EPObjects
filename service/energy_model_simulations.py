@@ -31,7 +31,7 @@ def generate_simulation_results(user_name: str, project_name: str, weather: str,
     idf_folder = create_simulation_dir(user_name, project_name, weather)
     
     logger.info(f'User: {user_name}\tProject: {project_name}\tgenerating IDF files')
-    create_energyplus_models(idf_folder,
+    samples = create_energyplus_models(idf_folder,
                              simulation_settings, 
                              geometry_json, 
                              schedules_json, 
@@ -45,7 +45,7 @@ def generate_simulation_results(user_name: str, project_name: str, weather: str,
     
     logger.info(f'User: {user_name}\tProject: {project_name}\treading simulation results')
     energy_predictions = read_simulations(simulation_settings["NUM_SAMPLES"], list(consumption_df['Name']), idf_folder)
-    return energy_predictions
+    return samples, energy_predictions
 
 def create_simulation_dir(user_name: str, project_name: str, weather: str,):
     idf_folder = os.path.join(tmp_dir, user_name, project_name, "IDFFiles")
@@ -110,6 +110,7 @@ def create_energyplus_models(idf_folder: str,
 
         with open(f'{idf_folder}/{i}.idf', 'w') as f:
             f.write('\n'.join((x.IDF for x in ep_objects_copy)))
+    return json.dumps(samples.to_dict())
 
 def read_simulations(num_samples: int, run_period_names: list, idf_folder: str):
     pEnergies = []

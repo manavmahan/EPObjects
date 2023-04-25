@@ -1,25 +1,27 @@
+from service import logger, os, pd, shutil, tmp_dir
+from MLModels.Regressor import get_regressor
 
-Logger.StartTask('Training regressor')
-from Helper.MLHelper import GetGenerator, GetRegressor, GetScalingLayer
+def train_networks(user_name, project_name, probabilistic_parameters, sampled_parameters: pd.DataFrame, target_values):
+    prepend_info = f'User: {user_name}\tProject: {project_name}\t'
+    regressor, loss = train_regressor(probabilistic_parameters, sampled_parameters, target_values)
 
-MLFolder = f'{ProjectDirectory}/MLModel-{number}'
-if not os.path.isdir(MLFolder): os.mkdir(MLFolder)
+def train_regressor(probabilistic_parameters, sampled_parameters: pd.DataFrame, target_values):
+    col = ["NN", "RC", "LR",]
+    N1 = [20, 50, 100, 200]
+    N2 = [0, 5, 10, 20]
+    RC = [1e-3, 1e-4, 1e-5,]
+    LR = [1e-2, 3e-3, 1e-3,]
 
-col = ["NN", "RC", "LR",]
-N1 = [20, 50, 100, 200]
-N2 = [0, 5, 10, 20]
-RC = [1e-3, 1e-4, 1e-5,]
-LR = [1e-2, 3e-3, 1e-3,]
+    nn = [[nn1, nn2] for nn1 in N1 for nn2 in N2]
+    hyperparameters = pd.DataFrame([[n, r, l,] 
+                                        for n in nn
+                                        for r in RC
+                                        for l in LR
+                                    ], columns = col).sample(n=60,)
+    hyperparameters.index = range(len(hyperparameters))[:2]
 
-nn = [[nn1, nn2] for nn1 in N1 for nn2 in N2]
-hyperparameters = pd.DataFrame([[n, r, l,] 
-                                    for n in nn
-                                    for r in RC
-                                    for l in LR
-                                ], columns = col).sample(n=60,)
-hyperparameters.index = range(len(hyperparameters))
-
-r = GetRegressor(hyperparameters[:4], samples.columns, d.Values['Total'].columns, f'{MLFolder}/Regressor', samples, d.Values['Total'], scalingDF_X=pps.GetScalingDF() , training=simulate or trainRegressor)
+    network, loss = get_regressor(hyperparameters, sampled_parameters, target_values, probabilistic_parameters.GetScalingDF(),)
+    return network, loss
 
 Logger.FinishTask('Training regressor')
 

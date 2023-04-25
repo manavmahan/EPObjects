@@ -54,12 +54,12 @@ class ProbabilisticEnergyPrediction:
         return json.dumps(
                 dict(
                     Name = self.Name,
-                    Values = dict((x, self.Values[x].to_dict()) for x in self.values)
+                    Values = dict((x, self.Values[x].to_dict()) for x in self.Values)
                 )
             )
     
     @classmethod
-    def from_json(data):
+    def from_json(cls, data):
         values = dict((x, pd.DataFrame.from_dict(data['Values'][x])) for x in data['Values'])
         return ProbabilisticEnergyPrediction(data["Name"], values)
 

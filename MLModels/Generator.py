@@ -5,7 +5,7 @@ import os
 import pandas as pd
 import shutil
 
-from MLModels.Regressor import Activation, Adam, Dense, EarlyStoppingValLoss, L2, Sequential, InputLayer, mean_squared_error, MSE, Regularizer, Rescaling, relu, load_model, sigmoid, hard_sigmoid, time, GetScalingLayer
+from MLModels.Regressor import Activation, Adam, Dense, early_stopping_validation_loss, L2, Sequential, InputLayer, mean_squared_error, MSE, Regularizer, Rescaling, relu, load_model, sigmoid, hard_sigmoid, time, get_scaling_layer
 
 from tensorflow.random import normal
 from tensorflow.keras import Model
@@ -68,7 +68,7 @@ class Generator():
         appendModel = load_model(appendModelPath)
         appendModel.trainable = False
         self.__getModel(hyperparameters, appendModel, revScalingX)
-        history = self.Model.fit(self.Input(len(actual)), actual, batch_size=len(actual), verbose=0, epochs=1000, validation_split=0.2, callbacks=[EarlyStoppingValLoss])
+        history = self.Model.fit(self.Input(len(actual)), actual, batch_size=len(actual), verbose=0, epochs=1000, validation_split=0.2, callbacks=[early_stopping_validation_loss])
         return MSE(actual, self.Model(self.Input(len(actual)), training=False).numpy()).numpy()
         
     def TuneHyperparameters(self, hyperparameters, appendModelPath, actual, revScalingDF_X):
@@ -79,7 +79,7 @@ class Generator():
         df = pd.DataFrame(columns = ['Settings', 'Loss'])
         t_tuning = time.time()
 
-        revScaling_X = GetScalingLayer(None, scaledDF=revScalingDF_X, reverse=True)
+        revScaling_X = get_scaling_layer(None, scaledDF=revScalingDF_X, reverse=True)
 
         for i, hp in hyperparameters.iterrows():
             print (f'Hyperparameters\t:{dict(hp)}')

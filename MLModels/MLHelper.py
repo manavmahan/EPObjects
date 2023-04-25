@@ -1,4 +1,4 @@
-from MLModels.Regressor import Regressor, GetScalingLayer, Rescaling
+from MLModels.Regressor import Regressor, get_scaling_layer, Rescaling
 from MLModels.Generator import Generator
 
 def GetRegressor(hyperparameters, features, targets, filePath, X, Y, scalingDF_X=None, training=False):

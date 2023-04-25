@@ -112,7 +112,7 @@ for i in range(NumSamples):
 d = ProbabilisticEnergyPrediction(None, pEnergies)
 
 Logger.StartTask('Training regressor')
-from Helper.MLHelper import GetGenerator, GetRegressor, GetScalingLayer
+from EPObjects.MLModels.MLHelper import GetGenerator, GetRegressor, get_scaling_layer
 
 MLFolder = f'{ProjectDirectory}/MLModel-{number}'
 if not os.path.isdir(MLFolder): os.mkdir(MLFolder)
