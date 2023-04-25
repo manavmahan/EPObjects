@@ -6,7 +6,7 @@ import pandas as pd
 from pathlib import Path
 Home = str(Path.home())
 
-from EPLogger import Logger
+from logger import Logger
 from Helper.Modules import *
 
 from Helper.ConstructionHelper import CreateConstructions, SetBestMatchConstruction, InitialiseZoneSurfaces, SetInternalMass, SetBestMatchInternalMass
