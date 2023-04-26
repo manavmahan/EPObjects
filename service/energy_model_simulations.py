@@ -89,7 +89,7 @@ def create_energyplus_models(idf_folder: str,
         ep_objects += [zoneList.GetElectricEquipmentObject(zonelists_variables[zoneList.Name]['Equipment'])]
         ep_objects += [zoneList.GetDefaultVentilationObject(zoneList.Name != 'Office')]
 
-    if project_simulation_model_settings["ENERGY_SYSTEM"] == "HeatPumps":
+    if project_simulation_model_settings["ENERGY_SYSTEM"] == "Heat Pumps":
         AddHeatPumps(ep_objects)
     
     if project_simulation_model_settings["INTERNAL_SHADING"]:

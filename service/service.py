@@ -6,8 +6,10 @@ from service import json, pd, np, os, requests
 
 from IDFObject.IDFObject import IDFJsonDecoder
 from Probabilistic.EnergyPredictions import ProbabilisticEnergyPrediction
+from Probabilistic.Parameter import ProbabilisticParameters
 
 from service.energy_model_simulations import generate_simulation_results
+from service.train_ml_networks import train_generator, train_regressor
 
 def run_service(user_name, project_name):
     project_search_conditions = f"PROJECT_NAME='{project_name}' AND USER_NAME='{user_name}'"
@@ -57,7 +59,7 @@ def run_service(user_name, project_name):
         }
 
         project_simulation_model_settings = {
-            "ENERGY_SYSTEM": "HeatPump",
+            "ENERGY_SYSTEM": "Heat Pumps",
             "HOT_WATER": False,
             "INTERNAL_SHADING": True,
 
@@ -109,5 +111,19 @@ def run_service(user_name, project_name):
     if (response["ERROR"] or len(response['RESULTS'])==0):
         raise ValueError("Cannot get project from the database!")
     
-    print (ProbabilisticEnergyPrediction.from_json(json.loads(response['RESULTS'][0]["SIMULATION_RESULTS"])))
-    print (pd.DataFrame.from_dict(json.loads(response['RESULTS'][0]["SAMPLED_PARAMETERS"])).head(20))
+    regressor_targets = ProbabilisticEnergyPrediction.from_json(json.loads(response['RESULTS'][0]["SIMULATION_RESULTS"])).Values["Total"]
+    sampled_parameters = pd.DataFrame.from_dict(json.loads(response['RESULTS'][0]["SAMPLED_PARAMETERS"]))
+
+    if project_settings["REGRESSOR"]:
+        network, loss = train_regressor(user_name, project_name, ProbabilisticParameters.from_df(parameters_df), sampled_parameters, regressor_targets)
+        data = {
+            "TYPE": "UPDATE_ITEM", 
+            "TABLE_NAME": "PROJECTS",
+            "SET_VALUES": f"REGRESSOR='[{network},{json.dumps(loss)}]'",
+            "CONDITIONS": project_search_conditions,
+        }
+
+        response = requests.post(DB_URL, json=data).json()
+        if (response["ERROR"]):
+            raise ValueError(response["ERROR"])
+        pass
