@@ -1,6 +1,6 @@
 user_name = "manav"
 project_name = "tausendpfund"
-DB_URL = "http://127.0.0.1:3001/"
+DB_URL = "http://127.0.0.1:3000/api/db/"
 
 from service import json, pd, np, os, requests
 
@@ -8,7 +8,7 @@ from IDFObject.IDFObject import IDFJsonDecoder
 from Probabilistic.EnergyPredictions import ProbabilisticEnergyPrediction
 from Probabilistic.Parameter import ProbabilisticParameters
 
-from service.energy_model_simulations import generate_simulation_results
+from service.energy_model_simulations import generate_simulation_results, get_run_periods
 from service.train_ml_networks import train_generator, train_regressor
 
 def run_service(user_name, project_name):
@@ -27,12 +27,14 @@ def run_service(user_name, project_name):
     project_data = response['RESULTS'][0]
     geometry_json = json.loads(project_data["GEOMETRY"], cls=IDFJsonDecoder)
     schedules_json = json.loads(project_data["SCHEDULES"])
-    consumption_df = pd.DataFrame.from_dict(json.loads(project_data["CONSUMPTION"]))
+    consumption_df = pd.DataFrame.from_dict(json.loads(project_data["CONSUMPTION"]),)
     parameters_df = pd.DataFrame.from_dict(json.loads(project_data["PARAMETERS"]))
+
+    _, consumption = get_run_periods(consumption_df)
 
     project_settings = {
         "SIMULATE": False,
-        "REGRESSOR": True,
+        "REGRESSOR": False,
         "GENERATOR": True,
         "LOCATION": "Regensburg, Germany"
     }
@@ -62,7 +64,6 @@ def run_service(user_name, project_name):
             "ENERGY_SYSTEM": "Heat Pumps",
             "HOT_WATER": False,
             "INTERNAL_SHADING": True,
-
         }
 
         location = project_settings["LOCATION"]
@@ -126,4 +127,51 @@ def run_service(user_name, project_name):
         response = requests.post(DB_URL, json=data).json()
         if (response["ERROR"]):
             raise ValueError(response["ERROR"])
-        pass
+    
+
+    if project_settings["GENERATOR"]:
+        data = {
+            "TYPE": "SEARCH", 
+            "TABLE_NAME": "PROJECTS",
+            "COLUMN_NAMES": "REGRESSOR",
+            "CONDITIONS": project_search_conditions,
+        }
+        response = requests.post(DB_URL, json=data).json()
+        if (response["ERROR"]):
+            raise ValueError(response["ERROR"])
+        
+        regressor_json = json.dumps(json.loads(response["RESULTS"][0]["REGRESSOR"])[0])
+        generators = train_generator(   user_name,
+                                        project_name,
+                                        ProbabilisticParameters.from_df(parameters_df),
+                                        regressor_json, 
+                                        consumption)
+        for (network, loss) in generators:
+            data = {
+                "TYPE": "SEARCH", 
+                "TABLE_NAME": "PROJECTS",
+                "COLUMN_NAMES": "GENERATORS",
+                "CONDITIONS": project_search_conditions,
+            }
+
+            response = requests.post(DB_URL, json=data).json()
+            if (response["ERROR"]):
+                raise ValueError(response["ERROR"])
+            
+            if len(response["RESULTS"]) == 0:
+                generators = []
+            else:
+                try:
+                    generators = json.loads(response["RESULTS"][0]["GENERATORS"])
+                except TypeError:
+                    generators = []
+
+            generators += (f'({network}, {loss})')
+            data = {
+                "TYPE": "UPDATE_ITEM", 
+                "TABLE_NAME": "PROJECTS",
+                "SET_VALUES": f"GENERATORS='[{network},{json.dumps(loss)}]'",
+                "CONDITIONS": project_search_conditions,
+            }
+            
+

@@ -100,12 +100,14 @@ def get_generator_network(hyperparameters, append_model, input_dims, output_dims
     model.compile(loss=CustomLossMinimum(), optimizer=Adam(learning_rate=hyperparameters['learning_rate']))
     return model
 
-def get_generator(hyperparameters_df, scaling_df_X, regressor, targets):
+def get_generator(hyperparameters_df, scaling_df_X, regressor_json, targets):
     rev_scaling_X = get_scaling_layer(None, scaling_df_X, reverse=True)
     random_input = get_random_input(len(targets), 100)
 
+    output_dims = len(scaling_df_X)
+    regressor = model_from_json(regressor_json)
     for _, hp in hyperparameters_df.iterrows():
-        gn = get_generator_network(hp, regressor, len(random_input[0]), len(targets), rev_scaling_X)
+        gn = get_generator_network(hp, regressor, len(random_input[0]), output_dims, rev_scaling_X)
         model, loss = train_model(gn, random_input, targets,)
         yield model.to_json(), loss
 

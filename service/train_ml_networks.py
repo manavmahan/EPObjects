@@ -24,7 +24,9 @@ def train_regressor(user_name, project_name, probabilistic_parameters, sampled_p
     logger.info(f'{prepend_info}Regressor Loss:\t{loss:.5f}')
     return network, loss
 
-def train_generator(probabilistic_parameters, regressor, consumption):
+def train_generator(user_name, project_name, probabilistic_parameters, regressor_json, consumption):
+    prepend_info = f'User: {user_name}\tProject: {project_name}\t'
+    
     col = ["num_neurons", "reg_coeff", "learning_rate",]
     num_neurons1 = [20, 40, 60, 80, 100]
     num_neurons2 = [0, 5, 10, 15, 20, ]
@@ -39,8 +41,11 @@ def train_generator(probabilistic_parameters, regressor, consumption):
                                     ], columns = col).sample(n=60,)
     hyperparameters.reset_index(drop=True, inplace=True)
 
-    target = consumption.values.T
-    targets = target[[np.random.randint(0, len(consumption)) for _ in range(125)]]
+    targets = []
+    for _ in range(100):
+        targets += [list(np.random.choice(value) for _, value in consumption.iterrows())]
+    targets = np.array(targets)
 
-    networks, losses = list(get_generator(hyperparameters, probabilistic_parameters.GetScalingDF(), regressor, targets, ))
-    return networks, losses
+    for x in get_generator(hyperparameters, probabilistic_parameters.GetScalingDF(), regressor_json, targets, ):
+        logger.info(f'{prepend_info}Generator Loss:\t{x[1]:.5f}')
+        yield x
