@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 
 from EnumTypes import SurfaceType
 from GeometryObject.XYZList import XYZList
@@ -32,11 +33,13 @@ class Detailed(IDFObject):
         if not hasattr(self, 'XYZs'):
             raise Exception(f"Cannot iniialise XYZs for {self.Name}!")
 
+        if isinstance(self.XYZs, (str, np.ndarray)):
+            self.XYZs = XYZList(self.XYZs)
+            return
+
         if self.XYZs == None:
             raise Exception(f"Cannot iniialise XYZs for {self.Name}!")
 
-        if isinstance(self.XYZs, str):
-            self.XYZs = XYZList(self.XYZs)
 
 Detailed.ExternalWindow = dict(
     SurfaceType = SurfaceType.Window,
