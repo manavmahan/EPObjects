@@ -29,7 +29,7 @@ class JsonEncoder(json.JSONEncoder):
             return json.loads(obj.to_json())
 
         if isinstance(obj, (IDFObject)):
-            return json.dumps(obj, cls=IDFJsonEncoder)
+            return json.loads(json.dumps(obj, cls=IDFJsonEncoder))
 
         return json.dumps(obj)
 
