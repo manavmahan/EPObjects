@@ -1,3 +1,4 @@
+import json
 import numpy as np
 import pandas as pd
 import re
@@ -37,15 +38,30 @@ class EnergyPrediction:
 class ProbabilisticEnergyPrediction:
     def __init__(self, name, energy: list()) -> None:
         self.Name = name
-        self.Values = dict()
+        if isinstance(energy, dict):
+            self.Values = energy
+        else:
+            self.Values = dict()
+            energyNamed = energy if self.Name is None else list(en for en in energy if en.Name == self.Name)
+            for e in Energies:
+                self.Values[e] = pd.DataFrame(np.array(list(x.Values[e].values for x in energyNamed)), columns=energyNamed[0].Values.index)
+                if 'Total' in self.Values:
+                    self.Values['Total'] = self.Values['Total'] + self.Values[e]
+                else:
+                    self.Values['Total'] = self.Values[e]
 
-        energyNamed = energy if self.Name is None else list(en for en in energy if en.Name == self.Name)
-        for e in Energies:
-            self.Values[e] = pd.DataFrame(np.array(list(x.Values[e].values for x in energyNamed)), columns=energyNamed[0].Values.index)
-            if 'Total' in self.Values:
-                self.Values['Total'] = self.Values['Total'] + self.Values[e]
-            else:
-                self.Values['Total'] = self.Values[e]
+    def to_json(self):
+        return json.dumps(
+                dict(
+                    Name = self.Name,
+                    Values = dict((x, self.Values[x].to_dict()) for x in self.Values)
+                )
+            )
+    
+    @classmethod
+    def from_json(cls, data):
+        values = dict((x, pd.DataFrame.from_dict(data['Values'][x])) for x in data['Values'])
+        return ProbabilisticEnergyPrediction(data["Name"], values)
 
     def GetMean(self):
         for e in Energies:

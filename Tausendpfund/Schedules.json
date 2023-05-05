@@ -1,288 +1,333 @@
 {
-    "Generic": {
-        "Always1": {
-            "Type": "SingleValue",
-            "<v1>": 1
+    "SCHEDULE_TYPES" : [
+        {
+            "Type" : "FourAndHalfDays",
+            "ScheduleTypeLimitsName" : "AnyNumber",
+            "Fields" : [
+                "Through 12/31,",
+                "   For: Mondays Tuesdays Wednesday Thursdays SummerDesignDay WinterDesignDay CustomDay1 CustomDay2,",
+                "       Until: <t1>, <v1>, Until: <t2>, <v2>, Until: 24:00, <v1>,",
+                "   For: Fridays,",
+                "       Until: <t1>, <v1>, Until: <t3>, <v2>, Until: 24:00, <v1>,",
+                "   For: Weekends Holidays,",
+                "       Until: 24:00, <v1>"
+            ]
         },
-        "Always01": {
-            "Type": "SingleValue",
-            "<v1>": 0.1
+
+        {
+            "Type" : "SingleValue",
+            "ScheduleTypeLimitsName" : "AnyNumber",
+            "Fields" : [
+                "Through 12/31,",
+                "   For: Alldays,",
+                "        Until: 24:00, <v1>"
+            ]
+        },
+
+        {
+            "Type" : "HeatingCoolingSeason",
+            "ScheduleTypeLimitsName" : "AnyNumber",
+            "Fields" : [
+                "Through: 5/23,",
+                "   For: Alldays,",
+                "       Until: 24:00,1,",
+                "Through: 7/30,",
+                "   For: Alldays,",
+                "       Until: 24:00,2,",
+                "Through: 12/31,",
+                "   For: Alldays,",
+                "        Until: 24:00,1"
+            ]
         }
-    },
-    "Office": {
-        "HeatingSetpoint": {
-            "Type": "FourAndHalfDays",
-            "<t1>": "07:00",
-            "<t2>": "17:00",
-            "<t3>": "13:00",
-            "<v1>": 15,
-            "<v2>": 20
+    ],
+
+    "SCHEDULES":{
+        "Generic": {
+            "Always1": {
+                "Type": "SingleValue",
+                "<v1>": 1
+            },
+            "Always01": {
+                "Type": "SingleValue",
+                "<v1>": 0.1
+            }
         },
-        "CoolingSetpoint": {
-            "Type": "FourAndHalfDays",
-            "<t1>": "07:00",
-            "<t2>": "17:00",
-            "<t3>": "13:00",
-            "<v1>": 30,
-            "<v2>": 25
+        "Office": {
+            "HeatingSetpoint": {
+                "Type": "FourAndHalfDays",
+                "<t1>": "07:00",
+                "<t2>": "17:00",
+                "<t3>": "13:00",
+                "<v1>": 15,
+                "<v2>": 20
+            },
+            "CoolingSetpoint": {
+                "Type": "FourAndHalfDays",
+                "<t1>": "07:00",
+                "<t2>": "17:00",
+                "<t3>": "13:00",
+                "<v1>": 30,
+                "<v2>": 25
+            },
+            "ElectricEquipment": {
+                "Type": "FourAndHalfDays",
+                "<t1>": "07:30",
+                "<t2>": "17:00",
+                "<t3>": "13:00",
+                "<v1>": 0.1,
+                "<v2>": 1.0
+            },
+            "Lights": {
+                "Type": "FourAndHalfDays",
+                "<t1>": "07:30",
+                "<t2>": "17:00",
+                "<t3>": "13:00",
+                "<v1>": 0.1,
+                "<v2>": 1.0
+            },
+            "People": {
+                "Type": "FourAndHalfDays",
+                "<t1>": "07:30",
+                "<t2>": "17:00",
+                "<t3>": "13:00",
+                "<v1>": 0.0,
+                "<v2>": 1.0
+            },
+            "Activity": {
+                "Type": "SingleValue",
+                "<v1>": 140
+            }
         },
-        "ElectricEquipment": {
-            "Type": "FourAndHalfDays",
-            "<t1>": "07:30",
-            "<t2>": "17:00",
-            "<t3>": "13:00",
-            "<v1>": 0.1,
-            "<v2>": 1.0
+        "Stairs": {
+            "HeatingSetpoint": {
+                "Type": "FourAndHalfDays",
+                "<t1>": "07:00",
+                "<t2>": "17:00",
+                "<t3>": "13:00",
+                "<v1>": 15,
+                "<v2>": 20
+            },
+            "CoolingSetpoint": {
+                "Type": "FourAndHalfDays",
+                "<t1>": "07:00",
+                "<t2>": "17:00",
+                "<t3>": "13:00",
+                "<v1>": 30,
+                "<v2>": 25
+            },
+            "ElectricEquipment": {
+                "Type": "FourAndHalfDays",
+                "<t1>": "07:30",
+                "<t2>": "17:00",
+                "<t3>": "13:00",
+                "<v1>": 0.1,
+                "<v2>": 1.0
+            },
+            "Lights": {
+                "Type": "FourAndHalfDays",
+                "<t1>": "07:30",
+                "<t2>": "17:00",
+                "<t3>": "13:00",
+                "<v1>": 0.1,
+                "<v2>": 1.0
+            },
+            "People": {
+                "Type": "FourAndHalfDays",
+                "<t1>": "07:30",
+                "<t2>": "17:00",
+                "<t3>": "13:00",
+                "<v1>": 0.0,
+                "<v2>": 1.0
+            },
+            "Activity": {
+                "Type": "SingleValue",
+                "<v1>": 140
+            }
         },
-        "Lights": {
-            "Type": "FourAndHalfDays",
-            "<t1>": "07:30",
-            "<t2>": "17:00",
-            "<t3>": "13:00",
-            "<v1>": 0.1,
-            "<v2>": 1.0
+        "Toilet": {
+            "HeatingSetpoint": {
+                "Type": "FourAndHalfDays",
+                "<t1>": "07:00",
+                "<t2>": "17:00",
+                "<t3>": "13:00",
+                "<v1>": 15,
+                "<v2>": 20
+            },
+            "CoolingSetpoint": {
+                "Type": "FourAndHalfDays",
+                "<t1>": "07:00",
+                "<t2>": "17:00",
+                "<t3>": "13:00",
+                "<v1>": 30,
+                "<v2>": 25
+            },
+            "ElectricEquipment": {
+                "Type": "FourAndHalfDays",
+                "<t1>": "07:30",
+                "<t2>": "17:00",
+                "<t3>": "13:00",
+                "<v1>": 0.1,
+                "<v2>": 1.0
+            },
+            "Lights": {
+                "Type": "FourAndHalfDays",
+                "<t1>": "07:30",
+                "<t2>": "17:00",
+                "<t3>": "13:00",
+                "<v1>": 0.1,
+                "<v2>": 1.0
+            },
+            "People": {
+                "Type": "FourAndHalfDays",
+                "<t1>": "07:30",
+                "<t2>": "17:00",
+                "<t3>": "13:00",
+                "<v1>": 0.0,
+                "<v2>": 1.0
+            },
+            "Activity": {
+                "Type": "SingleValue",
+                "<v1>": 140
+            }
         },
-        "People": {
-            "Type": "FourAndHalfDays",
-            "<t1>": "07:30",
-            "<t2>": "17:00",
-            "<t3>": "13:00",
-            "<v1>": 0.0,
-            "<v2>": 1.0
+        "Service": {
+            "HeatingSetpoint": {
+                "Type": "FourAndHalfDays",
+                "<t1>": "07:00",
+                "<t2>": "17:00",
+                "<t3>": "13:00",
+                "<v1>": 15,
+                "<v2>": 20
+            },
+            "CoolingSetpoint": {
+                "Type": "FourAndHalfDays",
+                "<t1>": "07:00",
+                "<t2>": "17:00",
+                "<t3>": "13:00",
+                "<v1>": 30,
+                "<v2>": 25
+            },
+            "ElectricEquipment": {
+                "Type": "FourAndHalfDays",
+                "<t1>": "07:30",
+                "<t2>": "17:00",
+                "<t3>": "13:00",
+                "<v1>": 0.1,
+                "<v2>": 1.0
+            },
+            "Lights": {
+                "Type": "FourAndHalfDays",
+                "<t1>": "07:30",
+                "<t2>": "17:00",
+                "<t3>": "13:00",
+                "<v1>": 0.1,
+                "<v2>": 1.0
+            },
+            "People": {
+                "Type": "FourAndHalfDays",
+                "<t1>": "07:30",
+                "<t2>": "17:00",
+                "<t3>": "13:00",
+                "<v1>": 0.0,
+                "<v2>": 1.0
+            },
+            "Activity": {
+                "Type": "SingleValue",
+                "<v1>": 140
+            }
         },
-        "Activity": {
-            "Type": "SingleValue",
-            "<v1>": 140
-        }
-    },
-    "Stairs": {
-        "HeatingSetpoint": {
-            "Type": "FourAndHalfDays",
-            "<t1>": "07:00",
-            "<t2>": "17:00",
-            "<t3>": "13:00",
-            "<v1>": 15,
-            "<v2>": 20
+        "Corridor": {
+            "HeatingSetpoint": {
+                "Type": "FourAndHalfDays",
+                "<t1>": "07:00",
+                "<t2>": "17:00",
+                "<t3>": "13:00",
+                "<v1>": 15,
+                "<v2>": 20
+            },
+            "CoolingSetpoint": {
+                "Type": "FourAndHalfDays",
+                "<t1>": "07:00",
+                "<t2>": "17:00",
+                "<t3>": "13:00",
+                "<v1>": 30,
+                "<v2>": 25
+            },
+            "ElectricEquipment": {
+                "Type": "FourAndHalfDays",
+                "<t1>": "07:30",
+                "<t2>": "17:00",
+                "<t3>": "13:00",
+                "<v1>": 0.1,
+                "<v2>": 1.0
+            },
+            "Lights": {
+                "Type": "FourAndHalfDays",
+                "<t1>": "07:30",
+                "<t2>": "17:00",
+                "<t3>": "13:00",
+                "<v1>": 0.1,
+                "<v2>": 1.0
+            },
+            "People": {
+                "Type": "FourAndHalfDays",
+                "<t1>": "07:30",
+                "<t2>": "17:00",
+                "<t3>": "13:00",
+                "<v1>": 0.0,
+                "<v2>": 1.0
+            },
+            "Activity": {
+                "Type": "SingleValue",
+                "<v1>": 140
+            }
         },
-        "CoolingSetpoint": {
-            "Type": "FourAndHalfDays",
-            "<t1>": "07:00",
-            "<t2>": "17:00",
-            "<t3>": "13:00",
-            "<v1>": 30,
-            "<v2>": 25
-        },
-        "ElectricEquipment": {
-            "Type": "FourAndHalfDays",
-            "<t1>": "07:30",
-            "<t2>": "17:00",
-            "<t3>": "13:00",
-            "<v1>": 0.1,
-            "<v2>": 1.0
-        },
-        "Lights": {
-            "Type": "FourAndHalfDays",
-            "<t1>": "07:30",
-            "<t2>": "17:00",
-            "<t3>": "13:00",
-            "<v1>": 0.1,
-            "<v2>": 1.0
-        },
-        "People": {
-            "Type": "FourAndHalfDays",
-            "<t1>": "07:30",
-            "<t2>": "17:00",
-            "<t3>": "13:00",
-            "<v1>": 0.0,
-            "<v2>": 1.0
-        },
-        "Activity": {
-            "Type": "SingleValue",
-            "<v1>": 140
-        }
-    },
-    "Toilet": {
-        "HeatingSetpoint": {
-            "Type": "FourAndHalfDays",
-            "<t1>": "07:00",
-            "<t2>": "17:00",
-            "<t3>": "13:00",
-            "<v1>": 15,
-            "<v2>": 20
-        },
-        "CoolingSetpoint": {
-            "Type": "FourAndHalfDays",
-            "<t1>": "07:00",
-            "<t2>": "17:00",
-            "<t3>": "13:00",
-            "<v1>": 30,
-            "<v2>": 25
-        },
-        "ElectricEquipment": {
-            "Type": "FourAndHalfDays",
-            "<t1>": "07:30",
-            "<t2>": "17:00",
-            "<t3>": "13:00",
-            "<v1>": 0.1,
-            "<v2>": 1.0
-        },
-        "Lights": {
-            "Type": "FourAndHalfDays",
-            "<t1>": "07:30",
-            "<t2>": "17:00",
-            "<t3>": "13:00",
-            "<v1>": 0.1,
-            "<v2>": 1.0
-        },
-        "People": {
-            "Type": "FourAndHalfDays",
-            "<t1>": "07:30",
-            "<t2>": "17:00",
-            "<t3>": "13:00",
-            "<v1>": 0.0,
-            "<v2>": 1.0
-        },
-        "Activity": {
-            "Type": "SingleValue",
-            "<v1>": 140
-        }
-    },
-    "Service": {
-        "HeatingSetpoint": {
-            "Type": "FourAndHalfDays",
-            "<t1>": "07:00",
-            "<t2>": "17:00",
-            "<t3>": "13:00",
-            "<v1>": 15,
-            "<v2>": 20
-        },
-        "CoolingSetpoint": {
-            "Type": "FourAndHalfDays",
-            "<t1>": "07:00",
-            "<t2>": "17:00",
-            "<t3>": "13:00",
-            "<v1>": 30,
-            "<v2>": 25
-        },
-        "ElectricEquipment": {
-            "Type": "FourAndHalfDays",
-            "<t1>": "07:30",
-            "<t2>": "17:00",
-            "<t3>": "13:00",
-            "<v1>": 0.1,
-            "<v2>": 1.0
-        },
-        "Lights": {
-            "Type": "FourAndHalfDays",
-            "<t1>": "07:30",
-            "<t2>": "17:00",
-            "<t3>": "13:00",
-            "<v1>": 0.1,
-            "<v2>": 1.0
-        },
-        "People": {
-            "Type": "FourAndHalfDays",
-            "<t1>": "07:30",
-            "<t2>": "17:00",
-            "<t3>": "13:00",
-            "<v1>": 0.0,
-            "<v2>": 1.0
-        },
-        "Activity": {
-            "Type": "SingleValue",
-            "<v1>": 140
-        }
-    },
-    "Corridor": {
-        "HeatingSetpoint": {
-            "Type": "FourAndHalfDays",
-            "<t1>": "07:00",
-            "<t2>": "17:00",
-            "<t3>": "13:00",
-            "<v1>": 15,
-            "<v2>": 20
-        },
-        "CoolingSetpoint": {
-            "Type": "FourAndHalfDays",
-            "<t1>": "07:00",
-            "<t2>": "17:00",
-            "<t3>": "13:00",
-            "<v1>": 30,
-            "<v2>": 25
-        },
-        "ElectricEquipment": {
-            "Type": "FourAndHalfDays",
-            "<t1>": "07:30",
-            "<t2>": "17:00",
-            "<t3>": "13:00",
-            "<v1>": 0.1,
-            "<v2>": 1.0
-        },
-        "Lights": {
-            "Type": "FourAndHalfDays",
-            "<t1>": "07:30",
-            "<t2>": "17:00",
-            "<t3>": "13:00",
-            "<v1>": 0.1,
-            "<v2>": 1.0
-        },
-        "People": {
-            "Type": "FourAndHalfDays",
-            "<t1>": "07:30",
-            "<t2>": "17:00",
-            "<t3>": "13:00",
-            "<v1>": 0.0,
-            "<v2>": 1.0
-        },
-        "Activity": {
-            "Type": "SingleValue",
-            "<v1>": 140
-        }
-    },
-    "Technic": {
-        "HeatingSetpoint": {
-            "Type": "FourAndHalfDays",
-            "<t1>": "07:00",
-            "<t2>": "17:00",
-            "<t3>": "13:00",
-            "<v1>": 15,
-            "<v2>": 20
-        },
-        "CoolingSetpoint": {
-            "Type": "FourAndHalfDays",
-            "<t1>": "07:00",
-            "<t2>": "17:00",
-            "<t3>": "13:00",
-            "<v1>": 30,
-            "<v2>": 25
-        },
-        "ElectricEquipment": {
-            "Type": "FourAndHalfDays",
-            "<t1>": "07:30",
-            "<t2>": "17:00",
-            "<t3>": "13:00",
-            "<v1>": 0.1,
-            "<v2>": 1.0
-        },
-        "Lights": {
-            "Type": "FourAndHalfDays",
-            "<t1>": "07:30",
-            "<t2>": "17:00",
-            "<t3>": "13:00",
-            "<v1>": 0.1,
-            "<v2>": 1.0
-        },
-        "People": {
-            "Type": "FourAndHalfDays",
-            "<t1>": "07:30",
-            "<t2>": "17:00",
-            "<t3>": "13:00",
-            "<v1>": 0.0,
-            "<v2>": 1.0
-        },
-        "Activity": {
-            "Type": "SingleValue",
-            "<v1>": 140
+        "Technic": {
+            "HeatingSetpoint": {
+                "Type": "FourAndHalfDays",
+                "<t1>": "07:00",
+                "<t2>": "17:00",
+                "<t3>": "13:00",
+                "<v1>": 15,
+                "<v2>": 20
+            },
+            "CoolingSetpoint": {
+                "Type": "FourAndHalfDays",
+                "<t1>": "07:00",
+                "<t2>": "17:00",
+                "<t3>": "13:00",
+                "<v1>": 30,
+                "<v2>": 25
+            },
+            "ElectricEquipment": {
+                "Type": "FourAndHalfDays",
+                "<t1>": "07:30",
+                "<t2>": "17:00",
+                "<t3>": "13:00",
+                "<v1>": 0.1,
+                "<v2>": 1.0
+            },
+            "Lights": {
+                "Type": "FourAndHalfDays",
+                "<t1>": "07:30",
+                "<t2>": "17:00",
+                "<t3>": "13:00",
+                "<v1>": 0.1,
+                "<v2>": 1.0
+            },
+            "People": {
+                "Type": "FourAndHalfDays",
+                "<t1>": "07:30",
+                "<t2>": "17:00",
+                "<t3>": "13:00",
+                "<v1>": 0.0,
+                "<v2>": 1.0
+            },
+            "Activity": {
+                "Type": "SingleValue",
+                "<v1>": 140
+            }
         }
     }
 }
+

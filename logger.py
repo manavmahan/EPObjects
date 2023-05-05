@@ -1,3 +1,8 @@
-from logging import getLogger
+import logging
+logging.basicConfig(
+    filename='server.log',
+    format='%(asctime)s %(levelname)-8s %(message)s',
+    level=logging.DEBUG,
+    datefmt='%Y-%m-%d %H:%M:%S')
 
-logger = getLogger('energy.characteristics.predictions')
+logger = logging.getLogger('energy.characteristics.predictions')

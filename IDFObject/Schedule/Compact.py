@@ -20,13 +20,12 @@ class Compact(IDFObject):
         for key in values:
             self.Fields = self.Fields.replace(key, str(values[key]))
 
-    @staticmethod
-    def InitialiseScheduleTypes(file):
-        with open(file) as f:
-            for x in json.load(f):
-                setattr(Compact, x["Type"], x)
+    @classmethod
+    def InitialiseScheduleTypes(cls, data):
+        for x in data:
+            setattr(Compact, x["Type"], x)
     
-    @staticmethod
-    def GetCompactSchedule(data):
+    @classmethod
+    def GetCompactSchedule(cls, data):
         s = Compact(getattr(Compact, data['Type']))
         s.ChangeValues(data)

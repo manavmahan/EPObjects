@@ -184,8 +184,12 @@ class ProbabilisticParameters:
             df.loc[str(pp.Parameter), 'Range'] *= (high-low)
 
         return df
+    
+    @classmethod
+    def from_df(cls, parameters,):
+        return ProbabilisticParameters([ProbabilisticParameter.ReadCsv(x.name, *x.values) for _, x in parameters.iterrows()if not x.name.startswith('#')] )
 
-    @staticmethod
-    def ReadCsv(file,):
+    @classmethod
+    def read_csv(cls, file,):
         parameters = pd.read_csv(file, index_col=0)
         return ProbabilisticParameters([ProbabilisticParameter.ReadCsv(x.name, *x.values) for _, x in parameters.iterrows()if not x.name.startswith('#')] )

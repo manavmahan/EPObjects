@@ -6,26 +6,27 @@ from IDFObject.ScheduleTypeLimits import ScheduleTypeLimits
 
 OfficeSchedules = None
 def GetOfficeSchedules(file, scheduleTypeFiles):
-    
-    Compact.InitialiseScheduleTypes(scheduleTypeFiles)
+    with open(file) as f1, open(scheduleTypeFiles) as f2:
+        schedules = get_schedules(json.load(f1), json.load(f2))
+    return schedules
+
+def get_schedules(schedules_json, schedules_types_json):
+    Compact.InitialiseScheduleTypes(schedules_types_json)
     objs = list()
     objs.append(ScheduleTypeLimits(ScheduleTypeLimits.AnyNumber))
-
-    with open(file) as f:
-        global OfficeSchedules
-        OfficeSchedules = json.load(f)
-        for zoneList in OfficeSchedules:
-            schedules = OfficeSchedules[zoneList]
-            for schedule in schedules:
-                d = schedules[schedule]
-                s = Compact(getattr(Compact, d['Type']))
-                s.Name = f'{zoneList}.{schedule}'
-                s.ChangeValues(d)
-                objs.append(s)
+    
+    for zoneList in schedules_json:
+        schedules = schedules_json[zoneList]
+        for schedule in schedules:
+            d = schedules[schedule]
+            s = Compact(getattr(Compact, d['Type']))
+            s.Name = f'{zoneList}.{schedule}'
+            s.ChangeValues(d)
+            objs.append(s)
 
     return objs
 
-def SetBestMatchSetpoints(probabilisticParameters, epObjects):
+def SetBestMatchSetpoints(probabilisticParameters, epObjects, defaultSchedules):
     schedules = list(x for x in epObjects if isinstance(x, Compact))
     
     for parameter in probabilisticParameters.index:
@@ -37,7 +38,7 @@ def SetBestMatchSetpoints(probabilisticParameters, epObjects):
                 epObjects.remove(schedule)
             except StopIteration: pass
 
-            d = OfficeSchedules[name][scheduleName]
+            d = defaultSchedules[name][scheduleName]
             d['<v2>'] = probabilisticParameters[parameter]
             s = Compact(getattr(Compact, d['Type']))
             s.Name = f'{name}.{scheduleName}'
