@@ -1,4 +1,5 @@
 import math
+import numpy as np
 
 from EnumTypes import Direction, SurfaceType
 
@@ -67,7 +68,7 @@ class Detailed(IDFObject):
         if self.XYZs is None:
             raise Exception(f"Cannot initialise XYZs for {self.Properties['Name']}!")
 
-        if isinstance(self.XYZs, str):
+        if isinstance(self.XYZs, (str, np.ndarray)):
             self.XYZs = XYZList(self.XYZs)
 
         if isinstance(self.SurfaceType, str):
