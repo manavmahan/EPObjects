@@ -1,9 +1,8 @@
 from service import logger, os, np, pd, shutil, tmp_dir
 from MLModels.ml_models import get_regressor, get_generator
 
-def train_regressor(user_name, project_name, probabilistic_parameters, sampled_parameters: np.ndarray, target_values: np.ndarray):
-    prepend_info = f'User: {user_name}\tProject: {project_name}\t'
-    logger.info(f'{prepend_info}Training Regressor')
+def train_regressor(info, probabilistic_parameters, sampled_parameters: np.ndarray, target_values: np.ndarray):
+    logger.info(f'{info}Training Regressor')
     
     col = ["num_neurons", "reg_coeff", "learning_rate",]
     num_neurons1 = [20, 50, 100, 200]
@@ -21,12 +20,10 @@ def train_regressor(user_name, project_name, probabilistic_parameters, sampled_p
 
     network, loss = get_regressor(hyperparameters, sampled_parameters, target_values, probabilistic_parameters.GetScalingDF(),)
     
-    logger.info(f'{prepend_info}Regressor Loss:\t{loss:.5f}')
+    logger.info(f'{info}Regressor Loss:\t{loss:.5f}')
     return network, loss
 
-def train_generator(user_name, project_name, probabilistic_parameters, regressor_json, consumption):
-    prepend_info = f'User: {user_name}\tProject: {project_name}\t'
-    
+def train_generator(info, probabilistic_parameters, regressor, consumption):
     col = ["num_neurons", "reg_coeff", "learning_rate",]
     num_neurons1 = [20, 40, 60, 80, 100]
     num_neurons2 = [0, 5, 10, 15, 20, ]
@@ -46,6 +43,7 @@ def train_generator(user_name, project_name, probabilistic_parameters, regressor
         targets += [list(np.random.choice(value) for _, value in consumption.iterrows())]
     targets = np.array(targets)
 
-    for x in get_generator(hyperparameters, probabilistic_parameters.GetScalingDF(), regressor_json, targets, ):
-        logger.info(f'{prepend_info}Generator Loss:\t{x[1]:.5f}')
+    logger.info(f'{info}training generator')
+    for x in get_generator(hyperparameters, probabilistic_parameters.GetScalingDF(), regressor, targets, ):
+        logger.info(f'{info}Generator Loss:\t{x[1]:.5f}')
         yield x

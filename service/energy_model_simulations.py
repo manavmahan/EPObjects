@@ -19,48 +19,32 @@ from Helper.InternalHeatGainsHelper import SetBestMatchInternalHeatGains
 from Probabilistic.EnergyPredictions import EnergyPrediction, ProbabilisticEnergyPrediction
 from Probabilistic.Parameter import ProbabilisticParameters
 
-def generate_simulation_results(user_name: str, project_name: str, weather: str,
+def generate_simulation_results(info: str, idf_folder: str,
                              simulation_settings: dict, 
                              geometry_json: dict, 
                              schedules_json: dict, 
-                             simulation_model_defaults: dict, 
-                             project_simulation_model_settings: dict,
                              parameters_df: pd.DataFrame,
                              consumption_df: pd.DataFrame):
     
-    idf_folder = create_simulation_dir(user_name, project_name, weather)
-    
-    logger.info(f'User: {user_name}\tProject: {project_name}\tgenerating IDF files')
+    logger.info(f'{info}generating IDF files')
     samples = create_energyplus_models(idf_folder,
                              simulation_settings, 
                              geometry_json, 
                              schedules_json, 
-                             simulation_model_defaults, 
-                             project_simulation_model_settings,
                              parameters_df,
                              consumption_df)
     
-    logger.info(f'User: {user_name}\tProject: {project_name}\tstarting simulations')
+    logger.info(f'{info}starting simulations')
     os.system(f'python3 runEP.py {idf_folder}')
     
-    logger.info(f'User: {user_name}\tProject: {project_name}\treading simulation results')
+    logger.info(f'{info}reading simulation results')
     energy_predictions = read_simulations(simulation_settings["NUM_SAMPLES"], list(consumption_df['Name']), idf_folder)
     return samples, energy_predictions
 
-def create_simulation_dir(user_name: str, project_name: str, weather: str,):
-    idf_folder = os.path.join(tmp_dir, user_name, project_name, "IDFFiles")
-    if os.path.isdir(idf_folder): shutil.rmtree(idf_folder)
-    os.makedirs(idf_folder)
-    with open(os.path.join(idf_folder, 'weather.epw'), 'w') as f:
-        f.write(weather)
-    return idf_folder
-
 def create_energyplus_models(idf_folder: str,
-                             simulation_settings: dict, 
-                             geometry_json: dict, 
-                             schedules_json: dict, 
-                             simulation_model_defaults: dict, 
-                             project_simulation_model_settings: dict,
+                             simulation_settings: dict,
+                             geometry_json: dict,
+                             schedules_json: dict,
                              parameters_df: pd.DataFrame,
                              consumption_df: pd.DataFrame):
     
@@ -73,13 +57,13 @@ def create_energyplus_models(idf_folder: str,
     ep_objects += get_schedules(schedules_json["SCHEDULES"], schedules_json["SCHEDULE_TYPES"])
     
     InitialiseZoneSurfaces(ep_objects)
-    SetInternalMass(ep_objects, simulation_model_defaults["ZONE"]["INTERNAL_MASS"])
+    SetInternalMass(ep_objects, simulation_settings["ZONE"]["INTERNAL_MASS"])
 
-    zonelists_variables = simulation_model_defaults["ZONELISTS"]
+    zonelists_variables = simulation_settings["SIMULATION_DEFAULTS"]["ZONELISTS"]
 
     zones = list(x for x in ep_objects if isinstance(x, Zone))
     for zone in zones:
-        ep_objects += [zone.GetInfiltrationObject(simulation_model_defaults["ZONE"]["INFILTRATION"])]
+        ep_objects += [zone.GetInfiltrationObject(simulation_settings["SIMULATION_DEFAULTS"]["ZONE"]["INFILTRATION"])]
 
     zoneLists = list(x for x in ep_objects if isinstance(x, ZoneList)) 
     for zoneList in zoneLists:
@@ -89,10 +73,10 @@ def create_energyplus_models(idf_folder: str,
         ep_objects += [zoneList.GetElectricEquipmentObject(zonelists_variables[zoneList.Name]['Equipment'])]
         ep_objects += [zoneList.GetDefaultVentilationObject(zoneList.Name != 'Office')]
 
-    if project_simulation_model_settings["ENERGY_SYSTEM"] == "Heat Pumps":
+    if simulation_settings["ENERGY_SYSTEM"] == "Heat Pumps":
         AddHeatPumps(ep_objects)
     
-    if project_simulation_model_settings["INTERNAL_SHADING"]:
+    if simulation_settings["INTERNAL_SHADING"]:
         AddShading(ep_objects)
 
     pps = ProbabilisticParameters.from_df(parameters_df)
