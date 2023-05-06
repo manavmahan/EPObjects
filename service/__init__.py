@@ -17,8 +17,8 @@ DB_URL = "http://127.0.0.1:3000/api/db/"
 
 def create_simulation_dir(user_name: str, project_name: str, weather: str,):
     idf_folder = os.path.join(tmp_dir, user_name, project_name, "IDFFolder")
-    if os.path.isdir(idf_folder): shutil.rmtree(idf_folder)
-    os.makedirs(idf_folder)
+    # if os.path.isdir(idf_folder): shutil.rmtree(idf_folder)
+    os.makedirs(idf_folder, exist_ok=True)
     with open(os.path.join(idf_folder, 'weather.epw'), 'w') as f:
         f.write(weather)
     return idf_folder
@@ -29,9 +29,12 @@ class JsonEncoder(json.JSONEncoder):
             return json.loads(obj.to_json())
 
         if isinstance(obj, (IDFObject)):
-            return json.loads(json.dumps(obj, cls=IDFJsonEncoder))
+            return json.dumps(obj, cls=IDFJsonEncoder)
+        
+        if isinstance(obj, (pd.DataFrame)):
+            return obj.to_dict()
 
-        return json.dumps(obj)
+        return json.loads(obj)
 
 class JsonDecoder(json.JSONDecoder):
     def __init__(self, *args, **kwargs):
@@ -39,7 +42,7 @@ class JsonDecoder(json.JSONDecoder):
     
     def object_hook(self, dct):
         if "__IDFName__" in dct.keys():
-            return json.loads(dct, cls=IDFJsonDecoder)
+            return json.loads(json.dumps(dct), cls=IDFJsonDecoder)
         
         if "class_name" in dct.keys() and dct.get("class_name")=="Sequential":
             return model_from_json(json.dumps(dct))

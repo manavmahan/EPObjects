@@ -1,5 +1,5 @@
 from service import logger, os, np, pd, shutil, tmp_dir
-from MLModels.ml_models import get_regressor, get_generator
+from MLModels.ml_models import get_regressor, get_generator, predict
 
 def train_regressor(info, probabilistic_parameters, sampled_parameters: np.ndarray, target_values: np.ndarray):
     logger.info(f'{info}Training Regressor')
@@ -35,7 +35,7 @@ def train_generator(info, probabilistic_parameters, regressor, consumption):
                                         for n in num_neurons
                                         for r in reg_coeff
                                         for l in learnig_rate
-                                    ], columns = col).sample(n=60,)
+                                    ], columns = col).sample(n=5,)
     hyperparameters.reset_index(drop=True, inplace=True)
 
     targets = []
@@ -47,3 +47,8 @@ def train_generator(info, probabilistic_parameters, regressor, consumption):
     for x in get_generator(hyperparameters, probabilistic_parameters.GetScalingDF(), regressor, targets, ):
         logger.info(f'{info}Generator Loss:\t{x[1]:.5f}')
         yield x
+
+def predict_parameters(info, generator, regressor, num_samples_per_generator):
+    parameters = predict(generator, None, num_samples_per_generator)
+    results = predict(regressor, parameters,)
+    return parameters, results

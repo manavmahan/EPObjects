@@ -36,7 +36,7 @@ class EnergyPrediction:
         return f'{self.Name}\n{str(self.Values)}'
 
 class ProbabilisticEnergyPrediction:
-    def __init__(self, name, energy: list()) -> None:
+    def __init__(self, name, energy) -> None:
         self.Name = name
         if isinstance(energy, dict):
             self.Values = energy
@@ -50,13 +50,11 @@ class ProbabilisticEnergyPrediction:
                 else:
                     self.Values['Total'] = self.Values[e]
 
-    def to_json(self):
-        return json.dumps(
-                dict(
+    def to_dict(self):
+        return dict(
                     Name = self.Name,
                     Values = dict((x, self.Values[x].to_dict()) for x in self.Values)
                 )
-            )
     
     @classmethod
     def from_json(cls, data):
