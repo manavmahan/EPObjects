@@ -122,9 +122,8 @@ def get_generator(hyperparameters_df, scaling_df_X, regressor, targets):
         loss = train_model(complete_model, random_input, targets,)
         yield generator, loss
 
-def predict(model_json, X=None, num_examples=1):
-    model = model_from_json(model_json)
+def predict(model, X=None, num_examples=1):
     if X is None:
         config = model.get_config()
         X = get_random_input(num_examples, config["layers"][0]["config"]["batch_input_shape"][1])
-    return model.predict(X)
+    return model.predict(X, verbose=0)

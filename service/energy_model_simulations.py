@@ -57,7 +57,7 @@ def create_energyplus_models(idf_folder: str,
     ep_objects += get_schedules(schedules_json["SCHEDULES"], schedules_json["SCHEDULE_TYPES"])
     
     InitialiseZoneSurfaces(ep_objects)
-    SetInternalMass(ep_objects, simulation_settings["ZONE"]["INTERNAL_MASS"])
+    SetInternalMass(ep_objects, simulation_settings["SIMULATION_DEFAULTS"]["ZONE"]["INTERNAL_MASS"])
 
     zonelists_variables = simulation_settings["SIMULATION_DEFAULTS"]["ZONELISTS"]
 
@@ -94,7 +94,7 @@ def create_energyplus_models(idf_folder: str,
 
         with open(f'{idf_folder}/{i}.idf', 'w') as f:
             f.write('\n'.join((x.IDF for x in ep_objects_copy)))
-    return json.dumps(samples.to_dict())
+    return samples
 
 def read_simulations(num_samples: int, run_period_names: list, idf_folder: str):
     pEnergies = []
@@ -104,4 +104,4 @@ def read_simulations(num_samples: int, run_period_names: list, idf_folder: str):
         data.index = run_period_names
         pEnergies += [EnergyPrediction(None, data)]
 
-    return ProbabilisticEnergyPrediction(None, pEnergies).to_json()
+    return ProbabilisticEnergyPrediction(None, pEnergies).to_dict()
