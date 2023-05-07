@@ -17,7 +17,7 @@ DB_URL = "http://127.0.0.1:3000/api/db/"
 
 def create_simulation_dir(user_name: str, project_name: str, weather: str,):
     idf_folder = os.path.join(tmp_dir, user_name, project_name, "IDFFolder")
-    # if os.path.isdir(idf_folder): shutil.rmtree(idf_folder)
+    if os.path.isdir(idf_folder): shutil.rmtree(idf_folder)
     os.makedirs(idf_folder, exist_ok=True)
     with open(os.path.join(idf_folder, 'weather.epw'), 'w') as f:
         f.write(weather)
