@@ -125,10 +125,10 @@ def run_service(user_name, project_name):
             for p in range(num_samples_per_generator):
                 results.loc[f'p_{m+p}'] = p_parameters[p]
 
-        results[consumption_df["Name"]] = predict(regressor, X=results[parameters_df.index])
-        results['Total'] = results[consumption_df["Name"]].sum(axis=1)
-        results[[f'Error_{x}' for x in consumption_df["Name"]]] = (results[consumption_df["Name"]].values - m_consumption) / m_consumption
+        run_periods = [f'RP_{x}' for x in consumption_df["Name"]]
+        results[run_periods] = predict(regressor, X=results[parameters_df.index])
+        results['Total'] = results[run_periods].sum(axis=1)
+        results[[f'Error_{x}' for x in consumption_df["Name"]]] = (results[run_periods].values - m_consumption) / m_consumption
         results['Error'] = (results['Total']-total_consumption) / total_consumption
         
-        print (results)
         db.update_columns(search_conditions, db.RESULTS, results)
