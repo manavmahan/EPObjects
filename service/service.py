@@ -5,7 +5,7 @@ from Probabilistic.EnergyPredictions import ProbabilisticEnergyPrediction
 from Probabilistic.Parameter import ProbabilisticParameters
 
 from service.energy_model_simulations import generate_simulation_results, get_run_periods
-from service.ml_networks import train_generator, train_regressor, predict
+from service.ml_networks import train_generator, train_regressor, predict, get_scaling_parameters
 
 def run_service(user_name, project_name):
     info = f'User: {user_name}\tProject: {project_name}\t'
@@ -16,8 +16,8 @@ def run_service(user_name, project_name):
         "LOCATION": "Regensburg, Germany",
 
         "SIMULATION_SETTINGS": {
-            "RUN": True,
-            "NUM_SAMPLES": 40,
+            "RUN": False,
+            "NUM_SAMPLES": 120,
             "ENERGY_SYSTEM": "Heat Pumps",
             "HOT_WATER": False,
             "INTERNAL_SHADING": True,
@@ -37,7 +37,7 @@ def run_service(user_name, project_name):
             },
         },
         "REGRESSOR_SETTINGS":{
-            "RUN": True,
+            "RUN": False,
         },
         "GENERATOR_SETTINGS": {
             "RUN": True,
@@ -45,7 +45,7 @@ def run_service(user_name, project_name):
         "RESULTS":{
             "RUN": True,
             "NUM_SAMPLES": 50,
-            "NUM_SAMPLES_PER_GENERATOR": 3,
+            "NUM_SAMPLES_PER_GENERATOR": 2,
         }
     }
 
@@ -73,12 +73,14 @@ def run_service(user_name, project_name):
         parameters = ProbabilisticParameters.from_df(parameters_df)
 
         regressor_targets = ProbabilisticEnergyPrediction.from_json(simulation_results).Values["Total"]
-
         network, loss = train_regressor(info, parameters, sampled_parameters, regressor_targets)
-        db.update_columns(search_conditions, db.REGRESSOR, {db.NETWORK: network, db.LOSS: loss},)
+        db.update_columns(search_conditions, db.REGRESSOR, {db.NETWORK: network, db.LOSS: loss, db.WEIGHTS: network.get_weights()},)
+        db.update_columns(search_conditions, db.SCALING, {db.PARAMETERS: parameters.GetScalingDF(), db.PREDICTIONS: get_scaling_parameters(regressor_targets, all_columns_equal=True)},)
 
     if project_settings[db.GENERATOR_SETTINGS][db.RUN]:
-        regressor = db.get_columns(search_conditions, db.REGRESSOR)[db.NETWORK]
+        regressor_data = db.get_columns(search_conditions, db.REGRESSOR)
+        regressor = regressor_data[db.NETWORK]
+        regressor.set_weights([np.array(x) for x in regressor_data[db.WEIGHTS]])
         
         consumption_df = db.get_columns(search_conditions, db.CONSUMPTION, True)
         _, consumption = get_run_periods(consumption_df)
@@ -90,45 +92,56 @@ def run_service(user_name, project_name):
                                         regressor, 
                                         consumption)
         db.update_columns(search_conditions, db.GENERATORS, None)
+        generators_data = db.get_columns(search_conditions, db.GENERATORS)
         for (network, loss) in generators:
-            generators = db.get_columns(search_conditions, db.GENERATORS)
-            if generators == None:
-                generators = {db.NETWORK: [], db.LOSS: []}
+            if generators_data == None:
+                generators_data = {db.NETWORK: [], db.LOSS: [], db.WEIGHTS: []}
 
             i = 0
-            while len(generators[db.LOSS]) > i and loss < generators[db.LOSS][i]:
+            while len(generators_data[db.LOSS]) > i and loss < generators_data[db.LOSS][i]:
                 i += 1
-            generators[db.NETWORK].insert(i, network)
-            generators[db.LOSS].insert(i, loss)
-            db.update_columns(search_conditions, db.GENERATORS, generators)
+            generators_data[db.NETWORK].insert(i, network)
+            generators_data[db.LOSS].insert(i, loss)
+            generators_data[db.WEIGHTS].insert(i, network.get_weights())
+        db.update_columns(search_conditions, db.GENERATORS, generators_data)
 
     if project_settings[db.RESULTS][db.RUN]:
+        logger.info(f'{info}genrating results')
         num_samples = project_settings[db.RESULTS]["NUM_SAMPLES"]
         num_samples_per_generator = project_settings[db.RESULTS]["NUM_SAMPLES_PER_GENERATOR"]
-        generators = db.get_columns(search_conditions, db.GENERATORS)[db.NETWORK]
-        regressor = db.get_columns(search_conditions, db.REGRESSOR)[db.NETWORK]
+        generators_data = db.get_columns(search_conditions, db.GENERATORS)
+        generators = generators_data[db.NETWORK]
+        gen_weights = generators_data[db.WEIGHTS]
 
+        regressor_data = db.get_columns(search_conditions, db.REGRESSOR)
+        regressor = regressor_data[db.NETWORK]
+        regressor.set_weights([np.array(x) for x in regressor_data[db.WEIGHTS]])
+        
         parameters_df = db.get_columns(search_conditions, db.PARAMETERS, True)
         consumption_df = db.get_columns(search_conditions, db.CONSUMPTION, True)
         _, consumption = get_run_periods(consumption_df)
         m_consumption = consumption.mean(axis=1).values.T
         total_consumption = m_consumption.sum()
-
-        results = pd.DataFrame(columns = parameters_df.index)
+        
+        results = dict()
+        parameters = pd.DataFrame(columns = parameters_df.index)
  
         for i in range(num_samples):
-            if i >= len (generators):
-                logger.info(info, f"NUM_SAMPLES {num_samples} more than {len(generators)}")
+            if i == len (generators):
+                logger.info(f"{info}NUM_SAMPLES are more than generators.")
                 break
+            generators[i].set_weights([np.array(x) for x in gen_weights[i]])
             p_parameters = predict(generators[i], num_examples = num_samples_per_generator)
             m = i * num_samples_per_generator
             for p in range(num_samples_per_generator):
-                results.loc[f'p_{m+p}'] = p_parameters[p]
+                parameters.loc[f'p_{m+p}'] = p_parameters[p]
+        parameters.reset_index(inplace=True, drop=True)
 
-        run_periods = [f'RP_{x}' for x in consumption_df["Name"]]
-        results[run_periods] = predict(regressor, X=results[parameters_df.index])
-        results['Total'] = results[run_periods].sum(axis=1)
-        results[[f'Error_{x}' for x in consumption_df["Name"]]] = (results[run_periods].values - m_consumption) / m_consumption
-        results['Error'] = (results['Total']-total_consumption) / total_consumption
+        results[db.PARAMETERS] = parameters
+        results[db.PREDICTIONS] = pd.DataFrame(predict(regressor, X=parameters[parameters_df.index]), columns=consumption_df["Name"])
+        results[db.TOTAL] = pd.Series(results[db.PREDICTIONS].sum(axis=1))
+        
+        results[db.ERRORS] = pd.DataFrame(100 * (results[db.PREDICTIONS].values - m_consumption) / m_consumption, columns=consumption_df["Name"])
+        results[db.TOTAL_ERROR] = pd.Series(100 * (results[db.TOTAL].values - total_consumption) / total_consumption,)
         
         db.update_columns(search_conditions, db.RESULTS, results)

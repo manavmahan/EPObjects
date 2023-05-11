@@ -1,5 +1,5 @@
 from service import logger, os, np, pd, shutil, tmp_dir
-from MLModels.ml_models import get_regressor, get_generator, predict
+from MLModels.ml_models import get_regressor, get_generator, predict, get_scaling_parameters
 
 def train_regressor(info, probabilistic_parameters, sampled_parameters: np.ndarray, target_values: np.ndarray):
     logger.info(f'{info}Training Regressor')
@@ -25,7 +25,7 @@ def train_regressor(info, probabilistic_parameters, sampled_parameters: np.ndarr
 
 def train_generator(info, probabilistic_parameters, regressor, consumption):
     col = ["num_neurons", "reg_coeff", "learning_rate",]
-    num_neurons1 = [20, 40, 60, 80, 100]
+    num_neurons1 = [20, 25, 30, 35, 40]
     num_neurons2 = [0, 5, 10, 15, 20, ]
     reg_coeff = [0,]
     learnig_rate = [1e-2, 3e-3, 1e-3, 3e-4, 1e-4,]
@@ -35,17 +35,19 @@ def train_generator(info, probabilistic_parameters, regressor, consumption):
                                         for n in num_neurons
                                         for r in reg_coeff
                                         for l in learnig_rate
-                                    ], columns = col).sample(n=5,)
+                                    ], columns = col).sample(n=25,)
     hyperparameters.reset_index(drop=True, inplace=True)
 
     targets = []
     for _ in range(100):
-        targets += [list(np.random.choice(value) for _, value in consumption.iterrows())]
+        # targets += [list(np.random.choice(value) for _, value in consumption.iterrows())]
+        # targets += [consumption[np.random.choice(consumption.columns)]]
+        targets += [consumption.mean(axis=1)]
     targets = np.array(targets)
-
+    
     logger.info(f'{info}training generator')
-    for x in get_generator(hyperparameters, probabilistic_parameters.GetScalingDF(), regressor, targets, ):
-        logger.info(f'{info}Generator Loss:\t{x[1]:.5f}')
+    for i, x in enumerate(get_generator(hyperparameters, probabilistic_parameters.GetScalingDF(), regressor, targets, )):
+        logger.info(f'{info}Generator Loss {i}:\t{x[1]:.5f}')
         yield x
 
 def predict_parameters(info, generator, regressor, num_samples_per_generator):
