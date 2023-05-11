@@ -17,9 +17,9 @@ def train_generator(info, probabilistic_parameters, regressor, consumption, HYPE
 
     targets = []
     for _ in range(100):
-        # targets += [list(np.random.choice(value) for _, value in consumption.iterrows())]
+        targets += [list(np.random.choice(value) for _, value in consumption.iterrows())]
         # targets += [consumption[np.random.choice(consumption.columns)]]
-        targets += [consumption.mean(axis=1)]
+        # targets += [consumption.mean(axis=1)]
     targets = np.array(targets)
     
     logger.info(f'{info}training generator')

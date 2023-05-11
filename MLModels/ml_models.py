@@ -59,7 +59,7 @@ def get_simple_ann(
 
 def train_model(model: Sequential, X_train: np.ndarray, Y_train: np.ndarray,)-> float:
     """ Trains a sequential model based on the dataset. """
-    history = model.fit(X_train, Y_train, validation_split=0.2, epochs=1, verbose=0, callbacks=[early_stopping_validation_loss],)
+    history = model.fit(X_train, Y_train, validation_split=0.2, epochs=100, verbose=0, callbacks=[early_stopping_validation_loss],)
     return min(history.history['val_loss']) 
 
 def get_regressor(hyperparameters_df, X, Y, scaling_df_X=None):
