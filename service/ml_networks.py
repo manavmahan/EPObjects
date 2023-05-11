@@ -11,19 +11,8 @@ def train_regressor(info, probabilistic_parameters, sampled_parameters: np.ndarr
     logger.info(f'{info}Regressor Loss:\t{loss:.5f}')
     return network, loss
 
-def train_generator(info, probabilistic_parameters, regressor, consumption):
-    col = ["num_neurons", "reg_coeff", "learning_rate",]
-    num_neurons1 = [20, 25, 30, 35, 40]
-    num_neurons2 = [0, 5, 10, 15, 20, ]
-    reg_coeff = [0,]
-    learnig_rate = [1e-2, 3e-3, 1e-3, 3e-4, 1e-4,]
-
-    num_neurons = [[nn1, nn2] for nn1 in num_neurons1 for nn2 in num_neurons2]
-    hyperparameters = pd.DataFrame([[n, r, l,] 
-                                        for n in num_neurons
-                                        for r in reg_coeff
-                                        for l in learnig_rate
-                                    ], columns = col).sample(n=25,)
+def train_generator(info, probabilistic_parameters, regressor, consumption, HYPERPARAMETERS: pd.DataFrame, NUMS: int, **kwargs):
+    hyperparameters = pd.DataFrame.from_dict(HYPERPARAMETERS).sample(n=NUMS,)
     hyperparameters.reset_index(drop=True, inplace=True)
 
     targets = []

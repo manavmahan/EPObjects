@@ -54,7 +54,8 @@ def run_service(user_name, project_name):
         generators = train_generator(   info,
                                         parameters,
                                         regressor, 
-                                        consumption)
+                                        consumption, 
+                                        **project_settings[db.GENERATOR_SETTINGS])
         db.update_columns(search_conditions, db.GENERATORS, None)
         generators_data = db.get_columns(search_conditions, db.GENERATORS)
         for (network, loss) in generators:
