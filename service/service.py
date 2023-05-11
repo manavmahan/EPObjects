@@ -11,43 +11,7 @@ def run_service(user_name, project_name):
     info = f'User: {user_name}\tProject: {project_name}\t'
     search_conditions = db.get_search_conditions(user_name, project_name)
 
-    project_settings = {
-        "BUILDING_USE": "OFFICE",
-        "LOCATION": "Regensburg, Germany",
-
-        "SIMULATION_SETTINGS": {
-            "RUN": False,
-            "NUM_SAMPLES": 120,
-            "ENERGY_SYSTEM": "Heat Pumps",
-            "HOT_WATER": False,
-            "INTERNAL_SHADING": True,
-            "SIMULATION_DEFAULTS": {
-                "ZONE": {
-                    "INTERNAL_MASS": 25,
-                    "INFILTRATION": 0.3,
-                },
-                "ZONELISTS":{
-                    "Office": dict(People = 24.0, Lights = 6.0, Equipment = 15,),
-                    "Toilet": dict(People = 48.0, Lights = 4.5, Equipment = 5,),
-                    "Stairs": dict(People = 48.0, Lights = 4.5, Equipment = 5,),
-                    "Corridor": dict(People = 48.0, Lights = 4.5, Equipment = 10,),
-                    "Service": dict(People = 100.0, Lights = 1.0, Equipment = 25,),
-                    "Technic": dict(People = 100.0, Lights = 1.0, Equipment = 10,),
-                }
-            },
-        },
-        "REGRESSOR_SETTINGS":{
-            "RUN": False,
-        },
-        "GENERATOR_SETTINGS": {
-            "RUN": True,
-        },
-        "RESULTS":{
-            "RUN": True,
-            "NUM_SAMPLES": 50,
-            "NUM_SAMPLES_PER_GENERATOR": 2,
-        }
-    }
+    project_settings = db.get_columns(search_conditions, db.PROJECT_SETTINGS,)
 
     if project_settings[db.SIMULATION_SETTINGS][db.RUN]:
         epw_str = db.get_weather(project_settings[db.LOCATION])
