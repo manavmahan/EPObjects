@@ -31,10 +31,13 @@ class JsonEncoder(json.JSONEncoder):
         if isinstance(obj, (IDFObject)):
             return json.dumps(obj, cls=IDFJsonEncoder)
         
-        if isinstance(obj, (pd.DataFrame)):
+        if isinstance(obj, (pd.DataFrame, pd.Series)):
             return obj.to_dict()
+        
+        if isinstance(obj, np.ndarray):
+            return obj.tolist()
 
-        return json.loads(obj)
+        return json.JSONEncoder.default(self, obj)
 
 class JsonDecoder(json.JSONDecoder):
     def __init__(self, *args, **kwargs):

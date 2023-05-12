@@ -59,12 +59,12 @@ def get_simple_ann(
 
 def train_model(model: Sequential, X_train: np.ndarray, Y_train: np.ndarray,)-> float:
     """ Trains a sequential model based on the dataset. """
-    history = model.fit(X_train, Y_train, validation_split=0.2, epochs=10, verbose=0, callbacks=[early_stopping_validation_loss],)
+    history = model.fit(X_train, Y_train, validation_split=0.2, epochs=100, verbose=0, callbacks=[early_stopping_validation_loss],)
     return min(history.history['val_loss']) 
 
 def get_regressor(hyperparameters_df, X, Y, scaling_df_X=None):
     scaling_X = get_scaling_layer(X, scaling_df_X)
-    scaling_Y = get_scaling_layer(Y, all_columns_equal=False, reverse=True)
+    scaling_Y = get_scaling_layer(Y, all_columns_equal=True, reverse=True)
 
     current_model, current_loss = None, float('inf')
     for _, hp in hyperparameters_df.iterrows():
@@ -114,7 +114,7 @@ def get_generator_network(hyperparameters, append_model, input_dims, output_dims
 
 def get_generator(hyperparameters_df, scaling_df_X, regressor, targets):
     rev_scaling_X = get_scaling_layer(None, scaling_df_X, reverse=True)
-    random_input = get_random_input(len(targets), 100)
+    random_input = get_random_input(len(targets), 20)
 
     output_dims = len(scaling_df_X)
     for _, hp in hyperparameters_df.iterrows():
