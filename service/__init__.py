@@ -13,7 +13,10 @@ from logger import logger
 tmp_dir = "/tmp/energy_service/"
 os.makedirs(tmp_dir, exist_ok=True)
 
-DB_URL = "http://127.0.0.1:3000/api/db/"
+DB_URL = "https://db.manavmahan.de"
+HEADER = {
+    'id': os.environ.get('API_ID')
+}
 
 def create_simulation_dir(user_name: str, project_name: str, weather: str,):
     idf_folder = os.path.join(tmp_dir, user_name, project_name, "IDFFolder")
