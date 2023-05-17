@@ -37,14 +37,16 @@ def run_service(user_name, project_name):
         parameters = ProbabilisticParameters.from_df(parameters_df)
 
         regressor_targets = ProbabilisticEnergyPrediction.from_json(simulation_results).Values["Total"]
-        network, loss = train_regressor(info, parameters, sampled_parameters, regressor_targets, **project_settings[db.REGRESSOR_SETTINGS])
+        network, loss = train_regressor(info, parameters, sampled_parameters, regressor_targets, db.get_regressor_hyperparameters(search_conditions), **project_settings[db.REGRESSOR_SETTINGS])
         db.update_columns(search_conditions, db.REGRESSOR, {db.NETWORK: network, db.LOSS: loss, db.WEIGHTS: network.get_weights()},)
         db.update_columns(search_conditions, db.SCALING, {db.PARAMETERS: parameters.GetScalingDF(), db.PREDICTIONS: get_scaling_parameters(regressor_targets, all_columns_equal=True)},)
 
     if project_settings[db.GENERATOR_SETTINGS][db.RUN]:
-        regressor_data = db.get_columns(search_conditions, db.REGRESSOR)
-        regressor = regressor_data[db.NETWORK]
-        regressor.set_weights([np.array(x) for x in regressor_data[db.WEIGHTS]])
+        regressor = None
+        if project_settings[db.GENERATOR_SETTINGS][db.METHOD] != db.INVERTED:
+            regressor_data = db.get_columns(search_conditions, db.REGRESSOR)
+            regressor = regressor_data[db.NETWORK]
+            regressor.set_weights([np.array(x) for x in regressor_data[db.WEIGHTS]])
         
         consumption_df = db.get_columns(search_conditions, db.CONSUMPTION, True)
         _, consumption = get_run_periods(consumption_df)
@@ -55,8 +57,9 @@ def run_service(user_name, project_name):
                                         parameters,
                                         regressor, 
                                         consumption, 
+                                        db.get_genertor_hyperparameters(search_conditions),
                                         **project_settings[db.GENERATOR_SETTINGS])
-        db.update_columns(search_conditions, db.GENERATORS, None)
+
         generators_data = db.get_columns(search_conditions, db.GENERATORS)
         for (network, loss) in generators:
             if generators_data == None:

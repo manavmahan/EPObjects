@@ -1,16 +1,16 @@
-from service import json, JsonDecoder, JsonEncoder, pd, requests, DB_URL, HEADER
+from service import json, JsonDecoder, JsonEncoder, pd, requests
+
+db_url = "neo4j.manavmahan.de"
+headers = {'apiid': 'f76ba64860271dd9dd21867e387004d1'}
 
 CONSUMPTION = "CONSUMPTION"
 ERRORS = "ERRORS"
 GEOMETRY = "GEOMETRY"
-GENERATIVE = "GENERATIVE"
 GENERATORS = "GENERATORS"
 GENERATOR_SETTINGS = "GENERATOR_SETTINGS"
 HYPERPARAMETERS = "HYPERPARAMETERS"
-INVERTED = "INVERTED"
 LOCATION = "LOCATION"
 LOSS = "LOSS"
-METHOD = "METHOD"
 NETWORK = "NETWORK"
 NUMS = "NUMS"
 PARAMETERS = "PARAMETERS"
@@ -31,7 +31,7 @@ WEIGHTS = "WEIGHTS"
 
 
 def get_search_conditions(user_name, project_name):
-    return f"PROJECT_NAME='{project_name}' AND USER_NAME='{user_name}'"
+    return "MATCH (n: Project) {USER_NAME='%s' PROJECT_NAME: '%s' }".format(user_name, project_name,)
 
 def get_columns(search_conditions: str, column_name: str, convert_to_df=False):
     """ Retrieves the selected columns from the DB. """
@@ -41,7 +41,7 @@ def get_columns(search_conditions: str, column_name: str, convert_to_df=False):
         "COLUMN_NAMES": column_name,
         "CONDITIONS": search_conditions,
     }
-    response = requests.post(DB_URL, headers=HEADER, json=data).json()
+    response = requests.post(db_url, json=data).json()
     if (response["ERROR"]): raise ValueError(response["ERROR"])
     if len(response["RESULTS"]) == 0: return None
     if response["RESULTS"][0][column_name] == None: return None
@@ -59,7 +59,7 @@ def update_columns(search_conditions, column_name, column_value):
         "CONDITIONS": search_conditions,
     }
 
-    response = requests.post(DB_URL, headers=HEADER, json=data).json()
+    response = requests.post(db_url, json=data).json()
     if (response["ERROR"]):
         raise ValueError(response["ERROR"])
 
@@ -70,7 +70,7 @@ def get_weather(location):
         "COLUMN_NAMES": "EPW_STR",
         "CONDITIONS": f"LOCATION='{location}'",
     }
-    response = requests.post(DB_URL, headers=HEADER, json=data).json()
+    response = requests.post(db_url, json=data).json()
     if (response["ERROR"]):
         raise ValueError(response["ERROR"])
     if len(response["RESULTS"]) == 0:
@@ -85,7 +85,7 @@ def get_default_building_use_settings(building_use):
         "CONDITIONS": f"NAME='{building_use}'",
     }
 
-    response = requests.post(DB_URL, headers=HEADER, json=data).json()
+    response = requests.post(db_url, json=data).json()
     if (response["ERROR"]):
         raise ValueError(response["ERROR"])
     if len(response["RESULTS"]) == 0:
@@ -100,31 +100,9 @@ def get_default_zonelist_settings(building_use, zonelist_name):
         "CONDITIONS": f"BUILDING_USE='{building_use}' and NAME='{zonelist_name}'",
     }
 
-    response = requests.post(DB_URL, headers=HEADER, json=data).json()
+    response = requests.post(db_url, json=data).json()
     if (response["ERROR"]):
         raise ValueError(response["ERROR"])
     if len(response["RESULTS"]) == 0:
         raise ValueError(f"Cannot find SETTINGS for {building_use} and {zonelist_name}.")
     return response["RESULTS"][0]["SETTINGS"]
-
-def get_hyperparameters(search_conditions=True, regressor=True, generator=True):
-    data = {
-        "TYPE": "SEARCH", 
-        "TABLE_NAME": "REGRESSOR_HYPERPARAMETERS" if regressor else "GENERATOR_HYPERPARAMETERS" if generator else None,
-        "COLUMN_NAMES": "VALUE",
-        "CONDITIONS": search_conditions,
-    }
-    response = requests.post(DB_URL, headers=HEADER, json=data).json()
-    if (response["ERROR"]):
-        raise ValueError(response["ERROR"])
-    if len(response["RESULTS"]) == 0:
-        raise ValueError(f"Cannot find SETTINGS for {search_conditions}.")
-    
-    value = json.loads(response["RESULTS"][0]["VALUE"], cls=JsonDecoder)
-    return value
-
-def get_regressor_hyperparameters(search_conditions=True):
-    return get_hyperparameters(search_conditions, regressor=True)
-
-def get_genertor_hyperparameters(search_conditions=True):
-    return get_hyperparameters(search_conditions, generator=True)
