@@ -1,11 +1,11 @@
 from . import os, pd, shutil, logger, tmp_dir, json
-
+from service import db_functions as db
 
 from runEP import ExecuteSimulations
 
 from Helper.Modules import *
 
-from Helper.ConstructionHelper import CreateConstructions, SetBestMatchConstruction, InitialiseZoneSurfaces, SetInternalMass, SetReportingFrequency, SetBestMatchInternalMass
+from Helper.ConstructionHelper import CreateConstructions, SetBestMatchConstruction, InitialiseZoneSurfaces, SetInternalMass, get_construction_names, SetBestMatchInternalMass, get_material_names
 from Helper.InfiltrationHelper import SetBestMatchPermeability
 
 from Helper.ScheduleHelper import get_schedules, SetBestMatchSetpoints
@@ -51,8 +51,15 @@ def create_energyplus_models(idf_folder: str,
     num_samples = simulation_settings["NUM_SAMPLES"]
     run_periods, _ = get_run_periods(consumption_df)
 
-    ep_objects = []
+    ep_objects = list(db.get_auxiliary_objects())
     ep_objects += geometry_json
+    
+    construction_names = list(set(get_construction_names(ep_objects)))
+    ep_objects += list(db.get_construction_material(construction_names))
+
+    material_names = list(set(get_material_names(ep_objects)))
+    ep_objects += list(db.get_construction_material(material_names, False))
+    
     ep_objects += run_periods
     ep_objects += get_schedules(schedules_json["SCHEDULES"], schedules_json["SCHEDULE_TYPES"])
     

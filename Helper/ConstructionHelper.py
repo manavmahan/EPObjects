@@ -4,6 +4,19 @@ import re
 from IDFObject.Construction import Construction
 from IDFObject.Material import Material
 from IDFObject.WindowMaterial.SimpleGlazingSystem import SimpleGlazingSystem
+from IDFObject.BuildingSurface.Detailed import Detailed as BS
+from IDFObject.FenestrationSurface.Detailed import Detailed as FS
+
+def get_construction_names(ep_objects):
+    for surface in ep_objects:
+        if isinstance(surface, (BS, FS)):
+            yield surface.ConstructionName
+
+def get_material_names(ep_objects):
+    for construction in ep_objects:
+        if isinstance(construction, (Construction)):
+            for m in construction.MaterialsName.Values:
+                yield m
 
 def CreateConstructions(probabilisticParameters, epObjects):
     materials = list(x for x in epObjects if isinstance(x, (Material, SimpleGlazingSystem)))

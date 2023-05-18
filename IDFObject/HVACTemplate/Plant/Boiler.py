@@ -27,8 +27,7 @@ class Boiler(IDFObject.IDFObject):
 
 Boiler.Default = {
     "Name": "Boiler",
-    "BoilerType": 
-    "HotWaterBoiler", 
+    "BoilerType": "HotWaterBoiler", 
     "Capacity": "autosize", 
     "Efficiency": 0.95, 
     "FuelType": "Electricity", 
