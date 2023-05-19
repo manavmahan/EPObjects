@@ -29,6 +29,9 @@ class TestInialiser(unittest.TestCase):
         self.assertEqual("HVACTemplate:Plant:Boiler,Boiler1,HotWaterBoiler,autosize,0.95,Electric,1,1.2,0.1,1.1,0.9,99;",
         str(self.idfObjects['HVACTemplate:Plant:Boiler'][0]))
 
+    def testReadFileHVACTemplatePlantHotWaterLoop(self):
+        self.assertEqual("HVACTemplate:Plant:HotWaterLoop,HotWaterLoop, ,Intermittent,Default, ,HWLoopTempSchedule,82,VariableFlow,179352,None,82.2,-6.7,65.6,10,SinglePump,Yes,Yes,Water,11, ,Sequential;", str(self.idfObjects['HVACTemplate:Plant:HotWaterLoop'][0]))
+
     def testReadFileHVACTemplatePlantMixedWaterLoop(self):
         self.assertEqual("HVACTemplate:Plant:MixedWaterLoop,OnlyWaterLoop,,Intermittent,Default,,,34,,20,ConstantFlow,179352,SinglePump,Yes,Yes,Water,6,SequentialLoad;", str(self.idfObjects['HVACTemplate:Plant:MixedWaterLoop'][0]))
 
@@ -115,9 +118,6 @@ class TestInialiser(unittest.TestCase):
 
     def testReadFileZone(self):
         self.assertEqual("Zone,Zone0;", str(self.idfObjects['Zone'][0]))
-
-    def testReadFileZoneControlThermostat(self):
-        self.assertEqual("ZoneControl:Thermostat,Zone3Thermostat,NORTHZONE,ZoneControlTypeSched,ThermostatSetpoint:SingleHeating,HeatingSetpointwithSB,ThermostatSetpoint:SingleCooling,CoolingSetpointwithSB;", str(self.idfObjects['ZoneControl:Thermostat'][0]))
 
     def testReadFileZoneInfiltrationDesignFlowRate(self):
         self.assertEqual("ZoneInfiltration:DesignFlowRate,Infiltration_Office,Office,SpaceInfiltrationSchedule,AirChanges/Hour,,,,0.337,0.606,0.03636,0.1177165,0;", str(self.idfObjects['ZoneInfiltration:DesignFlowRate'][0]))

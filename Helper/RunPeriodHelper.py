@@ -5,11 +5,12 @@ from Helper.Modules import RunPeriod
 def get_run_periods(df):
     periods = []
     for m, row in df.iterrows():
-        r = RunPeriod(RunPeriod.Default)
-        r.Name = f'RunPeriod{m}'
-        r.BeginYear, r.EndYear = int(row['BeginYear']), int(row['EndYear'])
-        r.BeginMonth, r.EndMonth = int(row['BeginMonth']), int(row['EndMonth'])
-        r.BeginDayofMonth, r.EndDayofMonth = int(row['BeginDay']), int(row['EndDay'])
+        r = RunPeriod(
+            Name = f'RunPeriod{m}',
+            BeginYear = int(row['BeginYear']), EndYear = int(row['EndYear']),
+            BeginMonth = int(row['BeginMonth']), EndMonth = int(row['EndMonth']),
+            BeginDayofMonth = int(row['BeginDay']), EndDayofMonth = int(row['EndDay']),
+        )
         periods += [r]
     
     return periods, df[[v for v in df.columns if 'value' in v]]

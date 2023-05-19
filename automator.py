@@ -30,6 +30,12 @@ class {f[-1]}(IDFObject):
     def __init__(self, propertiesDict: dict()):
         super().__init__(self.Properties, propertiesDict)
 
+    @classmethod
+    def get_default(cls, **kwargs):
+        props = dict({f[-1]}.Default)
+        props.update(kwargs)
+        return {f[-1]}(props)
+
     {f[-1]}.Default = {default}
 '''
 

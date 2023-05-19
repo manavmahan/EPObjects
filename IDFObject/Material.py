@@ -16,8 +16,13 @@ class Material(IDFObject.IDFObject):
         'VisibleAbsorptance',
     ]
 
-    def __init__(self, properties: dict()) -> None:
-        super().__init__(self.Properties, properties)
+    default = dict()
+    def __init__(self, **kwargs):
+        default = kwargs.get('default')
+        props = dict(getattr(self, default if default else 'default'))
+        props.update(kwargs)
+        super().__init__(self.Properties, props)
+
 
     def __eq__(self, other):
         return self.Name == other.Name

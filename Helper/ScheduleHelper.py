@@ -13,14 +13,13 @@ def GetOfficeSchedules(file, scheduleTypeFiles):
 def get_schedules(schedules_json, schedules_types_json):
     Compact.InitialiseScheduleTypes(schedules_types_json)
     objs = list()
-    objs.append(ScheduleTypeLimits(ScheduleTypeLimits.AnyNumber))
+    objs.append(ScheduleTypeLimits())
     
     for zoneList in schedules_json:
         schedules = schedules_json[zoneList]
         for schedule in schedules:
             d = schedules[schedule]
-            s = Compact(getattr(Compact, d['Type']))
-            s.Name = f'{zoneList}.{schedule}'
+            s = Compact(Name = f'{zoneList}.{schedule}', **getattr(Compact, d['Type']))
             s.ChangeValues(d)
             objs.append(s)
 
@@ -40,7 +39,6 @@ def SetBestMatchSetpoints(probabilisticParameters, epObjects, defaultSchedules):
 
             d = defaultSchedules[name][scheduleName]
             d['<v2>'] = probabilisticParameters[parameter]
-            s = Compact(getattr(Compact, d['Type']))
-            s.Name = f'{name}.{scheduleName}'
+            s = Compact(Name = f'{name}.{scheduleName}', **getattr(Compact, d['Type']))
             s.ChangeValues(d)
             epObjects.append(s)

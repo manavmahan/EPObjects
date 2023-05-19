@@ -25,10 +25,15 @@ class Boiler(IDFObject.IDFObject):
     def Initialise(self):
         pass
 
+    @classmethod
+    def get_default(cls, **kwargs):
+        props = dict(Boiler.Default)
+        props.update(kwargs)
+        return Boiler(props)
+
 Boiler.Default = {
     "Name": "Boiler",
-    "BoilerType": 
-    "HotWaterBoiler", 
+    "BoilerType": "HotWaterBoiler", 
     "Capacity": "autosize", 
     "Efficiency": 0.95, 
     "FuelType": "Electricity", 

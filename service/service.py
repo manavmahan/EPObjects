@@ -15,6 +15,7 @@ def run_service(user_name, project_name):
 
     if project_settings[db.SIMULATION_SETTINGS][db.RUN]:
         epw_str = db.get_weather(project_settings[db.LOCATION])
+        building_use = project_settings[db.BUILDING_USE]
         idf_folder = create_simulation_dir(user_name, project_name, epw_str)
         geometry_json = db.get_columns(search_conditions, db.GEOMETRY,)
         schedules_json = db.get_columns(search_conditions, db.SCHEDULES)
@@ -22,7 +23,7 @@ def run_service(user_name, project_name):
         parameters_df = db.get_columns(search_conditions, db.PARAMETERS, True)
 
         sampled_parameters, simulation_results = generate_simulation_results(
-            info, idf_folder,
+            info, idf_folder, building_use,
             project_settings[db.SIMULATION_SETTINGS], 
             geometry_json, schedules_json,
             parameters_df, consumption_df,

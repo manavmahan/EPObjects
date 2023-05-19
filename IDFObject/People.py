@@ -25,43 +25,46 @@ class People(IDFObject.IDFObject):
         'ThermalComfortModel1Type',
     ]
 
-    def __init__(self, propertiesDict: dict()):
-        super().__init__(self.Properties, propertiesDict)
+    default = dict(
+        NumberofPeopleCalculationMethod = 'Area/Person',
+        NumberofPeople = '',
+        PeopleperZoneFloorArea = '',
+        ZoneFloorAreaperPerson = 20,
+        FractionRadiant = 0.1,
+        SensibleHeatFraction = '',
+        CarbonDioxideGenerationRate = 3.82E-08,
+        EnableASHRAE55ComfortWarnings = '',
+        MeanRadiantTemperatureCalculationType = 'ZoneAveraged',
+        SurfaceNameAngleFactorListName = '',
+        WorkEfficiencyScheduleName = 'Generic.Always1',
+        ClothingInsulationCalculationMethod = 'DynamicClothingModelASHRAE55',
+        ClothingInsulationCalculationMethodScheduleName = '',
+        ClothingInsulationScheduleName = '',
+        AirVelocityScheduleName = 'Generic.Always01',
+        ThermalComfortModel1Type = 'Fanger',
+    )
 
-People.Default = dict(
-    NumberofPeopleCalculationMethod = 'Area/Person',
-    NumberofPeople = '',
-    PeopleperZoneFloorArea = '',
-    ZoneFloorAreaperPerson = 20,
-    FractionRadiant = 0.1,
-    SensibleHeatFraction = '',
-    CarbonDioxideGenerationRate = 3.82E-08,
-    EnableASHRAE55ComfortWarnings = '',
-    MeanRadiantTemperatureCalculationType = 'ZoneAveraged',
-    SurfaceNameAngleFactorListName = '',
-    WorkEfficiencyScheduleName = 'Generic.Always1',
-    ClothingInsulationCalculationMethod = 'DynamicClothingModelASHRAE55',
-    ClothingInsulationCalculationMethodScheduleName = '',
-    ClothingInsulationScheduleName = '',
-    AirVelocityScheduleName = 'Generic.Always01',
-    ThermalComfortModel1Type = 'Fanger',
-)
+    zone = dict(
+        NumberofPeopleCalculationMethod = 'People',
+        NumberofPeople = '',
+        PeopleperZoneFloorArea = '',
+        ZoneFloorAreaperPerson = '',
+        FractionRadiant = 0.1,
+        SensibleHeatFraction = '',
+        CarbonDioxideGenerationRate = 3.82E-08,
+        EnableASHRAE55ComfortWarnings = '',
+        MeanRadiantTemperatureCalculationType = 'ZoneAveraged',
+        SurfaceNameAngleFactorListName = '',
+        WorkEfficiencyScheduleName = 'Generic.Always1',
+        ClothingInsulationCalculationMethod = 'DynamicClothingModelASHRAE55',
+        ClothingInsulationCalculationMethodScheduleName = '',
+        ClothingInsulationScheduleName = '',
+        AirVelocityScheduleName = 'Generic.Always01',
+        ThermalComfortModel1Type = 'Fanger',
+    )
 
-People.Zone = dict(
-    NumberofPeopleCalculationMethod = 'People',
-    NumberofPeople = '',
-    PeopleperZoneFloorArea = '',
-    ZoneFloorAreaperPerson = '',
-    FractionRadiant = 0.1,
-    SensibleHeatFraction = '',
-    CarbonDioxideGenerationRate = 3.82E-08,
-    EnableASHRAE55ComfortWarnings = '',
-    MeanRadiantTemperatureCalculationType = 'ZoneAveraged',
-    SurfaceNameAngleFactorListName = '',
-    WorkEfficiencyScheduleName = 'Generic.Always1',
-    ClothingInsulationCalculationMethod = 'DynamicClothingModelASHRAE55',
-    ClothingInsulationCalculationMethodScheduleName = '',
-    ClothingInsulationScheduleName = '',
-    AirVelocityScheduleName = 'Generic.Always01',
-    ThermalComfortModel1Type = 'Fanger',
-)
+    def __init__(self, **kwargs):
+        default = kwargs.get('default')
+        props = dict(getattr(self, default if default else 'default'))
+        props.update(kwargs)
+        super().__init__(self.Properties, props)
