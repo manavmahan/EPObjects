@@ -29,19 +29,21 @@ class Construction(IDFObject):
         else:
             raise NotImplementedError("Compound construction!")
         return np.round(uvalue, 5)
-
-    def __init__(self, properties: dict(), materials: list()=None) -> None:
-        super().__init__(self.Properties, properties)
+    
+    default = dict()
+    def __init__(self, **kwargs):
+        default = kwargs.get('default')
+        props = dict(getattr(self, default if default else 'default'))
+        props.update(kwargs)
+        super().__init__(self.Properties, props)
+        
         self.MaterialsName = ListObject(self.MaterialsName.split(','))
         self.Materials = list()
-        self.Initialise(materials)
 
     def __updateMaterialNames(self):
         self.MaterialsName = ListObject([x.Name for x in self.Materials])
 
-    def Initialise(self, materials: list()):
-        if materials is None:
-            return
+    def initialise_materials(self, materials: list()):
         for mName in self.MaterialsName.Values:
             self.Materials += [next(x for x in materials if x.Name==mName)]
 
@@ -83,49 +85,49 @@ class Construction(IDFObject):
         self.__updateMaterialNames()
         return insulationLayerMod
 
-def InitialiseMaterialLayers(epObjects):
-    materials = list(x for x in epObjects if isinstance(x, (Material, SimpleGlazingSystem)))
-    for construction in [x for x in epObjects if isinstance(x, Construction)]:
-        for mName in construction.MaterialsName.Values:
-            construction.Materials += [next(x for x in materials if x.Name==mName)]
-        yield construction
+    @staticmethod
+    def initialise_material_layers(ep_objects):
+        materials = list(x for x in ep_objects if isinstance(x, (Material, SimpleGlazingSystem)))
+        for construction in [x for x in ep_objects if isinstance(x, Construction)]:
+            for mName in construction.MaterialsName.Values:
+                construction.Materials += [next(x for x in materials if x.Name==mName)]
 
-Construction.WallExternal = dict(
-    Name = 'WallExternal',
-    MaterialsName = 'Plaster,Insulation,Brick.Wall,Plaster'
-)
+    WallExternal = dict(
+        Name = 'WallExternal',
+        MaterialsName = 'Plaster,Insulation,Brick.Wall,Plaster'
+    )
 
-Construction.FloorInternal = dict(
-    Name = 'FloorInternal',
-    MaterialsName = 'Concrete.Floor,Insulation,Screed.Floor'
-)
+    FloorInternal = dict(
+        Name = 'FloorInternal',
+        MaterialsName = 'Concrete.Floor,Insulation,Screed.Floor'
+    )
 
-Construction.Glazing = dict(
-    Name = 'Glazing',
-    MaterialsName = 'Glazing'
-)
+    Glazing = dict(
+        Name = 'Glazing',
+        MaterialsName = 'Glazing'
+    )
 
-Construction.FloorGround = dict(
-    Name = 'FloorGround',
-    MaterialsName = 'PerimeterInsulation,Insulation,Concrete.Floor,Screed.Floor'
-)
+    FloorGround = dict(
+        Name = 'FloorGround',
+        MaterialsName = 'PerimeterInsulation,Insulation,Concrete.Floor,Screed.Floor'
+    )
 
-Construction.WallInternal = dict(
-    Name = 'WallInternal',
-    MaterialsName = 'PlasterBoard,Insulation,PlasterBoard'
-)
+    WallInternal = dict(
+        Name = 'WallInternal',
+        MaterialsName = 'PlasterBoard,Insulation,PlasterBoard'
+    )
 
-Construction.Mass = dict(
-    Name = 'Mass',
-    MaterialsName = "Mass",
-)
+    Mass = dict(
+        Name = 'Mass',
+        MaterialsName = "Mass",
+    )
 
-Construction.Roof = dict(
-    Name = 'Roof',
-    MaterialsName = 'PerimeterInsulation,Insulation,Concrete.Roof,Plaster'
-)
+    Roof = dict(
+        Name = 'Roof',
+        MaterialsName = 'PerimeterInsulation,Insulation,Concrete.Roof,Plaster'
+    )
 
-Construction.Window = dict(
-    Name = 'Window',
-    MaterialsName = 'Window'
-)
+    Window = dict(
+        Name = 'Window',
+        MaterialsName = 'Window'
+    )

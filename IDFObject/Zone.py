@@ -42,8 +42,12 @@ class Zone(IDFObject):
     def FloorArea(self):
         return sum(x.Area for x in self.__surfaces if x.ZoneName==self.Name and x.SurfaceType==SurfaceType.Floor)
 
-    def __init__(self, properties: dict()) -> None:
-        super().__init__(self.Properties, properties)
+    default = dict()
+    def __init__(self, **kwargs):
+        default = kwargs.get('default')
+        props = dict(getattr(self, default if default else 'default'))
+        props.update(kwargs)
+        super().__init__(self.Properties, props)
 
     def AddSurfaces(self, surfaces: list(), fenestrations: list()):
         self.__surfaces = list()
@@ -129,13 +133,13 @@ class Zone(IDFObject):
         return points
 
     def GenerateInternalMass(self, internalMassPerFloorArea, massOfInternalMaterial):
-        mass = dict(
-            Name = f"InternalMass.{self.Name}",
-            ZoneName = self.Name,
-            SurfaceArea = self.FloorArea * internalMassPerFloorArea / massOfInternalMaterial,
-        )
-        mass.update(InternalMass.Default)
-        return [InternalMass(mass)]
+        return [
+            InternalMass(
+                Name = f"InternalMass.{self.Name}",
+                ZoneName = self.Name,
+                SurfaceArea = self.FloorArea * internalMassPerFloorArea / massOfInternalMaterial,
+            )
+        ]
 
     def GenerateWindowShadingControl(self):
         walls = [x for x in self.__surfaces if x.SurfaceType == SurfaceType.Wall]

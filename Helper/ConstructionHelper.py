@@ -23,7 +23,8 @@ def CreateConstructions(probabilisticParameters, epObjects):
     for parameter in probabilisticParameters.index:
         if not re.fullmatch('u-value.*', parameter): continue
         constructionName = parameter.split(':')[1]
-        nConstruction = Construction(getattr(Construction, constructionName), materials)
+        nConstruction = Construction(default=constructionName)
+        nConstruction.initialise_materials(materials)
         nConstruction.Name = parameter
         gValueName = parameter.replace('u-value', 'g-value')
         gValue = probabilisticParameters[gValueName] if gValueName in probabilisticParameters else None

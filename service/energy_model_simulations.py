@@ -10,7 +10,7 @@ from Helper.InfiltrationHelper import SetBestMatchPermeability
 
 from Helper.ScheduleHelper import get_schedules, SetBestMatchSetpoints
 from Helper.RunPeriodHelper import get_run_periods
-from Helper.HVACHelper.HeatPumpWithBoiler import AddHeatPumps, AddHeatPumpsWithBoiler
+from Helper.HVACHelper.HeatPumpWithBoiler import AddHeatPumps, AddHeatPumpsWithBoiler, add_baseboard_heating
 from Helper.HVACHelper.SystemEfficiencyHelper import SetBestMatchSystemParameter
 from Helper.ShadingHelper import AddShading
 
@@ -20,28 +20,36 @@ from Probabilistic.EnergyPredictions import EnergyPrediction, ProbabilisticEnerg
 from Probabilistic.Parameter import ProbabilisticParameters
 
 def generate_simulation_results(info: str, idf_folder: str,
-                             simulation_settings: dict, 
-                             geometry_json: dict, 
-                             schedules_json: dict, 
-                             parameters_df: pd.DataFrame,
-                             consumption_df: pd.DataFrame):
+                                building_use: str,
+                                simulation_settings: dict, 
+                                geometry_json: dict, 
+                                schedules_json: dict, 
+                                parameters_df: pd.DataFrame,
+                                consumption_df: pd.DataFrame):
     
     logger.info(f'{info}generating IDF files')
     samples = create_energyplus_models(idf_folder,
-                             simulation_settings, 
-                             geometry_json, 
-                             schedules_json, 
-                             parameters_df,
-                             consumption_df)
+                                       building_use,
+                                       simulation_settings,
+                                       geometry_json, 
+                                       schedules_json, 
+                                       parameters_df,
+                                       consumption_df)
     
     logger.info(f'{info}starting simulations')
     os.system(f'python3 runEP.py {idf_folder}')
     
     logger.info(f'{info}reading simulation results')
-    energy_predictions = read_simulations(simulation_settings["NUM_SAMPLES"], list(consumption_df['Name']), idf_folder)
+    try:
+        energy_predictions = read_simulations(simulation_settings["NUM_SAMPLES"], list(consumption_df['Name']), idf_folder)
+    except FileNotFoundError:
+        error_file = os.path.join(idf_folder, "Temp", "EP_0", "eplusout.err")
+        with open(error_file) as f: info = f.readlines()
+        raise FileNotFoundError(info)
     return samples, energy_predictions
 
 def create_energyplus_models(idf_folder: str,
+                             building_use: str,
                              simulation_settings: dict,
                              geometry_json: dict,
                              schedules_json: dict,
@@ -74,14 +82,18 @@ def create_energyplus_models(idf_folder: str,
 
     zoneLists = list(x for x in ep_objects if isinstance(x, ZoneList)) 
     for zoneList in zoneLists:
-        ep_objects += [zoneList.GetPeopleObject(zonelists_variables[zoneList.Name]['People'])]
-        ep_objects += [zoneList.GetThermostatObject()]
-        ep_objects += [zoneList.GetLightsObject(zonelists_variables[zoneList.Name]['Lights'])]
-        ep_objects += [zoneList.GetElectricEquipmentObject(zonelists_variables[zoneList.Name]['Equipment'])]
-        ep_objects += [zoneList.GetDefaultVentilationObject(zoneList.Name != 'Office')]
+        ep_objects += db.get_zonelist_settings(building_use, zoneList.Name)
+        # ep_objects += [zoneList.GetPeopleObject(zonelists_variables[zoneList.Name]['People'])]
+        # ep_objects += [zoneList.GetThermostatObject()]
+        # ep_objects += [zoneList.GetLightsObject(zonelists_variables[zoneList.Name]['Lights'])]
+        # ep_objects += [zoneList.GetElectricEquipmentObject(zonelists_variables[zoneList.Name]['Equipment'])]
+        # ep_objects += [zoneList.GetDefaultVentilationObject(zoneList.Name != 'Office')]
 
     if simulation_settings["ENERGY_SYSTEM"] == "Heat Pumps":
         AddHeatPumps(ep_objects)
+
+    if simulation_settings["ENERGY_SYSTEM"] == "Baseboard Heating":
+        add_baseboard_heating(ep_objects)
     
     if simulation_settings["INTERNAL_SHADING"]:
         AddShading(ep_objects)

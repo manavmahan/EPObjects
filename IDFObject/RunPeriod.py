@@ -19,21 +19,23 @@ class RunPeriod(IDFObject.IDFObject):
         'TreatWeatherasActual',
     ]
 
-    def __init__(self, propertiesDict: dict()):
-        super().__init__(self.Properties, propertiesDict)
-
-RunPeriod.Default = {
-    "BeginMonth": 1, 
-    "BeginDayofMonth": 1, 
-    "BeginYear": 2017, 
-    "EndMonth": 12, 
-    "EndDayofMonth": 31, 
-    "EndYear": 2017, 
-    "DayofWeekforStartDay": " ", 
-    "UseWeatherFileHolidaysandSpecialDays": "No", 
-    "UseWeatherFileDaylightSavingPeriod": "Yes",
-    "ApplyWeekendHolidayRule": "No", 
-    "UseWeatherFileRainIndicators": "Yes", 
-    "UseWeatherFileSnowIndicators": "Yes", 
-    "TreatWeatherasActual": "No",
-}
+    default = {
+        "BeginMonth": 1, 
+        "BeginDayofMonth": 1, 
+        "BeginYear": 2017, 
+        "EndMonth": 12, 
+        "EndDayofMonth": 31, 
+        "EndYear": 2017, 
+        "DayofWeekforStartDay": " ", 
+        "UseWeatherFileHolidaysandSpecialDays": "No", 
+        "UseWeatherFileDaylightSavingPeriod": "Yes",
+        "ApplyWeekendHolidayRule": "No", 
+        "UseWeatherFileRainIndicators": "Yes", 
+        "UseWeatherFileSnowIndicators": "Yes", 
+        "TreatWeatherasActual": "No",
+    }
+    def __init__(self, **kwargs):
+        default = kwargs.get('default')
+        props = dict(getattr(self, default if default else 'default'))
+        props.update(kwargs)
+        super().__init__(self.Properties, props)

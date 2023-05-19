@@ -10,12 +10,15 @@ class Thermostat(IDFObject.IDFObject):
         'ConstantCoolingSetpoint',
     ]
 
-    def __init__(self, propertiesDict: dict()):
-        super().__init__(self.Properties, propertiesDict)
+    default = dict(
+        HeatingSetpointScheduleName = '',
+        CoolingSetpointScheduleName = '',
+        ConstantHeatingSetpoint = '',
+        ConstantCoolingSetpoint = '',
+    )   
 
-Thermostat.Default = dict(
-    HeatingSetpointScheduleName = '',
-    CoolingSetpointScheduleName = '',
-    ConstantHeatingSetpoint = '',
-    ConstantCoolingSetpoint = '',
-)
+    def __init__(self, **kwargs):
+        default = kwargs.get('default')
+        props = dict(getattr(self, default if default else 'default'))
+        props.update(kwargs)
+        super().__init__(self.Properties, props)

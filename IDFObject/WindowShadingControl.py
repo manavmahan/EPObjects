@@ -22,22 +22,24 @@ class WindowShadingControl(IDFObject):
         'FenestrationSurfaceName',
     ]
 
-    def __init__(self, propertiesDict: dict()):
-        super().__init__(self.Properties, propertiesDict)
-
-WindowShadingControl.OnIfHighHorizontalSolar = dict(
-    ShadingControlSequenceNumber = 1,
-    ShadingType = "InteriorShade",
-    ConstructionwithShadingName = '',
-    ShadingControlType = "OnIfHighHorizontalSolar",
-    ScheduleName = '',
-    Setpoint = 30.0,
-    ShadingControlIsScheduled = "NO",
-    GlareControlIsActive = "NO",
-    ShadingDeviceMaterialName = "ROLLSHADE",
-    TypeofSlatAngleControlforBlinds = '',
-    SlatAngleScheduleName = '',
-    Setpoint2 = '',
-    DaylightingControlObjectName = '',
-    MultipleSurfaceControlType = 'Sequential',
-)
+    default = dict(
+        ShadingControlSequenceNumber = 1,
+        ShadingType = "InteriorShade",
+        ConstructionwithShadingName = '',
+        ShadingControlType = "OnIfHighHorizontalSolar",
+        ScheduleName = '',
+        Setpoint = 30.0,
+        ShadingControlIsScheduled = "NO",
+        GlareControlIsActive = "NO",
+        ShadingDeviceMaterialName = "ROLLSHADE",
+        TypeofSlatAngleControlforBlinds = '',
+        SlatAngleScheduleName = '',
+        Setpoint2 = '',
+        DaylightingControlObjectName = '',
+        MultipleSurfaceControlType = 'Sequential',
+    )
+    def __init__(self, **kwargs):
+        default = kwargs.get('default')
+        props = dict(getattr(self, default if default else 'default'))
+        props.update(kwargs)
+        super().__init__(self.Properties, props)

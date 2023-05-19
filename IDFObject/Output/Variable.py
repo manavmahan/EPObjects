@@ -8,16 +8,12 @@ class Variable(IDFObject.IDFObject):
         'ReportingFrequency',
     ]
 
-    def __init__(self, propertiesDict: dict()):
-        super().__init__(self.Properties, propertiesDict)
-    
-    @classmethod
-    def get_variable(cls, **kwargs):
-        props = dict(Variable.Default)
+    default = dict(
+        KeyValue = '*',
+        ReportingFrequency = "RunPeriod"
+    )
+    def __init__(self, **kwargs):
+        default = kwargs.get('default')
+        props = dict(getattr(self, default if default else 'default'))
         props.update(kwargs)
-        return Variable(props)
-
-Variable.Default = dict(
-    KeyValue = '*',
-    ReportingFrequency = "RunPeriod"
-)
+        super().__init__(self.Properties, props)

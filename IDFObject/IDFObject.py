@@ -9,7 +9,7 @@ class IDFObject():
     
     def __init__(self, properties: list(), propertiesDict: dict()):
         for property in properties:
-            if property in propertiesDict: setattr(self, property, propertiesDict[property])
+            setattr(self, property, propertiesDict.get(property))
 
     def ToDict(self):
         for key in ["__IDFName__"] + self.Properties:
@@ -51,9 +51,10 @@ class IDFJsonDecoder(JSONDecoder):
         JSONDecoder.__init__(self, object_hook=self.object_hook, *args, **kwargs)
     
     def object_hook(self, dct):
-        if "__IDFName__" in dct.keys():
-            return IDFObject.SubclassesAndIDFName[dct["__IDFName__"]](dct)
         try:
-            return IDFObject.SubclassesAndProperties[','.join(dct.keys())](dct)
-        except KeyError:
-            raise Exception(f"Cannot find subclass for {list(dct.keys())} from {IDFObject.SubclassesAndProperties}")
+            if "__IDFName__" in dct.keys():
+                return IDFObject.SubclassesAndIDFName[dct["__IDFName__"]](**dct)
+            else:
+                return IDFObject.SubclassesAndProperties[','.join(dct.keys())](dct)
+        except TypeError:
+            raise TypeError(f"{dct['__IDFName__']}")

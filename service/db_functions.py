@@ -1,5 +1,6 @@
 from service import json, JsonDecoder, JsonEncoder, pd, requests, DB_URL, HEADER
 
+BUILDING_USE = "BUILDING_USE"
 CONSUMPTION = "CONSUMPTION"
 ERRORS = "ERRORS"
 GEOMETRY = "GEOMETRY"
@@ -92,12 +93,12 @@ def get_default_building_use_settings(building_use):
         raise ValueError(f"Cannot find SETTINGS for {building_use}.")
     return response["RESULTS"][0]["SETTINGS"]
 
-def get_default_zonelist_settings(building_use, zonelist_name):
+def get_zonelist_settings(building_use, zonelist_name):
     data = {
         "TYPE": "SEARCH", 
-        "TABLE_NAME": "ZONELIST",
-        "COLUMN_NAMES": "SETTINGS",
-        "CONDITIONS": f"BUILDING_USE='{building_use}' and NAME='{zonelist_name}'",
+        "TABLE_NAME": "zonelist",
+        "COLUMN_NAMES": "value",
+        "CONDITIONS": f"buildingUse='{building_use}' and name='{zonelist_name}'",
     }
 
     response = requests.post(DB_URL, headers=HEADER, json=data).json()
@@ -105,7 +106,8 @@ def get_default_zonelist_settings(building_use, zonelist_name):
         raise ValueError(response["ERROR"])
     if len(response["RESULTS"]) == 0:
         raise ValueError(f"Cannot find SETTINGS for {building_use} and {zonelist_name}.")
-    return response["RESULTS"][0]["SETTINGS"]
+    value = json.loads(response["RESULTS"][0]["value"], cls=JsonDecoder)
+    return value
 
 def get_hyperparameters(search_conditions=True, regressor=True, generator=True):
     data = {

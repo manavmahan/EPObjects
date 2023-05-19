@@ -8,9 +8,10 @@ def AddShading(epObjects):
 def CreateShading(epObjects):
     fenestrations = list(x for x in epObjects if isinstance(x, Fenestration))
     for f in fenestrations:
-        wsc = WindowShadingControl(WindowShadingControl.OnIfHighHorizontalSolar)
-        wsc.Name = f'{wsc.ShadingControlType}.{f.Name}'
         buildingSurface = next(x for x in epObjects if isinstance(x, BuildingSurface) and x.Name==f.BuildingSurfaceName)
-        wsc.ZoneName = buildingSurface.ZoneName
-        wsc.FenestrationSurfaceName = f.Name
+        wsc = WindowShadingControl(
+            Name = f'{WindowShadingControl.default["ShadingControlType"]}.{f.Name}',
+            ZoneName = buildingSurface.ZoneName,
+            FenestrationSurfaceName = f.Name
+        )
         yield wsc

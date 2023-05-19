@@ -20,8 +20,12 @@ class ZoneList(IDFObject):
         'ZoneNames',
     ]
 
-    def __init__(self, propertiesDict: dict()):
-        super().__init__(self.Properties, propertiesDict)
+    default = dict()
+    def __init__(self, **kwargs):
+        default = kwargs.get('default')
+        props = dict(getattr(self, default if default else 'default'))
+        props.update(kwargs)
+        super().__init__(self.Properties, props)
         self.Initialise()
 
     def AddZone(self, zoneName):

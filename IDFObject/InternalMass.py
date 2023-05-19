@@ -10,10 +10,13 @@ class InternalMass(IDFObject.IDFObject):
         'SurfaceArea',
     ]
 
-    def __init__(self, propertiesDict: dict()):
-        super().__init__(self.Properties, propertiesDict)
-
-InternalMass.Default = dict(
-    ConstructionName = "Mass",
-    SpaceName = '',
-)
+    default = dict(
+        ConstructionName = "Mass",
+        SpaceName = '',
+    )
+    
+    def __init__(self, **kwargs):
+        default = kwargs.get('default')
+        props = dict(getattr(self, default if default else 'default'))
+        props.update(kwargs)
+        super().__init__(self.Properties, props)

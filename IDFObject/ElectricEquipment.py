@@ -15,15 +15,18 @@ class ElectricEquipment(IDFObject):
         'FractionLost',
     ]
 
-    def __init__(self, propertiesDict: dict()):
-        super().__init__(self.Properties, propertiesDict)
+    default = dict(
+        DesignLevelCalculationMethod = 'Watts/area',
+        DesignLevel = '',
+        WattsperZoneFloorArea = 10,
+        WattsperPerson = '',
+        FractionLatent = '',
+        FractionRadiant = 0.1,
+        FractionLost = '',
+    )
 
-ElectricEquipment.Default = dict(
-    DesignLevelCalculationMethod = 'Watts/area',
-    DesignLevel = '',
-    WattsperZoneFloorArea = 10,
-    WattsperPerson = '',
-    FractionLatent = '',
-    FractionRadiant = 0.1,
-    FractionLost = '',
-)
+    def __init__(self, **kwargs):
+        default = kwargs.get('default')
+        props = dict(getattr(self, default if default else 'default'))
+        props.update(kwargs)
+        super().__init__(self.Properties, props)
