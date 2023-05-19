@@ -61,7 +61,7 @@ def run_service(user_name, project_name):
                                         db.get_genertor_hyperparameters(search_conditions),
                                         **project_settings[db.GENERATOR_SETTINGS])
 
-        generators_data = db.get_columns(search_conditions, db.GENERATORS)
+        generators_data = None #db.get_columns(search_conditions, db.GENERATORS)
         for (network, loss) in generators:
             if generators_data == None:
                 generators_data = {db.NETWORK: [], db.LOSS: [], db.WEIGHTS: []}

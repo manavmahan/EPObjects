@@ -74,8 +74,6 @@ def create_energyplus_models(idf_folder: str,
     InitialiseZoneSurfaces(ep_objects)
     SetInternalMass(ep_objects, simulation_settings["SIMULATION_DEFAULTS"]["ZONE"]["INTERNAL_MASS"])
 
-    zonelists_variables = simulation_settings["SIMULATION_DEFAULTS"]["ZONELISTS"]
-
     zones = list(x for x in ep_objects if isinstance(x, Zone))
     for zone in zones:
         ep_objects += [zone.GetInfiltrationObject(simulation_settings["SIMULATION_DEFAULTS"]["ZONE"]["INFILTRATION"])]
@@ -83,11 +81,6 @@ def create_energyplus_models(idf_folder: str,
     zoneLists = list(x for x in ep_objects if isinstance(x, ZoneList)) 
     for zoneList in zoneLists:
         ep_objects += db.get_zonelist_settings(building_use, zoneList.Name)
-        # ep_objects += [zoneList.GetPeopleObject(zonelists_variables[zoneList.Name]['People'])]
-        # ep_objects += [zoneList.GetThermostatObject()]
-        # ep_objects += [zoneList.GetLightsObject(zonelists_variables[zoneList.Name]['Lights'])]
-        # ep_objects += [zoneList.GetElectricEquipmentObject(zonelists_variables[zoneList.Name]['Equipment'])]
-        # ep_objects += [zoneList.GetDefaultVentilationObject(zoneList.Name != 'Office')]
 
     if simulation_settings["ENERGY_SYSTEM"] == "Heat Pumps":
         AddHeatPumps(ep_objects)
