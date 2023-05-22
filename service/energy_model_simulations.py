@@ -10,7 +10,8 @@ from Helper.InfiltrationHelper import SetBestMatchPermeability
 
 from Helper.ScheduleHelper import get_schedules, SetBestMatchSetpoints
 from Helper.RunPeriodHelper import get_run_periods
-from Helper.HVACHelper.HeatPumpWithBoiler import AddHeatPumps, AddHeatPumpsWithBoiler, add_baseboard_heating
+from Helper.HVACHelper.HeatPumpWithBoiler import AddHeatPumps
+from Helper.HVACHelper.baseboard_heating import add_baseboard_heating
 from Helper.HVACHelper.SystemEfficiencyHelper import SetBestMatchSystemParameter
 from Helper.ShadingHelper import AddShading
 
@@ -36,16 +37,21 @@ def generate_simulation_results(info: str, idf_folder: str,
                                        parameters_df,
                                        consumption_df)
     
-    logger.info(f'{info}starting simulations')
-    os.system(f'python3 runEP.py {idf_folder}')
-    
-    logger.info(f'{info}reading simulation results')
     try:
+        logger.info(f'{info}starting simulations')
+        os.system(f'python3 runEP.py {idf_folder}')
+        
+        logger.info(f'{info}reading simulation results')
         energy_predictions = read_simulations(simulation_settings["NUM_SAMPLES"], list(consumption_df['Name']), idf_folder)
     except FileNotFoundError:
-        error_file = os.path.join(idf_folder, "Temp", "EP_0", "eplusout.err")
-        with open(error_file) as f: info = f.readlines()
-        raise FileNotFoundError(info)
+        error_file = os.path.join(idf_folder, "0.err")
+        if not os.path.isfile(error_file):
+            error_file = os.path.join(idf_folder, "Temp", "EP_0", "eplusout.err")
+        idf_file = os.path.join(idf_folder, "0.idf",)
+        if error_file: 
+            with open(error_file) as f: info = f.readlines()
+        with open(idf_file) as f: info += f.readlines()
+        raise FileNotFoundError("".join(info))
     return samples, energy_predictions
 
 def create_energyplus_models(idf_folder: str,
@@ -64,7 +70,7 @@ def create_energyplus_models(idf_folder: str,
     
     construction_names = list(set(get_construction_names(ep_objects)))
     ep_objects += list(db.get_construction_material(construction_names))
-
+    
     material_names = list(set(get_material_names(ep_objects)))
     ep_objects += list(db.get_construction_material(material_names, False))
     

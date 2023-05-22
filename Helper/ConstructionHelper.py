@@ -48,14 +48,18 @@ def SetBestMatchConstruction(epObjects,):
     zoneLists = list(x for x in epObjects if isinstance(x, ZoneList)) 
     for surface in surfaces:
         try: zoneName = surface.ZoneName
-        except: zoneName = next(x for x in surfaces if x.Name == surface.BuildingSurfaceName).ZoneName
-        zoneListName = next(x for x in zoneLists if zoneName in x.IDF).Name
+        except AttributeError: zoneName = next(x for x in surfaces if x.Name == surface.BuildingSurfaceName).ZoneName
+        try: zoneListName = next(x for x in zoneLists if zoneName in x.IDF).Name
+        except StopIteration: raise StopIteration(zoneName, [x.IDF for x in zoneLists])
         selected = list(x for x in constructions if surface.ConstructionName in x.Name)
         for lookfor in (surface.Name, zoneName, zoneListName, ''):
             try:
                 name = next(x for x in selected if lookfor in x.Name).Name
                 break
-            except: pass
+            except: name = None
+
+        if not name:
+            raise KeyError(f'Cannot find construction for {surface.Name} - {surface.ConstructionName} in {[x.Name for x in selected]}')
         surface.ConstructionName = name
 
         for fenestration in (x for x in fenestrations if x.BuildingSurfaceName == surface.Name):

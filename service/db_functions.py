@@ -64,20 +64,6 @@ def update_columns(search_conditions, column_name, column_value):
     if (response["ERROR"]):
         raise ValueError(response["ERROR"])
 
-def get_weather(location):
-    data = {
-        "TYPE": "SEARCH", 
-        "TABLE_NAME": "WEATHER",
-        "COLUMN_NAMES": "EPW_STR",
-        "CONDITIONS": f"LOCATION='{location}'",
-    }
-    response = requests.post(DB_URL, headers=HEADER, json=data).json()
-    if (response["ERROR"]):
-        raise ValueError(response["ERROR"])
-    if len(response["RESULTS"]) == 0:
-        raise ValueError(f"Cannot find EPW_STR for {location}.")
-    return response["RESULTS"][0]["EPW_STR"]
-
 def get_default_building_use_settings(building_use):
     data = {
         "TYPE": "SEARCH", 
@@ -154,14 +140,16 @@ def get_construction_material(names, is_construction=True):
     data = {
         "TYPE": "SEARCH", 
         "TABLE_NAME": "constructions" if is_construction else 'materials',
-        "COLUMN_NAMES": "value",
+        "COLUMN_NAMES": "name, value",
         "CONDITIONS": search_condition,
     }
     response = requests.post(DB_URL, headers=HEADER, json=data).json()
     if (response["ERROR"]):
         raise ValueError(response["ERROR"])
-    if len(response["RESULTS"]) == 0:
-        raise ValueError(f"Cannot find construction for {name}.")
     
-    for obj in response["RESULTS"]:
+    for name in names:
+        if (name not in [x['name'] for x in response["RESULTS"]]):
+            raise ValueError(f"Cannot find construction/material for {name}.")
+    
+    for i, obj in enumerate(response["RESULTS"]):
         yield json.loads(obj["value"], cls=JsonDecoder)

@@ -18,12 +18,15 @@ HEADER = {
     'id': os.environ.get('API_ID')
 }
 
-def create_simulation_dir(user_name: str, project_name: str, weather: str,):
+def create_simulation_dir(user_name: str, project_name: str, location: str,):
     idf_folder = os.path.join(tmp_dir, user_name, project_name, "IDFFolder")
     if os.path.isdir(idf_folder): shutil.rmtree(idf_folder)
+
+    [city, country] = location.split(',')
+    country = country.lstrip()
+    epw_file = os.path.join('weather', f'{country[:3].upper()}_{city}.epw')
     os.makedirs(idf_folder, exist_ok=True)
-    with open(os.path.join(idf_folder, 'weather.epw'), 'w') as f:
-        f.write(weather)
+    shutil.copy(epw_file, os.path.join(idf_folder, f'{country[:3].upper()}_{city}.epw'))
     return idf_folder
 
 class JsonEncoder(json.JSONEncoder):

@@ -18,26 +18,22 @@ class BaseboardHeat(IDFObject):
         'DesignSpecificationZoneAirDistributionObjectName',
     ]
 
-    def __init__(self, propertiesDict: dict()):
-        super().__init__(self.Properties, propertiesDict)
-    
-    @classmethod
-    def get_default(cls, **kwargs):
-        props = dict(BaseboardHeat.Default)
-        props.update(kwargs)
-        return BaseboardHeat(props)
+    default = dict(
+        TemplateThermostatName = 'AllZones',
+        ZoneHeatingSizingFactor = '',
+        BaseboardHeatingType = 'HotWater',
+        BaseboardHeatingAvailabilityScheduleName = '',
+        BaseboardHeatingCapacity = 'Autosize',
+        DedicatedOutdoorAirSystemName = '',
+        OutdoorAirMethod = 'flow/person',
+        OutdoorAirFlowRateperPerson = '0.00944',
+        OutdoorAirFlowRateperZoneFloorArea = '0.0',
+        OutdoorAirFlowRateperZone = '0.0',
+        DesignSpecificationOutdoorAirObjectName = '',
+        DesignSpecificationZoneAirDistributionObjectName = ''
+    )
 
-BaseboardHeat.Default = dict(
-    TemplateThermostatName = 'AllZones',
-    ZoneHeatingSizingFactor = '',
-    BaseboardHeatingType = 'HotWater',
-    BaseboardHeatingAvailabilityScheduleName = '',
-    BaseboardHeatingCapacity = 'Autosize',
-    DedicatedOutdoorAirSystemName = '',
-    OutdoorAirMethod = 'flow/person',
-    OutdoorAirFlowRateperPerson = '0.00944',
-    OutdoorAirFlowRateperZoneFloorArea = '0.0',
-    OutdoorAirFlowRateperZone = '0.0',
-    DesignSpecificationOutdoorAirObjectName = '',
-    DesignSpecificationZoneAirDistributionObjectName = ''
-)
+    def __init__(self, **kwargs):
+        props = dict(getattr(self, kwargs.get('default', 'default')))
+        props.update(kwargs)
+        super().__init__(self.Properties, props)
