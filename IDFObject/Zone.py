@@ -133,13 +133,11 @@ class Zone(IDFObject):
         return points
 
     def GenerateInternalMass(self, internalMassPerFloorArea, massOfInternalMaterial):
-        return [
-            InternalMass(
+        return InternalMass(
                 Name = f"InternalMass.{self.Name}",
                 ZoneName = self.Name,
                 SurfaceArea = self.FloorArea * internalMassPerFloorArea / massOfInternalMaterial,
             )
-        ]
 
     def GenerateWindowShadingControl(self):
         walls = [x for x in self.__surfaces if x.SurfaceType == SurfaceType.Wall]
@@ -182,13 +180,10 @@ class Zone(IDFObject):
         )
         return People(people)
 
-    def GetInfiltrationObject(self, ach):
-        infiltration = dict(Infiltration.Default)
-        infiltration.update(dict(
-                Name = f"Infiltration for {self.Name}",
-                ZoneListName = self.Name,
-                ScheduleName = f"Generic.Always1",
-                AirChangesperHour = ach,
-            )
+    def get_infiltration_object(self, ach):
+        return Infiltration(
+            Name = f"Infiltration for {self.Name}",
+            ZoneListName = self.Name,
+            ScheduleName = f"Generic.Always1",
+            AirChangesperHour = ach,
         )
-        return Infiltration(infiltration)

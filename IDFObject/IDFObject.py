@@ -11,6 +11,14 @@ class IDFObject():
         for property in properties:
             setattr(self, property, propertiesDict.get(property))
 
+    def __eq__(self, other):
+        if self.__IDFName__ != other.__IDFName__: 
+            return False
+        try: 
+            return self.Name == other.Name
+        except AttributeError: 
+            return self.IDF == other.IDF
+
     def ToDict(self):
         for key in ["__IDFName__"] + self.Properties:
             yield key, getattr(self, key)

@@ -16,23 +16,55 @@ def get_material_names(ep_objects):
     for construction in ep_objects:
         if isinstance(construction, (Construction)):
             for m in construction.MaterialsName.Values:
-                yield m
+                split = m.split('.')
+                try:
+                    thickness = float(split[-1])
+                    material_name = '.'.join(split[:-1])
+                except ValueError:
+                    thickness = None
+                    material_name = m
+                yield (material_name, thickness)
 
-def CreateConstructions(probabilisticParameters, epObjects):
-    materials = list(x for x in epObjects if isinstance(x, (Material, SimpleGlazingSystem)))
-    for parameter in probabilisticParameters.index:
+def create_constructions(parameter_set, ep_objects):
+    materials = list(x for x in ep_objects if isinstance(x, (Material, SimpleGlazingSystem)))
+    constructions = list(x for x in ep_objects if isinstance(x, (Construction)))
+    for parameter in parameter_set.index:
         if not re.fullmatch('u-value.*', parameter): continue
-        constructionName = parameter.split(':')[1]
-        nConstruction = Construction(default=constructionName)
-        nConstruction.initialise_materials(materials)
-        nConstruction.Name = parameter
-        gValueName = parameter.replace('u-value', 'g-value')
-        gValue = probabilisticParameters[gValueName] if gValueName in probabilisticParameters else None
+        try: base_construction = next(x for x in constructions if x.Name == parameter.split(':')[1])
+        except StopIteration: raise KeyError(f"cannot find {parameter.split(':')[1]}")
+        new_construction = Construction(**dict(base_construction.ToDict()))
+        new_construction.Name = parameter
 
-        material = nConstruction.AdjustProperties(probabilisticParameters[parameter], gValue)
+        new_construction.initialise_materials(materials)
+
+        g_value_parameter_name = parameter.replace('u-value', 'g-value')
+        g_value = parameter_set[g_value_parameter_name] if g_value_parameter_name in parameter_set else None
+
+        material = new_construction.AdjustProperties(parameter_set[parameter], g_value)
         if material is not None: 
-            epObjects += [material]
-        epObjects.insert(0, nConstruction)
+            ep_objects.append(material)
+        ep_objects.append(new_construction)
+
+def clean_construction_materials(ep_objects):
+    construction_names = set(x.ConstructionName for x in ep_objects if isinstance(x, (BuildingSurface, FenestrationSurface, InternalMass)))
+    material_names = []
+
+    delete_objects = list(x for x in ep_objects if isinstance(x, Construction) and x.Name not in construction_names)
+    for obj in delete_objects: ep_objects.remove(obj)
+    for x in ep_objects:
+        if isinstance(x, Construction):
+            material_names += x.MaterialsName.Values
+    material_names = set(material_names)
+
+    delete_objects = list(x for x in ep_objects if isinstance(x, (Material, SimpleGlazingSystem)) and x.Name not in material_names)
+    for obj in delete_objects: ep_objects.remove(obj)
+
+    constructions = list(x.Name for x in ep_objects if isinstance(x, (Construction)))
+    materials = list(x.Name for x in ep_objects if isinstance(x, (Material, SimpleGlazingSystem)))
+    for x in construction_names:
+        if x not in constructions: raise KeyError("error initialising construction: {x}")
+    for x in material_names:
+        if x not in materials: raise KeyError("error initialising material: {x}")
 
 # Surface
 
@@ -107,16 +139,16 @@ def InitialiseZoneSurfaces(epObjects):
     for zone in [x for x in epObjects if isinstance(x, Zone)]:
         zone.AddSurfaces(surfaces, fenestrations)
 
-def SetInternalMass(epObjects, massPerSqM=30):
+def set_internal_mass(epObjects, massPerSqM=30):
     massMaterial = next(x for x in epObjects if isinstance(x, Material) and x.Name=="Mass")
     massOfInternalMaterial = massMaterial.Thickness * massMaterial.Density * massMaterial.SpecificHeat / 1000
     for zone in [x for x in epObjects if isinstance(x, Zone)]:
-        epObjects += zone.GenerateInternalMass(massPerSqM, massOfInternalMaterial)
+        epObjects.append(zone.GenerateInternalMass(massPerSqM, massOfInternalMaterial))
 
 from IDFObject.Output.Variable import Variable
 from EnumTypes import Frequency
 
-def SetReportingFrequency(epObjects, frequency):
+def set_reporting_frequency(epObjects, frequency):
     variables = [x for x in epObjects if isinstance(x, Variable)]
     for v in variables:
         v.ReportingFrequency = frequency.name

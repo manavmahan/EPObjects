@@ -32,12 +32,12 @@ class Construction(IDFObject):
     
     default = dict()
     def __init__(self, **kwargs):
-        default = kwargs.get('default')
-        props = dict(getattr(self, default if default else 'default'))
+        props = dict(getattr(self, kwargs.get('default', 'default')))
         props.update(kwargs)
         super().__init__(self.Properties, props)
         
-        self.MaterialsName = ListObject(self.MaterialsName.split(','))
+        if isinstance(self.MaterialsName, str):
+            self.MaterialsName = ListObject(self.MaterialsName.split(','))
         self.Materials = list()
 
     def __updateMaterialNames(self):
@@ -45,7 +45,8 @@ class Construction(IDFObject):
 
     def initialise_materials(self, materials: list()):
         for mName in self.MaterialsName.Values:
-            self.Materials += [next(x for x in materials if x.Name==mName)]
+            try: self.Materials += [next(x for x in materials if x.Name==mName)]
+            except StopIteration: raise StopIteration(f'material {mName} not found.')
 
     def AdjustUGValue(self, requiredUValue, requiredGValue):
         if self.Materials[0].SolarHeatGainCoefficient != requiredGValue or self.Materials[0].UFactor != requiredUValue:
@@ -56,6 +57,7 @@ class Construction(IDFObject):
 
             if  self.Materials[0].UFactor != requiredUValue:
                 self.Materials[0].UFactor = requiredGValue
+            self.__updateMaterialNames()
             return self.Materials[0]
         return None
 

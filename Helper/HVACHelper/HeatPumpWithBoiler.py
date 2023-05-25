@@ -2,7 +2,7 @@ from Helper.Modules import *
 from IDFObject.HVACTemplate.Zone.WaterToAirHeatPump import WaterToAirHeatPump
 from IDFObject.Output.Variable import Variable
 
-def AddHeatPumps(epObjects):
+def add_heat_pumps(epObjects):
     zones = list (x for x in epObjects if isinstance(x, Zone))
     zoneLists = list (x for x in epObjects if isinstance(x, ZoneList))
     for zone in zones:
@@ -22,7 +22,7 @@ def AddHeatPumps(epObjects):
         Name = "Cooling Tower Fan Electricity Energy"))
 
 def AddHeatPumpsWithBoiler(epObjects):
-    AddHeatPumps(epObjects)
+    add_heat_pumps(epObjects)
     boiler = Boiler(Boiler.Default)
     epObjects.append(boiler)
     output_variable_name = "Boiler " + boiler.FuelType + " Energy"
@@ -30,7 +30,7 @@ def AddHeatPumpsWithBoiler(epObjects):
         Name = output_variable_name))
 
 def GetWaterToAirHeatPumpObject(zone, zonelistName):
-    hvac = WaterToAirHeatPump(WaterToAirHeatPump.Default)
-    hvac.ZoneName = zone.Name
-    hvac.TemplateThermostatName = f'Thermostat.{zonelistName}'
-    return hvac
+    return WaterToAirHeatPump(
+        ZoneName = zone.Name,
+        TemplateThermostatName = f'Thermostat.{zonelistName}',
+    )

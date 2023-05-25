@@ -44,7 +44,7 @@ class ParameterType(Enum):
     HeatingCOP = 'HeatingCOP'
 
     # Zone Conditions
-    HeatingSetpoint = "HeatingSetpoint"
+    HeatingSP = "HeatingSP"
 
     def __str__(self):
         return str(self.value)

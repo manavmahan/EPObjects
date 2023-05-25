@@ -17,18 +17,20 @@ class DesignFlowRate(IDFObject):
         'VelocitySquaredTermCoefficient',
     ]
 
-    def __init__(self, propertiesDict: dict()):
-        super().__init__(self.Properties, propertiesDict)
+    default = dict(
+        ScheduleName = "Generic.Always1",
+        DesignFlowRateCalculationMethod = 'AirChanges/Hour',
+        DesignFlowRate = '',
+        FlowperZoneFloorArea = '',
+        FlowperExteriorSurfaceArea = '',
+        AirChangesperHour = 0.31,
+        ConstantTermCoefficient = 0.606,
+        TemperatureTermCoefficient = 0.03636,
+        VelocityTermCoefficient = 0.1177165,
+        VelocitySquaredTermCoefficient = '',
+    )
 
-DesignFlowRate.Default = dict(
-    ScheduleName = "Generic.Always1",
-    DesignFlowRateCalculationMethod = 'AirChanges/Hour',
-    DesignFlowRate = '',
-    FlowperZoneFloorArea = '',
-    FlowperExteriorSurfaceArea = '',
-    AirChangesperHour = 0.31,
-    ConstantTermCoefficient = 0.606,
-    TemperatureTermCoefficient = 0.03636,
-    VelocityTermCoefficient = 0.1177165,
-    VelocitySquaredTermCoefficient = '',
-)
+    def __init__(self, **kwargs):
+        props = dict(getattr(self, kwargs.get('default', 'default')))
+        props.update(kwargs)
+        super().__init__(self.Properties, props)

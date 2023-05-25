@@ -12,12 +12,12 @@ from runEP import ExecuteSimulations
 
 from Helper.Modules import *
 
-from Helper.ConstructionHelper import CreateConstructions, SetBestMatchConstruction, InitialiseZoneSurfaces, SetInternalMass, SetReportingFrequency, SetBestMatchInternalMass
+from Helper.ConstructionHelper import create_constructions, SetBestMatchConstruction, InitialiseZoneSurfaces, set_internal_mass, set_reporting_frequency, SetBestMatchInternalMass
 from Helper.InfiltrationHelper import SetBestMatchPermeability
 
-from Helper.ScheduleHelper import GetOfficeSchedules, SetBestMatchSetpoints
+from Helper.ScheduleHelper import GetOfficeSchedules, set_setpoints
 from Helper.RunPeriodHelper import GetRunPeriodsFromFile
-from Helper.HVACHelper.HeatPumpWithBoiler import AddHeatPumps, AddHeatPumpsWithBoiler
+from Helper.HVACHelper.HeatPumpWithBoiler import add_heat_pumps, AddHeatPumpsWithBoiler
 from Helper.HVACHelper.SystemEfficiencyHelper import SetBestMatchSystemParameter
 from Helper.ShadingHelper import AddShading
 
@@ -40,7 +40,7 @@ runPeriods, consumption = GetRunPeriodsFromFile(f'{ProjectDirectory}/Consumption
 epObjects += runPeriods
 epObjects += GetOfficeSchedules(f'{ProjectDirectory}/Schedules.json', f'{ProjectDirectory}/ScheduleTypes.json')
 InitialiseZoneSurfaces(epObjects)
-SetInternalMass(epObjects, 25)
+set_internal_mass(epObjects, 25)
 
 zonelistVariables = dict(
     Office = dict(People = 24.0, Lights = 6.0, Equipment = 15,),
@@ -53,7 +53,7 @@ zonelistVariables = dict(
 
 zones = list(x for x in epObjects if isinstance(x, Zone))
 for zone in zones:
-    epObjects += [zone.GetInfiltrationObject(0.3)]
+    epObjects += [zone.get_infiltration_object(0.3)]
 
 zoneLists = list(x for x in epObjects if isinstance(x, ZoneList)) 
 for zoneList in zoneLists:
@@ -63,7 +63,7 @@ for zoneList in zoneLists:
     epObjects += [zoneList.GetElectricEquipmentObject(zonelistVariables[zoneList.Name]['Equipment'])]
     epObjects += [zoneList.GetDefaultVentilationObject(zoneList.Name != 'Office')]
 
-AddHeatPumps(epObjects)
+add_heat_pumps(epObjects)
 AddShading(epObjects)
 
 Logger.StartTask('Generating Samples')
@@ -83,13 +83,13 @@ if simulate:
     for i, sample in samples.iterrows():
         objs = list(epObjects)
 
-        CreateConstructions(sample, objs)
+        create_constructions(sample, objs)
 
         SetBestMatchConstruction(objs)
 
         SetBestMatchInternalMass(sample, objs)
         SetBestMatchPermeability(sample, objs)
-        SetBestMatchSetpoints(sample, objs)
+        set_setpoints(sample, objs)
         SetBestMatchInternalHeatGains(sample, objs)
         SetBestMatchSystemParameter(sample, objs)
 

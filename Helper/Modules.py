@@ -26,7 +26,7 @@ from IDFObject.ScheduleTypeLimits import ScheduleTypeLimits
 from IDFObject.SimulationControl import SimulationControl
 from IDFObject.Site.GroundTemperature.BuildingSurface import BuildingSurface
 from IDFObject.Site.Location import Location
-from IDFObject.SizingPeriod.WeatherFileDays import WeatherFileDays
+from IDFObject.SizingPeriod.WeatherFileConditionType import WeatherFileConditionType
 from IDFObject.Timestep import Timestep
 from IDFObject.Version import Version
 from IDFObject.WindowMaterial.Shade import Shade

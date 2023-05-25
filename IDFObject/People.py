@@ -36,7 +36,7 @@ class People(IDFObject.IDFObject):
         EnableASHRAE55ComfortWarnings = '',
         MeanRadiantTemperatureCalculationType = 'ZoneAveraged',
         SurfaceNameAngleFactorListName = '',
-        WorkEfficiencyScheduleName = 'Generic.Always1',
+        WorkEfficiencyScheduleName = 'Generic.Always01',
         ClothingInsulationCalculationMethod = 'DynamicClothingModelASHRAE55',
         ClothingInsulationCalculationMethodScheduleName = '',
         ClothingInsulationScheduleName = '',
@@ -55,7 +55,7 @@ class People(IDFObject.IDFObject):
         EnableASHRAE55ComfortWarnings = '',
         MeanRadiantTemperatureCalculationType = 'ZoneAveraged',
         SurfaceNameAngleFactorListName = '',
-        WorkEfficiencyScheduleName = 'Generic.Always1',
+        WorkEfficiencyScheduleName = 'Generic.Always01',
         ClothingInsulationCalculationMethod = 'DynamicClothingModelASHRAE55',
         ClothingInsulationCalculationMethodScheduleName = '',
         ClothingInsulationScheduleName = '',
@@ -64,7 +64,6 @@ class People(IDFObject.IDFObject):
     )
 
     def __init__(self, **kwargs):
-        default = kwargs.get('default')
-        props = dict(getattr(self, default if default else 'default'))
+        props = dict(getattr(self, kwargs.get('default', 'default')))
         props.update(kwargs)
         super().__init__(self.Properties, props)

@@ -12,13 +12,6 @@ class ScheduleTypeLimits(IDFObject):
         Fields = '',
     )
     def __init__(self, **kwargs):
-        default = kwargs.get('default')
-        props = dict(getattr(self, default if default else 'default'))
+        props = dict(getattr(self, kwargs.get('default', 'default')))
         props.update(kwargs)
         super().__init__(self.Properties, props)
-
-
-ScheduleTypeLimits.AnyNumber = dict(
-    Name = "Any Number",
-    Fields = '',
-)

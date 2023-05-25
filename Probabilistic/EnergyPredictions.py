@@ -10,6 +10,7 @@ Energies = [
     # 'Lights Electric Energy',
     'Water to Air Heat Pump Electricity Energy',
     'Boiler Electricity Energy',
+	'Boiler NaturalGas Energy',
     'Cooling Tower Fan Electricity Energy',
 ]
 

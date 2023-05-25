@@ -5,12 +5,12 @@ from runEP import ExecuteSimulations
 
 from Helper.Modules import *
 
-from Helper.ConstructionHelper import CreateConstructions, SetBestMatchConstruction, InitialiseZoneSurfaces, SetInternalMass, get_construction_names, SetBestMatchInternalMass, get_material_names
+from Helper.ConstructionHelper import create_constructions, SetBestMatchConstruction, InitialiseZoneSurfaces, set_internal_mass, get_construction_names, SetBestMatchInternalMass, get_material_names, clean_construction_materials
 from Helper.InfiltrationHelper import SetBestMatchPermeability
 
-from Helper.ScheduleHelper import get_schedules, SetBestMatchSetpoints
+from Helper.ScheduleHelper import fill_schedules, get_schedules, set_setpoints
 from Helper.RunPeriodHelper import get_run_periods
-from Helper.HVACHelper.HeatPumpWithBoiler import AddHeatPumps
+from Helper.HVACHelper.HeatPumpWithBoiler import add_heat_pumps
 from Helper.HVACHelper.baseboard_heating import add_baseboard_heating
 from Helper.HVACHelper.SystemEfficiencyHelper import SetBestMatchSystemParameter
 from Helper.ShadingHelper import AddShading
@@ -67,29 +67,35 @@ def create_energyplus_models(idf_folder: str,
 
     ep_objects = list(db.get_auxiliary_objects())
     ep_objects += geometry_json
-    
+    InitialiseZoneSurfaces(ep_objects)
+
     construction_names = list(set(get_construction_names(ep_objects)))
+    construction_names.append('Mass')
     ep_objects += list(db.get_construction_material(construction_names))
     
-    material_names = list(set(get_material_names(ep_objects)))
-    ep_objects += list(db.get_construction_material(material_names, False))
-    
+    material_names = dict(set(get_material_names(ep_objects)))
+    material_names["RollShade"] = None
+    materials = list(db.get_construction_material(list(material_names.keys()), False))
+    for m in materials:
+        if material_names[m.Name] is not None: m.Thickness = material_names[m.Name] / 1000
+    ep_objects += materials
+
     ep_objects += run_periods
-    ep_objects += get_schedules(schedules_json["SCHEDULES"], schedules_json["SCHEDULE_TYPES"])
-    
-    InitialiseZoneSurfaces(ep_objects)
-    SetInternalMass(ep_objects, simulation_settings["SIMULATION_DEFAULTS"]["ZONE"]["INTERNAL_MASS"])
+    # ep_objects += get_schedules(schedules_json["SCHEDULES"], schedules_json["SCHEDULE_TYPES"])
+
+    set_internal_mass(ep_objects, simulation_settings["SIMULATION_DEFAULTS"]["ZONE"]["INTERNAL_MASS"])
 
     zones = list(x for x in ep_objects if isinstance(x, Zone))
     for zone in zones:
-        ep_objects += [zone.GetInfiltrationObject(simulation_settings["SIMULATION_DEFAULTS"]["ZONE"]["INFILTRATION"])]
+        ep_objects += [zone.get_infiltration_object(simulation_settings["SIMULATION_DEFAULTS"]["ZONE"]["INFILTRATION"])]
 
     zoneLists = list(x for x in ep_objects if isinstance(x, ZoneList)) 
     for zoneList in zoneLists:
         ep_objects += db.get_zonelist_settings(building_use, zoneList.Name)
+    ep_objects.append(ScheduleTypeLimits())
 
     if simulation_settings["ENERGY_SYSTEM"] == "Heat Pumps":
-        AddHeatPumps(ep_objects)
+        add_heat_pumps(ep_objects)
 
     if simulation_settings["ENERGY_SYSTEM"] == "Baseboard Heating":
         add_baseboard_heating(ep_objects)
@@ -102,13 +108,16 @@ def create_energyplus_models(idf_folder: str,
 
     for i, sample in samples.iterrows():
         ep_objects_copy = list(ep_objects)
-        CreateConstructions(sample, ep_objects_copy)
+        create_constructions(sample, ep_objects_copy)
         SetBestMatchConstruction(ep_objects_copy)
         SetBestMatchInternalMass(sample, ep_objects_copy)
         SetBestMatchPermeability(sample, ep_objects_copy)
-        SetBestMatchSetpoints(sample, ep_objects_copy, schedules_json["SCHEDULES"])
         SetBestMatchInternalHeatGains(sample, ep_objects_copy)
         SetBestMatchSystemParameter(sample, ep_objects_copy)
+        set_setpoints(sample, ep_objects_copy)
+        fill_schedules(ep_objects_copy)
+
+        clean_construction_materials(ep_objects_copy)
 
         with open(f'{idf_folder}/{i}.idf', 'w') as f:
             f.write('\n'.join((x.IDF for x in ep_objects_copy)))

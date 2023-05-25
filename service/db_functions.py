@@ -136,7 +136,7 @@ def get_auxiliary_objects(search_conditions=True):
 def get_construction_material(names, is_construction=True):
     search_condition = f"name='{names[0]}'"
     for name in names[1:]:
-        search_condition += f"|'{name}'"
+        search_condition += f"or name='{name}'"
     data = {
         "TYPE": "SEARCH", 
         "TABLE_NAME": "constructions" if is_construction else 'materials',
@@ -144,12 +144,13 @@ def get_construction_material(names, is_construction=True):
         "CONDITIONS": search_condition,
     }
     response = requests.post(DB_URL, headers=HEADER, json=data).json()
+    
     if (response["ERROR"]):
         raise ValueError(response["ERROR"])
     
     for name in names:
         if (name not in [x['name'] for x in response["RESULTS"]]):
-            raise ValueError(f"Cannot find construction/material for {name}.")
+            raise ValueError(f"Cannot find construction/material for {name}.", response["QUERY"])
     
     for i, obj in enumerate(response["RESULTS"]):
         yield json.loads(obj["value"], cls=JsonDecoder)

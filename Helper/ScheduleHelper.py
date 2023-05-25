@@ -20,25 +20,30 @@ def get_schedules(schedules_json, schedules_types_json):
         for schedule in schedules:
             d = schedules[schedule]
             s = Compact(Name = f'{zoneList}.{schedule}', **getattr(Compact, d['Type']))
-            s.ChangeValues(d)
+            s.assign_keys(d)
             objs.append(s)
 
     return objs
 
-def SetBestMatchSetpoints(probabilisticParameters, epObjects, defaultSchedules):
-    schedules = list(x for x in epObjects if isinstance(x, Compact))
+def set_setpoints(parameters, ep_objects,):
+    schedules = list(x for x in ep_objects if isinstance(x, Compact))
     
-    for parameter in probabilisticParameters.index:
-        if not re.fullmatch('.*Set.*point.*', parameter): continue
-        (scheduleName, names) = parameter.split(':')
+    for parameter in parameters.index:
+        if not re.fullmatch('.*SP:.*', parameter): continue
+        (schedule_name, names) = parameter.split(':')
         for name in names.split('|'):
             try:
-                schedule = next(x for x in schedules if x.Name==f'{name}.{scheduleName}')
-                epObjects.remove(schedule)
+                schedule = next(x for x in schedules if x.Name==f'Schedule.{name}.{schedule_name}')
+                schedule.assign_values(v1=parameters[parameter]-4, v2=parameters[parameter])
             except StopIteration: pass
 
-            d = defaultSchedules[name][scheduleName]
-            d['<v2>'] = probabilisticParameters[parameter]
-            s = Compact(Name = f'{name}.{scheduleName}', **getattr(Compact, d['Type']))
-            s.ChangeValues(d)
-            epObjects.append(s)
+def fill_schedules(ep_objects):
+    schedules = list(x for x in ep_objects if isinstance(x, Compact))
+    for schedule in schedules:
+        schedule.assign_values(t1='07:30', t2='17:00', t3='13:00')
+        schedule_type = schedule.Name.split('.')[-1]
+        if schedule_type == 'People': schedule.assign_values(v1=0, v2=1)
+        elif schedule_type == 'Activity': schedule.assign_values(v1=140)
+        elif schedule_type == 'Lights' or schedule_type == 'ElectricEquipment': schedule.assign_values(v1=0.1, v2=1)
+        elif schedule_type == 'HeatingSP': schedule.assign_values(v1=16, v2=20)
+        elif schedule_type == 'CoolingSP': schedule.assign_values(v1=30, v2=26)
