@@ -14,17 +14,19 @@ class Tower(IDFObject.IDFObject):
         'SizingFactor',
     ]
 
-    def __init__(self, propertiesDict: dict()):
-        super().__init__(self.Properties, propertiesDict)
+    default = {
+        "Name": "MainTower",
+        "TowerType": "SingleSpeed", 
+        "HighSpeedNominalCapacity": "autosize", 
+        "HighSpeedFanPower": "autosize", 
+        "LowSpeedNominalCapacity": "autosize", 
+        "LowSpeedFanPower": "autosize", 
+        "FreeConvectionCapacity": "autosize", 
+        "Priority": 1, 
+        "SizingFactor": 1.2
+    }
 
-Tower.Default = {
-    "Name": "MainTower",
-    "TowerType": "SingleSpeed", 
-    "HighSpeedNominalCapacity": "autosize", 
-    "HighSpeedFanPower": "autosize", 
-    "LowSpeedNominalCapacity": "autosize", 
-    "LowSpeedFanPower": "autosize", 
-    "FreeConvectionCapacity": "autosize", 
-    "Priority": 1, 
-    "SizingFactor": 1.2
-}
+    def __init__(self, **kwargs):
+        props = dict(getattr(self, kwargs.get('default', 'default')))
+        props.update(kwargs)
+        super().__init__(self.Properties, props)

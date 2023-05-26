@@ -2,9 +2,6 @@ import re
 from IDFObject.Zone import Zone, Infiltration
 
 def SetBestMatchPermeability(probabilisticParameters, epObjects):
-    externalSurfaceArea = sum([x.ExternalSurfaceArea for x in epObjects if isinstance(x, Zone)])
-    netVolume = sum([x.NetVolume for x in epObjects if isinstance(x, Zone)])
-
     selected = list(p for p in probabilisticParameters.index if re.fullmatch('Permeability.*', p))
     infiltrations = list(x for x in epObjects if isinstance(x, Infiltration))
     for infiltration in infiltrations:

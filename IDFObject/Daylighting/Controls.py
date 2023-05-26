@@ -1,4 +1,4 @@
-from ListObject import ListObject
+from StringList import StringList
 from IDFObject.IDFObject import IDFObject
 
 class ReferencePoint:
@@ -58,7 +58,7 @@ class Controls(IDFObject):
                     )
                 )
             ]
-        self.DaylightingReferencePoints = ListObject(dlPoints)
+        self.DaylightingReferencePoints = StringList(dlPoints)
 
     def AddDLPoints(self, points, illuminance):
         dlPoints = []
@@ -73,7 +73,7 @@ class Controls(IDFObject):
                     )
                 )
             ]
-        self.DaylightingReferencePoints = ListObject(dlPoints)
+        self.DaylightingReferencePoints = StringList(dlPoints)
 
 Controls.Default = dict(
     DaylightingMethod = "SplitFlux",

@@ -1,4 +1,5 @@
 from service.service import run_service
 
-# run_service('manav', 'tausendpfund')
-run_service('klara', 'house')
+if __name__ == '__main__':
+    # run_service('manav', 'tausendpfund')
+    run_service('klara', 'house')

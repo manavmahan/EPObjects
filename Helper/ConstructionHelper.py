@@ -1,107 +1,89 @@
 import re
+import copy
 
 # Contruction
 from IDFObject.Construction import Construction
 from IDFObject.Material import Material
 from IDFObject.WindowMaterial.SimpleGlazingSystem import SimpleGlazingSystem
-from IDFObject.BuildingSurface.Detailed import Detailed as BS
-from IDFObject.FenestrationSurface.Detailed import Detailed as FS
-
-def get_construction_names(ep_objects):
-    for surface in ep_objects:
-        if isinstance(surface, (BS, FS)):
-            yield surface.ConstructionName
-
-def get_material_names(ep_objects):
-    for construction in ep_objects:
-        if isinstance(construction, (Construction)):
-            for m in construction.MaterialsName.Values:
-                split = m.split('.')
-                try:
-                    thickness = float(split[-1])
-                    material_name = '.'.join(split[:-1])
-                except ValueError:
-                    thickness = None
-                    material_name = m
-                yield (material_name, thickness)
-
-def create_constructions(parameter_set, ep_objects):
-    materials = list(x for x in ep_objects if isinstance(x, (Material, SimpleGlazingSystem)))
-    constructions = list(x for x in ep_objects if isinstance(x, (Construction)))
-    for parameter in parameter_set.index:
-        if not re.fullmatch('u-value.*', parameter): continue
-        try: base_construction = next(x for x in constructions if x.Name == parameter.split(':')[1])
-        except StopIteration: raise KeyError(f"cannot find {parameter.split(':')[1]}")
-        new_construction = Construction(**dict(base_construction.ToDict()))
-        new_construction.Name = parameter
-
-        new_construction.initialise_materials(materials)
-
-        g_value_parameter_name = parameter.replace('u-value', 'g-value')
-        g_value = parameter_set[g_value_parameter_name] if g_value_parameter_name in parameter_set else None
-
-        material = new_construction.AdjustProperties(parameter_set[parameter], g_value)
-        if material is not None: 
-            ep_objects.append(material)
-        ep_objects.append(new_construction)
-
-def clean_construction_materials(ep_objects):
-    construction_names = set(x.ConstructionName for x in ep_objects if isinstance(x, (BuildingSurface, FenestrationSurface, InternalMass)))
-    material_names = []
-
-    delete_objects = list(x for x in ep_objects if isinstance(x, Construction) and x.Name not in construction_names)
-    for obj in delete_objects: ep_objects.remove(obj)
-    for x in ep_objects:
-        if isinstance(x, Construction):
-            material_names += x.MaterialsName.Values
-    material_names = set(material_names)
-
-    delete_objects = list(x for x in ep_objects if isinstance(x, (Material, SimpleGlazingSystem)) and x.Name not in material_names)
-    for obj in delete_objects: ep_objects.remove(obj)
-
-    constructions = list(x.Name for x in ep_objects if isinstance(x, (Construction)))
-    materials = list(x.Name for x in ep_objects if isinstance(x, (Material, SimpleGlazingSystem)))
-    for x in construction_names:
-        if x not in constructions: raise KeyError("error initialising construction: {x}")
-    for x in material_names:
-        if x not in materials: raise KeyError("error initialising material: {x}")
-
-# Surface
-
 from IDFObject.BuildingSurface.Detailed import Detailed as BuildingSurface
 from IDFObject.FenestrationSurface.Detailed import Detailed as FenestrationSurface
-from IDFObject.ZoneList import ZoneList
 
-def SetBestMatchConstruction(epObjects,):
-    surfaces = list(x for x in epObjects if isinstance(x, BuildingSurface))
-    fenestrations = list(x for x in epObjects if isinstance(x, FenestrationSurface))
+def get_construction_names(ep_objects):
+    construction_names = []
+    for surface in ep_objects:
+        if isinstance(surface, (BuildingSurface, FenestrationSurface, InternalMass)):
+            if surface.ConstructionName not in construction_names:
+                construction_names.append(surface.ConstructionName)
+    return construction_names
 
-    constructions = list(x for x in epObjects if isinstance(x, Construction))
-    zoneLists = list(x for x in epObjects if isinstance(x, ZoneList)) 
-    for surface in surfaces:
-        try: zoneName = surface.ZoneName
-        except AttributeError: zoneName = next(x for x in surfaces if x.Name == surface.BuildingSurfaceName).ZoneName
-        try: zoneListName = next(x for x in zoneLists if zoneName in x.IDF).Name
-        except StopIteration: raise StopIteration(zoneName, [x.IDF for x in zoneLists])
-        selected = list(x for x in constructions if surface.ConstructionName in x.Name)
-        for lookfor in (surface.Name, zoneName, zoneListName, ''):
+def get_material_names(constructions):
+    materials = dict()
+    for construction in constructions:
+        for material in construction.MaterialsName:
+            split = material.split('.')
             try:
-                name = next(x for x in selected if lookfor in x.Name).Name
-                break
-            except: name = None
+                materials['.'.join(split[:-1])] = float(split[-1])
+            except ValueError:
+                if material not in materials: materials[material] = None
+    materials["RollShade"] = None
+    return materials
 
-        if not name:
-            raise KeyError(f'Cannot find construction for {surface.Name} - {surface.ConstructionName} in {[x.Name for x in selected]}')
-        surface.ConstructionName = name
+def create_construction_materials(parameters, constructions, materials):
+    constructions_copy = copy.deepcopy(constructions)
+    materials_copy = copy.deepcopy(materials)
+    for parameter in parameters.index:
+        if not re.fullmatch('u-value.*', parameter): continue
+        construction_name = parameter.split(':')[1]
+        try: construction = next(x for x in constructions_copy if x.Name == construction_name)
+        except StopIteration: raise KeyError(f"cannot find {construction_name}")
+        construction.initialise_materials(materials_copy)
 
-        for fenestration in (x for x in fenestrations if x.BuildingSurfaceName == surface.Name):
-            selected = list(x for x in constructions if fenestration.ConstructionName in x.Name)
-            for lookfor in (fenestration.Name, zoneName, zoneListName, ''):
-                try:
-                    name = next(x for x in selected if lookfor in x.Name).Name
-                    break
-                except: pass
-            fenestration.ConstructionName = name
+        g_value_parameter_name = parameter.replace('u-value', 'g-value')
+        g_value = parameters.get(g_value_parameter_name, None)
+
+        material = construction.adjust_properties(parameters[parameter], g_value)
+        if material is not None: materials_copy.append(material)
+    clean_materials(constructions_copy, materials_copy)
+    constructions_copy += materials_copy
+    return constructions_copy
+
+def clean_materials(constructions, materials):
+    material_names = get_material_names(constructions).keys()
+    delete_objects = list(x for x in materials if x.Name not in material_names)
+    for obj in delete_objects: materials.remove(obj)
+
+from IDFObject.zonelist import Zonelist
+
+# def set_best_match_construction(epObjects,):
+#     surfaces = list(x for x in epObjects if isinstance(x, BuildingSurface))
+#     fenestrations = list(x for x in epObjects if isinstance(x, FenestrationSurface))
+
+#     constructions = list(x for x in epObjects if isinstance(x, Construction))
+#     zoneLists = list(x for x in epObjects if isinstance(x, ZoneList)) 
+#     for surface in surfaces:
+#         try: zoneName = surface.ZoneName
+#         except AttributeError: zoneName = next(x for x in surfaces if x.Name == surface.BuildingSurfaceName).ZoneName
+#         try: zoneListName = next(x for x in zoneLists if zoneName in x.IDF).Name
+#         except StopIteration: raise StopIteration(zoneName, [x.IDF for x in zoneLists])
+#         selected = list(x for x in constructions if surface.ConstructionName in x.Name)
+#         for lookfor in (surface.Name, zoneName, zoneListName, ''):
+#             try:
+#                 name = next(x for x in selected if lookfor in x.Name).Name
+#                 break
+#             except: name = None
+
+#         if not name:
+#             raise KeyError(f'Cannot find construction for {surface.Name} - {surface.ConstructionName} in {[x.Name for x in selected]}')
+#         surface.ConstructionName = name
+
+#         for fenestration in (x for x in fenestrations if x.BuildingSurfaceName == surface.Name):
+#             selected = list(x for x in constructions if fenestration.ConstructionName in x.Name)
+#             for lookfor in (fenestration.Name, zoneName, zoneListName, ''):
+#                 try:
+#                     name = next(x for x in selected if lookfor in x.Name).Name
+#                     break
+#                 except: pass
+#             fenestration.ConstructionName = name
 
 
 
@@ -111,7 +93,7 @@ from IDFObject.Zone import Zone, InternalMass
 
 def SetBestMatchInternalMass(probabilisticParameters, epObjects, ):
     zones = list(x for x in epObjects if isinstance(x, Zone))
-    zoneLists = list(x for x in epObjects if isinstance(x, ZoneList))
+    zoneLists = list(x for x in epObjects if isinstance(x, Zonelist))
     masses = list(x for x in epObjects if isinstance(x, InternalMass))
 
     massMaterial = next(x for x in epObjects if isinstance(x, Material) and x.Name=="Mass")

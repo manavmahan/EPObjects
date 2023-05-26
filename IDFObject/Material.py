@@ -18,14 +18,6 @@ class Material(IDFObject.IDFObject):
 
     default = dict()
     def __init__(self, **kwargs):
-        default = kwargs.get('default')
-        props = dict(getattr(self, default if default else 'default'))
+        props = dict(getattr(self, kwargs.get('default', 'default')))
         props.update(kwargs)
         super().__init__(self.Properties, props)
-
-
-    def __eq__(self, other):
-        return self.Name == other.Name
-
-    def __lt__(self, other):
-        return self.Name < other.Name

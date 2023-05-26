@@ -31,7 +31,7 @@ class Zone(IDFObject):
 
     @property
     def ExternalSurfaceArea(self):
-        return sum ([x.Area for x in self.__surfaces if x.OutsideBoundaryCondition == 'Outdoors' or x.OutsideBoundaryCondition == 'Ground'])
+        return sum ([x.Area for x in self.__surfaces if x.OutsideBoundaryCondition == 'Outdoors'])
 
     @property
     def NetVolume(self):
@@ -160,25 +160,6 @@ class Zone(IDFObject):
                 wsc.update(wsc1)
                 epObjects += [WindowShadingControl(wsc)]
         return epObjects
-
-    def GetWaterToAirHeatPumpObject(self, zonelistName):
-        hvac = WaterToAirHeatPump(WaterToAirHeatPump.Default)
-        hvac.ZoneName = self.Name
-        hvac.TemplateThermostatName = f'Thermostat.{zonelistName}'
-        return hvac
-
-    def GetPeopleObject(self, persons, zonelistName):
-        people = dict(People.Zone)
-        people.update(
-            dict(
-                Name = f"People.{self.Name}",
-                ZoneListName = self.Name,
-                NumberofPeopleScheduleName = f"{zonelistName}.People",
-                ActivityLevelScheduleName = f"{zonelistName}.Activity",
-                NumberofPeople = persons,
-            )
-        )
-        return People(people)
 
     def get_infiltration_object(self, ach):
         return Infiltration(

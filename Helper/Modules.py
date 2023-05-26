@@ -33,7 +33,7 @@ from IDFObject.WindowMaterial.Shade import Shade
 from IDFObject.WindowMaterial.SimpleGlazingSystem import SimpleGlazingSystem
 from IDFObject.Zone import Zone
 from IDFObject.ZoneInfiltration.DesignFlowRate import DesignFlowRate
-from IDFObject.ZoneList import ZoneList
+from IDFObject.zonelist import Zonelist
 
 IDFObject.SubclassesAndProperties = dict((','.join(cls.Properties), cls) for cls in IDFObject.__subclasses__())
 IDFObject.SubclassesAndIDFName = dict((cls.__IDFName__, cls) for cls in IDFObject.__subclasses__())

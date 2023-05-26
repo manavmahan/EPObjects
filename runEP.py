@@ -182,7 +182,7 @@ def write_err_files(temp_folder):
         for l in get_err_files(temp_folder):
             f.write(f'{l}\n')
 
-def ExecuteSimulations(idf_folder):
+def execute_simulations(idf_folder):
     ep_dir = get_ep_folder(None)
     if not ep_dir: raise FileNotFoundError("Cannot find EnergyPlus installtion!")
 
@@ -220,4 +220,4 @@ def ExecuteSimulations(idf_folder):
     print (f'---finished processing {len(idf_files)} files in {(datetime.now() - start_time)}---')
 
 if __name__ == '__main__':
-    ExecuteSimulations(sys.argv[1])
+    execute_simulations(sys.argv[1])

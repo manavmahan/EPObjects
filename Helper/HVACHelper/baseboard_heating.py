@@ -1,15 +1,20 @@
 from Helper.Modules import *
 from IDFObject.HVACTemplate.Plant.HotWaterLoop import HotWaterLoop
 from IDFObject.HVACTemplate.Zone.BaseboardHeat import BaseboardHeat
+from IDFObject.HVACTemplate.Thermostat import Thermostat
 from IDFObject.Output.Variable import Variable
+from IDFObject.Schedule.Compact import Compact
+
+from Helper.HVACHelper import get_zonelists_with_thermostat
 
 def add_baseboard_heating(ep_objects, boiler_fuel_type="NaturalGas"):
-    zones = list (x for x in ep_objects if isinstance(x, Zone))
-    zonelists = list (x for x in ep_objects if isinstance(x, ZoneList))
-    for zone in zones:
-        zonelist_name = next(x for x in zonelists if zone.Name in x.IDF).Name
-        zone_bh = get_zone_baseboard_heating(zone, zonelist_name)
-        ep_objects.append(zone_bh)
+    thermostats = list (x for x in ep_objects if isinstance(x, Thermostat))
+    zonelists = list (x for x in ep_objects if isinstance(x, Zonelist))
+
+    for zonelist in get_zonelists_with_thermostat(zonelists, thermostats):
+        for zone in zonelist.ZoneNames:
+            zone_bh = get_zone_baseboard_heating(zone, zonelist.Name)
+            ep_objects.append(zone_bh)
 
     ep_objects.append(Variable(
         Name = "Zone Air System Sensible Heating Rate"))
@@ -20,15 +25,13 @@ def add_baseboard_heating(ep_objects, boiler_fuel_type="NaturalGas"):
             FuelType = boiler_fuel_type
         )
     )
-    boiler_fuel_output = "Electricity"
-    if boiler_fuel_type in ["NaturalGas"]:
-        boiler_fuel_output = 'Gas'
     output_variable_name = f"Boiler {boiler_fuel_type} Energy"
     ep_objects.append(Variable(
         Name = output_variable_name))
 
-def get_zone_baseboard_heating(zone, zonelist_name):
+def get_zone_baseboard_heating(zone_name, zonelist_name,):
+    thermostat_name = f'Thermostat.{zonelist_name}'
     return BaseboardHeat(
-        ZoneName = zone.Name,
-        TemplateThermostatName = f'Thermostat.{zonelist_name}'
+        ZoneName = zone_name,
+        TemplateThermostatName = thermostat_name
     )

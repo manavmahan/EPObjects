@@ -1,5 +1,5 @@
 import re
-from IDFObject.ZoneList import People, Lights, ElectricEquipment
+from IDFObject.zonelist import People, Lights, ElectricEquipment
 
 def AdjustZoneListVariables(epObjects, objectType, pattern, valueName, probabilisticParameters):
     selected = list(p for p in probabilisticParameters.index if re.fullmatch(pattern, p))

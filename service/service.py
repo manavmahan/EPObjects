@@ -17,14 +17,14 @@ def run_service(user_name, project_name):
         building_use = project_settings[db.BUILDING_USE]
         idf_folder = create_simulation_dir(user_name, project_name, project_settings[db.LOCATION])
         geometry_json = db.get_columns(search_conditions, db.GEOMETRY,)
-        schedules_json = db.get_columns(search_conditions, db.SCHEDULES)
+        dummy_objects_json = db.get_columns(search_conditions, db.DUMMY_OBJECTS)
         consumption_df = db.get_columns(search_conditions, db.CONSUMPTION, True)
         parameters_df = db.get_columns(search_conditions, db.PARAMETERS, True)
 
         sampled_parameters, simulation_results = generate_simulation_results(
             info, idf_folder, building_use,
             project_settings[db.SIMULATION_SETTINGS], 
-            geometry_json, schedules_json,
+            geometry_json, dummy_objects_json,
             parameters_df, consumption_df,
         )
         db.update_columns(search_conditions, db.SIMULATION_RESULTS, simulation_results)

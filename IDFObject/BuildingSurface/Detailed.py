@@ -8,7 +8,7 @@ from GeometryObject.XYZList import XYZList
 from IDFObject.Construction import Construction
 from IDFObject.FenestrationSurface.Detailed import Detailed as Fenestration
 from IDFObject.IDFObject import IDFObject
-from IDFObject.ZoneList import ZoneList
+from IDFObject.zonelist import Zonelist
 
 class Detailed(IDFObject):
     __IDFName__ = "BuildingSurface:Detailed"

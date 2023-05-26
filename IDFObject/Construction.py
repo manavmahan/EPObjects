@@ -2,7 +2,7 @@ import copy
 
 import numpy as np
 
-from ListObject import ListObject
+from StringList import StringList
 
 from IDFObject.IDFObject import IDFObject
 from IDFObject.Material import Material
@@ -35,18 +35,16 @@ class Construction(IDFObject):
         props = dict(getattr(self, kwargs.get('default', 'default')))
         props.update(kwargs)
         super().__init__(self.Properties, props)
-        
-        if isinstance(self.MaterialsName, str):
-            self.MaterialsName = ListObject(self.MaterialsName.split(','))
-        self.Materials = list()
+        self.MaterialsName = StringList(self.MaterialsName)
 
     def __updateMaterialNames(self):
-        self.MaterialsName = ListObject([x.Name for x in self.Materials])
+        self.MaterialsName = StringList([x.Name for x in self.Materials])
 
     def initialise_materials(self, materials: list()):
-        for mName in self.MaterialsName.Values:
+        self.Materials = list()
+        for mName in self.MaterialsName:
             try: self.Materials += [next(x for x in materials if x.Name==mName)]
-            except StopIteration: raise StopIteration(f'material {mName} not found.')
+            except StopIteration: raise KeyError(f'material {mName} not found for {self.Name}.')
 
     def AdjustUGValue(self, requiredUValue, requiredGValue):
         if self.Materials[0].SolarHeatGainCoefficient != requiredGValue or self.Materials[0].UFactor != requiredUValue:
@@ -56,12 +54,12 @@ class Construction(IDFObject):
                 self.Materials[0].SolarHeatGainCoefficient = requiredGValue
 
             if  self.Materials[0].UFactor != requiredUValue:
-                self.Materials[0].UFactor = requiredGValue
+                self.Materials[0].UFactor = requiredUValue
             self.__updateMaterialNames()
             return self.Materials[0]
         return None
 
-    def AdjustProperties(self, requiredUValue: float = None, requiredGValue: float = None, insulation: str="Insulation"):
+    def adjust_properties(self, requiredUValue: float = None, requiredGValue: float = None, insulation: str="Insulation"):
         if not requiredUValue and not requiredGValue: return
         if (self.UValue == requiredUValue):
             return
@@ -86,13 +84,6 @@ class Construction(IDFObject):
         self.Materials[self.Materials.index(insulationLayer)] = insulationLayerMod
         self.__updateMaterialNames()
         return insulationLayerMod
-
-    @staticmethod
-    def initialise_material_layers(ep_objects):
-        materials = list(x for x in ep_objects if isinstance(x, (Material, SimpleGlazingSystem)))
-        for construction in [x for x in ep_objects if isinstance(x, Construction)]:
-            for mName in construction.MaterialsName.Values:
-                construction.Materials += [next(x for x in materials if x.Name==mName)]
 
     WallExternal = dict(
         Name = 'WallExternal',

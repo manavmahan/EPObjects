@@ -2,6 +2,7 @@ from service import json, JsonDecoder, JsonEncoder, pd, requests, DB_URL, HEADER
 
 BUILDING_USE = "BUILDING_USE"
 CONSUMPTION = "CONSUMPTION"
+DUMMY_OBJECTS = "dummyObjects"
 ERRORS = "ERRORS"
 GEOMETRY = "GEOMETRY"
 GENERATIVE = "GENERATIVE"

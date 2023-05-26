@@ -13,7 +13,7 @@ from IDFObject.Curve.Quadratic import Quadratic
 from EnumTypes import SurfaceType
 from IDFObject.BuildingSurface.Detailed import Detailed
 from IDFObject.Zone import Zone
-from IDFObject.ZoneList import ZoneList
+from IDFObject.zonelist import Zonelist
 from IDFObject.ZoneControl.Thermostat import Thermostat
 from IDFObject.ThermostatSetpoint.SingleHeating import SingleHeating
 from IDFObject.ThermostatSetpoint.SingleCooling import SingleCooling
@@ -88,7 +88,7 @@ def AddRadiatPropertyToConstruction(epObjects):
 
 
 def AddZoneListControls(epObjects,):
-    zoneLists = list(x for x in epObjects if isinstance(x, ZoneList))
+    zoneLists = list(x for x in epObjects if isinstance(x, Zonelist))
     schedule = next(x for x in epObjects if isinstance(x, Compact) and x.Name=="HeatingCoolingSeason")
     
     schedules = list(x for x in epObjects if isinstance(x, File))

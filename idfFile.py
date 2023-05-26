@@ -5,7 +5,7 @@ import os
 import pandas as pd
 
 from EnumTypes import ParameterType, SurfaceType
-from ListObject import ListObject
+from StringList import StringList
 
 from IDFObject.Building import Building
 from IDFObject.BuildingSurface.Detailed import Detailed

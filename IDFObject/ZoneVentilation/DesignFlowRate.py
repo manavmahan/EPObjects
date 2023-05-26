@@ -63,6 +63,7 @@ class DesignFlowRate(IDFObject):
         MaximumIndoorTemperature = 100,
         MaximumIndoorTemperatureSchedule = '' ,
         DeltaTemperature = 1,
+        ScheduleName = 'Generic.Always1'
     )
 
     natural = dict(

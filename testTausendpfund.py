@@ -8,16 +8,16 @@ Home = str(Path.home())
 
 from logger import logger
 
-from runEP import ExecuteSimulations
+from runEP import execute_simulations
 
 from Helper.Modules import *
 
-from Helper.ConstructionHelper import create_constructions, SetBestMatchConstruction, InitialiseZoneSurfaces, set_internal_mass, set_reporting_frequency, SetBestMatchInternalMass
+from Helper.ConstructionHelper import create_construction_materials, set_best_match_construction, InitialiseZoneSurfaces, set_internal_mass, set_reporting_frequency, SetBestMatchInternalMass
 from Helper.InfiltrationHelper import SetBestMatchPermeability
 
 from Helper.ScheduleHelper import GetOfficeSchedules, set_setpoints
 from Helper.RunPeriodHelper import GetRunPeriodsFromFile
-from Helper.HVACHelper.HeatPumpWithBoiler import add_heat_pumps, AddHeatPumpsWithBoiler
+from Helper.HVACHelper.heatpump_with_boiler import add_heatpumps, add_heatpumps_with_boiler
 from Helper.HVACHelper.SystemEfficiencyHelper import SetBestMatchSystemParameter
 from Helper.ShadingHelper import AddShading
 
@@ -55,15 +55,15 @@ zones = list(x for x in epObjects if isinstance(x, Zone))
 for zone in zones:
     epObjects += [zone.get_infiltration_object(0.3)]
 
-zoneLists = list(x for x in epObjects if isinstance(x, ZoneList)) 
+zoneLists = list(x for x in epObjects if isinstance(x, Zonelist)) 
 for zoneList in zoneLists:
-    epObjects += [zoneList.GetPeopleObject(zonelistVariables[zoneList.Name]['People'])]
-    epObjects += [zoneList.GetThermostatObject()]
-    epObjects += [zoneList.GetLightsObject(zonelistVariables[zoneList.Name]['Lights'])]
-    epObjects += [zoneList.GetElectricEquipmentObject(zonelistVariables[zoneList.Name]['Equipment'])]
-    epObjects += [zoneList.GetDefaultVentilationObject(zoneList.Name != 'Office')]
+    epObjects += [zoneList.get_people(zonelistVariables[zoneList.Name]['People'])]
+    epObjects += [zoneList.get_thermostat()]
+    epObjects += [zoneList.get_lights(zonelistVariables[zoneList.Name]['Lights'])]
+    epObjects += [zoneList.get_electric_equipment(zonelistVariables[zoneList.Name]['Equipment'])]
+    epObjects += [zoneList.get_default_ventilation(zoneList.Name != 'Office')]
 
-add_heat_pumps(epObjects)
+add_heatpumps(epObjects)
 AddShading(epObjects)
 
 Logger.StartTask('Generating Samples')
@@ -83,9 +83,9 @@ if simulate:
     for i, sample in samples.iterrows():
         objs = list(epObjects)
 
-        create_constructions(sample, objs)
+        create_construction_materials(sample, objs)
 
-        SetBestMatchConstruction(objs)
+        set_best_match_construction(objs)
 
         SetBestMatchInternalMass(sample, objs)
         SetBestMatchPermeability(sample, objs)
