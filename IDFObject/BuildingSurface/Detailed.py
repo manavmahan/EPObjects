@@ -3,7 +3,7 @@ import numpy as np
 
 from EnumTypes import Direction, SurfaceType
 
-from GeometryObject.XYZList import XYZList
+from GeometryObject.xyzlist import XYZList
 
 from IDFObject.Construction import Construction
 from IDFObject.FenestrationSurface.Detailed import Detailed as Fenestration
@@ -80,16 +80,16 @@ class Detailed(IDFObject):
             self.SurfaceType = SurfaceType(self.SurfaceType)
         
         if self.SurfaceType == SurfaceType.Wall:
-            if -math.pi/4 < self.XYZs.Plane.AngleFromXAxis <= math.pi/4:
+            if -math.pi/4 < self.XYZs.plane.angle_from_xaxis <= math.pi/4:
                 self.__direction = Direction.E
             
-            if -3 * math.pi/4 < self.XYZs.Plane.AngleFromXAxis <= -math.pi/4:
+            if -3 * math.pi/4 < self.XYZs.plane.angle_from_xaxis <= -math.pi/4:
                 self.__direction = Direction.S
 
-            if self.XYZs.Plane.AngleFromXAxis <= -3 * math.pi/4 or self.XYZs.Plane.AngleFromXAxis > 3 * math.pi/4:
+            if self.XYZs.plane.angle_from_xaxis <= -3 * math.pi/4 or self.XYZs.plane.angle_from_xaxis > 3 * math.pi/4:
                 self.__direction = Direction.W
 
-            if math.pi/4 < self.XYZs.Plane.AngleFromXAxis <= 3 * math.pi/4:
+            if math.pi/4 < self.XYZs.plane.angle_from_xaxis <= 3 * math.pi/4:
                 self.__direction = Direction.N
 
             # if not self.Name.endswith(str(self.Direction)): self.Name += f'.{self.Direction}'

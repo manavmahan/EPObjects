@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 
 from EnumTypes import SurfaceType
-from GeometryObject.XYZList import XYZList
+from GeometryObject.xyzlist import XYZList
 
 from IDFObject.Construction import Construction
 from IDFObject.IDFObject import IDFObject

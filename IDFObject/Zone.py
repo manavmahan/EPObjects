@@ -2,8 +2,7 @@ import numpy as np
 
 from EnumTypes import Direction, SurfaceType
 
-from GeometryObject.XYZ import XYZ
-from GeometryObject.XYZList import XYZList
+from GeometryObject.xyzlist import XYZList
 
 from IDFObject.BuildingSurface.Detailed import Detailed as Surface
 from IDFObject.FenestrationSurface.Detailed import Detailed as FenestrationSurface
@@ -23,6 +22,11 @@ from IDFObject.WindowShadingControl import WindowShadingControl
 
 from IDFObject.ZoneInfiltration.DesignFlowRate import DesignFlowRate as Infiltration
 
+def distance_from_line(point, line):
+    p1 = line[0]
+    p2 = line[1]
+    return np.linalg.norm(np.cross(p2-p1, p1-point))/np.linalg.norm(p2-p1)
+
 class Zone(IDFObject):
     __IDFName__ = "Zone"
     Properties = [
@@ -35,8 +39,8 @@ class Zone(IDFObject):
 
     @property
     def NetVolume(self):
-        wall = next(x for x in self.__surfaces if x.ZoneName==self.Name and x.SurfaceType == SurfaceType.Wall).XYZs.XYZs
-        return self.FloorArea * (wall[2][2] - wall[1][2])
+        wall = next(x for x in self.__surfaces if x.SurfaceType == SurfaceType.Wall).XYZs.XYZs
+        return self.FloorArea * abs(wall[0, 2] - wall[2, 2])
 
     @property
     def FloorArea(self):
@@ -48,6 +52,10 @@ class Zone(IDFObject):
         props = dict(getattr(self, default if default else 'default'))
         props.update(kwargs)
         super().__init__(self.Properties, props)
+
+    @property
+    def Surfaces(self):
+        return self.__surfaces
 
     def AddSurfaces(self, surfaces: list(), fenestrations: list()):
         self.__surfaces = list()
@@ -125,7 +133,7 @@ class Zone(IDFObject):
                 points += [p]
         
         for p in points:
-            if any([XYZ(p).DistanceFromLine(wall) < 0.2 for wall in walls]):
+            if any([distance_from_line(p, wall) < 0.2 for wall in walls]):
                 del p
 
         points = XYZList(np.array(points))

@@ -3,7 +3,7 @@ import numpy as np
 import unittest
 
 from XYZ import XYZ
-from XYZList import XYZList
+from GeometryObject.xyzlist import XYZList
 
 class TestXYZ(unittest.TestCase):
     origin = XYZ()

@@ -4,7 +4,7 @@ import numpy as np
 from EnumTypes import SurfaceType
 
 from GeometryObject.XYZ import XYZ
-from GeometryObject.XYZList import XYZList
+from GeometryObject.xyzlist import XYZList
 
 from IDFObject.BuildingSurface.Detailed import Detailed
 from IDFObject.FenestrationSurface.Detailed import Detailed as Window

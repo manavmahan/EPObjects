@@ -1,3 +1,4 @@
+from Helper.geometry_helper import check_surfaces_cardinality
 from . import os, pd, shutil, logger, tmp_dir, json
 import copy
 from service import db_functions as db
@@ -89,6 +90,11 @@ def create_energyplus_models(idf_folder: str,
     mass_internal_mass = mass_material.Thickness * mass_material.Density * mass_material.SpecificHeat / 1000
     
     for zone in zones:
+        messages = check_surfaces_cardinality(zone)
+        for m in messages: logger.info(m)
+        if any(messages): 
+            print ('\n'.join((str(x) for x in messages)))
+
         ep_objects.append(zone.GenerateInternalMass(simulation_settings["SIMULATION_DEFAULTS"]["ZONE"]["INTERNAL_MASS"], mass_internal_mass))
         ep_objects.append(zone.get_infiltration_object(simulation_settings["SIMULATION_DEFAULTS"]["ZONE"]["INFILTRATION"]))
 

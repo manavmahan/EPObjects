@@ -1,5 +1,5 @@
-from GeometryObject.XYZ import XYZ
 from IDFObject.IDFObject import IDFObject
+import numpy as np
     
 class ReferencePoint(IDFObject):
     __IDFName__ = 'Daylighting:ReferencePoint'
@@ -14,4 +14,4 @@ class ReferencePoint(IDFObject):
         self.Initialise()
 
     def Initialise(self):
-        self.Point = XYZ(self.Point)
+        self.Point = np.round(self.Point, 5)

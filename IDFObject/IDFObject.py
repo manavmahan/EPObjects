@@ -2,8 +2,7 @@ from json import JSONEncoder, JSONDecoder
 import inspect
 import sys
 
-from GeometryObject.XYZ import XYZ
-from GeometryObject.XYZList import XYZList
+from GeometryObject.xyzlist import XYZList
 
 class IDFObject():
     

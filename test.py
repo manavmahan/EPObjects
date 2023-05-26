@@ -1,7 +1,7 @@
 from Helper.SurfacesByFloorPoints import CreatelWallsByPointsAndHeight, CreateFenestration
 from IDFObject.IDFObject import IDFObject, IDFJsonEncoder, IDFJsonDecoder
 
-from GeometryObject.XYZList import XYZList
+from GeometryObject.xyzlist import XYZList
 import json 
 
 points = XYZList("4,0,16,0,0,27,0,6,27,0,6,16,0")
