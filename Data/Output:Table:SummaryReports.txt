@@ -1,2 +1,0 @@
-ReportsName
-ZoneComponentLoadSummary;ComponentSizingSummary;EquipmentSummary;HVACSizingSummary;ClimaticDataSummary;OutdoorAirSummary;EnvelopeSummary

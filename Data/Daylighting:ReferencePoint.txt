@@ -1,2 +1,0 @@
-Name,ZoneName,Point
-DayLightReferencePoint1forOffice:0:1,Office:0:1,13.815;7.150;0.9000

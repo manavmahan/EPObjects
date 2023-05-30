@@ -1,2 +1,0 @@
-Name,ZoneorZoneListName,ScheduleName,DesignLevelCalculationMethod,LightingLevel,WattsperZoneFloorArea,WattsperPerson,ReturnAirFraction,FractionRadiant,FractionVisible,FractionReplaceable
-Light_Office,Office,Office_LightSchedule,Watts/area, ,7, ,0,0.1,0.18, 
