@@ -1,2 +1,0 @@
-Name,LowerLimitValue,UpperLimitValue,NumericType,UnitType
-activityLevel,0, ,Continuous,activitylevel

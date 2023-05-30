@@ -1,8 +1,8 @@
 from service import np, pd, create_simulation_dir, logger
 import service.db_functions as db
 
-from Probabilistic.EnergyPredictions import ProbabilisticEnergyPrediction
-from Probabilistic.Parameter import ProbabilisticParameters
+from probabilistic.energy_predictions import ProbabilisticEnergyPrediction
+from probabilistic.parameter import ProbabilisticParameters
 
 from service.energy_model_simulations import generate_simulation_results, get_run_periods
 from service.ml_networks import train_generator, train_regressor, predict, get_scaling_parameters
@@ -21,14 +21,14 @@ def run_service(user_name, project_name):
         consumption_df = db.get_columns(search_conditions, db.CONSUMPTION, True)
         parameters_df = db.get_columns(search_conditions, db.PARAMETERS, True)
 
-        sampled_parameters, simulation_results = generate_simulation_results(
+        results = generate_simulation_results(
             info, idf_folder, building_use,
             project_settings[db.SIMULATION_SETTINGS], 
             geometry_json, dummy_objects_json,
             parameters_df, consumption_df,
         )
-        db.update_columns(search_conditions, db.SIMULATION_RESULTS, simulation_results)
-        db.update_columns(search_conditions, db.SAMPLED_PARAMETERS, sampled_parameters)
+        for column in results:
+            db.update_columns(search_conditions, column, results[column])
 
     if project_settings[db.REGRESSOR_SETTINGS][db.RUN]:
         sampled_parameters = db.get_columns(search_conditions, db.SAMPLED_PARAMETERS, True)

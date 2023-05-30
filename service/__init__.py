@@ -5,8 +5,8 @@ import pandas as pd
 import requests
 import shutil
 
-from MLModels.ml_models import model_from_json, Sequential
-from IDFObject.IDFObject import IDFObject, IDFJsonDecoder, IDFJsonEncoder
+from ml_models import model_from_json, Sequential
+from idf_object import IDFObject, IDFJsonDecoder, IDFJsonEncoder
 
 from logger import logger
 

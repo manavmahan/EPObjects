@@ -1,2 +1,0 @@
-Name,MaterialsName
-ExternalWall,Brick;WallInsulation

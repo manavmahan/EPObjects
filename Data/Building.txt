@@ -1,2 +1,0 @@
-Name,NorthAxis,Terrain,LoadConvergenceTolerance,TemperatureConvergenceTolerance,SolarDistribution,MaximumNumberOfWarmUpDays,MinimumNumberOfWarmUpDays
-Building1,0.0, ,0.04,0.4,FullExterior,25,6

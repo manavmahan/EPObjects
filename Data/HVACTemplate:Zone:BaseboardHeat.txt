@@ -1,2 +1,0 @@
-ZoneName,TemplateThermostatName,ZoneHeatingSizingFactor,BaseboardHeatingType,BaseboardHeatingAvailabilityScheduleName,BaseboardHeatingCapacity,DedicatedOutdoorAirSystemName,OutdoorAirMethod,OutdoorAirFlowRateperPerson,OutdoorAirFlowRateperZoneFloorArea,OutdoorAirFlowRateperZone,DesignSpecificationOutdoorAirObjectName,DesignSpecificationZoneAirDistributionObjectName
-SPACE1-1,AllZones, ,HotWater, ,Autosize;, ,flow/person,0.00944,0.0,0.0, ,

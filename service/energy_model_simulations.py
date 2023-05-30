@@ -1,26 +1,28 @@
-from Helper.geometry_helper import check_surfaces_cardinality
-from . import os, pd, shutil, logger, tmp_dir, json
+from helper.geometry_helper import check_surfaces_cardinality
+from . import os, pd, logger
 import copy
 from service import db_functions as db
 
-from runEP import execute_simulations
+from run_ep import execute_simulations
 
-from Helper.Modules import *
+from helper.construction_helper import create_construction_materials, InitialiseZoneSurfaces, get_construction_names, SetBestMatchInternalMass, get_material_names
+from helper.infiltration_helper import SetBestMatchPermeability
 
-from Helper.ConstructionHelper import create_construction_materials, InitialiseZoneSurfaces, get_construction_names, SetBestMatchInternalMass, get_material_names
-from Helper.InfiltrationHelper import SetBestMatchPermeability
+from helper.schedule_helper import fill_schedules, set_setpoints
+from helper.run_period_helper import get_run_periods
+from helper.hvac_helper.heatpump_with_boiler import add_heatpumps
+from helper.hvac_helper.baseboard_heating import add_baseboard_heating
+from helper.hvac_helper.system_efficiency_helper import SetBestMatchSystemParameter
+from helper.shading_helper import AddShading
 
-from Helper.ScheduleHelper import fill_schedules, set_setpoints
-from Helper.RunPeriodHelper import get_run_periods
-from Helper.HVACHelper.heatpump_with_boiler import add_heatpumps
-from Helper.HVACHelper.baseboard_heating import add_baseboard_heating
-from Helper.HVACHelper.SystemEfficiencyHelper import SetBestMatchSystemParameter
-from Helper.ShadingHelper import AddShading
+from helper.internal_heat_gains_helper import SetBestMatchInternalHeatGains
 
-from Helper.InternalHeatGainsHelper import SetBestMatchInternalHeatGains
+from probabilistic.energy_predictions import EnergyPrediction, ProbabilisticEnergyPrediction
+from probabilistic.parameter import ProbabilisticParameters
 
-from Probabilistic.EnergyPredictions import EnergyPrediction, ProbabilisticEnergyPrediction
-from Probabilistic.Parameter import ProbabilisticParameters
+from idf_object.scheduletypelimits import ScheduleTypeLimits
+from idf_object.zone import Zone
+from idf_object.zonelist import ZoneList
 
 def generate_simulation_results(info: str,
                                 idf_folder: str,
@@ -30,7 +32,7 @@ def generate_simulation_results(info: str,
                                 dummy_json: dict,
                                 parameters_df: pd.DataFrame,
                                 consumption_df: pd.DataFrame):
-    
+    clean_up_geometry(geometry_json)
     logger.info(f'{info}generating IDF files')
     samples = create_energyplus_models(idf_folder,
                                        building_use,
@@ -54,7 +56,14 @@ def generate_simulation_results(info: str,
             with open(error_file) as f: info = f.readlines()
         with open(idf_file) as f: info += f.readlines()
         raise FileNotFoundError("".join(info))
-    return samples, energy_predictions
+    return {db.SAMPLED_PARAMETERS: samples, db.SIMULATION_RESULTS: energy_predictions,}
+
+def clean_up_geometry(geometry_json: list(),):
+    InitialiseZoneSurfaces(geometry_json)
+    zones = list(x for x in geometry_json if isinstance(x, Zone))
+    for zone in zones:
+        messages = check_surfaces_cardinality(zone)
+        for m in messages: logger.info(m)
 
 def create_energyplus_models(idf_folder: str,
                              building_use: str,
@@ -72,7 +81,7 @@ def create_energyplus_models(idf_folder: str,
     ep_objects += geometry_json
     ep_objects += dummy_json
     InitialiseZoneSurfaces(ep_objects)
-
+    
     construction_names = get_construction_names(ep_objects)
     construction_names.append('Mass')
     constructions = list(db.get_construction_material(construction_names))
@@ -90,15 +99,10 @@ def create_energyplus_models(idf_folder: str,
     mass_internal_mass = mass_material.Thickness * mass_material.Density * mass_material.SpecificHeat / 1000
     
     for zone in zones:
-        messages = check_surfaces_cardinality(zone)
-        for m in messages: logger.info(m)
-        if any(messages): 
-            print ('\n'.join((str(x) for x in messages)))
-
         ep_objects.append(zone.GenerateInternalMass(simulation_settings["SIMULATION_DEFAULTS"]["ZONE"]["INTERNAL_MASS"], mass_internal_mass))
         ep_objects.append(zone.get_infiltration_object(simulation_settings["SIMULATION_DEFAULTS"]["ZONE"]["INFILTRATION"]))
 
-    zonelists = list(x for x in ep_objects if isinstance(x, Zonelist)) 
+    zonelists = list(x for x in ep_objects if isinstance(x, ZoneList)) 
     for zonelist in zonelists:
         ep_objects += db.get_zonelist_settings(building_use, zonelist.Name)
     ep_objects.append(ScheduleTypeLimits())

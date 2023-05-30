@@ -1,2 +1,0 @@
-Name,ScheduleType,NameofFile,ColumnNumber,RowstoSkipatTop,NumberofHoursofData,ColumnSeparator
-elecTDVfromCZ01res,AnyNumber,TDV_kBtu_CTZ01csv,2,4,8760,Comma

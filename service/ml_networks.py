@@ -1,7 +1,7 @@
 from service import logger, os, np, pd, shutil, tmp_dir
 import itertools
 from service import db_functions as db
-from MLModels.ml_models import get_regressor, get_generator, predict, get_scaling_parameters
+from ml_models import get_regressor, get_generator, predict, get_scaling_parameters
 
 def sample_hyperparameters(hyperparameters_dict, sample_size):
     columns = hyperparameters_dict.keys()

@@ -4,7 +4,7 @@
 */IDFFiles-*
 */sim*.txt
 */*.pdf
-Local
+__local__
 
 */Temp
 __pycache__/

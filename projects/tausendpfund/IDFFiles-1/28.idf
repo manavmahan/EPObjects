@@ -1,0 +1,728 @@
+Construction,u-value:Window,Window;
+Construction,u-value:Roof,PerimeterInsulation,Insulation.u-value:Roof,Concrete.Roof,Plaster;
+Construction,u-value:FloorGround,PerimeterInsulation,Insulation.u-value:FloorGround,Concrete.Floor,Screed.Floor;
+Construction,u-value:WallExternal,Plaster,Insulation.u-value:WallExternal,Brick.Wall,Plaster;
+Version,22.2.0;
+Building,Tausendpfund,20.0,,0.04,0.4,FullExterior,50,6;
+Timestep,6;
+ConvergenceLimits,0,20,2,8;
+GlobalGeometryRules,UpperLeftCorner,Counterclockwise,Relative,Relative,Relative;
+Material,Brick.Wall,Smooth,0.18,2.3,2300,1100,0.9,0.7,0.7;
+Material,Concrete.Floor,Smooth,0.2,2.3,2300,800,0.9,0.7,0.7;
+Material,Concrete.Roof,Smooth,0.25,2.3,2300,800,0.9,0.7,0.7;
+Material,Mass,Smooth,0.12,2.3,500,1000,0.8,0.8,0.7;
+Material,Insulation,Smooth,0.18,0.035,20,1000,0.9,0.7,0.7;
+Material,PerimeterInsulation,Smooth,0.05,0.035,20,1000,0.9,0.7,0.7;
+Material,Plaster,Smooth,0.02,0.7,1400,1000,0.9,0.7,0.7;
+Material,PlasterBoard,Rough,0.05,0.16,800,800,0.9,0.6,0.6;
+Material,Screed.Floor,Smooth,0.08,1.4,2000,1000,0.9,0.7,0.7;
+WindowMaterial:SimpleGlazingSystem,Window,0.87,0.35,0.1;
+WindowMaterial:Shade,RollShade,0.3,0.5,0.3,0.5,0.9,0.05,0.003,0.1,0.05,0,0.5,0.5,0,;
+Construction,WallExternal,Plaster,Insulation,Brick.Wall,Plaster;
+Construction,WallInternal,PlasterBoard,Insulation,PlasterBoard;
+Construction,FloorGround,PerimeterInsulation,Insulation,Concrete.Floor,Screed.Floor;
+Construction,FloorInternal,Concrete.Floor,Insulation,Screed.Floor;
+Construction,Ceiling,Concrete.Floor,Insulation,Screed.Floor;
+Construction,Roof,PerimeterInsulation,Insulation,Concrete.Roof,Plaster;
+Construction,Window,Window;
+Construction,Mass,Mass;
+SimulationControl,Yes,Yes,Yes,No,Yes;
+Site:GroundTemperature:BuildingSurface,6.17,5.07,5.33,6.27,9.35,12.12,14.32,15.48,15.2,13.62,11.08,8.41;
+Site:Location,REGENSBURG_DEU,49.01,12.1,1,369.6;
+SizingPeriod:WeatherFileDays,Extreme Summer days,8,10,8,16,SummerDesignDay,Yes,Yes;
+SizingPeriod:WeatherFileDays,Typical Summer days,7,13,7,19,SummerDesignDay,Yes,Yes;
+SizingPeriod:WeatherFileDays,Extreme Winter days,1,6,1,12,WinterDesignDay,Yes,Yes;
+SizingPeriod:WeatherFileDays,Typical Winter days,12,8,12,14,WinterDesignDay,Yes,Yes;
+SizingPeriod:WeatherFileDays,Autumn days,10,20,10,26,CustomDay1,Yes,Yes;
+SizingPeriod:WeatherFileDays,Spring days,4,5,4,11,CustomDay2,Yes,Yes;
+OutputControl:Table:Style,XMLandHTML;
+Output:Diagnostics,DisplayAdvancedReportVariables, DisplayExtraWarnings;
+Output:Surfaces:Drawing,dxf;
+Output:Variable,*,Zone Air System Sensible Heating Rate,RunPeriod;
+Output:Variable,*,Zone Air System Sensible Cooling Rate,RunPeriod;
+Output:Variable,*,Zone Lights Electricity Energy,RunPeriod;
+Output:Variable,*,Zone Water to Air Heat Pump Electricity Energy,RunPeriod;
+Output:Variable,*,Boiler Electricity Energy,RunPeriod;
+Output:Variable,*,Chiller Electricity Energy,RunPeriod;
+Output:Variable,*,Cooling Tower Fan Electricity Energy,RunPeriod;
+ZoneList,Office,Office-0-0,Office-0-1,Office-0-2,Office-0-3,Office-1-0,Office-1-1,Office-1-2,Office-1-3,Office-2-0,Office-2-1,Office-2-2,Office-2-3,Office-2-4;
+ZoneList,Toilet,Toilet-0-0,Toilet-1-0,Toilet-2-0;
+ZoneList,Stairs,Stairs-0-0,Stairs-1-0,Stairs-2-0;
+ZoneList,Corridor,Corridor-0-0,Corridor-1-0,Corridor-2-0;
+ZoneList,Service,Service-1-0;
+ZoneList,Technic,Technic-0-0,Technic-2-0;
+Zone,Office-0-0;
+BuildingSurface:Detailed,Office-0-0.0.FloorGround,Floor,u-value:FloorGround,Office-0-0,,Ground,,NoSun,NoWind,,4,0.0,0.0,0.0,0.0,12.75,0.0,6.0,12.75,0.0,6.0,0.0,0.0;
+BuildingSurface:Detailed,Office-0-0.1.Ceiling,Ceiling,Ceiling,Office-0-0,,Adiabatic,,NoSun,NoWind,,4,0.0,0.0,3.25,6.0,0.0,3.25,6.0,12.75,3.25,0.0,12.75,3.25;
+BuildingSurface:Detailed,Office-0-0.0.West.WallExternal,Wall,u-value:WallExternal,Office-0-0,,Outdoors,,SunExposed,WindExposed,,4,0.0,12.75,0.0,0.0,0.0,0.0,0.0,0.0,3.25,0.0,12.75,3.25;
+FenestrationSurface:Detailed,Office-0-0.0.West.WallExternal.0.Window,Window,u-value:Window,Office-0-0.0.West.WallExternal,,,,,4,0.0,12.55,0.6,0.0,11.55,0.6,0.0,11.55,2.4,0.0,12.55,2.4;
+FenestrationSurface:Detailed,Office-0-0.0.West.WallExternal.1.Window,Window,u-value:Window,Office-0-0.0.West.WallExternal,,,,,4,0.0,9.95,0.01,0.0,6.35,0.01,0.0,6.35,2.4,0.0,9.95,2.4;
+FenestrationSurface:Detailed,Office-0-0.0.West.WallExternal.2.Window,Window,u-value:Window,Office-0-0.0.West.WallExternal,,,,,4,0.0,4.75,0.6,0.0,3.75,0.6,0.0,3.75,2.4,0.0,4.75,2.4;
+FenestrationSurface:Detailed,Office-0-0.0.West.WallExternal.3.Window,Window,u-value:Window,Office-0-0.0.West.WallExternal,,,,,4,0.0,2.15,0.01,0.0,1.15,0.01,0.0,1.15,2.4,0.0,2.15,2.4;
+BuildingSurface:Detailed,Office-0-0.1.South.WallExternal,Wall,u-value:WallExternal,Office-0-0,,Outdoors,,SunExposed,WindExposed,,4,0.0,0.0,0.0,6.0,0.0,0.0,6.0,0.0,3.25,0.0,0.0,3.25;
+FenestrationSurface:Detailed,Office-0-0.1.South.WallExternal.0.Window,Window,u-value:Window,Office-0-0.1.South.WallExternal,,,,,4,1.55,0.0,0.6,2.55,0.0,0.6,2.55,0.0,2.4,1.55,0.0,2.4;
+FenestrationSurface:Detailed,Office-0-0.1.South.WallExternal.1.Window,Window,u-value:Window,Office-0-0.1.South.WallExternal,,,,,4,4.15,0.0,0.6,5.15,0.0,0.6,5.15,0.0,2.4,4.15,0.0,2.4;
+BuildingSurface:Detailed,Office-0-0.2.East.InternalWall,Wall,WallInternal,Office-0-0,,Zone,Corridor-0-0,NoSun,NoWind,,4,6.0,0.0,0.0,6.0,12.75,0.0,6.0,12.75,3.25,6.0,0.0,3.25;
+BuildingSurface:Detailed,Office-0-0.3.North.InternalWall,Wall,WallInternal,Office-0-0,,Zone,Stairs-0-0,NoSun,NoWind,,4,6.0,12.75,0.0,0.0,12.75,0.0,0.0,12.75,3.25,6.0,12.75,3.25;
+Zone,Office-0-1;
+BuildingSurface:Detailed,Office-0-1.FloorGround,Floor,u-value:FloorGround,Office-0-1,,Ground,,NoSun,NoWind,,4,0.0,15.75,0.0,0.0,26.7,0.0,6.0,26.7,0.0,6.0,15.75,0.0;
+BuildingSurface:Detailed,Office-0-1.Ceiling,Ceiling,Ceiling,Office-0-1,,Adiabatic,,NoSun,NoWind,,4,0.0,15.75,3.25,6.0,15.75,3.25,6.0,26.7,3.25,0.0,26.7,3.25;
+BuildingSurface:Detailed,Office-0-1.0.West.WallExternal,Wall,u-value:WallExternal,Office-0-1,,Outdoors,,SunExposed,WindExposed,,4,0.0,26.7,0.0,0.0,15.75,0.0,0.0,15.75,3.25,0.0,26.7,3.25;
+FenestrationSurface:Detailed,Office-0-1.0.West.WallExternal.0.Window,Window,u-value:Window,Office-0-1.0.West.WallExternal,,,,,4,0.0,25.55,0.6,0.0,24.55,0.6,0.0,24.55,2.4,0.0,25.55,2.4;
+FenestrationSurface:Detailed,Office-0-1.0.West.WallExternal.1.Window,Window,u-value:Window,Office-0-1.0.West.WallExternal,,,,,4,0.0,22.95,0.6,0.0,21.95,0.6,0.0,21.95,2.4,0.0,22.95,2.4;
+FenestrationSurface:Detailed,Office-0-1.0.West.WallExternal.2.Window,Window,u-value:Window,Office-0-1.0.West.WallExternal,,,,,4,0.0,20.35,0.6,0.0,19.35,0.6,0.0,19.35,2.4,0.0,20.35,2.4;
+FenestrationSurface:Detailed,Office-0-1.0.West.WallExternal.3.Window,Window,u-value:Window,Office-0-1.0.West.WallExternal,,,,,4,0.0,17.75,0.01,0.0,16.75,0.01,0.0,16.75,2.4,0.0,17.75,2.4;
+BuildingSurface:Detailed,Office-0-1.WallExternal.3.North,Wall,u-value:WallExternal,Office-0-1,,Outdoors,,SunExposed,WindExposed,,4,6.0,26.7,0.0,0.0,26.7,0.0,0.0,26.7,3.25,6.0,26.7,3.25;
+FenestrationSurface:Detailed,Office-0-1.WallExternal.3.North.0.Window,Window,u-value:Window,Office-0-1.WallExternal.3.North,,,,,4,5.15,26.7,0.6,4.15,26.7,0.6,4.15,26.7,2.4,5.15,26.7,2.4;
+FenestrationSurface:Detailed,Office-0-1.WallExternal.3.North.1.Window,Window,u-value:Window,Office-0-1.WallExternal.3.North,,,,,4,2.55,26.7,0.6,1.55,26.7,0.6,1.55,26.7,2.4,2.55,26.7,2.4;
+BuildingSurface:Detailed,Office-0-1.WallInternal.1.South,Wall,WallInternal,Office-0-1,,Zone,Stairs-0-0,NoSun,NoWind,,4,0.0,15.75,0.0,6.0,15.75,0.0,6.0,15.75,3.25,0.0,15.75,3.25;
+BuildingSurface:Detailed,Office-0-1.WallInternal.2.East,Wall,WallInternal,Office-0-1,,Zone,Corridor-0-0,NoSun,NoWind,,4,6.0,15.75,0.0,6.0,26.7,0.0,6.0,26.7,3.25,6.0,15.75,3.25;
+Zone,Office-0-2;
+BuildingSurface:Detailed,Office-0-2.FloorGround,Floor,u-value:FloorGround,Office-0-2,,Ground,,NoSun,NoWind,,4,8.5,15.75,0.0,8.5,26.7,0.0,14.5,26.7,0.0,14.5,15.75,0.0;
+BuildingSurface:Detailed,Office-0-2.Ceiling,Ceiling,Ceiling,Office-0-2,,Adiabatic,,NoSun,NoWind,,4,8.5,15.75,3.25,14.5,15.75,3.25,14.5,26.7,3.25,8.5,26.7,3.25;
+BuildingSurface:Detailed,Office-0-2.WallExternal.2.East,Wall,u-value:WallExternal,Office-0-2,,Outdoors,,SunExposed,WindExposed,,4,14.5,15.75,0.0,14.5,26.7,0.0,14.5,26.7,3.25,14.5,15.75,3.25;
+FenestrationSurface:Detailed,Office-0-2.WallExternal.2.East.0.Window,Window,u-value:Window,Office-0-2.WallExternal.2.East,,,,,4,14.5,24.55,0.6,14.5,25.55,0.6,14.5,25.55,2.4,14.5,24.55,2.4;
+FenestrationSurface:Detailed,Office-0-2.WallExternal.2.East.1.Window,Window,u-value:Window,Office-0-2.WallExternal.2.East,,,,,4,14.5,21.95,0.6,14.5,22.95,0.6,14.5,22.95,2.4,14.5,21.95,2.4;
+FenestrationSurface:Detailed,Office-0-2.WallExternal.2.East.2.Window,Window,u-value:Window,Office-0-2.WallExternal.2.East,,,,,4,14.5,19.35,0.6,14.5,20.35,0.6,14.5,20.35,2.4,14.5,19.35,2.4;
+FenestrationSurface:Detailed,Office-0-2.WallExternal.2.East.3.Window,Window,u-value:Window,Office-0-2.WallExternal.2.East,,,,,4,14.5,16.75,0.01,14.5,17.75,0.01,14.5,17.75,2.4,14.5,16.75,2.4;
+BuildingSurface:Detailed,Office-0-2.WallExternal.1.North,Wall,u-value:WallExternal,Office-0-2,,Outdoors,,SunExposed,WindExposed,,4,14.5,26.7,0.0,8.5,26.7,0.0,8.5,26.7,3.25,14.5,26.7,3.25;
+FenestrationSurface:Detailed,Office-0-2.WallExternal.1.North.0.Window,Window,u-value:Window,Office-0-2.WallExternal.1.North,,,,,4,12.95,26.7,0.6,11.95,26.7,0.6,11.95,26.7,2.4,12.95,26.7,2.4;
+FenestrationSurface:Detailed,Office-0-2.WallExternal.1.North.1.Window,Window,u-value:Window,Office-0-2.WallExternal.1.North,,,,,4,10.35,26.7,0.6,9.35,26.7,0.6,9.35,26.7,2.4,10.35,26.7,2.4;
+BuildingSurface:Detailed,Office-0-2.WallInternal.3.South,Wall,WallInternal,Office-0-2,,Zone,Technic-0-0,NoSun,NoWind,,4,12.0,15.75,0.0,14.5,15.75,0.0,14.5,15.75,3.25,12.0,15.75,3.25;
+BuildingSurface:Detailed,Office-0-2.WallInternal.4.South,Wall,WallInternal,Office-0-2,,Zone,Toilet-0-0,NoSun,NoWind,,4,8.5,15.75,0.0,12.0,15.75,0.0,12.0,15.75,3.25,8.5,15.75,3.25;
+BuildingSurface:Detailed,Office-0-2.WallInternal.0.West,Wall,WallInternal,Office-0-2,,Zone,Corridor-0-0,NoSun,NoWind,,4,8.5,26.7,0.0,8.5,15.75,0.0,8.5,15.75,3.25,8.5,26.7,3.25;
+Zone,Office-0-3;
+BuildingSurface:Detailed,Office-0-3.FloorGround,Floor,u-value:FloorGround,Office-0-3,,Ground,,NoSun,NoWind,,4,8.5,0.0,0.0,8.5,10.5,0.0,14.5,10.5,0.0,14.5,0.0,0.0;
+BuildingSurface:Detailed,Office-0-3.Ceiling,Ceiling,Ceiling,Office-0-3,,Adiabatic,,NoSun,NoWind,,4,8.5,0.0,3.25,14.5,0.0,3.25,14.5,10.5,3.25,8.5,10.5,3.25;
+BuildingSurface:Detailed,Office-0-3.WallExternal.3.East,Wall,u-value:WallExternal,Office-0-3,,Outdoors,,SunExposed,WindExposed,,4,14.5,0.0,0.0,14.5,10.5,0.0,14.5,10.5,3.25,14.5,0.0,3.25;
+FenestrationSurface:Detailed,Office-0-3.WallExternal.3.East.0.Window,Window,u-value:Window,Office-0-3.WallExternal.3.East,,,,,4,14.5,8.95,0.6,14.5,9.95,0.6,14.5,9.95,2.4,14.5,8.95,2.4;
+FenestrationSurface:Detailed,Office-0-3.WallExternal.3.East.1.Window,Window,u-value:Window,Office-0-3.WallExternal.3.East,,,,,4,14.5,6.35,0.6,14.5,7.35,0.6,14.5,7.35,2.4,14.5,6.35,2.4;
+FenestrationSurface:Detailed,Office-0-3.WallExternal.3.East.2.Window,Window,u-value:Window,Office-0-3.WallExternal.3.East,,,,,4,14.5,3.75,0.6,14.5,4.75,0.6,14.5,4.75,2.4,14.5,3.75,2.4;
+FenestrationSurface:Detailed,Office-0-3.WallExternal.3.East.3.Window,Window,u-value:Window,Office-0-3.WallExternal.3.East,,,,,4,14.5,1.15,0.01,14.5,2.15,0.01,14.5,2.15,2.4,14.5,1.15,2.4;
+BuildingSurface:Detailed,Office-0-3.WallExternal.4.South,Wall,u-value:WallExternal,Office-0-3,,Outdoors,,SunExposed,WindExposed,,4,8.5,0.0,0.0,14.5,0.0,0.0,14.5,0.0,3.25,8.5,0.0,3.25;
+FenestrationSurface:Detailed,Office-0-3.WallExternal.4.South.0.Window,Window,u-value:Window,Office-0-3.WallExternal.4.South,,,,,4,11.95,0.0,0.6,12.95,0.0,0.6,12.95,0.0,2.4,11.95,0.0,2.4;
+FenestrationSurface:Detailed,Office-0-3.WallExternal.4.South.1.Window,Window,u-value:Window,Office-0-3.WallExternal.4.South,,,,,4,9.35,0.0,0.6,10.35,0.0,0.6,10.35,0.0,2.4,9.35,0.0,2.4;
+BuildingSurface:Detailed,Office-0-3.WallInternal.2.North,Wall,WallInternal,Office-0-3,,Zone,Technic-0-0,NoSun,NoWind,,4,14.5,10.5,0.0,12.0,10.5,0.0,12.0,10.5,3.25,14.5,10.5,3.25;
+BuildingSurface:Detailed,Office-0-3.WallInternal.1.North,Wall,WallInternal,Office-0-3,,Zone,Toilet-0-0,NoSun,NoWind,,4,12.0,10.5,0.0,8.5,10.5,0.0,8.5,10.5,3.25,12.0,10.5,3.25;
+BuildingSurface:Detailed,Office-0-3.WallInternal.0.West,Wall,WallInternal,Office-0-3,,Zone,Corridor-0-0,NoSun,NoWind,,4,8.5,10.5,0.0,8.5,0.0,0.0,8.5,0.0,3.25,8.5,10.5,3.25;
+Zone,Toilet-0-0;
+BuildingSurface:Detailed,Toilet-0-0.FloorGround,Floor,u-value:FloorGround,Toilet-0-0,,Ground,,NoSun,NoWind,,4,8.5,10.5,0.0,8.5,15.75,0.0,12.0,15.75,0.0,12.0,10.5,0.0;
+BuildingSurface:Detailed,Toilet-0-0.Ceiling,Ceiling,Ceiling,Toilet-0-0,,Adiabatic,,NoSun,NoWind,,4,8.5,10.5,3.25,12.0,10.5,3.25,12.0,15.75,3.25,8.5,15.75,3.25;
+BuildingSurface:Detailed,Toilet-0-0.WallInternal.0.West,Wall,WallInternal,Toilet-0-0,,Zone,Corridor-0-0,NoSun,NoWind,,4,8.5,15.75,0.0,8.5,10.5,0.0,8.5,10.5,3.25,8.5,15.75,3.25;
+BuildingSurface:Detailed,Toilet-0-0.WallInternal.1.East,Wall,WallInternal,Toilet-0-0,,Zone,Technic-0-0,NoSun,NoWind,,4,12.0,10.5,0.0,12.0,15.75,0.0,12.0,15.75,3.25,12.0,10.5,3.25;
+Zone,Stairs-0-0;
+BuildingSurface:Detailed,Stairs-0-0.FloorGround,Floor,u-value:FloorGround,Stairs-0-0,,Ground,,NoSun,NoWind,,4,0.0,12.75,0.0,0.0,15.75,0.0,6.0,15.75,0.0,6.0,12.75,0.0;
+BuildingSurface:Detailed,Stairs-0-0.Ceiling,Ceiling,Ceiling,Stairs-0-0,,Adiabatic,,NoSun,NoWind,,4,0.0,12.75,3.25,6.0,12.75,3.25,6.0,15.75,3.25,0.0,15.75,3.25;
+BuildingSurface:Detailed,Stairs-0-0.0.West.WallExternal,Wall,u-value:WallExternal,Stairs-0-0,,Outdoors,,SunExposed,WindExposed,,4,0.0,15.75,0.0,0.0,12.75,0.0,0.0,12.75,3.25,0.0,15.75,3.25;
+FenestrationSurface:Detailed,Stairs-0-0.0.West.WallExternal.0.Window,Window,u-value:Window,Stairs-0-0.0.West.WallExternal,,,,,4,0.0,15.15,0.6,0.0,14.15,0.6,0.0,14.15,2.4,0.0,15.15,2.4;
+BuildingSurface:Detailed,Stairs-0-0.0.East.WallInternal,Wall,WallInternal,Stairs-0-0,,Zone,Corridor-0-0,NoSun,NoWind,,4,6.0,12.75,0.0,6.0,15.75,0.0,6.0,15.75,3.25,6.0,12.75,3.25;
+Zone,Technic-0-0;
+BuildingSurface:Detailed,Technic-0-0.FloorGround,Floor,u-value:FloorGround,Technic-0-0,,Ground,,NoSun,NoWind,,4,12.0,10.5,0.0,12.0,15.75,0.0,14.5,15.75,0.0,14.5,10.5,0.0;
+BuildingSurface:Detailed,Technic-0-0.Ceiling,Ceiling,Ceiling,Technic-0-0,,Adiabatic,,NoSun,NoWind,,4,12.0,10.5,3.25,14.5,10.5,3.25,14.5,15.75,3.25,12.0,15.75,3.25;
+BuildingSurface:Detailed,Technic-0-0.0.East.WallExternal,Wall,u-value:WallExternal,Technic-0-0,,Outdoors,,SunExposed,WindExposed,,4,14.5,10.5,0.0,14.5,15.75,0.0,14.5,15.75,3.25,14.5,10.5,3.25;
+FenestrationSurface:Detailed,Technic-0-0.0.East.WallExternal.0.Window,Window,u-value:Window,Technic-0-0.0.East.WallExternal,,,,,4,14.5,11.55,0.01,14.5,12.55,0.01,14.5,12.55,2.4,14.5,11.55,2.4;
+FenestrationSurface:Detailed,Technic-0-0.0.East.WallExternal.1.Window,Window,u-value:Window,Technic-0-0.0.East.WallExternal,,,,,4,14.5,14.15,1.8,14.5,15.15,1.8,14.5,15.15,2.4,14.5,14.15,2.4;
+Zone,Corridor-0-0;
+BuildingSurface:Detailed,Corridor-0-0.FloorGround,Floor,u-value:FloorGround,Corridor-0-0,,Ground,,NoSun,NoWind,,4,6.0,0.0,0.0,6.0,26.7,0.0,8.5,26.7,0.0,8.5,0.0,0.0;
+BuildingSurface:Detailed,Corridor-0-0.Ceiling,Ceiling,Ceiling,Corridor-0-0,,Adiabatic,,NoSun,NoWind,,4,6.0,0.0,3.25,8.5,0.0,3.25,8.5,26.7,3.25,6.0,26.7,3.25;
+BuildingSurface:Detailed,Corridor-0-0.0.North.WallExternal,Wall,u-value:WallExternal,Corridor-0-0,,Outdoors,,SunExposed,WindExposed,,4,8.5,26.7,0.0,6.0,26.7,0.0,6.0,26.7,3.25,8.5,26.7,3.25;
+FenestrationSurface:Detailed,Corridor-0-0.0.North.WallExternal.0.Window,Window,u-value:Window,Corridor-0-0.0.North.WallExternal,,,,,4,7.75,26.7,0.6,6.75,26.7,0.6,6.75,26.7,2.4,7.75,26.7,2.4;
+BuildingSurface:Detailed,Corridor-0-0.1.South.WallExternal,Wall,u-value:WallExternal,Corridor-0-0,,Outdoors,,SunExposed,WindExposed,,4,6.0,0.0,0.0,8.5,0.0,0.0,8.5,0.0,3.25,6.0,0.0,3.25;
+FenestrationSurface:Detailed,Corridor-0-0.1.South.WallExternal.0.Window,Window,u-value:Window,Corridor-0-0.1.South.WallExternal,,,,,4,6.75,0.0,0.6,7.75,0.0,0.6,7.75,0.0,2.4,6.75,0.0,2.4;
+Zone,Office-1-0;
+BuildingSurface:Detailed,Office-1-0.0.FloorInternal,Floor,FloorInternal,Office-1-0,,Adiabatic,,NoSun,NoWind,,4,0.0,0.0,3.25,0.0,10.5,3.25,6.0,10.5,3.25,6.0,0.0,3.25;
+BuildingSurface:Detailed,Office-1-0.1.Ceiling,Ceiling,Ceiling,Office-1-0,,Adiabatic,,NoSun,NoWind,,4,0.0,0.0,6.5,6.0,0.0,6.5,6.0,10.5,6.5,0.0,10.5,6.5;
+BuildingSurface:Detailed,Office-1-0.0.West.WallExternal,Wall,u-value:WallExternal,Office-1-0,,Outdoors,,SunExposed,WindExposed,,4,0.0,10.5,3.25,0.0,0.0,3.25,0.0,0.0,6.5,0.0,10.5,6.5;
+FenestrationSurface:Detailed,Office-1-0.0.West.WallExternal.0.Window,Window,u-value:Window,Office-1-0.0.West.WallExternal,,,,,4,0.0,9.95,3.85,0.0,8.95,3.85,0.0,8.95,5.65,0.0,9.95,5.65;
+FenestrationSurface:Detailed,Office-1-0.0.West.WallExternal.1.Window,Window,u-value:Window,Office-1-0.0.West.WallExternal,,,,,4,0.0,7.35,3.85,0.0,6.35,3.85,0.0,6.35,5.65,0.0,7.35,5.65;
+FenestrationSurface:Detailed,Office-1-0.0.West.WallExternal.2.Window,Window,u-value:Window,Office-1-0.0.West.WallExternal,,,,,4,0.0,4.75,3.85,0.0,3.75,3.85,0.0,3.75,5.65,0.0,4.75,5.65;
+FenestrationSurface:Detailed,Office-1-0.0.West.WallExternal.3.Window,Window,u-value:Window,Office-1-0.0.West.WallExternal,,,,,4,0.0,2.15,3.85,0.0,1.15,3.85,0.0,1.15,5.65,0.0,2.15,5.65;
+BuildingSurface:Detailed,Office-1-0.1.South.WallExternal,Wall,u-value:WallExternal,Office-1-0,,Outdoors,,SunExposed,WindExposed,,4,0.0,0.0,3.25,6.0,0.0,3.25,6.0,0.0,6.5,0.0,0.0,6.5;
+FenestrationSurface:Detailed,Office-1-0.1.South.WallExternal.0.Window,Window,u-value:Window,Office-1-0.1.South.WallExternal,,,,,4,1.55,0.0,3.85,2.55,0.0,3.85,2.55,0.0,5.65,1.55,0.0,5.65;
+FenestrationSurface:Detailed,Office-1-0.1.South.WallExternal.1.Window,Window,u-value:Window,Office-1-0.1.South.WallExternal,,,,,4,4.15,0.0,3.85,5.15,0.0,3.85,5.15,0.0,5.65,4.15,0.0,5.65;
+BuildingSurface:Detailed,Office-1-0.2.East.InternalWall,Wall,WallInternal,Office-1-0,,Zone,Corridor-1-0,NoSun,NoWind,,4,6.0,0.0,3.25,6.0,10.5,3.25,6.0,10.5,6.5,6.0,0.0,6.5;
+BuildingSurface:Detailed,Office-1-0.3.North.InternalWall,Wall,WallInternal,Office-1-0,,Zone,Stairs-1-0,NoSun,NoWind,,4,6.0,10.5,3.25,0.0,10.5,3.25,0.0,10.5,6.5,6.0,10.5,6.5;
+Zone,Office-1-1;
+BuildingSurface:Detailed,Office-1-1.FloorInternal,Floor,FloorInternal,Office-1-1,,Adiabatic,,NoSun,NoWind,,4,0.0,15.75,3.25,0.0,26.7,3.25,6.0,26.7,3.25,6.0,15.75,3.25;
+BuildingSurface:Detailed,Office-1-1.Ceiling,Ceiling,Ceiling,Office-1-1,,Adiabatic,,NoSun,NoWind,,4,0.0,15.75,6.5,6.0,15.75,6.5,6.0,26.7,6.5,0.0,26.7,6.5;
+BuildingSurface:Detailed,Office-1-1.0.West.WallExternal,Wall,u-value:WallExternal,Office-1-1,,Outdoors,,SunExposed,WindExposed,,4,0.0,26.7,3.25,0.0,15.75,3.25,0.0,15.75,6.5,0.0,26.7,6.5;
+FenestrationSurface:Detailed,Office-1-1.0.West.WallExternal.0.Window,Window,u-value:Window,Office-1-1.0.West.WallExternal,,,,,4,0.0,25.55,3.85,0.0,24.55,3.85,0.0,24.55,5.65,0.0,25.55,5.65;
+FenestrationSurface:Detailed,Office-1-1.0.West.WallExternal.1.Window,Window,u-value:Window,Office-1-1.0.West.WallExternal,,,,,4,0.0,22.95,3.85,0.0,21.95,3.85,0.0,21.95,5.65,0.0,22.95,5.65;
+FenestrationSurface:Detailed,Office-1-1.0.West.WallExternal.2.Window,Window,u-value:Window,Office-1-1.0.West.WallExternal,,,,,4,0.0,20.35,3.85,0.0,19.35,3.85,0.0,19.35,5.65,0.0,20.35,5.65;
+FenestrationSurface:Detailed,Office-1-1.0.West.WallExternal.3.Window,Window,u-value:Window,Office-1-1.0.West.WallExternal,,,,,4,0.0,17.75,3.85,0.0,16.75,3.85,0.0,16.75,5.65,0.0,17.75,5.65;
+BuildingSurface:Detailed,Office-1-1.WallExternal.3.North,Wall,u-value:WallExternal,Office-1-1,,Outdoors,,SunExposed,WindExposed,,4,6.0,26.7,3.25,0.0,26.7,3.25,0.0,26.7,6.5,6.0,26.7,6.5;
+FenestrationSurface:Detailed,Office-1-1.WallExternal.3.North.0.Window,Window,u-value:Window,Office-1-1.WallExternal.3.North,,,,,4,5.15,26.7,3.85,4.15,26.7,3.85,4.15,26.7,5.65,5.15,26.7,5.65;
+FenestrationSurface:Detailed,Office-1-1.WallExternal.3.North.1.Window,Window,u-value:Window,Office-1-1.WallExternal.3.North,,,,,4,2.55,26.7,3.85,1.55,26.7,3.85,1.55,26.7,5.65,2.55,26.7,5.65;
+BuildingSurface:Detailed,Office-1-1.WallInternal.1.South,Wall,WallInternal,Office-1-1,,Zone,Stairs-1-0,NoSun,NoWind,,4,0.0,15.75,3.25,6.0,15.75,3.25,6.0,15.75,6.5,0.0,15.75,6.5;
+BuildingSurface:Detailed,Office-1-1.WallInternal.2.East,Wall,WallInternal,Office-1-1,,Zone,Corridor-1-0,NoSun,NoWind,,4,6.0,15.75,3.25,6.0,26.7,3.25,6.0,26.7,6.5,6.0,15.75,6.5;
+Zone,Office-1-2;
+BuildingSurface:Detailed,Office-1-2.FloorInternal,Floor,FloorInternal,Office-1-2,,Adiabatic,,NoSun,NoWind,,4,8.5,15.75,3.25,8.5,26.7,3.25,14.5,26.7,3.25,14.5,15.75,3.25;
+BuildingSurface:Detailed,Office-1-2.Ceiling,Ceiling,Ceiling,Office-1-2,,Adiabatic,,NoSun,NoWind,,4,8.5,15.75,6.5,14.5,15.75,6.5,14.5,26.7,6.5,8.5,26.7,6.5;
+BuildingSurface:Detailed,Office-1-2.WallExternal.2.East,Wall,u-value:WallExternal,Office-1-2,,Outdoors,,SunExposed,WindExposed,,4,14.5,15.75,3.25,14.5,26.7,3.25,14.5,26.7,6.5,14.5,15.75,6.5;
+FenestrationSurface:Detailed,Office-1-2.WallExternal.2.East.0.Window,Window,u-value:Window,Office-1-2.WallExternal.2.East,,,,,4,14.5,24.55,3.85,14.5,25.55,3.85,14.5,25.55,5.65,14.5,24.55,5.65;
+FenestrationSurface:Detailed,Office-1-2.WallExternal.2.East.1.Window,Window,u-value:Window,Office-1-2.WallExternal.2.East,,,,,4,14.5,21.95,3.85,14.5,22.95,3.85,14.5,22.95,5.65,14.5,21.95,5.65;
+FenestrationSurface:Detailed,Office-1-2.WallExternal.2.East.2.Window,Window,u-value:Window,Office-1-2.WallExternal.2.East,,,,,4,14.5,19.35,3.85,14.5,20.35,3.85,14.5,20.35,5.65,14.5,19.35,5.65;
+FenestrationSurface:Detailed,Office-1-2.WallExternal.2.East.3.Window,Window,u-value:Window,Office-1-2.WallExternal.2.East,,,,,4,14.5,16.75,3.85,14.5,17.75,3.85,14.5,17.75,5.65,14.5,16.75,5.65;
+BuildingSurface:Detailed,Office-1-2.WallExternal.1.North,Wall,u-value:WallExternal,Office-1-2,,Outdoors,,SunExposed,WindExposed,,4,14.5,26.7,3.25,8.5,26.7,3.25,8.5,26.7,6.5,14.5,26.7,6.5;
+FenestrationSurface:Detailed,Office-1-2.WallExternal.1.North.0.Window,Window,u-value:Window,Office-1-2.WallExternal.1.North,,,,,4,12.95,26.7,3.85,11.95,26.7,3.85,11.95,26.7,5.65,12.95,26.7,5.65;
+FenestrationSurface:Detailed,Office-1-2.WallExternal.1.North.1.Window,Window,u-value:Window,Office-1-2.WallExternal.1.North,,,,,4,10.35,26.7,3.85,9.35,26.7,3.85,9.35,26.7,5.65,10.35,26.7,5.65;
+BuildingSurface:Detailed,Office-1-2.WallInternal.3.South,Wall,WallInternal,Office-1-2,,Zone,Service-1-0,NoSun,NoWind,,4,12.0,15.75,3.25,14.5,15.75,3.25,14.5,15.75,6.5,12.0,15.75,6.5;
+BuildingSurface:Detailed,Office-1-2.WallInternal.4.South,Wall,WallInternal,Office-1-2,,Zone,Toilet-1-0,NoSun,NoWind,,4,8.5,15.75,3.25,12.0,15.75,3.25,12.0,15.75,6.5,8.5,15.75,6.5;
+BuildingSurface:Detailed,Office-1-2.WallInternal.0.West,Wall,WallInternal,Office-1-2,,Zone,Corridor-1-0,NoSun,NoWind,,4,8.5,26.7,3.25,8.5,15.75,3.25,8.5,15.75,6.5,8.5,26.7,6.5;
+Zone,Office-1-3;
+BuildingSurface:Detailed,Office-1-3.FloorInternal,Floor,FloorInternal,Office-1-3,,Adiabatic,,NoSun,NoWind,,4,8.5,0.0,3.25,8.5,10.5,3.25,14.5,10.5,3.25,14.5,0.0,3.25;
+BuildingSurface:Detailed,Office-1-3.Ceiling,Ceiling,Ceiling,Office-1-3,,Adiabatic,,NoSun,NoWind,,4,8.5,0.0,6.5,14.5,0.0,6.5,14.5,10.5,6.5,8.5,10.5,6.5;
+BuildingSurface:Detailed,Office-1-3.WallExternal.3.East,Wall,u-value:WallExternal,Office-1-3,,Outdoors,,SunExposed,WindExposed,,4,14.5,0.0,3.25,14.5,10.5,3.25,14.5,10.5,6.5,14.5,0.0,6.5;
+FenestrationSurface:Detailed,Office-1-3.WallExternal.3.East.0.Window,Window,u-value:Window,Office-1-3.WallExternal.3.East,,,,,4,14.5,8.95,3.85,14.5,9.95,3.85,14.5,9.95,5.65,14.5,8.95,5.65;
+FenestrationSurface:Detailed,Office-1-3.WallExternal.3.East.1.Window,Window,u-value:Window,Office-1-3.WallExternal.3.East,,,,,4,14.5,6.35,3.85,14.5,7.35,3.85,14.5,7.35,5.65,14.5,6.35,5.65;
+FenestrationSurface:Detailed,Office-1-3.WallExternal.3.East.2.Window,Window,u-value:Window,Office-1-3.WallExternal.3.East,,,,,4,14.5,3.75,3.85,14.5,4.75,3.85,14.5,4.75,5.65,14.5,3.75,5.65;
+FenestrationSurface:Detailed,Office-1-3.WallExternal.3.East.3.Window,Window,u-value:Window,Office-1-3.WallExternal.3.East,,,,,4,14.5,1.15,3.85,14.5,2.15,3.85,14.5,2.15,5.65,14.5,1.15,5.65;
+BuildingSurface:Detailed,Office-1-3.WallExternal.4.South,Wall,u-value:WallExternal,Office-1-3,,Outdoors,,SunExposed,WindExposed,,4,8.5,0.0,3.25,14.5,0.0,3.25,14.5,0.0,6.5,8.5,0.0,6.5;
+FenestrationSurface:Detailed,Office-1-3.WallExternal.4.South.0.Window,Window,u-value:Window,Office-1-3.WallExternal.4.South,,,,,4,11.95,0.0,3.85,12.95,0.0,3.85,12.95,0.0,5.65,11.95,0.0,5.65;
+FenestrationSurface:Detailed,Office-1-3.WallExternal.4.South.1.Window,Window,u-value:Window,Office-1-3.WallExternal.4.South,,,,,4,9.35,0.0,3.85,10.35,0.0,3.85,10.35,0.0,5.65,9.35,0.0,5.65;
+BuildingSurface:Detailed,Office-1-3.WallInternal.2.North,Wall,WallInternal,Office-1-3,,Zone,Service-1-0,NoSun,NoWind,,4,14.5,10.5,3.25,12.0,10.5,3.25,12.0,10.5,6.5,14.5,10.5,6.5;
+BuildingSurface:Detailed,Office-1-3.WallInternal.1.North,Wall,WallInternal,Office-1-3,,Zone,Toilet-1-0,NoSun,NoWind,,4,12.0,10.5,3.25,8.5,10.5,3.25,8.5,10.5,6.5,12.0,10.5,6.5;
+BuildingSurface:Detailed,Office-1-3.WallInternal.0.West,Wall,WallInternal,Office-1-3,,Zone,Corridor-1-0,NoSun,NoWind,,4,8.5,10.5,3.25,8.5,0.0,3.25,8.5,0.0,6.5,8.5,10.5,6.5;
+Zone,Toilet-1-0;
+BuildingSurface:Detailed,Toilet-1-0.FloorInternal,Floor,FloorInternal,Toilet-1-0,,Adiabatic,,NoSun,NoWind,,4,8.5,10.5,3.25,8.5,15.75,3.25,12.0,15.75,3.25,12.0,10.5,3.25;
+BuildingSurface:Detailed,Toilet-1-0.Ceiling,Ceiling,Ceiling,Toilet-1-0,,Adiabatic,,NoSun,NoWind,,4,8.5,10.5,6.5,12.0,10.5,6.5,12.0,15.75,6.5,8.5,15.75,6.5;
+BuildingSurface:Detailed,Toilet-1-0.WallInternal.0.West,Wall,WallInternal,Toilet-1-0,,Zone,Corridor-1-0,NoSun,NoWind,,4,8.5,15.75,3.25,8.5,10.5,3.25,8.5,10.5,6.5,8.5,15.75,6.5;
+BuildingSurface:Detailed,Toilet-1-0.WallInternal.1.East,Wall,WallInternal,Toilet-1-0,,Zone,Service-1-0,NoSun,NoWind,,4,12.0,10.5,3.25,12.0,15.75,3.25,12.0,15.75,6.5,12.0,10.5,6.5;
+Zone,Stairs-1-0;
+BuildingSurface:Detailed,Stairs-1-0.FloorInternal,Floor,FloorInternal,Stairs-1-0,,Adiabatic,,NoSun,NoWind,,4,0.0,10.5,3.25,0.0,15.75,3.25,6.0,15.75,3.25,6.0,10.5,3.25;
+BuildingSurface:Detailed,Stairs-1-0.Ceiling,Ceiling,Ceiling,Stairs-1-0,,Adiabatic,,NoSun,NoWind,,4,0.0,10.5,6.5,6.0,10.5,6.5,6.0,15.75,6.5,0.0,15.75,6.5;
+BuildingSurface:Detailed,Stairs-1-0.0.West.WallExternal,Wall,u-value:WallExternal,Stairs-1-0,,Outdoors,,SunExposed,WindExposed,,4,0.0,15.75,3.25,0.0,10.5,3.25,0.0,10.5,6.5,0.0,15.75,6.5;
+FenestrationSurface:Detailed,Stairs-1-0.0.West.WallExternal.0.Window,Window,u-value:Window,Stairs-1-0.0.West.WallExternal,,,,,4,0.0,15.15,3.85,0.0,14.15,3.85,0.0,14.15,5.65,0.0,15.15,5.65;
+BuildingSurface:Detailed,Stairs-1-0.0.East.WallInternal,Wall,WallInternal,Stairs-1-0,,Zone,Corridor-1-0,NoSun,NoWind,,4,6.0,10.5,3.25,6.0,15.75,3.25,6.0,15.75,6.5,6.0,10.5,6.5;
+Zone,Service-1-0;
+BuildingSurface:Detailed,Service-1-0.FloorInternal,Floor,FloorInternal,Service-1-0,,Adiabatic,,NoSun,NoWind,,4,12.0,10.5,3.25,12.0,15.75,3.25,14.5,15.75,3.25,14.5,10.5,3.25;
+BuildingSurface:Detailed,Service-1-0.Ceiling,Ceiling,Ceiling,Service-1-0,,Adiabatic,,NoSun,NoWind,,4,12.0,10.5,6.5,14.5,10.5,6.5,14.5,15.75,6.5,12.0,15.75,6.5;
+BuildingSurface:Detailed,Service-1-0.0.East.WallExternal,Wall,u-value:WallExternal,Service-1-0,,Outdoors,,SunExposed,WindExposed,,4,14.5,10.5,3.25,14.5,15.75,3.25,14.5,15.75,6.5,14.5,10.5,6.5;
+FenestrationSurface:Detailed,Service-1-0.0.East.WallExternal.0.Window,Window,u-value:Window,Service-1-0.0.East.WallExternal,,,,,4,14.5,11.55,5.05,14.5,12.55,5.05,14.5,12.55,5.65,14.5,11.55,5.65;
+FenestrationSurface:Detailed,Service-1-0.0.East.WallExternal.1.Window,Window,u-value:Window,Service-1-0.0.East.WallExternal,,,,,4,14.5,14.15,5.05,14.5,15.15,5.05,14.5,15.15,5.65,14.5,14.15,5.65;
+Zone,Corridor-1-0;
+BuildingSurface:Detailed,Corridor-1-0.FloorInternal,Floor,FloorInternal,Corridor-1-0,,Adiabatic,,NoSun,NoWind,,4,6.0,0.0,3.25,6.0,26.7,3.25,8.5,26.7,3.25,8.5,0.0,3.25;
+BuildingSurface:Detailed,Corridor-1-0.Ceiling,Ceiling,Ceiling,Corridor-1-0,,Adiabatic,,NoSun,NoWind,,4,6.0,0.0,6.5,8.5,0.0,6.5,8.5,26.7,6.5,6.0,26.7,6.5;
+BuildingSurface:Detailed,Corridor-1-0.0.North.WallExternal,Wall,u-value:WallExternal,Corridor-1-0,,Outdoors,,SunExposed,WindExposed,,4,8.5,26.7,3.25,6.0,26.7,3.25,6.0,26.7,6.5,8.5,26.7,6.5;
+FenestrationSurface:Detailed,Corridor-1-0.0.North.WallExternal.0.Window,Window,u-value:Window,Corridor-1-0.0.North.WallExternal,,,,,4,7.75,26.7,3.85,6.75,26.7,3.85,6.75,26.7,5.65,7.75,26.7,5.65;
+BuildingSurface:Detailed,Corridor-1-0.1.South.WallExternal,Wall,u-value:WallExternal,Corridor-1-0,,Outdoors,,SunExposed,WindExposed,,4,6.0,0.0,3.25,8.5,0.0,3.25,8.5,0.0,6.5,6.0,0.0,6.5;
+FenestrationSurface:Detailed,Corridor-1-0.1.South.WallExternal.0.Window,Window,u-value:Window,Corridor-1-0.1.South.WallExternal,,,,,4,6.75,0.0,3.85,7.75,0.0,3.85,7.75,0.0,5.65,6.75,0.0,5.65;
+Zone,Office-2-0;
+BuildingSurface:Detailed,Office-2-0.0.FloorInternal,Floor,FloorInternal,Office-2-0,,Adiabatic,,NoSun,NoWind,,4,0.0,0.0,6.5,0.0,10.5,6.5,6.0,10.5,6.5,6.0,0.0,6.5;
+BuildingSurface:Detailed,Office-2-0.1.Roof,Roof,u-value:Roof,Office-2-0,,Outdoors,,SunExposed,WindExposed,,4,0.0,0.0,9.75,6.0,0.0,9.75,6.0,10.5,9.75,0.0,10.5,9.75;
+BuildingSurface:Detailed,Office-2-0.0.West.WallExternal,Wall,u-value:WallExternal,Office-2-0,,Outdoors,,SunExposed,WindExposed,,4,0.0,10.5,6.5,0.0,0.0,6.5,0.0,0.0,9.75,0.0,10.5,9.75;
+FenestrationSurface:Detailed,Office-2-0.0.West.WallExternal.0.Window,Window,u-value:Window,Office-2-0.0.West.WallExternal,,,,,4,0.0,9.95,7.1,0.0,8.95,7.1,0.0,8.95,8.9,0.0,9.95,8.9;
+FenestrationSurface:Detailed,Office-2-0.0.West.WallExternal.1.Window,Window,u-value:Window,Office-2-0.0.West.WallExternal,,,,,4,0.0,7.35,7.1,0.0,6.35,7.1,0.0,6.35,8.9,0.0,7.35,8.9;
+FenestrationSurface:Detailed,Office-2-0.0.West.WallExternal.2.Window,Window,u-value:Window,Office-2-0.0.West.WallExternal,,,,,4,0.0,4.75,7.1,0.0,3.75,7.1,0.0,3.75,8.9,0.0,4.75,8.9;
+FenestrationSurface:Detailed,Office-2-0.0.West.WallExternal.3.Window,Window,u-value:Window,Office-2-0.0.West.WallExternal,,,,,4,0.0,2.15,7.1,0.0,1.15,7.1,0.0,1.15,8.9,0.0,2.15,8.9;
+BuildingSurface:Detailed,Office-2-0.1.South.WallExternal,Wall,u-value:WallExternal,Office-2-0,,Outdoors,,SunExposed,WindExposed,,4,0.0,0.0,6.5,6.0,0.0,6.5,6.0,0.0,9.75,0.0,0.0,9.75;
+FenestrationSurface:Detailed,Office-2-0.1.South.WallExternal.0.Window,Window,u-value:Window,Office-2-0.1.South.WallExternal,,,,,4,1.55,0.0,7.1,2.55,0.0,7.1,2.55,0.0,8.9,1.55,0.0,8.9;
+FenestrationSurface:Detailed,Office-2-0.1.South.WallExternal.1.Window,Window,u-value:Window,Office-2-0.1.South.WallExternal,,,,,4,4.15,0.0,7.1,5.15,0.0,7.1,5.15,0.0,8.9,4.15,0.0,8.9;
+BuildingSurface:Detailed,Office-2-0.2.East.WallInternal,Wall,WallInternal,Office-2-0,,Zone,Corridor-2-0,NoSun,NoWind,,4,6.0,0.0,6.5,6.0,10.5,6.5,6.0,10.5,9.75,6.0,0.0,9.75;
+BuildingSurface:Detailed,Office-2-0.3.North.WallInternal,Wall,WallInternal,Office-2-0,,Zone,Stairs-2-0,NoSun,NoWind,,4,6.0,10.5,6.5,0.0,10.5,6.5,0.0,10.5,9.75,6.0,10.5,9.75;
+Zone,Office-2-1;
+BuildingSurface:Detailed,Office-2-1.FloorInternal,Floor,FloorInternal,Office-2-1,,Adiabatic,,NoSun,NoWind,,4,0.0,15.75,6.5,0.0,23.35,6.5,6.0,23.35,6.5,6.0,15.75,6.5;
+BuildingSurface:Detailed,Office-2-1.Roof,Roof,u-value:Roof,Office-2-1,,Outdoors,,SunExposed,WindExposed,,4,0.0,15.75,9.75,6.0,15.75,9.75,6.0,23.35,9.75,0.0,23.35,9.75;
+BuildingSurface:Detailed,Office-2-1.0.West.WallExternal,Wall,u-value:WallExternal,Office-2-1,,Outdoors,,SunExposed,WindExposed,,4,0.0,23.35,6.5,0.0,15.75,6.5,0.0,15.75,9.75,0.0,23.35,9.75;
+FenestrationSurface:Detailed,Office-2-1.0.West.WallExternal.1.Window,Window,u-value:Window,Office-2-1.0.West.WallExternal,,,,,4,0.0,22.95,7.1,0.0,21.95,7.1,0.0,21.95,8.9,0.0,22.95,8.9;
+FenestrationSurface:Detailed,Office-2-1.0.West.WallExternal.2.Window,Window,u-value:Window,Office-2-1.0.West.WallExternal,,,,,4,0.0,20.35,7.1,0.0,19.35,7.1,0.0,19.35,8.9,0.0,20.35,8.9;
+FenestrationSurface:Detailed,Office-2-1.0.West.WallExternal.3.Window,Window,u-value:Window,Office-2-1.0.West.WallExternal,,,,,4,0.0,17.75,7.1,0.0,16.75,7.1,0.0,16.75,8.9,0.0,17.75,8.9;
+BuildingSurface:Detailed,Office-2-1.WallInternal.3.North,Wall,WallInternal,Office-2-1,,Zone,Office-2-4,NoSun,NoWind,,4,6.0,23.35,6.5,0.0,23.35,6.5,0.0,23.35,9.75,6.0,23.35,9.75;
+BuildingSurface:Detailed,Office-2-1.WallInternal.1.South,Wall,WallInternal,Office-2-1,,Zone,Stairs-2-0,NoSun,NoWind,,4,0.0,15.75,6.5,6.0,15.75,6.5,6.0,15.75,9.75,0.0,15.75,9.75;
+BuildingSurface:Detailed,Office-2-1.WallInternal.2.East,Wall,WallInternal,Office-2-1,,Zone,Corridor-2-0,NoSun,NoWind,,4,6.0,15.75,6.5,6.0,23.35,6.5,6.0,23.35,9.75,6.0,15.75,9.75;
+Zone,Office-2-4;
+BuildingSurface:Detailed,Office-2-4.FloorInternal,Floor,FloorInternal,Office-2-4,,Adiabatic,,NoSun,NoWind,,4,0.0,23.35,6.5,0.0,26.7,6.5,14.5,26.7,6.5,14.5,23.35,6.5;
+BuildingSurface:Detailed,Office-2-4.Roof,Roof,u-value:Roof,Office-2-4,,Outdoors,,SunExposed,WindExposed,,4,0.0,23.35,9.75,14.5,23.35,9.75,14.5,26.7,9.75,0.0,26.7,9.75;
+BuildingSurface:Detailed,Office-2-4.0.West.WallExternal,Wall,u-value:WallExternal,Office-2-4,,Outdoors,,SunExposed,WindExposed,,4,0.0,26.7,6.5,0.0,23.35,6.5,0.0,23.35,9.75,0.0,26.7,9.75;
+FenestrationSurface:Detailed,Office-2-4.0.West.WallExternal.0.Window,Window,u-value:Window,Office-2-4.0.West.WallExternal,,,,,4,0.0,25.55,7.1,0.0,24.55,7.1,0.0,24.55,8.9,0.0,25.55,8.9;
+BuildingSurface:Detailed,Office-2-4.WallExternal.3.North,Wall,u-value:WallExternal,Office-2-4,,Outdoors,,SunExposed,WindExposed,,4,14.5,26.7,6.5,0.0,26.7,6.5,0.0,26.7,9.75,14.5,26.7,9.75;
+FenestrationSurface:Detailed,Office-2-4.WallExternal.3.North.0.Window,Window,u-value:Window,Office-2-4.WallExternal.3.North,,,,,4,5.15,26.7,7.1,4.15,26.7,7.1,4.15,26.7,8.9,5.15,26.7,8.9;
+FenestrationSurface:Detailed,Office-2-4.WallExternal.3.North.1.Window,Window,u-value:Window,Office-2-4.WallExternal.3.North,,,,,4,2.55,26.7,7.1,1.55,26.7,7.1,1.55,26.7,8.9,2.55,26.7,8.9;
+FenestrationSurface:Detailed,Office-2-4.WallExternal.3.North.2.Window,Window,u-value:Window,Office-2-4.WallExternal.3.North,,,,,4,12.95,26.7,7.1,11.95,26.7,7.1,11.95,26.7,8.9,12.95,26.7,8.9;
+FenestrationSurface:Detailed,Office-2-4.WallExternal.3.North.3.Window,Window,u-value:Window,Office-2-4.WallExternal.3.North,,,,,4,10.35,26.7,7.1,9.35,26.7,7.1,9.35,26.7,8.9,10.35,26.7,8.9;
+BuildingSurface:Detailed,Office-2-4.WallExternal.2.East,Wall,u-value:WallExternal,Office-2-4,,Outdoors,,SunExposed,WindExposed,,4,14.5,23.35,6.5,14.5,26.7,6.5,14.5,26.7,9.75,14.5,23.35,9.75;
+FenestrationSurface:Detailed,Office-2-4.WallExternal.2.East.0.Window,Window,u-value:Window,Office-2-4.WallExternal.2.East,,,,,4,14.5,24.55,7.1,14.5,25.55,7.1,14.5,25.55,8.9,14.5,24.55,8.9;
+Zone,Office-2-2;
+BuildingSurface:Detailed,Office-2-2.FloorInternal,Floor,FloorInternal,Office-2-2,,Adiabatic,,NoSun,NoWind,,4,8.5,15.75,6.5,8.5,23.35,6.5,14.5,23.35,6.5,14.5,15.75,6.5;
+BuildingSurface:Detailed,Office-2-2.Roof,Roof,u-value:Roof,Office-2-2,,Outdoors,,SunExposed,WindExposed,,4,8.5,15.75,9.75,14.5,15.75,9.75,14.5,23.35,9.75,8.5,23.35,9.75;
+BuildingSurface:Detailed,Office-2-2.WallExternal.2.East,Wall,u-value:WallExternal,Office-2-2,,Outdoors,,SunExposed,WindExposed,,4,14.5,15.75,6.5,14.5,23.35,6.5,14.5,23.35,9.75,14.5,15.75,9.75;
+FenestrationSurface:Detailed,Office-2-2.WallExternal.2.East.1.Window,Window,u-value:Window,Office-2-2.WallExternal.2.East,,,,,4,14.5,21.95,7.1,14.5,22.95,7.1,14.5,22.95,8.9,14.5,21.95,8.9;
+FenestrationSurface:Detailed,Office-2-2.WallExternal.2.East.2.Window,Window,u-value:Window,Office-2-2.WallExternal.2.East,,,,,4,14.5,19.35,7.1,14.5,20.35,7.1,14.5,20.35,8.9,14.5,19.35,8.9;
+FenestrationSurface:Detailed,Office-2-2.WallExternal.2.East.3.Window,Window,u-value:Window,Office-2-2.WallExternal.2.East,,,,,4,14.5,16.75,7.1,14.5,17.75,7.1,14.5,17.75,8.9,14.5,16.75,8.9;
+BuildingSurface:Detailed,Office-2-2.WallInternal.1.North,Wall,WallInternal,Office-2-2,,Zone,Office-2-4,NoSun,NoWind,,4,14.5,23.35,6.5,8.5,23.35,6.5,8.5,23.35,9.75,14.5,23.35,9.75;
+BuildingSurface:Detailed,Office-2-2.WallInternal.3.South,Wall,WallInternal,Office-2-2,,Zone,Technic-2-0,NoSun,NoWind,,4,12.0,15.75,6.5,14.5,15.75,6.5,14.5,15.75,9.75,12.0,15.75,9.75;
+BuildingSurface:Detailed,Office-2-2.WallInternal.4.South,Wall,WallInternal,Office-2-2,,Zone,Toilet-2-0,NoSun,NoWind,,4,8.5,15.75,6.5,12.0,15.75,6.5,12.0,15.75,9.75,8.5,15.75,9.75;
+BuildingSurface:Detailed,Office-2-2.WallInternal.0.West,Wall,WallInternal,Office-2-2,,Zone,Corridor-2-0,NoSun,NoWind,,4,8.5,23.35,6.5,8.5,15.75,6.5,8.5,15.75,9.75,8.5,23.35,9.75;
+Zone,Office-2-3;
+BuildingSurface:Detailed,Office-2-3.FloorInternal,Floor,FloorInternal,Office-2-3,,Adiabatic,,NoSun,NoWind,,4,8.5,0.0,6.5,8.5,10.5,6.5,14.5,10.5,6.5,14.5,0.0,6.5;
+BuildingSurface:Detailed,Office-2-3.Roof,Roof,u-value:Roof,Office-2-3,,Outdoors,,SunExposed,WindExposed,,4,8.5,0.0,9.75,14.5,0.0,9.75,14.5,10.5,9.75,8.5,10.5,9.75;
+BuildingSurface:Detailed,Office-2-3.WallExternal.3.East,Wall,u-value:WallExternal,Office-2-3,,Outdoors,,SunExposed,WindExposed,,4,14.5,0.0,6.5,14.5,10.5,6.5,14.5,10.5,9.75,14.5,0.0,9.75;
+FenestrationSurface:Detailed,Office-2-3.WallExternal.3.East.0.Window,Window,u-value:Window,Office-2-3.WallExternal.3.East,,,,,4,14.5,8.95,7.1,14.5,9.95,7.1,14.5,9.95,8.9,14.5,8.95,8.9;
+FenestrationSurface:Detailed,Office-2-3.WallExternal.3.East.1.Window,Window,u-value:Window,Office-2-3.WallExternal.3.East,,,,,4,14.5,6.35,7.1,14.5,7.35,7.1,14.5,7.35,8.9,14.5,6.35,8.9;
+FenestrationSurface:Detailed,Office-2-3.WallExternal.3.East.2.Window,Window,u-value:Window,Office-2-3.WallExternal.3.East,,,,,4,14.5,3.75,7.1,14.5,4.75,7.1,14.5,4.75,8.9,14.5,3.75,8.9;
+FenestrationSurface:Detailed,Office-2-3.WallExternal.3.East.3.Window,Window,u-value:Window,Office-2-3.WallExternal.3.East,,,,,4,14.5,1.15,7.1,14.5,2.15,7.1,14.5,2.15,8.9,14.5,1.15,8.9;
+BuildingSurface:Detailed,Office-2-3.WallExternal.4.South,Wall,u-value:WallExternal,Office-2-3,,Outdoors,,SunExposed,WindExposed,,4,8.5,0.0,6.5,14.5,0.0,6.5,14.5,0.0,9.75,8.5,0.0,9.75;
+FenestrationSurface:Detailed,Office-2-3.WallExternal.4.South.0.Window,Window,u-value:Window,Office-2-3.WallExternal.4.South,,,,,4,11.95,0.0,7.1,12.95,0.0,7.1,12.95,0.0,8.9,11.95,0.0,8.9;
+FenestrationSurface:Detailed,Office-2-3.WallExternal.4.South.1.Window,Window,u-value:Window,Office-2-3.WallExternal.4.South,,,,,4,9.35,0.0,7.1,10.35,0.0,7.1,10.35,0.0,8.9,9.35,0.0,8.9;
+BuildingSurface:Detailed,Office-2-3.WallInternal.2.North,Wall,WallInternal,Office-2-3,,Zone,Technic-2-0,NoSun,NoWind,,4,14.5,10.5,6.5,12.0,10.5,6.5,12.0,10.5,9.75,14.5,10.5,9.75;
+BuildingSurface:Detailed,Office-2-3.WallInternal.1.North,Wall,WallInternal,Office-2-3,,Zone,Toilet-2-0,NoSun,NoWind,,4,12.0,10.5,6.5,8.5,10.5,6.5,8.5,10.5,9.75,12.0,10.5,9.75;
+BuildingSurface:Detailed,Office-2-3.WallInternal.0.West,Wall,WallInternal,Office-2-3,,Zone,Corridor-2-0,NoSun,NoWind,,4,8.5,10.5,6.5,8.5,0.0,6.5,8.5,0.0,9.75,8.5,10.5,9.75;
+Zone,Toilet-2-0;
+BuildingSurface:Detailed,Toilet-2-0.FloorInternal,Floor,FloorInternal,Toilet-2-0,,Adiabatic,,NoSun,NoWind,,4,8.5,10.5,6.5,8.5,15.75,6.5,12.0,15.75,6.5,12.0,10.5,6.5;
+BuildingSurface:Detailed,Toilet-2-0.Roof,Roof,u-value:Roof,Toilet-2-0,,Outdoors,,SunExposed,WindExposed,,4,8.5,10.5,9.75,12.0,10.5,9.75,12.0,15.75,9.75,8.5,15.75,9.75;
+BuildingSurface:Detailed,Toilet-2-0.WallInternal.0.West,Wall,WallInternal,Toilet-2-0,,Zone,Corridor-2-0,NoSun,NoWind,,4,8.5,15.75,6.5,8.5,10.5,6.5,8.5,10.5,9.75,8.5,15.75,9.75;
+BuildingSurface:Detailed,Toilet-2-0.WallInternal.1.East,Wall,WallInternal,Toilet-2-0,,Zone,Technic-2-0,NoSun,NoWind,,4,12.0,10.5,6.5,12.0,15.75,6.5,12.0,15.75,9.75,12.0,10.5,9.75;
+Zone,Stairs-2-0;
+BuildingSurface:Detailed,Stairs-2-0.FloorInternal,Floor,FloorInternal,Stairs-2-0,,Adiabatic,,NoSun,NoWind,,4,0.0,10.5,6.5,0.0,15.75,6.5,6.0,15.75,6.5,6.0,10.5,6.5;
+BuildingSurface:Detailed,Stairs-2-0.Roof,Roof,u-value:Roof,Stairs-2-0,,Outdoors,,SunExposed,WindExposed,,4,0.0,10.5,9.75,6.0,10.5,9.75,6.0,15.75,9.75,0.0,15.75,9.75;
+BuildingSurface:Detailed,Stairs-2-0.0.West.WallExternal,Wall,u-value:WallExternal,Stairs-2-0,,Outdoors,,SunExposed,WindExposed,,4,0.0,15.75,6.5,0.0,10.5,6.5,0.0,10.5,9.75,0.0,15.75,9.75;
+FenestrationSurface:Detailed,Stairs-2-0.0.West.WallExternal.0.Window,Window,u-value:Window,Stairs-2-0.0.West.WallExternal,,,,,4,0.0,15.15,7.1,0.0,14.15,7.1,0.0,14.15,8.9,0.0,15.15,8.9;
+BuildingSurface:Detailed,Stairs-2-0.0.East.WallInternal,Wall,WallInternal,Stairs-2-0,,Zone,Corridor-2-0,NoSun,NoWind,,4,6.0,10.5,6.5,6.0,15.75,6.5,6.0,15.75,9.75,6.0,10.5,9.75;
+Zone,Technic-2-0;
+BuildingSurface:Detailed,Technic-2-0.FloorInternal,Floor,FloorInternal,Technic-2-0,,Adiabatic,,NoSun,NoWind,,4,12.0,10.5,6.5,12.0,15.75,6.5,14.5,15.75,6.5,14.5,10.5,6.5;
+BuildingSurface:Detailed,Technic-2-0.Roof,Roof,u-value:Roof,Technic-2-0,,Outdoors,,SunExposed,WindExposed,,4,12.0,10.5,9.75,14.5,10.5,9.75,14.5,15.75,9.75,12.0,15.75,9.75;
+BuildingSurface:Detailed,Technic-2-0.0.East.WallExternal,Wall,u-value:WallExternal,Technic-2-0,,Outdoors,,SunExposed,WindExposed,,4,14.5,10.5,6.5,14.5,15.75,6.5,14.5,15.75,9.75,14.5,10.5,9.75;
+FenestrationSurface:Detailed,Technic-2-0.0.East.WallExternal.0.Window,Window,u-value:Window,Technic-2-0.0.East.WallExternal,,,,,4,14.5,11.55,8.3,14.5,12.55,8.3,14.5,12.55,8.9,14.5,11.55,8.9;
+FenestrationSurface:Detailed,Technic-2-0.0.East.WallExternal.1.Window,Window,u-value:Window,Technic-2-0.0.East.WallExternal,,,,,4,14.5,14.15,8.3,14.5,15.15,8.3,14.5,15.15,8.9,14.5,14.15,8.9;
+Zone,Corridor-2-0;
+BuildingSurface:Detailed,Corridor-2-0.FloorInternal,Floor,FloorInternal,Corridor-2-0,,Adiabatic,,NoSun,NoWind,,4,6.0,0.0,6.5,6.0,23.35,6.5,8.5,23.35,6.5,8.5,0.0,6.5;
+BuildingSurface:Detailed,Corridor-2-0.Roof,Roof,u-value:Roof,Corridor-2-0,,Outdoors,,SunExposed,WindExposed,,4,6.0,0.0,9.75,8.5,0.0,9.75,8.5,23.35,9.75,6.0,23.35,9.75;
+BuildingSurface:Detailed,Corridor-2-0.0.North.WallInternal,Wall,WallInternal,Corridor-2-0,,Zone,Office-2-4,NoSun,NoWind,,4,8.5,23.35,6.5,6.0,23.35,6.5,6.0,23.35,9.75,8.5,23.35,9.75;
+BuildingSurface:Detailed,Corridor-2-0.1.South.WallExternal,Wall,u-value:WallExternal,Corridor-2-0,,Outdoors,,SunExposed,WindExposed,,4,6.0,0.0,6.5,8.5,0.0,6.5,8.5,0.0,9.75,6.0,0.0,9.75;
+FenestrationSurface:Detailed,Corridor-2-0.1.South.WallExternal.0.Window,Window,u-value:Window,Corridor-2-0.1.South.WallExternal,,,,,4,6.75,0.0,7.1,7.75,0.0,7.1,7.75,0.0,8.9,6.75,0.0,8.9;
+RunPeriod,RunPeriodNovember,11,1,2017,11,30,2017,,No,Yes,No,Yes,Yes,No;
+RunPeriod,RunPeriodDecember,12,1,2017,12,31,2017,,No,Yes,No,Yes,Yes,No;
+RunPeriod,RunPeriodJanuary,1,1,2018,1,31,2018,,No,Yes,No,Yes,Yes,No;
+RunPeriod,RunPeriodFebruary,2,1,2018,2,28,2018,,No,Yes,No,Yes,Yes,No;
+ScheduleTypeLimits,Any Number,;
+Schedule:Compact,Generic.Always1,AnyNumber,Through 12/31,
+   For: Alldays,
+        Until: 24:00, 1;
+Schedule:Compact,Generic.Always01,AnyNumber,Through 12/31,
+   For: Alldays,
+        Until: 24:00, 0.1;
+Schedule:Compact,Office.CoolingSetpoint,AnyNumber,Through 12/31,
+   For: Mondays Tuesdays Wednesday Thursdays SummerDesignDay WinterDesignDay CustomDay1 CustomDay2,
+       Until: 07:00, 30, Until: 17:00, 25, Until: 24:00, 30,
+   For: Fridays,
+       Until: 07:00, 30, Until: 13:00, 25, Until: 24:00, 30,
+   For: Weekends Holidays,
+       Until: 24:00, 30;
+Schedule:Compact,Office.ElectricEquipment,AnyNumber,Through 12/31,
+   For: Mondays Tuesdays Wednesday Thursdays SummerDesignDay WinterDesignDay CustomDay1 CustomDay2,
+       Until: 07:30, 0.1, Until: 17:00, 1.0, Until: 24:00, 0.1,
+   For: Fridays,
+       Until: 07:30, 0.1, Until: 13:00, 1.0, Until: 24:00, 0.1,
+   For: Weekends Holidays,
+       Until: 24:00, 0.1;
+Schedule:Compact,Office.Lights,AnyNumber,Through 12/31,
+   For: Mondays Tuesdays Wednesday Thursdays SummerDesignDay WinterDesignDay CustomDay1 CustomDay2,
+       Until: 07:30, 0.1, Until: 17:00, 1.0, Until: 24:00, 0.1,
+   For: Fridays,
+       Until: 07:30, 0.1, Until: 13:00, 1.0, Until: 24:00, 0.1,
+   For: Weekends Holidays,
+       Until: 24:00, 0.1;
+Schedule:Compact,Office.People,AnyNumber,Through 12/31,
+   For: Mondays Tuesdays Wednesday Thursdays SummerDesignDay WinterDesignDay CustomDay1 CustomDay2,
+       Until: 07:30, 0.0, Until: 17:00, 1.0, Until: 24:00, 0.0,
+   For: Fridays,
+       Until: 07:30, 0.0, Until: 13:00, 1.0, Until: 24:00, 0.0,
+   For: Weekends Holidays,
+       Until: 24:00, 0.0;
+Schedule:Compact,Office.Activity,AnyNumber,Through 12/31,
+   For: Alldays,
+        Until: 24:00, 140;
+Schedule:Compact,Stairs.CoolingSetpoint,AnyNumber,Through 12/31,
+   For: Mondays Tuesdays Wednesday Thursdays SummerDesignDay WinterDesignDay CustomDay1 CustomDay2,
+       Until: 07:00, 30, Until: 17:00, 25, Until: 24:00, 30,
+   For: Fridays,
+       Until: 07:00, 30, Until: 13:00, 25, Until: 24:00, 30,
+   For: Weekends Holidays,
+       Until: 24:00, 30;
+Schedule:Compact,Stairs.ElectricEquipment,AnyNumber,Through 12/31,
+   For: Mondays Tuesdays Wednesday Thursdays SummerDesignDay WinterDesignDay CustomDay1 CustomDay2,
+       Until: 07:30, 0.1, Until: 17:00, 1.0, Until: 24:00, 0.1,
+   For: Fridays,
+       Until: 07:30, 0.1, Until: 13:00, 1.0, Until: 24:00, 0.1,
+   For: Weekends Holidays,
+       Until: 24:00, 0.1;
+Schedule:Compact,Stairs.Lights,AnyNumber,Through 12/31,
+   For: Mondays Tuesdays Wednesday Thursdays SummerDesignDay WinterDesignDay CustomDay1 CustomDay2,
+       Until: 07:30, 0.1, Until: 17:00, 1.0, Until: 24:00, 0.1,
+   For: Fridays,
+       Until: 07:30, 0.1, Until: 13:00, 1.0, Until: 24:00, 0.1,
+   For: Weekends Holidays,
+       Until: 24:00, 0.1;
+Schedule:Compact,Stairs.People,AnyNumber,Through 12/31,
+   For: Mondays Tuesdays Wednesday Thursdays SummerDesignDay WinterDesignDay CustomDay1 CustomDay2,
+       Until: 07:30, 0.0, Until: 17:00, 1.0, Until: 24:00, 0.0,
+   For: Fridays,
+       Until: 07:30, 0.0, Until: 13:00, 1.0, Until: 24:00, 0.0,
+   For: Weekends Holidays,
+       Until: 24:00, 0.0;
+Schedule:Compact,Stairs.Activity,AnyNumber,Through 12/31,
+   For: Alldays,
+        Until: 24:00, 140;
+Schedule:Compact,Toilet.HeatingSetpoint,AnyNumber,Through 12/31,
+   For: Mondays Tuesdays Wednesday Thursdays SummerDesignDay WinterDesignDay CustomDay1 CustomDay2,
+       Until: 07:00, 15, Until: 17:00, 20, Until: 24:00, 15,
+   For: Fridays,
+       Until: 07:00, 15, Until: 13:00, 20, Until: 24:00, 15,
+   For: Weekends Holidays,
+       Until: 24:00, 15;
+Schedule:Compact,Toilet.CoolingSetpoint,AnyNumber,Through 12/31,
+   For: Mondays Tuesdays Wednesday Thursdays SummerDesignDay WinterDesignDay CustomDay1 CustomDay2,
+       Until: 07:00, 30, Until: 17:00, 25, Until: 24:00, 30,
+   For: Fridays,
+       Until: 07:00, 30, Until: 13:00, 25, Until: 24:00, 30,
+   For: Weekends Holidays,
+       Until: 24:00, 30;
+Schedule:Compact,Toilet.ElectricEquipment,AnyNumber,Through 12/31,
+   For: Mondays Tuesdays Wednesday Thursdays SummerDesignDay WinterDesignDay CustomDay1 CustomDay2,
+       Until: 07:30, 0.1, Until: 17:00, 1.0, Until: 24:00, 0.1,
+   For: Fridays,
+       Until: 07:30, 0.1, Until: 13:00, 1.0, Until: 24:00, 0.1,
+   For: Weekends Holidays,
+       Until: 24:00, 0.1;
+Schedule:Compact,Toilet.Lights,AnyNumber,Through 12/31,
+   For: Mondays Tuesdays Wednesday Thursdays SummerDesignDay WinterDesignDay CustomDay1 CustomDay2,
+       Until: 07:30, 0.1, Until: 17:00, 1.0, Until: 24:00, 0.1,
+   For: Fridays,
+       Until: 07:30, 0.1, Until: 13:00, 1.0, Until: 24:00, 0.1,
+   For: Weekends Holidays,
+       Until: 24:00, 0.1;
+Schedule:Compact,Toilet.People,AnyNumber,Through 12/31,
+   For: Mondays Tuesdays Wednesday Thursdays SummerDesignDay WinterDesignDay CustomDay1 CustomDay2,
+       Until: 07:30, 0.0, Until: 17:00, 1.0, Until: 24:00, 0.0,
+   For: Fridays,
+       Until: 07:30, 0.0, Until: 13:00, 1.0, Until: 24:00, 0.0,
+   For: Weekends Holidays,
+       Until: 24:00, 0.0;
+Schedule:Compact,Toilet.Activity,AnyNumber,Through 12/31,
+   For: Alldays,
+        Until: 24:00, 140;
+Schedule:Compact,Service.HeatingSetpoint,AnyNumber,Through 12/31,
+   For: Mondays Tuesdays Wednesday Thursdays SummerDesignDay WinterDesignDay CustomDay1 CustomDay2,
+       Until: 07:00, 15, Until: 17:00, 20, Until: 24:00, 15,
+   For: Fridays,
+       Until: 07:00, 15, Until: 13:00, 20, Until: 24:00, 15,
+   For: Weekends Holidays,
+       Until: 24:00, 15;
+Schedule:Compact,Service.CoolingSetpoint,AnyNumber,Through 12/31,
+   For: Mondays Tuesdays Wednesday Thursdays SummerDesignDay WinterDesignDay CustomDay1 CustomDay2,
+       Until: 07:00, 30, Until: 17:00, 25, Until: 24:00, 30,
+   For: Fridays,
+       Until: 07:00, 30, Until: 13:00, 25, Until: 24:00, 30,
+   For: Weekends Holidays,
+       Until: 24:00, 30;
+Schedule:Compact,Service.ElectricEquipment,AnyNumber,Through 12/31,
+   For: Mondays Tuesdays Wednesday Thursdays SummerDesignDay WinterDesignDay CustomDay1 CustomDay2,
+       Until: 07:30, 0.1, Until: 17:00, 1.0, Until: 24:00, 0.1,
+   For: Fridays,
+       Until: 07:30, 0.1, Until: 13:00, 1.0, Until: 24:00, 0.1,
+   For: Weekends Holidays,
+       Until: 24:00, 0.1;
+Schedule:Compact,Service.Lights,AnyNumber,Through 12/31,
+   For: Mondays Tuesdays Wednesday Thursdays SummerDesignDay WinterDesignDay CustomDay1 CustomDay2,
+       Until: 07:30, 0.1, Until: 17:00, 1.0, Until: 24:00, 0.1,
+   For: Fridays,
+       Until: 07:30, 0.1, Until: 13:00, 1.0, Until: 24:00, 0.1,
+   For: Weekends Holidays,
+       Until: 24:00, 0.1;
+Schedule:Compact,Service.People,AnyNumber,Through 12/31,
+   For: Mondays Tuesdays Wednesday Thursdays SummerDesignDay WinterDesignDay CustomDay1 CustomDay2,
+       Until: 07:30, 0.0, Until: 17:00, 1.0, Until: 24:00, 0.0,
+   For: Fridays,
+       Until: 07:30, 0.0, Until: 13:00, 1.0, Until: 24:00, 0.0,
+   For: Weekends Holidays,
+       Until: 24:00, 0.0;
+Schedule:Compact,Service.Activity,AnyNumber,Through 12/31,
+   For: Alldays,
+        Until: 24:00, 140;
+Schedule:Compact,Corridor.CoolingSetpoint,AnyNumber,Through 12/31,
+   For: Mondays Tuesdays Wednesday Thursdays SummerDesignDay WinterDesignDay CustomDay1 CustomDay2,
+       Until: 07:00, 30, Until: 17:00, 25, Until: 24:00, 30,
+   For: Fridays,
+       Until: 07:00, 30, Until: 13:00, 25, Until: 24:00, 30,
+   For: Weekends Holidays,
+       Until: 24:00, 30;
+Schedule:Compact,Corridor.ElectricEquipment,AnyNumber,Through 12/31,
+   For: Mondays Tuesdays Wednesday Thursdays SummerDesignDay WinterDesignDay CustomDay1 CustomDay2,
+       Until: 07:30, 0.1, Until: 17:00, 1.0, Until: 24:00, 0.1,
+   For: Fridays,
+       Until: 07:30, 0.1, Until: 13:00, 1.0, Until: 24:00, 0.1,
+   For: Weekends Holidays,
+       Until: 24:00, 0.1;
+Schedule:Compact,Corridor.Lights,AnyNumber,Through 12/31,
+   For: Mondays Tuesdays Wednesday Thursdays SummerDesignDay WinterDesignDay CustomDay1 CustomDay2,
+       Until: 07:30, 0.1, Until: 17:00, 1.0, Until: 24:00, 0.1,
+   For: Fridays,
+       Until: 07:30, 0.1, Until: 13:00, 1.0, Until: 24:00, 0.1,
+   For: Weekends Holidays,
+       Until: 24:00, 0.1;
+Schedule:Compact,Corridor.People,AnyNumber,Through 12/31,
+   For: Mondays Tuesdays Wednesday Thursdays SummerDesignDay WinterDesignDay CustomDay1 CustomDay2,
+       Until: 07:30, 0.0, Until: 17:00, 1.0, Until: 24:00, 0.0,
+   For: Fridays,
+       Until: 07:30, 0.0, Until: 13:00, 1.0, Until: 24:00, 0.0,
+   For: Weekends Holidays,
+       Until: 24:00, 0.0;
+Schedule:Compact,Corridor.Activity,AnyNumber,Through 12/31,
+   For: Alldays,
+        Until: 24:00, 140;
+Schedule:Compact,Technic.HeatingSetpoint,AnyNumber,Through 12/31,
+   For: Mondays Tuesdays Wednesday Thursdays SummerDesignDay WinterDesignDay CustomDay1 CustomDay2,
+       Until: 07:00, 15, Until: 17:00, 20, Until: 24:00, 15,
+   For: Fridays,
+       Until: 07:00, 15, Until: 13:00, 20, Until: 24:00, 15,
+   For: Weekends Holidays,
+       Until: 24:00, 15;
+Schedule:Compact,Technic.CoolingSetpoint,AnyNumber,Through 12/31,
+   For: Mondays Tuesdays Wednesday Thursdays SummerDesignDay WinterDesignDay CustomDay1 CustomDay2,
+       Until: 07:00, 30, Until: 17:00, 25, Until: 24:00, 30,
+   For: Fridays,
+       Until: 07:00, 30, Until: 13:00, 25, Until: 24:00, 30,
+   For: Weekends Holidays,
+       Until: 24:00, 30;
+Schedule:Compact,Technic.ElectricEquipment,AnyNumber,Through 12/31,
+   For: Mondays Tuesdays Wednesday Thursdays SummerDesignDay WinterDesignDay CustomDay1 CustomDay2,
+       Until: 07:30, 0.1, Until: 17:00, 1.0, Until: 24:00, 0.1,
+   For: Fridays,
+       Until: 07:30, 0.1, Until: 13:00, 1.0, Until: 24:00, 0.1,
+   For: Weekends Holidays,
+       Until: 24:00, 0.1;
+Schedule:Compact,Technic.Lights,AnyNumber,Through 12/31,
+   For: Mondays Tuesdays Wednesday Thursdays SummerDesignDay WinterDesignDay CustomDay1 CustomDay2,
+       Until: 07:30, 0.1, Until: 17:00, 1.0, Until: 24:00, 0.1,
+   For: Fridays,
+       Until: 07:30, 0.1, Until: 13:00, 1.0, Until: 24:00, 0.1,
+   For: Weekends Holidays,
+       Until: 24:00, 0.1;
+Schedule:Compact,Technic.People,AnyNumber,Through 12/31,
+   For: Mondays Tuesdays Wednesday Thursdays SummerDesignDay WinterDesignDay CustomDay1 CustomDay2,
+       Until: 07:30, 0.0, Until: 17:00, 1.0, Until: 24:00, 0.0,
+   For: Fridays,
+       Until: 07:30, 0.0, Until: 13:00, 1.0, Until: 24:00, 0.0,
+   For: Weekends Holidays,
+       Until: 24:00, 0.0;
+Schedule:Compact,Technic.Activity,AnyNumber,Through 12/31,
+   For: Alldays,
+        Until: 24:00, 140;
+InternalMass,InternalMass.Office-0-0,Mass,Office-0-0,,31.875;
+InternalMass,InternalMass.Office-0-1,Mass,Office-0-1,,27.375;
+InternalMass,InternalMass.Office-0-2,Mass,Office-0-2,,27.375;
+InternalMass,InternalMass.Office-0-3,Mass,Office-0-3,,26.25;
+InternalMass,InternalMass.Toilet-0-0,Mass,Toilet-0-0,,7.65625;
+InternalMass,InternalMass.Stairs-0-0,Mass,Stairs-0-0,,7.5;
+InternalMass,InternalMass.Technic-0-0,Mass,Technic-0-0,,5.46875;
+InternalMass,InternalMass.Corridor-0-0,Mass,Corridor-0-0,,27.8125;
+InternalMass,InternalMass.Office-1-0,Mass,Office-1-0,,26.25;
+InternalMass,InternalMass.Office-1-1,Mass,Office-1-1,,27.375;
+InternalMass,InternalMass.Office-1-2,Mass,Office-1-2,,27.375;
+InternalMass,InternalMass.Office-1-3,Mass,Office-1-3,,26.25;
+InternalMass,InternalMass.Toilet-1-0,Mass,Toilet-1-0,,7.65625;
+InternalMass,InternalMass.Stairs-1-0,Mass,Stairs-1-0,,13.125;
+InternalMass,InternalMass.Service-1-0,Mass,Service-1-0,,5.46875;
+InternalMass,InternalMass.Corridor-1-0,Mass,Corridor-1-0,,27.8125;
+InternalMass,InternalMass.Office-2-0,Mass,Office-2-0,,26.25;
+InternalMass,InternalMass.Office-2-1,Mass,Office-2-1,,19.0;
+InternalMass,InternalMass.Office-2-4,Mass,Office-2-4,,20.239583333333332;
+InternalMass,InternalMass.Office-2-2,Mass,Office-2-2,,19.0;
+InternalMass,InternalMass.Office-2-3,Mass,Office-2-3,,26.25;
+InternalMass,InternalMass.Toilet-2-0,Mass,Toilet-2-0,,7.65625;
+InternalMass,InternalMass.Stairs-2-0,Mass,Stairs-2-0,,13.125;
+InternalMass,InternalMass.Technic-2-0,Mass,Technic-2-0,,5.46875;
+InternalMass,InternalMass.Corridor-2-0,Mass,Corridor-2-0,,24.322916666666668;
+ZoneInfiltration:DesignFlowRate,Infiltration for Office-0-0,Office-0-0,Generic.Always1,AirChanges/Hour,,,,0.33618,0.606,0.03636,0.1177165,;
+ZoneInfiltration:DesignFlowRate,Infiltration for Office-0-1,Office-0-1,Generic.Always1,AirChanges/Hour,,,,0.34169,0.606,0.03636,0.1177165,;
+ZoneInfiltration:DesignFlowRate,Infiltration for Office-0-2,Office-0-2,Generic.Always1,AirChanges/Hour,,,,0.34169,0.606,0.03636,0.1177165,;
+ZoneInfiltration:DesignFlowRate,Infiltration for Office-0-3,Office-0-3,Generic.Always1,AirChanges/Hour,,,,0.34336,0.606,0.03636,0.1177165,;
+ZoneInfiltration:DesignFlowRate,Infiltration for Toilet-0-0,Toilet-0-0,Generic.Always1,AirChanges/Hour,,,,0.23146,0.606,0.03636,0.1177165,;
+ZoneInfiltration:DesignFlowRate,Infiltration for Stairs-0-0,Stairs-0-0,Generic.Always1,AirChanges/Hour,,,,0.30267,0.606,0.03636,0.1177165,;
+ZoneInfiltration:DesignFlowRate,Infiltration for Technic-0-0,Technic-0-0,Generic.Always1,AirChanges/Hour,,,,0.40236,0.606,0.03636,0.1177165,;
+ZoneInfiltration:DesignFlowRate,Infiltration for Corridor-0-0,Corridor-0-0,Generic.Always1,AirChanges/Hour,,,,0.26346,0.606,0.03636,0.1177165,;
+ZoneInfiltration:DesignFlowRate,Infiltration for Office-1-0,Office-1-0,Generic.Always1,AirChanges/Hour,,,,0.2119,0.606,0.03636,0.1177165,;
+ZoneInfiltration:DesignFlowRate,Infiltration for Office-1-1,Office-1-1,Generic.Always1,AirChanges/Hour,,,,0.21023,0.606,0.03636,0.1177165,;
+ZoneInfiltration:DesignFlowRate,Infiltration for Office-1-2,Office-1-2,Generic.Always1,AirChanges/Hour,,,,0.21023,0.606,0.03636,0.1177165,;
+ZoneInfiltration:DesignFlowRate,Infiltration for Office-1-3,Office-1-3,Generic.Always1,AirChanges/Hour,,,,0.2119,0.606,0.03636,0.1177165,;
+ZoneInfiltration:DesignFlowRate,Infiltration for Toilet-1-0,Toilet-1-0,Generic.Always1,AirChanges/Hour,,,,0.1,0.606,0.03636,0.1177165,;
+ZoneInfiltration:DesignFlowRate,Infiltration for Stairs-1-0,Stairs-1-0,Generic.Always1,AirChanges/Hour,,,,0.17121,0.606,0.03636,0.1177165,;
+ZoneInfiltration:DesignFlowRate,Infiltration for Service-1-0,Service-1-0,Generic.Always1,AirChanges/Hour,,,,0.2709,0.606,0.03636,0.1177165,;
+ZoneInfiltration:DesignFlowRate,Infiltration for Corridor-1-0,Corridor-1-0,Generic.Always1,AirChanges/Hour,,,,0.132,0.606,0.03636,0.1177165,;
+ZoneInfiltration:DesignFlowRate,Infiltration for Office-2-0,Office-2-0,Generic.Always1,AirChanges/Hour,,,,0.34336,0.606,0.03636,0.1177165,;
+ZoneInfiltration:DesignFlowRate,Infiltration for Office-2-1,Office-2-1,Generic.Always1,AirChanges/Hour,,,,0.30267,0.606,0.03636,0.1177165,;
+ZoneInfiltration:DesignFlowRate,Infiltration for Office-2-4,Office-2-4,Generic.Always1,AirChanges/Hour,,,,0.41793,0.606,0.03636,0.1177165,;
+ZoneInfiltration:DesignFlowRate,Infiltration for Office-2-2,Office-2-2,Generic.Always1,AirChanges/Hour,,,,0.30267,0.606,0.03636,0.1177165,;
+ZoneInfiltration:DesignFlowRate,Infiltration for Office-2-3,Office-2-3,Generic.Always1,AirChanges/Hour,,,,0.34336,0.606,0.03636,0.1177165,;
+ZoneInfiltration:DesignFlowRate,Infiltration for Toilet-2-0,Toilet-2-0,Generic.Always1,AirChanges/Hour,,,,0.23146,0.606,0.03636,0.1177165,;
+ZoneInfiltration:DesignFlowRate,Infiltration for Stairs-2-0,Stairs-2-0,Generic.Always1,AirChanges/Hour,,,,0.30267,0.606,0.03636,0.1177165,;
+ZoneInfiltration:DesignFlowRate,Infiltration for Technic-2-0,Technic-2-0,Generic.Always1,AirChanges/Hour,,,,0.40236,0.606,0.03636,0.1177165,;
+ZoneInfiltration:DesignFlowRate,Infiltration for Corridor-2-0,Corridor-2-0,Generic.Always1,AirChanges/Hour,,,,0.24976,0.606,0.03636,0.1177165,;
+People,People.Office,Office,Office.People,Area/Person,,,16.91331,0.1,,Office.Activity,3.82e-08,,ZoneAveraged,,Generic.Always1,DynamicClothingModelASHRAE55,,,Generic.Always01,Fanger;
+HVACTemplate:Thermostat,Thermostat.Office,Office.HeatingSetpoint,,Office.CoolingSetpoint,;
+Lights,Lights.Office,Office,Office.Lights,Watts/area,,4.85659,,,0.1,0.18,;
+ElectricEquipment,ElectricEquipment.Office,Office,Office.ElectricEquipment,Watts/area,,8.46151,,,0.1,;
+ZoneVentilation:DesignFlowRate,Default Ventilation for Office,Office,Office.People,Flow/Person,0,0,0.00944,,Balanced,1,1,1,0,0,0,-100,,100,,1;
+People,People.Toilet,Toilet,Toilet.People,Area/Person,,,48.0,0.1,,Toilet.Activity,3.82e-08,,ZoneAveraged,,Generic.Always1,DynamicClothingModelASHRAE55,,,Generic.Always01,Fanger;
+HVACTemplate:Thermostat,Thermostat.Toilet,Toilet.HeatingSetpoint,,Toilet.CoolingSetpoint,;
+Lights,Lights.Toilet,Toilet,Toilet.Lights,Watts/area,,4.5,,,0.1,0.18,;
+ElectricEquipment,ElectricEquipment.Toilet,Toilet,Toilet.ElectricEquipment,Watts/area,,5,,,0.1,;
+ZoneVentilation:DesignFlowRate,Default Ventilation for Toilet,Toilet,Generic.Always1,AirChanges/Hour,0,0,0,0.05,Balanced,1,1,1,0,0,0,-100,,100,,1;
+People,People.Stairs,Stairs,Stairs.People,Area/Person,,,48.0,0.1,,Stairs.Activity,3.82e-08,,ZoneAveraged,,Generic.Always1,DynamicClothingModelASHRAE55,,,Generic.Always01,Fanger;
+HVACTemplate:Thermostat,Thermostat.Stairs,Stairs.HeatingSetpoint,,Stairs.CoolingSetpoint,;
+Lights,Lights.Stairs,Stairs,Stairs.Lights,Watts/area,,4.5,,,0.1,0.18,;
+ElectricEquipment,ElectricEquipment.Stairs,Stairs,Stairs.ElectricEquipment,Watts/area,,5,,,0.1,;
+ZoneVentilation:DesignFlowRate,Default Ventilation for Stairs,Stairs,Generic.Always1,AirChanges/Hour,0,0,0,0.05,Balanced,1,1,1,0,0,0,-100,,100,,1;
+People,People.Corridor,Corridor,Corridor.People,Area/Person,,,48.0,0.1,,Corridor.Activity,3.82e-08,,ZoneAveraged,,Generic.Always1,DynamicClothingModelASHRAE55,,,Generic.Always01,Fanger;
+HVACTemplate:Thermostat,Thermostat.Corridor,Corridor.HeatingSetpoint,,Corridor.CoolingSetpoint,;
+Lights,Lights.Corridor,Corridor,Corridor.Lights,Watts/area,,4.5,,,0.1,0.18,;
+ElectricEquipment,ElectricEquipment.Corridor,Corridor,Corridor.ElectricEquipment,Watts/area,,10,,,0.1,;
+ZoneVentilation:DesignFlowRate,Default Ventilation for Corridor,Corridor,Generic.Always1,AirChanges/Hour,0,0,0,0.05,Balanced,1,1,1,0,0,0,-100,,100,,1;
+People,People.Service,Service,Service.People,Area/Person,,,100.0,0.1,,Service.Activity,3.82e-08,,ZoneAveraged,,Generic.Always1,DynamicClothingModelASHRAE55,,,Generic.Always01,Fanger;
+HVACTemplate:Thermostat,Thermostat.Service,Service.HeatingSetpoint,,Service.CoolingSetpoint,;
+Lights,Lights.Service,Service,Service.Lights,Watts/area,,1.0,,,0.1,0.18,;
+ElectricEquipment,ElectricEquipment.Service,Service,Service.ElectricEquipment,Watts/area,,25,,,0.1,;
+ZoneVentilation:DesignFlowRate,Default Ventilation for Service,Service,Generic.Always1,AirChanges/Hour,0,0,0,0.05,Balanced,1,1,1,0,0,0,-100,,100,,1;
+People,People.Technic,Technic,Technic.People,Area/Person,,,100.0,0.1,,Technic.Activity,3.82e-08,,ZoneAveraged,,Generic.Always1,DynamicClothingModelASHRAE55,,,Generic.Always01,Fanger;
+HVACTemplate:Thermostat,Thermostat.Technic,Technic.HeatingSetpoint,,Technic.CoolingSetpoint,;
+Lights,Lights.Technic,Technic,Technic.Lights,Watts/area,,1.0,,,0.1,0.18,;
+ElectricEquipment,ElectricEquipment.Technic,Technic,Technic.ElectricEquipment,Watts/area,,10,,,0.1,;
+ZoneVentilation:DesignFlowRate,Default Ventilation for Technic,Technic,Generic.Always1,AirChanges/Hour,0,0,0,0.05,Balanced,1,1,1,0,0,0,-100,,100,,1;
+HVACTemplate:Zone:WaterToAirHeatPump,Office-0-0,Thermostat.Office,autosize,autosize,,1.2,1.2,,,,,,,DrawThrough,0.7,75,0.9,Coil:Cooling:WaterToAirHeatPump:EquationFit,autosize,autosize,2.8,Coil:Heating:WaterToAirHeatPump:EquationFit,4000,1.97727,,autosize,2.5,60,0.01,60,,Electric,SupplyAirTemperature,12.5,,SupplyAirTemperature,50,,,,;
+HVACTemplate:Zone:WaterToAirHeatPump,Office-0-1,Thermostat.Office,autosize,autosize,,1.2,1.2,,,,,,,DrawThrough,0.7,75,0.9,Coil:Cooling:WaterToAirHeatPump:EquationFit,autosize,autosize,2.8,Coil:Heating:WaterToAirHeatPump:EquationFit,4000,1.97727,,autosize,2.5,60,0.01,60,,Electric,SupplyAirTemperature,12.5,,SupplyAirTemperature,50,,,,;
+HVACTemplate:Zone:WaterToAirHeatPump,Office-0-2,Thermostat.Office,autosize,autosize,,1.2,1.2,,,,,,,DrawThrough,0.7,75,0.9,Coil:Cooling:WaterToAirHeatPump:EquationFit,autosize,autosize,2.8,Coil:Heating:WaterToAirHeatPump:EquationFit,4000,1.97727,,autosize,2.5,60,0.01,60,,Electric,SupplyAirTemperature,12.5,,SupplyAirTemperature,50,,,,;
+HVACTemplate:Zone:WaterToAirHeatPump,Office-0-3,Thermostat.Office,autosize,autosize,,1.2,1.2,,,,,,,DrawThrough,0.7,75,0.9,Coil:Cooling:WaterToAirHeatPump:EquationFit,autosize,autosize,2.8,Coil:Heating:WaterToAirHeatPump:EquationFit,4000,1.97727,,autosize,2.5,60,0.01,60,,Electric,SupplyAirTemperature,12.5,,SupplyAirTemperature,50,,,,;
+HVACTemplate:Zone:WaterToAirHeatPump,Toilet-0-0,Thermostat.Toilet,autosize,autosize,,1.2,1.2,,,,,,,DrawThrough,0.7,75,0.9,Coil:Cooling:WaterToAirHeatPump:EquationFit,autosize,autosize,2.8,Coil:Heating:WaterToAirHeatPump:EquationFit,4000,1.97727,,autosize,2.5,60,0.01,60,,Electric,SupplyAirTemperature,12.5,,SupplyAirTemperature,50,,,,;
+HVACTemplate:Zone:WaterToAirHeatPump,Stairs-0-0,Thermostat.Stairs,autosize,autosize,,1.2,1.2,,,,,,,DrawThrough,0.7,75,0.9,Coil:Cooling:WaterToAirHeatPump:EquationFit,autosize,autosize,2.8,Coil:Heating:WaterToAirHeatPump:EquationFit,4000,1.97727,,autosize,2.5,60,0.01,60,,Electric,SupplyAirTemperature,12.5,,SupplyAirTemperature,50,,,,;
+HVACTemplate:Zone:WaterToAirHeatPump,Technic-0-0,Thermostat.Technic,autosize,autosize,,1.2,1.2,,,,,,,DrawThrough,0.7,75,0.9,Coil:Cooling:WaterToAirHeatPump:EquationFit,autosize,autosize,2.8,Coil:Heating:WaterToAirHeatPump:EquationFit,4000,1.97727,,autosize,2.5,60,0.01,60,,Electric,SupplyAirTemperature,12.5,,SupplyAirTemperature,50,,,,;
+HVACTemplate:Zone:WaterToAirHeatPump,Corridor-0-0,Thermostat.Corridor,autosize,autosize,,1.2,1.2,,,,,,,DrawThrough,0.7,75,0.9,Coil:Cooling:WaterToAirHeatPump:EquationFit,autosize,autosize,2.8,Coil:Heating:WaterToAirHeatPump:EquationFit,4000,1.97727,,autosize,2.5,60,0.01,60,,Electric,SupplyAirTemperature,12.5,,SupplyAirTemperature,50,,,,;
+HVACTemplate:Zone:WaterToAirHeatPump,Office-1-0,Thermostat.Office,autosize,autosize,,1.2,1.2,,,,,,,DrawThrough,0.7,75,0.9,Coil:Cooling:WaterToAirHeatPump:EquationFit,autosize,autosize,2.8,Coil:Heating:WaterToAirHeatPump:EquationFit,4000,1.97727,,autosize,2.5,60,0.01,60,,Electric,SupplyAirTemperature,12.5,,SupplyAirTemperature,50,,,,;
+HVACTemplate:Zone:WaterToAirHeatPump,Office-1-1,Thermostat.Office,autosize,autosize,,1.2,1.2,,,,,,,DrawThrough,0.7,75,0.9,Coil:Cooling:WaterToAirHeatPump:EquationFit,autosize,autosize,2.8,Coil:Heating:WaterToAirHeatPump:EquationFit,4000,1.97727,,autosize,2.5,60,0.01,60,,Electric,SupplyAirTemperature,12.5,,SupplyAirTemperature,50,,,,;
+HVACTemplate:Zone:WaterToAirHeatPump,Office-1-2,Thermostat.Office,autosize,autosize,,1.2,1.2,,,,,,,DrawThrough,0.7,75,0.9,Coil:Cooling:WaterToAirHeatPump:EquationFit,autosize,autosize,2.8,Coil:Heating:WaterToAirHeatPump:EquationFit,4000,1.97727,,autosize,2.5,60,0.01,60,,Electric,SupplyAirTemperature,12.5,,SupplyAirTemperature,50,,,,;
+HVACTemplate:Zone:WaterToAirHeatPump,Office-1-3,Thermostat.Office,autosize,autosize,,1.2,1.2,,,,,,,DrawThrough,0.7,75,0.9,Coil:Cooling:WaterToAirHeatPump:EquationFit,autosize,autosize,2.8,Coil:Heating:WaterToAirHeatPump:EquationFit,4000,1.97727,,autosize,2.5,60,0.01,60,,Electric,SupplyAirTemperature,12.5,,SupplyAirTemperature,50,,,,;
+HVACTemplate:Zone:WaterToAirHeatPump,Toilet-1-0,Thermostat.Toilet,autosize,autosize,,1.2,1.2,,,,,,,DrawThrough,0.7,75,0.9,Coil:Cooling:WaterToAirHeatPump:EquationFit,autosize,autosize,2.8,Coil:Heating:WaterToAirHeatPump:EquationFit,4000,1.97727,,autosize,2.5,60,0.01,60,,Electric,SupplyAirTemperature,12.5,,SupplyAirTemperature,50,,,,;
+HVACTemplate:Zone:WaterToAirHeatPump,Stairs-1-0,Thermostat.Stairs,autosize,autosize,,1.2,1.2,,,,,,,DrawThrough,0.7,75,0.9,Coil:Cooling:WaterToAirHeatPump:EquationFit,autosize,autosize,2.8,Coil:Heating:WaterToAirHeatPump:EquationFit,4000,1.97727,,autosize,2.5,60,0.01,60,,Electric,SupplyAirTemperature,12.5,,SupplyAirTemperature,50,,,,;
+HVACTemplate:Zone:WaterToAirHeatPump,Service-1-0,Thermostat.Service,autosize,autosize,,1.2,1.2,,,,,,,DrawThrough,0.7,75,0.9,Coil:Cooling:WaterToAirHeatPump:EquationFit,autosize,autosize,2.8,Coil:Heating:WaterToAirHeatPump:EquationFit,4000,1.97727,,autosize,2.5,60,0.01,60,,Electric,SupplyAirTemperature,12.5,,SupplyAirTemperature,50,,,,;
+HVACTemplate:Zone:WaterToAirHeatPump,Corridor-1-0,Thermostat.Corridor,autosize,autosize,,1.2,1.2,,,,,,,DrawThrough,0.7,75,0.9,Coil:Cooling:WaterToAirHeatPump:EquationFit,autosize,autosize,2.8,Coil:Heating:WaterToAirHeatPump:EquationFit,4000,1.97727,,autosize,2.5,60,0.01,60,,Electric,SupplyAirTemperature,12.5,,SupplyAirTemperature,50,,,,;
+HVACTemplate:Zone:WaterToAirHeatPump,Office-2-0,Thermostat.Office,autosize,autosize,,1.2,1.2,,,,,,,DrawThrough,0.7,75,0.9,Coil:Cooling:WaterToAirHeatPump:EquationFit,autosize,autosize,2.8,Coil:Heating:WaterToAirHeatPump:EquationFit,4000,1.97727,,autosize,2.5,60,0.01,60,,Electric,SupplyAirTemperature,12.5,,SupplyAirTemperature,50,,,,;
+HVACTemplate:Zone:WaterToAirHeatPump,Office-2-1,Thermostat.Office,autosize,autosize,,1.2,1.2,,,,,,,DrawThrough,0.7,75,0.9,Coil:Cooling:WaterToAirHeatPump:EquationFit,autosize,autosize,2.8,Coil:Heating:WaterToAirHeatPump:EquationFit,4000,1.97727,,autosize,2.5,60,0.01,60,,Electric,SupplyAirTemperature,12.5,,SupplyAirTemperature,50,,,,;
+HVACTemplate:Zone:WaterToAirHeatPump,Office-2-4,Thermostat.Office,autosize,autosize,,1.2,1.2,,,,,,,DrawThrough,0.7,75,0.9,Coil:Cooling:WaterToAirHeatPump:EquationFit,autosize,autosize,2.8,Coil:Heating:WaterToAirHeatPump:EquationFit,4000,1.97727,,autosize,2.5,60,0.01,60,,Electric,SupplyAirTemperature,12.5,,SupplyAirTemperature,50,,,,;
+HVACTemplate:Zone:WaterToAirHeatPump,Office-2-2,Thermostat.Office,autosize,autosize,,1.2,1.2,,,,,,,DrawThrough,0.7,75,0.9,Coil:Cooling:WaterToAirHeatPump:EquationFit,autosize,autosize,2.8,Coil:Heating:WaterToAirHeatPump:EquationFit,4000,1.97727,,autosize,2.5,60,0.01,60,,Electric,SupplyAirTemperature,12.5,,SupplyAirTemperature,50,,,,;
+HVACTemplate:Zone:WaterToAirHeatPump,Office-2-3,Thermostat.Office,autosize,autosize,,1.2,1.2,,,,,,,DrawThrough,0.7,75,0.9,Coil:Cooling:WaterToAirHeatPump:EquationFit,autosize,autosize,2.8,Coil:Heating:WaterToAirHeatPump:EquationFit,4000,1.97727,,autosize,2.5,60,0.01,60,,Electric,SupplyAirTemperature,12.5,,SupplyAirTemperature,50,,,,;
+HVACTemplate:Zone:WaterToAirHeatPump,Toilet-2-0,Thermostat.Toilet,autosize,autosize,,1.2,1.2,,,,,,,DrawThrough,0.7,75,0.9,Coil:Cooling:WaterToAirHeatPump:EquationFit,autosize,autosize,2.8,Coil:Heating:WaterToAirHeatPump:EquationFit,4000,1.97727,,autosize,2.5,60,0.01,60,,Electric,SupplyAirTemperature,12.5,,SupplyAirTemperature,50,,,,;
+HVACTemplate:Zone:WaterToAirHeatPump,Stairs-2-0,Thermostat.Stairs,autosize,autosize,,1.2,1.2,,,,,,,DrawThrough,0.7,75,0.9,Coil:Cooling:WaterToAirHeatPump:EquationFit,autosize,autosize,2.8,Coil:Heating:WaterToAirHeatPump:EquationFit,4000,1.97727,,autosize,2.5,60,0.01,60,,Electric,SupplyAirTemperature,12.5,,SupplyAirTemperature,50,,,,;
+HVACTemplate:Zone:WaterToAirHeatPump,Technic-2-0,Thermostat.Technic,autosize,autosize,,1.2,1.2,,,,,,,DrawThrough,0.7,75,0.9,Coil:Cooling:WaterToAirHeatPump:EquationFit,autosize,autosize,2.8,Coil:Heating:WaterToAirHeatPump:EquationFit,4000,1.97727,,autosize,2.5,60,0.01,60,,Electric,SupplyAirTemperature,12.5,,SupplyAirTemperature,50,,,,;
+HVACTemplate:Zone:WaterToAirHeatPump,Corridor-2-0,Thermostat.Corridor,autosize,autosize,,1.2,1.2,,,,,,,DrawThrough,0.7,75,0.9,Coil:Cooling:WaterToAirHeatPump:EquationFit,autosize,autosize,2.8,Coil:Heating:WaterToAirHeatPump:EquationFit,4000,1.97727,,autosize,2.5,60,0.01,60,,Electric,SupplyAirTemperature,12.5,,SupplyAirTemperature,50,,,,;
+HVACTemplate:Plant:MixedWaterLoop,OnlyWaterLoop,,Intermittent,Default,,,34,,20,ConstantFlow,179352,SinglePump,Yes,Yes,Water,6,SequentialLoad;
+HVACTemplate:Plant:Tower,MainTower,SingleSpeed,autosize,autosize,autosize,autosize,autosize,1,1.2;
+WindowShadingControl,OnIfHighHorizontalSolar.Office-0-0.0.West.WallExternal.0.Window,Office-0-0,1,InteriorShade,,OnIfHighHorizontalSolar,,30.0,NO,NO,ROLLSHADE,,,,,Sequential,Office-0-0.0.West.WallExternal.0.Window;
+WindowShadingControl,OnIfHighHorizontalSolar.Office-0-0.0.West.WallExternal.1.Window,Office-0-0,1,InteriorShade,,OnIfHighHorizontalSolar,,30.0,NO,NO,ROLLSHADE,,,,,Sequential,Office-0-0.0.West.WallExternal.1.Window;
+WindowShadingControl,OnIfHighHorizontalSolar.Office-0-0.0.West.WallExternal.2.Window,Office-0-0,1,InteriorShade,,OnIfHighHorizontalSolar,,30.0,NO,NO,ROLLSHADE,,,,,Sequential,Office-0-0.0.West.WallExternal.2.Window;
+WindowShadingControl,OnIfHighHorizontalSolar.Office-0-0.0.West.WallExternal.3.Window,Office-0-0,1,InteriorShade,,OnIfHighHorizontalSolar,,30.0,NO,NO,ROLLSHADE,,,,,Sequential,Office-0-0.0.West.WallExternal.3.Window;
+WindowShadingControl,OnIfHighHorizontalSolar.Office-0-0.1.South.WallExternal.0.Window,Office-0-0,1,InteriorShade,,OnIfHighHorizontalSolar,,30.0,NO,NO,ROLLSHADE,,,,,Sequential,Office-0-0.1.South.WallExternal.0.Window;
+WindowShadingControl,OnIfHighHorizontalSolar.Office-0-0.1.South.WallExternal.1.Window,Office-0-0,1,InteriorShade,,OnIfHighHorizontalSolar,,30.0,NO,NO,ROLLSHADE,,,,,Sequential,Office-0-0.1.South.WallExternal.1.Window;
+WindowShadingControl,OnIfHighHorizontalSolar.Office-0-1.0.West.WallExternal.0.Window,Office-0-1,1,InteriorShade,,OnIfHighHorizontalSolar,,30.0,NO,NO,ROLLSHADE,,,,,Sequential,Office-0-1.0.West.WallExternal.0.Window;
+WindowShadingControl,OnIfHighHorizontalSolar.Office-0-1.0.West.WallExternal.1.Window,Office-0-1,1,InteriorShade,,OnIfHighHorizontalSolar,,30.0,NO,NO,ROLLSHADE,,,,,Sequential,Office-0-1.0.West.WallExternal.1.Window;
+WindowShadingControl,OnIfHighHorizontalSolar.Office-0-1.0.West.WallExternal.2.Window,Office-0-1,1,InteriorShade,,OnIfHighHorizontalSolar,,30.0,NO,NO,ROLLSHADE,,,,,Sequential,Office-0-1.0.West.WallExternal.2.Window;
+WindowShadingControl,OnIfHighHorizontalSolar.Office-0-1.0.West.WallExternal.3.Window,Office-0-1,1,InteriorShade,,OnIfHighHorizontalSolar,,30.0,NO,NO,ROLLSHADE,,,,,Sequential,Office-0-1.0.West.WallExternal.3.Window;
+WindowShadingControl,OnIfHighHorizontalSolar.Office-0-1.WallExternal.3.North.0.Window,Office-0-1,1,InteriorShade,,OnIfHighHorizontalSolar,,30.0,NO,NO,ROLLSHADE,,,,,Sequential,Office-0-1.WallExternal.3.North.0.Window;
+WindowShadingControl,OnIfHighHorizontalSolar.Office-0-1.WallExternal.3.North.1.Window,Office-0-1,1,InteriorShade,,OnIfHighHorizontalSolar,,30.0,NO,NO,ROLLSHADE,,,,,Sequential,Office-0-1.WallExternal.3.North.1.Window;
+WindowShadingControl,OnIfHighHorizontalSolar.Office-0-2.WallExternal.2.East.0.Window,Office-0-2,1,InteriorShade,,OnIfHighHorizontalSolar,,30.0,NO,NO,ROLLSHADE,,,,,Sequential,Office-0-2.WallExternal.2.East.0.Window;
+WindowShadingControl,OnIfHighHorizontalSolar.Office-0-2.WallExternal.2.East.1.Window,Office-0-2,1,InteriorShade,,OnIfHighHorizontalSolar,,30.0,NO,NO,ROLLSHADE,,,,,Sequential,Office-0-2.WallExternal.2.East.1.Window;
+WindowShadingControl,OnIfHighHorizontalSolar.Office-0-2.WallExternal.2.East.2.Window,Office-0-2,1,InteriorShade,,OnIfHighHorizontalSolar,,30.0,NO,NO,ROLLSHADE,,,,,Sequential,Office-0-2.WallExternal.2.East.2.Window;
+WindowShadingControl,OnIfHighHorizontalSolar.Office-0-2.WallExternal.2.East.3.Window,Office-0-2,1,InteriorShade,,OnIfHighHorizontalSolar,,30.0,NO,NO,ROLLSHADE,,,,,Sequential,Office-0-2.WallExternal.2.East.3.Window;
+WindowShadingControl,OnIfHighHorizontalSolar.Office-0-2.WallExternal.1.North.0.Window,Office-0-2,1,InteriorShade,,OnIfHighHorizontalSolar,,30.0,NO,NO,ROLLSHADE,,,,,Sequential,Office-0-2.WallExternal.1.North.0.Window;
+WindowShadingControl,OnIfHighHorizontalSolar.Office-0-2.WallExternal.1.North.1.Window,Office-0-2,1,InteriorShade,,OnIfHighHorizontalSolar,,30.0,NO,NO,ROLLSHADE,,,,,Sequential,Office-0-2.WallExternal.1.North.1.Window;
+WindowShadingControl,OnIfHighHorizontalSolar.Office-0-3.WallExternal.3.East.0.Window,Office-0-3,1,InteriorShade,,OnIfHighHorizontalSolar,,30.0,NO,NO,ROLLSHADE,,,,,Sequential,Office-0-3.WallExternal.3.East.0.Window;
+WindowShadingControl,OnIfHighHorizontalSolar.Office-0-3.WallExternal.3.East.1.Window,Office-0-3,1,InteriorShade,,OnIfHighHorizontalSolar,,30.0,NO,NO,ROLLSHADE,,,,,Sequential,Office-0-3.WallExternal.3.East.1.Window;
+WindowShadingControl,OnIfHighHorizontalSolar.Office-0-3.WallExternal.3.East.2.Window,Office-0-3,1,InteriorShade,,OnIfHighHorizontalSolar,,30.0,NO,NO,ROLLSHADE,,,,,Sequential,Office-0-3.WallExternal.3.East.2.Window;
+WindowShadingControl,OnIfHighHorizontalSolar.Office-0-3.WallExternal.3.East.3.Window,Office-0-3,1,InteriorShade,,OnIfHighHorizontalSolar,,30.0,NO,NO,ROLLSHADE,,,,,Sequential,Office-0-3.WallExternal.3.East.3.Window;
+WindowShadingControl,OnIfHighHorizontalSolar.Office-0-3.WallExternal.4.South.0.Window,Office-0-3,1,InteriorShade,,OnIfHighHorizontalSolar,,30.0,NO,NO,ROLLSHADE,,,,,Sequential,Office-0-3.WallExternal.4.South.0.Window;
+WindowShadingControl,OnIfHighHorizontalSolar.Office-0-3.WallExternal.4.South.1.Window,Office-0-3,1,InteriorShade,,OnIfHighHorizontalSolar,,30.0,NO,NO,ROLLSHADE,,,,,Sequential,Office-0-3.WallExternal.4.South.1.Window;
+WindowShadingControl,OnIfHighHorizontalSolar.Stairs-0-0.0.West.WallExternal.0.Window,Stairs-0-0,1,InteriorShade,,OnIfHighHorizontalSolar,,30.0,NO,NO,ROLLSHADE,,,,,Sequential,Stairs-0-0.0.West.WallExternal.0.Window;
+WindowShadingControl,OnIfHighHorizontalSolar.Technic-0-0.0.East.WallExternal.0.Window,Technic-0-0,1,InteriorShade,,OnIfHighHorizontalSolar,,30.0,NO,NO,ROLLSHADE,,,,,Sequential,Technic-0-0.0.East.WallExternal.0.Window;
+WindowShadingControl,OnIfHighHorizontalSolar.Technic-0-0.0.East.WallExternal.1.Window,Technic-0-0,1,InteriorShade,,OnIfHighHorizontalSolar,,30.0,NO,NO,ROLLSHADE,,,,,Sequential,Technic-0-0.0.East.WallExternal.1.Window;
+WindowShadingControl,OnIfHighHorizontalSolar.Corridor-0-0.0.North.WallExternal.0.Window,Corridor-0-0,1,InteriorShade,,OnIfHighHorizontalSolar,,30.0,NO,NO,ROLLSHADE,,,,,Sequential,Corridor-0-0.0.North.WallExternal.0.Window;
+WindowShadingControl,OnIfHighHorizontalSolar.Corridor-0-0.1.South.WallExternal.0.Window,Corridor-0-0,1,InteriorShade,,OnIfHighHorizontalSolar,,30.0,NO,NO,ROLLSHADE,,,,,Sequential,Corridor-0-0.1.South.WallExternal.0.Window;
+WindowShadingControl,OnIfHighHorizontalSolar.Office-1-0.0.West.WallExternal.0.Window,Office-1-0,1,InteriorShade,,OnIfHighHorizontalSolar,,30.0,NO,NO,ROLLSHADE,,,,,Sequential,Office-1-0.0.West.WallExternal.0.Window;
+WindowShadingControl,OnIfHighHorizontalSolar.Office-1-0.0.West.WallExternal.1.Window,Office-1-0,1,InteriorShade,,OnIfHighHorizontalSolar,,30.0,NO,NO,ROLLSHADE,,,,,Sequential,Office-1-0.0.West.WallExternal.1.Window;
+WindowShadingControl,OnIfHighHorizontalSolar.Office-1-0.0.West.WallExternal.2.Window,Office-1-0,1,InteriorShade,,OnIfHighHorizontalSolar,,30.0,NO,NO,ROLLSHADE,,,,,Sequential,Office-1-0.0.West.WallExternal.2.Window;
+WindowShadingControl,OnIfHighHorizontalSolar.Office-1-0.0.West.WallExternal.3.Window,Office-1-0,1,InteriorShade,,OnIfHighHorizontalSolar,,30.0,NO,NO,ROLLSHADE,,,,,Sequential,Office-1-0.0.West.WallExternal.3.Window;
+WindowShadingControl,OnIfHighHorizontalSolar.Office-1-0.1.South.WallExternal.0.Window,Office-1-0,1,InteriorShade,,OnIfHighHorizontalSolar,,30.0,NO,NO,ROLLSHADE,,,,,Sequential,Office-1-0.1.South.WallExternal.0.Window;
+WindowShadingControl,OnIfHighHorizontalSolar.Office-1-0.1.South.WallExternal.1.Window,Office-1-0,1,InteriorShade,,OnIfHighHorizontalSolar,,30.0,NO,NO,ROLLSHADE,,,,,Sequential,Office-1-0.1.South.WallExternal.1.Window;
+WindowShadingControl,OnIfHighHorizontalSolar.Office-1-1.0.West.WallExternal.0.Window,Office-1-1,1,InteriorShade,,OnIfHighHorizontalSolar,,30.0,NO,NO,ROLLSHADE,,,,,Sequential,Office-1-1.0.West.WallExternal.0.Window;
+WindowShadingControl,OnIfHighHorizontalSolar.Office-1-1.0.West.WallExternal.1.Window,Office-1-1,1,InteriorShade,,OnIfHighHorizontalSolar,,30.0,NO,NO,ROLLSHADE,,,,,Sequential,Office-1-1.0.West.WallExternal.1.Window;
+WindowShadingControl,OnIfHighHorizontalSolar.Office-1-1.0.West.WallExternal.2.Window,Office-1-1,1,InteriorShade,,OnIfHighHorizontalSolar,,30.0,NO,NO,ROLLSHADE,,,,,Sequential,Office-1-1.0.West.WallExternal.2.Window;
+WindowShadingControl,OnIfHighHorizontalSolar.Office-1-1.0.West.WallExternal.3.Window,Office-1-1,1,InteriorShade,,OnIfHighHorizontalSolar,,30.0,NO,NO,ROLLSHADE,,,,,Sequential,Office-1-1.0.West.WallExternal.3.Window;
+WindowShadingControl,OnIfHighHorizontalSolar.Office-1-1.WallExternal.3.North.0.Window,Office-1-1,1,InteriorShade,,OnIfHighHorizontalSolar,,30.0,NO,NO,ROLLSHADE,,,,,Sequential,Office-1-1.WallExternal.3.North.0.Window;
+WindowShadingControl,OnIfHighHorizontalSolar.Office-1-1.WallExternal.3.North.1.Window,Office-1-1,1,InteriorShade,,OnIfHighHorizontalSolar,,30.0,NO,NO,ROLLSHADE,,,,,Sequential,Office-1-1.WallExternal.3.North.1.Window;
+WindowShadingControl,OnIfHighHorizontalSolar.Office-1-2.WallExternal.2.East.0.Window,Office-1-2,1,InteriorShade,,OnIfHighHorizontalSolar,,30.0,NO,NO,ROLLSHADE,,,,,Sequential,Office-1-2.WallExternal.2.East.0.Window;
+WindowShadingControl,OnIfHighHorizontalSolar.Office-1-2.WallExternal.2.East.1.Window,Office-1-2,1,InteriorShade,,OnIfHighHorizontalSolar,,30.0,NO,NO,ROLLSHADE,,,,,Sequential,Office-1-2.WallExternal.2.East.1.Window;
+WindowShadingControl,OnIfHighHorizontalSolar.Office-1-2.WallExternal.2.East.2.Window,Office-1-2,1,InteriorShade,,OnIfHighHorizontalSolar,,30.0,NO,NO,ROLLSHADE,,,,,Sequential,Office-1-2.WallExternal.2.East.2.Window;
+WindowShadingControl,OnIfHighHorizontalSolar.Office-1-2.WallExternal.2.East.3.Window,Office-1-2,1,InteriorShade,,OnIfHighHorizontalSolar,,30.0,NO,NO,ROLLSHADE,,,,,Sequential,Office-1-2.WallExternal.2.East.3.Window;
+WindowShadingControl,OnIfHighHorizontalSolar.Office-1-2.WallExternal.1.North.0.Window,Office-1-2,1,InteriorShade,,OnIfHighHorizontalSolar,,30.0,NO,NO,ROLLSHADE,,,,,Sequential,Office-1-2.WallExternal.1.North.0.Window;
+WindowShadingControl,OnIfHighHorizontalSolar.Office-1-2.WallExternal.1.North.1.Window,Office-1-2,1,InteriorShade,,OnIfHighHorizontalSolar,,30.0,NO,NO,ROLLSHADE,,,,,Sequential,Office-1-2.WallExternal.1.North.1.Window;
+WindowShadingControl,OnIfHighHorizontalSolar.Office-1-3.WallExternal.3.East.0.Window,Office-1-3,1,InteriorShade,,OnIfHighHorizontalSolar,,30.0,NO,NO,ROLLSHADE,,,,,Sequential,Office-1-3.WallExternal.3.East.0.Window;
+WindowShadingControl,OnIfHighHorizontalSolar.Office-1-3.WallExternal.3.East.1.Window,Office-1-3,1,InteriorShade,,OnIfHighHorizontalSolar,,30.0,NO,NO,ROLLSHADE,,,,,Sequential,Office-1-3.WallExternal.3.East.1.Window;
+WindowShadingControl,OnIfHighHorizontalSolar.Office-1-3.WallExternal.3.East.2.Window,Office-1-3,1,InteriorShade,,OnIfHighHorizontalSolar,,30.0,NO,NO,ROLLSHADE,,,,,Sequential,Office-1-3.WallExternal.3.East.2.Window;
+WindowShadingControl,OnIfHighHorizontalSolar.Office-1-3.WallExternal.3.East.3.Window,Office-1-3,1,InteriorShade,,OnIfHighHorizontalSolar,,30.0,NO,NO,ROLLSHADE,,,,,Sequential,Office-1-3.WallExternal.3.East.3.Window;
+WindowShadingControl,OnIfHighHorizontalSolar.Office-1-3.WallExternal.4.South.0.Window,Office-1-3,1,InteriorShade,,OnIfHighHorizontalSolar,,30.0,NO,NO,ROLLSHADE,,,,,Sequential,Office-1-3.WallExternal.4.South.0.Window;
+WindowShadingControl,OnIfHighHorizontalSolar.Office-1-3.WallExternal.4.South.1.Window,Office-1-3,1,InteriorShade,,OnIfHighHorizontalSolar,,30.0,NO,NO,ROLLSHADE,,,,,Sequential,Office-1-3.WallExternal.4.South.1.Window;
+WindowShadingControl,OnIfHighHorizontalSolar.Stairs-1-0.0.West.WallExternal.0.Window,Stairs-1-0,1,InteriorShade,,OnIfHighHorizontalSolar,,30.0,NO,NO,ROLLSHADE,,,,,Sequential,Stairs-1-0.0.West.WallExternal.0.Window;
+WindowShadingControl,OnIfHighHorizontalSolar.Service-1-0.0.East.WallExternal.0.Window,Service-1-0,1,InteriorShade,,OnIfHighHorizontalSolar,,30.0,NO,NO,ROLLSHADE,,,,,Sequential,Service-1-0.0.East.WallExternal.0.Window;
+WindowShadingControl,OnIfHighHorizontalSolar.Service-1-0.0.East.WallExternal.1.Window,Service-1-0,1,InteriorShade,,OnIfHighHorizontalSolar,,30.0,NO,NO,ROLLSHADE,,,,,Sequential,Service-1-0.0.East.WallExternal.1.Window;
+WindowShadingControl,OnIfHighHorizontalSolar.Corridor-1-0.0.North.WallExternal.0.Window,Corridor-1-0,1,InteriorShade,,OnIfHighHorizontalSolar,,30.0,NO,NO,ROLLSHADE,,,,,Sequential,Corridor-1-0.0.North.WallExternal.0.Window;
+WindowShadingControl,OnIfHighHorizontalSolar.Corridor-1-0.1.South.WallExternal.0.Window,Corridor-1-0,1,InteriorShade,,OnIfHighHorizontalSolar,,30.0,NO,NO,ROLLSHADE,,,,,Sequential,Corridor-1-0.1.South.WallExternal.0.Window;
+WindowShadingControl,OnIfHighHorizontalSolar.Office-2-0.0.West.WallExternal.0.Window,Office-2-0,1,InteriorShade,,OnIfHighHorizontalSolar,,30.0,NO,NO,ROLLSHADE,,,,,Sequential,Office-2-0.0.West.WallExternal.0.Window;
+WindowShadingControl,OnIfHighHorizontalSolar.Office-2-0.0.West.WallExternal.1.Window,Office-2-0,1,InteriorShade,,OnIfHighHorizontalSolar,,30.0,NO,NO,ROLLSHADE,,,,,Sequential,Office-2-0.0.West.WallExternal.1.Window;
+WindowShadingControl,OnIfHighHorizontalSolar.Office-2-0.0.West.WallExternal.2.Window,Office-2-0,1,InteriorShade,,OnIfHighHorizontalSolar,,30.0,NO,NO,ROLLSHADE,,,,,Sequential,Office-2-0.0.West.WallExternal.2.Window;
+WindowShadingControl,OnIfHighHorizontalSolar.Office-2-0.0.West.WallExternal.3.Window,Office-2-0,1,InteriorShade,,OnIfHighHorizontalSolar,,30.0,NO,NO,ROLLSHADE,,,,,Sequential,Office-2-0.0.West.WallExternal.3.Window;
+WindowShadingControl,OnIfHighHorizontalSolar.Office-2-0.1.South.WallExternal.0.Window,Office-2-0,1,InteriorShade,,OnIfHighHorizontalSolar,,30.0,NO,NO,ROLLSHADE,,,,,Sequential,Office-2-0.1.South.WallExternal.0.Window;
+WindowShadingControl,OnIfHighHorizontalSolar.Office-2-0.1.South.WallExternal.1.Window,Office-2-0,1,InteriorShade,,OnIfHighHorizontalSolar,,30.0,NO,NO,ROLLSHADE,,,,,Sequential,Office-2-0.1.South.WallExternal.1.Window;
+WindowShadingControl,OnIfHighHorizontalSolar.Office-2-1.0.West.WallExternal.1.Window,Office-2-1,1,InteriorShade,,OnIfHighHorizontalSolar,,30.0,NO,NO,ROLLSHADE,,,,,Sequential,Office-2-1.0.West.WallExternal.1.Window;
+WindowShadingControl,OnIfHighHorizontalSolar.Office-2-1.0.West.WallExternal.2.Window,Office-2-1,1,InteriorShade,,OnIfHighHorizontalSolar,,30.0,NO,NO,ROLLSHADE,,,,,Sequential,Office-2-1.0.West.WallExternal.2.Window;
+WindowShadingControl,OnIfHighHorizontalSolar.Office-2-1.0.West.WallExternal.3.Window,Office-2-1,1,InteriorShade,,OnIfHighHorizontalSolar,,30.0,NO,NO,ROLLSHADE,,,,,Sequential,Office-2-1.0.West.WallExternal.3.Window;
+WindowShadingControl,OnIfHighHorizontalSolar.Office-2-4.0.West.WallExternal.0.Window,Office-2-4,1,InteriorShade,,OnIfHighHorizontalSolar,,30.0,NO,NO,ROLLSHADE,,,,,Sequential,Office-2-4.0.West.WallExternal.0.Window;
+WindowShadingControl,OnIfHighHorizontalSolar.Office-2-4.WallExternal.3.North.0.Window,Office-2-4,1,InteriorShade,,OnIfHighHorizontalSolar,,30.0,NO,NO,ROLLSHADE,,,,,Sequential,Office-2-4.WallExternal.3.North.0.Window;
+WindowShadingControl,OnIfHighHorizontalSolar.Office-2-4.WallExternal.3.North.1.Window,Office-2-4,1,InteriorShade,,OnIfHighHorizontalSolar,,30.0,NO,NO,ROLLSHADE,,,,,Sequential,Office-2-4.WallExternal.3.North.1.Window;
+WindowShadingControl,OnIfHighHorizontalSolar.Office-2-4.WallExternal.3.North.2.Window,Office-2-4,1,InteriorShade,,OnIfHighHorizontalSolar,,30.0,NO,NO,ROLLSHADE,,,,,Sequential,Office-2-4.WallExternal.3.North.2.Window;
+WindowShadingControl,OnIfHighHorizontalSolar.Office-2-4.WallExternal.3.North.3.Window,Office-2-4,1,InteriorShade,,OnIfHighHorizontalSolar,,30.0,NO,NO,ROLLSHADE,,,,,Sequential,Office-2-4.WallExternal.3.North.3.Window;
+WindowShadingControl,OnIfHighHorizontalSolar.Office-2-4.WallExternal.2.East.0.Window,Office-2-4,1,InteriorShade,,OnIfHighHorizontalSolar,,30.0,NO,NO,ROLLSHADE,,,,,Sequential,Office-2-4.WallExternal.2.East.0.Window;
+WindowShadingControl,OnIfHighHorizontalSolar.Office-2-2.WallExternal.2.East.1.Window,Office-2-2,1,InteriorShade,,OnIfHighHorizontalSolar,,30.0,NO,NO,ROLLSHADE,,,,,Sequential,Office-2-2.WallExternal.2.East.1.Window;
+WindowShadingControl,OnIfHighHorizontalSolar.Office-2-2.WallExternal.2.East.2.Window,Office-2-2,1,InteriorShade,,OnIfHighHorizontalSolar,,30.0,NO,NO,ROLLSHADE,,,,,Sequential,Office-2-2.WallExternal.2.East.2.Window;
+WindowShadingControl,OnIfHighHorizontalSolar.Office-2-2.WallExternal.2.East.3.Window,Office-2-2,1,InteriorShade,,OnIfHighHorizontalSolar,,30.0,NO,NO,ROLLSHADE,,,,,Sequential,Office-2-2.WallExternal.2.East.3.Window;
+WindowShadingControl,OnIfHighHorizontalSolar.Office-2-3.WallExternal.3.East.0.Window,Office-2-3,1,InteriorShade,,OnIfHighHorizontalSolar,,30.0,NO,NO,ROLLSHADE,,,,,Sequential,Office-2-3.WallExternal.3.East.0.Window;
+WindowShadingControl,OnIfHighHorizontalSolar.Office-2-3.WallExternal.3.East.1.Window,Office-2-3,1,InteriorShade,,OnIfHighHorizontalSolar,,30.0,NO,NO,ROLLSHADE,,,,,Sequential,Office-2-3.WallExternal.3.East.1.Window;
+WindowShadingControl,OnIfHighHorizontalSolar.Office-2-3.WallExternal.3.East.2.Window,Office-2-3,1,InteriorShade,,OnIfHighHorizontalSolar,,30.0,NO,NO,ROLLSHADE,,,,,Sequential,Office-2-3.WallExternal.3.East.2.Window;
+WindowShadingControl,OnIfHighHorizontalSolar.Office-2-3.WallExternal.3.East.3.Window,Office-2-3,1,InteriorShade,,OnIfHighHorizontalSolar,,30.0,NO,NO,ROLLSHADE,,,,,Sequential,Office-2-3.WallExternal.3.East.3.Window;
+WindowShadingControl,OnIfHighHorizontalSolar.Office-2-3.WallExternal.4.South.0.Window,Office-2-3,1,InteriorShade,,OnIfHighHorizontalSolar,,30.0,NO,NO,ROLLSHADE,,,,,Sequential,Office-2-3.WallExternal.4.South.0.Window;
+WindowShadingControl,OnIfHighHorizontalSolar.Office-2-3.WallExternal.4.South.1.Window,Office-2-3,1,InteriorShade,,OnIfHighHorizontalSolar,,30.0,NO,NO,ROLLSHADE,,,,,Sequential,Office-2-3.WallExternal.4.South.1.Window;
+WindowShadingControl,OnIfHighHorizontalSolar.Stairs-2-0.0.West.WallExternal.0.Window,Stairs-2-0,1,InteriorShade,,OnIfHighHorizontalSolar,,30.0,NO,NO,ROLLSHADE,,,,,Sequential,Stairs-2-0.0.West.WallExternal.0.Window;
+WindowShadingControl,OnIfHighHorizontalSolar.Technic-2-0.0.East.WallExternal.0.Window,Technic-2-0,1,InteriorShade,,OnIfHighHorizontalSolar,,30.0,NO,NO,ROLLSHADE,,,,,Sequential,Technic-2-0.0.East.WallExternal.0.Window;
+WindowShadingControl,OnIfHighHorizontalSolar.Technic-2-0.0.East.WallExternal.1.Window,Technic-2-0,1,InteriorShade,,OnIfHighHorizontalSolar,,30.0,NO,NO,ROLLSHADE,,,,,Sequential,Technic-2-0.0.East.WallExternal.1.Window;
+WindowShadingControl,OnIfHighHorizontalSolar.Corridor-2-0.1.South.WallExternal.0.Window,Corridor-2-0,1,InteriorShade,,OnIfHighHorizontalSolar,,30.0,NO,NO,ROLLSHADE,,,,,Sequential,Corridor-2-0.1.South.WallExternal.0.Window;
+Material,Insulation.u-value:WallExternal,Smooth,0.21973,0.035,20,1000,0.9,0.7,0.7;
+Material,Insulation.u-value:FloorGround,Smooth,0.17339,0.035,20,1000,0.9,0.7,0.7;
+Material,Insulation.u-value:Roof,Smooth,0.16543,0.035,20,1000,0.9,0.7,0.7;
+WindowMaterial:SimpleGlazingSystem,Window.u-value:Window,0.38046,0.38046,0.1;
+Schedule:Compact,Office.HeatingSetpoint,AnyNumber,Through 12/31,
+   For: Mondays Tuesdays Wednesday Thursdays SummerDesignDay WinterDesignDay CustomDay1 CustomDay2,
+       Until: 07:00, 15, Until: 17:00, 21.29913, Until: 24:00, 15,
+   For: Fridays,
+       Until: 07:00, 15, Until: 13:00, 21.29913, Until: 24:00, 15,
+   For: Weekends Holidays,
+       Until: 24:00, 15;
+Schedule:Compact,Corridor.HeatingSetpoint,AnyNumber,Through 12/31,
+   For: Mondays Tuesdays Wednesday Thursdays SummerDesignDay WinterDesignDay CustomDay1 CustomDay2,
+       Until: 07:00, 15, Until: 17:00, 21.29913, Until: 24:00, 15,
+   For: Fridays,
+       Until: 07:00, 15, Until: 13:00, 21.29913, Until: 24:00, 15,
+   For: Weekends Holidays,
+       Until: 24:00, 15;
+Schedule:Compact,Stairs.HeatingSetpoint,AnyNumber,Through 12/31,
+   For: Mondays Tuesdays Wednesday Thursdays SummerDesignDay WinterDesignDay CustomDay1 CustomDay2,
+       Until: 07:00, 15, Until: 17:00, 21.29913, Until: 24:00, 15,
+   For: Fridays,
+       Until: 07:00, 15, Until: 13:00, 21.29913, Until: 24:00, 15,
+   For: Weekends Holidays,
+       Until: 24:00, 15;

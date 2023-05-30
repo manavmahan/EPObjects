@@ -1,2 +1,0 @@
-Name,HeatingSetpointScheduleName,ConstantHeatingSetpoint,CoolingSetpointScheduleName,ConstantCoolingSetpoint
-Office,Office.HeatingSetPoint, ,Office.CoolingSetPoint, 
