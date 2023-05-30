@@ -2,6 +2,7 @@ from helper.geometry_helper import check_surfaces_cardinality
 from . import os, pd, logger
 import copy
 from service import db_functions as db
+from service import statuses, create_simulation_dir
 
 from run_ep import execute_simulations
 
@@ -23,6 +24,38 @@ from probabilistic.parameter import ProbabilisticParameters
 from idf_object.scheduletypelimits import ScheduleTypeLimits
 from idf_object.zone import Zone
 from idf_object.zonelist import ZoneList
+
+def run_simulations(user_name, project_name, project_settings, info, search_conditions):
+    db.update_columns(search_conditions, db.STATUS, statuses.RUNNING_SIMULATIONS)
+
+    try:
+        db.update_columns(search_conditions, db.SAMPLED_PARAMETERS, None)
+        db.update_columns(search_conditions, db.SIMULATION_RESULTS, None)
+
+        building_use = project_settings[db.BUILDING_USE]
+        idf_folder = create_simulation_dir(user_name, project_name, project_settings[db.LOCATION])
+        geometry_json = db.get_columns(search_conditions, db.GEOMETRY,)
+        dummy_objects_json = db.get_columns(search_conditions, db.DUMMY_OBJECTS)
+        consumption_df = db.get_columns(search_conditions, db.CONSUMPTION, True)
+        parameters_df = db.get_columns(search_conditions, db.PARAMETERS, True)
+
+        results = generate_simulation_results(
+            info, idf_folder, building_use,
+            project_settings[db.SIMULATION_SETTINGS], 
+            geometry_json, dummy_objects_json,
+            parameters_df, consumption_df,
+        )
+        for column in results:
+            db.update_columns(search_conditions, column, results[column])
+        project_settings[db.SIMULATION_SETTINGS][db.RUN] = False
+        project_settings[db.REGRESSOR_SETTINGS][db.RUN] = True
+        project_settings[db.GENERATOR_SETTINGS][db.RUN] = True
+        project_settings[db.RESULTS][db.RUN] = True
+        db.update_columns(search_conditions, db.PROJECT_SETTINGS, project_settings)
+    except Exception as e:
+        logger.info(e)
+        db.update_columns(search_conditions, db.STATUS, statuses.FAILED_SIMULATIONS)
+        exit()
 
 def generate_simulation_results(info: str,
                                 idf_folder: str,
