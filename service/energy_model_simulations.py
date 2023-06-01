@@ -1,6 +1,7 @@
 from helper.geometry_helper import check_surfaces_cardinality
 from . import os, pd, logger
 import copy
+import traceback
 from service import db_functions as db
 from service import statuses, create_simulation_dir
 
@@ -54,6 +55,7 @@ def run_simulations(user_name, project_name, project_settings, info, search_cond
         db.update_columns(search_conditions, db.PROJECT_SETTINGS, project_settings)
     except Exception as e:
         logger.info(e)
+        logger.info(traceback.format_exc())
         db.update_columns(search_conditions, db.STATUS, statuses.FAILED_SIMULATIONS)
         exit()
 
