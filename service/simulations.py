@@ -57,7 +57,6 @@ def run_simulations(user_name, project_name, project_settings, info, search_cond
         logger.info(e)
         logger.info(traceback.format_exc())
         db.update_columns(search_conditions, db.STATUS, statuses.FAILED_SIMULATIONS)
-        exit()
 
 def generate_simulation_results(info: str,
                                 idf_folder: str,

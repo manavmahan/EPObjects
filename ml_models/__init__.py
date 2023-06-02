@@ -4,15 +4,15 @@ import pandas as pd
 
 from tensorflow.keras.activations import relu, sigmoid, hard_sigmoid
 from tensorflow.keras.callbacks import EarlyStopping
-from tensorflow.keras.layers import Activation, Dense, InputLayer, Rescaling
-from tensorflow.keras.losses import Loss, mean_squared_error
+from tensorflow.keras.layers import Activation, Dense, InputLayer, Rescaling, Layer
+from tensorflow.keras.losses import Loss, mean_squared_error, BinaryCrossentropy
 from tensorflow.keras.models import model_from_json
 from tensorflow.keras.optimizers import Adam
 from tensorflow.keras.regularizers import L2, Regularizer
 from tensorflow.keras.utils import register_keras_serializable
 from tensorflow.keras import Model, Sequential
-from tensorflow.math import square, add, log, abs, multiply, reduce_mean 
-from tensorflow import reduce_min
+from tensorflow import math
+from tensorflow import reduce_min, where, reduce_sum
 
 early_stopping_loss = EarlyStopping(monitor='loss', min_delta=1e-05, patience=1, restore_best_weights=True,)
 early_stopping_validation_loss = EarlyStopping(monitor='val_loss', min_delta=1e-05, patience=20, restore_best_weights=True,)
@@ -78,7 +78,7 @@ def get_regressor(hyperparameters_df, X, Y, scaling_df_X=None, scaling_df_Y=None
     for _, hp in hyperparameters_df.iterrows():
         ann = get_simple_ann(hp, len(X.iloc[0]), len(Y.iloc[0]), scaling_X, scaling_Y, inverted=inverted)
         loss = train_model(ann, X, Y,)
-        while math.isnan(loss):
+        while math.is_nan(loss):
             ann.summary()
             print (X, Y, scaling_X.weights, scaling_Y.weights, all_columns_equal, inverted, loss)
             ann = get_simple_ann(hp, len(X.iloc[0]), len(Y.iloc[0]), scaling_X, scaling_Y, inverted=inverted)
@@ -95,21 +95,40 @@ class CustomRegularizerHardSigmoid(Regularizer):
         self.l2 = l2
 
     def __call__(self, x):
-        x = log(abs(multiply(x, 0.4)))
-        x = add(x, abs(x))
-        return reduce_mean(multiply(x, self.l2))
+        x = math.log(abs(math.multiply(x, 0.4)))
+        x = math.add(x, abs(x))
+        return math.reduce_mean(math.multiply(x, self.l2))
 
     def get_config(self):
         return {'l2': float(self.l2)}
 
 class CustomLossMinimum(Loss):
     def call(self, y_true, y_pred):
-        return reduce_min(square(y_pred - y_true), axis=-1)
+        return reduce_min(math.square(y_pred - y_true), axis=-1)
+    
+class LossErrorDomain(Loss):
+    def __init__(self, error,):
+        super(LossErrorDomain, self).__init__()
+        self.error = error
+
+    def call(self, y_true, y_pred):
+        errors = abs((y_pred - y_true) / y_true)
+        return reduce_sum(where(errors <= self.error, 0, math.square(errors)))
+
+class ActivationErrorDomain(Layer):
+  def __init__(self, error, value,):
+    super(ActivationErrorDomain, self).__init__()
+    self.error = error
+    self.value = value
+
+  def call(self, inputs):
+    errors = abs((inputs - self.value) / self.value)
+    return 1. / math.exp(errors - self.error)
 
 def get_random_input(num_examples, num_dims):
     return np.random.random((num_examples, num_dims)) * 100
 
-def get_generator_network(hyperparameters, append_model, input_dims, output_dims, rev_scaling_X):
+def get_generator_network(hyperparameters, append_model, input_dims, output_dims, rev_scaling_X, error_domain=None, activation_target=None):
     append_model.trainable = False
     generator = Sequential()
     generator.add(InputLayer(input_shape = (input_dims, )))
@@ -122,17 +141,29 @@ def get_generator_network(hyperparameters, append_model, input_dims, output_dims
     generator.add(rev_scaling_X)
 
     outputs = append_model(generator.output)
+    if error_domain:
+        loss = BinaryCrossentropy()
+        aed = ActivationErrorDomain(error_domain, activation_target)
+        outputs = aed(outputs)
+        # loss = LossErrorDomain(error_domain)
+    else:
+        loss = CustomLossMinimum()
+
     complete_model = Model(inputs=generator.inputs, outputs=outputs)
-    complete_model.compile(loss=CustomLossMinimum(), optimizer=Adam(learning_rate=hyperparameters['learning_rate']))
+    complete_model.compile(loss=loss, optimizer=Adam(learning_rate=hyperparameters['learning_rate']))
     return generator, complete_model
 
-def get_generator(hyperparameters_df, scaling_df_X, regressor, targets):
+def get_generator(hyperparameters_df, scaling_df_X, regressor, targets, error_domain=None):
     rev_scaling_X = get_scaling_layer(None, scaling_df_X, reverse=True)
     random_input = get_random_input(len(targets), 20)
 
     output_dims = len(scaling_df_X)
     for _, hp in hyperparameters_df.iterrows():
-        generator, complete_model = get_generator_network(hp, regressor, len(random_input[0]), output_dims, rev_scaling_X)
+        activation_target = None
+        if error_domain:
+            activation_target = targets[0]
+            targets = np.ones_like(targets)
+        generator, complete_model = get_generator_network(hp, regressor, len(random_input[0]), output_dims, rev_scaling_X, error_domain=error_domain, activation_target=activation_target)
         loss = train_model(complete_model, random_input, targets,)
         yield generator, loss
 
@@ -140,4 +171,4 @@ def predict(model, X=None, num_examples=1):
     if X is None:
         config = model.get_config()
         X = get_random_input(num_examples, config["layers"][0]["config"]["batch_input_shape"][1])
-    return model.predict(X, verbose=0)
+    return model(X, training=False).numpy()

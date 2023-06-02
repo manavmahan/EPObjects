@@ -1,6 +1,6 @@
 import service.db_functions as db
 
-from service.energy_model_simulations import run_simulations
+from service.simulations import run_simulations
 from service.ml_networks.generator import run_generator
 from service.ml_networks.regressor import run_regressor
 from service.ml_networks.results import run_results
