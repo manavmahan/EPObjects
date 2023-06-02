@@ -1,9 +1,11 @@
 from helper.run_period_helper import get_run_periods
-from ml_models import get_generator, predict, get_scaling_parameters
+from ml_models import get_generator, predict, get_regressor
+from probabilistic.energy_predictions import ProbabilisticEnergyPrediction
 from probabilistic.parameter import ProbabilisticParameters
 from service.ml_networks import sample_hyperparameters
-from service import logger, np, statuses
+from service import logger, np, statuses, pd
 from service import db_functions as db
+import traceback
 
 def run_generator(project_settings, info, search_conditions):
     db.update_columns(search_conditions, db.STATUS, statuses.TRAINING_GENERATOR)
@@ -19,9 +21,9 @@ def run_generator(project_settings, info, search_conditions):
         _, consumption = get_run_periods(consumption_df)
 
         parameters_df = db.get_columns(search_conditions, db.PARAMETERS, True)
-        parameters = ProbabilisticParameters.from_df(parameters_df)
-        generators = train_generator(   info,
-                                        parameters,
+        p_parameters = ProbabilisticParameters.from_df(parameters_df)
+        generators = train_generator(   info, search_conditions,
+                                        p_parameters,
                                         regressor, 
                                         consumption, 
                                         db.get_genertor_hyperparameters(search_conditions),
@@ -44,16 +46,42 @@ def run_generator(project_settings, info, search_conditions):
         db.update_columns(search_conditions, db.PROJECT_SETTINGS, project_settings)
     except Exception as e:
         logger.info(e)
+        logger.info(traceback.format_exc())
         db.update_columns(search_conditions, db.STATUS, statuses.FAILED_GENERATOR)
 
-def train_generator(info, probabilistic_parameters, regressor, consumption, hyperparameters: dict, NUMS: int, **kwargs):
+def train_generator(info, search_conditions, p_parameters: ProbabilisticParameters, regressor, consumption, hyperparameters: dict, NUMS: int, **kwargs):
     hyperparameters = sample_hyperparameters(hyperparameters, NUMS,)
     logger.info(f'{info}training generator')
     if kwargs.get(db.METHOD) == db.GENERATIVE:
         targets = np.array([consumption.mean(axis=1) for _ in range(125)])
-        for i, x in enumerate(get_generator(hyperparameters, probabilistic_parameters.GetScalingDF(), regressor, targets, )):
+        generators = get_generator(hyperparameters, 
+                                   p_parameters.get_scaling_df(), 
+                                   regressor, targets, 
+                                   error_domain=kwargs.get(db.ERROR_DOMAIN))
+        for i, x in enumerate(generators):
             logger.info(f'{info}Generator Loss {i}:\t{x[1]:.5f}')
             yield x
+    elif kwargs.get(db.METHOD) == db.INVERTED:
+        logger.info(f'{info}training inverted regressor')
+        sampled_parameters = db.get_columns(search_conditions, db.SAMPLED_PARAMETERS, True)
+        simulation_results = db.get_columns(search_conditions, db.SIMULATION_RESULTS,)
+        regressor_targets = ProbabilisticEnergyPrediction.from_json(simulation_results).Values["Total"]
+        scaling_df_Y=p_parameters.get_scaling_df()
+
+        x = train_inverted_regressor(info, hyperparameters, regressor_targets, sampled_parameters, scaling_df_Y,)
+        yield x
+    elif kwargs.get(db.METHOD) == db.GENERATIVE_ERROR_DOMAIN:
+        logger.info(f'{info}training inverted regressor')
+
+def train_inverted_regressor(info, 
+                             hyperparameters: pd.DataFrame, 
+                             inputs: np.ndarray, 
+                             targets: np.ndarray, 
+                             scaling_df_Y: pd.DataFrame, 
+                             ):
+    network, loss = get_regressor(hyperparameters, inputs, targets, scaling_df_Y=scaling_df_Y, inverted=True)
+    logger.info(f'{info}Inverted Regressor Loss:\t{loss:.5f}')
+    return network, loss
 
 def predict_parameters(generator, regressor, num_samples_per_generator):
     parameters = predict(generator, None, num_samples_per_generator)

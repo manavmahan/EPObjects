@@ -1,6 +1,6 @@
 import service.db_functions as db
 
-from service.energy_model_simulations import run_simulations
+from service.simulations import run_simulations
 from service.ml_networks.generator import run_generator
 from service.ml_networks.regressor import run_regressor
 from service.ml_networks.results import run_results
@@ -14,8 +14,7 @@ def run_service(user_name, project_name):
         run_simulations(user_name, project_name, project_settings, info, search_conditions)
 
     if project_settings[db.REGRESSOR_SETTINGS][db.RUN]:
-        if project_settings[db.GENERATOR_SETTINGS][db.METHOD]!="INVERTED":
-            run_regressor(project_settings, info, search_conditions)
+        run_regressor(project_settings, info, search_conditions)
         
     if project_settings[db.GENERATOR_SETTINGS][db.RUN]:
         run_generator(project_settings, info, search_conditions)
