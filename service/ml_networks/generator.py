@@ -59,7 +59,7 @@ def train_generator(info, search_conditions, p_parameters: ProbabilisticParamete
                                    regressor, targets, 
                                    error_domain=kwargs.get(db.ERROR_DOMAIN))
         for i, x in enumerate(generators):
-            logger.info(f'{info}Generator Loss {i}:\t{x[1]:.5f}')
+            logger.info(f'{info}Generator Loss {i}:\t{x[1]:.5f}\{hyperparameters.loc[i].values}')
             yield x
     elif kwargs.get(db.METHOD) == db.INVERTED:
         logger.info(f'{info}training inverted regressor')
@@ -70,8 +70,6 @@ def train_generator(info, search_conditions, p_parameters: ProbabilisticParamete
 
         x = train_inverted_regressor(info, hyperparameters, regressor_targets, sampled_parameters, scaling_df_Y,)
         yield x
-    elif kwargs.get(db.METHOD) == db.GENERATIVE_ERROR_DOMAIN:
-        logger.info(f'{info}training inverted regressor')
 
 def train_inverted_regressor(info, 
                              hyperparameters: pd.DataFrame, 

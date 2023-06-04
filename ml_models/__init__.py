@@ -5,13 +5,13 @@ import pandas as pd
 from tensorflow.keras.activations import relu, sigmoid, hard_sigmoid
 from tensorflow.keras.callbacks import EarlyStopping
 from tensorflow.keras.layers import Activation, Dense, InputLayer, Rescaling, Layer
-from tensorflow.keras.losses import Loss, mean_squared_error, BinaryCrossentropy
+from tensorflow.keras.losses import Loss, mean_squared_error, BinaryCrossentropy, binary_crossentropy
 from tensorflow.keras.models import model_from_json
 from tensorflow.keras.optimizers import Adam
 from tensorflow.keras.regularizers import L2, Regularizer
 from tensorflow.keras.utils import register_keras_serializable
 from tensorflow.keras import Model, Sequential
-from tensorflow import math
+from tensorflow import math, ones_like
 from tensorflow import reduce_min, where, reduce_sum
 
 early_stopping_loss = EarlyStopping(monitor='loss', min_delta=1e-05, patience=1, restore_best_weights=True,)
@@ -102,9 +102,13 @@ class CustomRegularizerHardSigmoid(Regularizer):
     def get_config(self):
         return {'l2': float(self.l2)}
 
-class CustomLossMinimum(Loss):
+class LossMinimum(Loss):
+    def __init__(self, error_fn=mean_squared_error):
+        super(LossMinimum, self).__init__()
+        self.error_fn = error_fn
+    
     def call(self, y_true, y_pred):
-        return reduce_min(math.square(y_pred - y_true), axis=-1)
+        return reduce_min(self.error_fn(y_pred, y_true), axis=-1)
     
 class LossErrorDomain(Loss):
     def __init__(self, error,):
@@ -113,22 +117,14 @@ class LossErrorDomain(Loss):
 
     def call(self, y_true, y_pred):
         errors = abs((y_pred - y_true) / y_true)
-        return reduce_sum(where(errors <= self.error, 0, math.square(errors)))
-
-class ActivationErrorDomain(Layer):
-  def __init__(self, error, value,):
-    super(ActivationErrorDomain, self).__init__()
-    self.error = error
-    self.value = value
-
-  def call(self, inputs):
-    errors = abs((inputs - self.value) / self.value)
-    return 1. / math.exp(errors - self.error)
+        errors = where(errors <= self.error, 1., 0.)
+        actual = ones_like(errors)
+        return reduce_min(binary_crossentropy(actual, errors), axis=-1)
 
 def get_random_input(num_examples, num_dims):
     return np.random.random((num_examples, num_dims)) * 100
 
-def get_generator_network(hyperparameters, append_model, input_dims, output_dims, rev_scaling_X, error_domain=None, activation_target=None):
+def get_generator_network(hyperparameters, append_model, input_dims, output_dims, rev_scaling_X, error_domain=None, ):
     append_model.trainable = False
     generator = Sequential()
     generator.add(InputLayer(input_shape = (input_dims, )))
@@ -142,12 +138,9 @@ def get_generator_network(hyperparameters, append_model, input_dims, output_dims
 
     outputs = append_model(generator.output)
     if error_domain:
-        loss = BinaryCrossentropy()
-        aed = ActivationErrorDomain(error_domain, activation_target)
-        outputs = aed(outputs)
-        # loss = LossErrorDomain(error_domain)
+        loss = LossErrorDomain(error_domain)
     else:
-        loss = CustomLossMinimum()
+        loss = LossMinimum()
 
     complete_model = Model(inputs=generator.inputs, outputs=outputs)
     complete_model.compile(loss=loss, optimizer=Adam(learning_rate=hyperparameters['learning_rate']))
@@ -159,11 +152,7 @@ def get_generator(hyperparameters_df, scaling_df_X, regressor, targets, error_do
 
     output_dims = len(scaling_df_X)
     for _, hp in hyperparameters_df.iterrows():
-        activation_target = None
-        if error_domain:
-            activation_target = targets[0]
-            targets = np.ones_like(targets)
-        generator, complete_model = get_generator_network(hp, regressor, len(random_input[0]), output_dims, rev_scaling_X, error_domain=error_domain, activation_target=activation_target)
+        generator, complete_model = get_generator_network(hp, regressor, len(random_input[0]), output_dims, rev_scaling_X, error_domain=error_domain)
         loss = train_model(complete_model, random_input, targets,)
         yield generator, loss
 
