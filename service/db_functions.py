@@ -1,6 +1,7 @@
 from service import json, JsonDecoder, JsonEncoder, pd, requests, DB_URL, HEADER
 
 BUILDING_USE = "BUILDING_USE"
+CONSTRUCTIONS = "constructions"
 CONSUMPTION = "CONSUMPTION"
 DUMMY_OBJECTS = "dummyObjects"
 ERROR_DOMAIN = "ERROR_DOMAIN"

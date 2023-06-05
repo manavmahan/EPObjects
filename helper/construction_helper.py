@@ -1,5 +1,6 @@
 import re
 import copy
+import pandas as pd
 
 # Contruction
 from idf_object.construction import Construction
@@ -8,24 +9,30 @@ from idf_object.windowmaterial.simpleglazingsystem import SimpleGlazingSystem
 from idf_object.buildingsurface.detailed import Detailed as BuildingSurface
 from idf_object.fenestrationsurface.detailed import Detailed as FenestrationSurface
 
-def get_construction_names(ep_objects):
-    construction_names = []
+def get_generic_construction_names(ep_objects, constructions):
+    existing_names = list(x.Name for x in constructions if isinstance(x, Construction))
+    construction_names = ['Mass']
     for surface in ep_objects:
         if isinstance(surface, (BuildingSurface, FenestrationSurface, InternalMass)):
+            if surface.ConstructionName in existing_names: continue
             if surface.ConstructionName not in construction_names:
                 construction_names.append(surface.ConstructionName)
+    construction_names.append('Mass')
     return construction_names
 
 def get_material_names(constructions):
-    materials = dict()
+    materials = pd.DataFrame(columns=['Name', 'Thickness'])
     for construction in constructions:
         for material in construction.MaterialsName:
-            split = material.split('.')
             try:
-                materials['.'.join(split[:-1])] = float(split[-1])
-            except ValueError:
-                if material not in materials: materials[material] = None
-    materials["RollShade"] = None
+                split = material.split('.')
+                name = '.'.join(split[:-1])
+                thickness = float(split[-1])
+            except: 
+                name = material
+                thickness = float('nan')
+            if material not in materials.index: materials.loc[material] = (name, thickness)
+    materials.loc["RollShade"] = ("RollShade", float('nan'))
     return materials
 
 def create_construction_materials(parameters, constructions, materials):
@@ -48,7 +55,7 @@ def create_construction_materials(parameters, constructions, materials):
     return constructions_copy
 
 def clean_materials(constructions, materials):
-    material_names = get_material_names(constructions).keys()
+    material_names = [m for x in constructions for m in x.MaterialsName] + ['RollShade']
     delete_objects = list(x for x in materials if x.Name not in material_names)
     for obj in delete_objects: materials.remove(obj)
 

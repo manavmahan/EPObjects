@@ -29,11 +29,11 @@ def execute():
     proc = subprocess.Popen(['./run_service.py', user_name, project_name], 
                         stdout=subprocess.PIPE,
                         stderr=subprocess.PIPE)
-    output = proc.stdout.read()
-    errors = proc.stderr.read()
+    output = proc.stdout.read().decode("utf-8")
+    errors = proc.stderr.read().decode("utf-8")
 
     if errors:
-        return errors
+        return dict(output= output)
     return f"updated User Name:{user_name} Project: {project_name}"
 
 if __name__ == '__main__':
