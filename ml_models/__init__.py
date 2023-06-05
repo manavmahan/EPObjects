@@ -11,8 +11,9 @@ from tensorflow.keras.optimizers import Adam
 from tensorflow.keras.regularizers import L2, Regularizer
 from tensorflow.keras.utils import register_keras_serializable
 from tensorflow.keras import Model, Sequential
-from tensorflow import math, ones_like
+from tensorflow import math, ones_like, multiply
 from tensorflow import reduce_min, where, reduce_sum
+from tensorflow_probability import distributions
 
 early_stopping_loss = EarlyStopping(monitor='loss', min_delta=1e-05, patience=1, restore_best_weights=True,)
 early_stopping_validation_loss = EarlyStopping(monitor='val_loss', min_delta=1e-05, patience=20, restore_best_weights=True,)
@@ -113,13 +114,16 @@ class LossMinimum(Loss):
 class LossErrorDomain(Loss):
     def __init__(self, error,):
         super(LossErrorDomain, self).__init__()
-        self.error = error
+        self.error_domain = error
 
     def call(self, y_true, y_pred):
         errors = abs((y_pred - y_true) / y_true)
-        errors = where(errors <= self.error, 1., 0.)
         actual = ones_like(errors)
-        return reduce_min(binary_crossentropy(actual, errors), axis=-1)
+
+        # probability = where(errors <= self.error_domain, 1., 0.)
+        dist = distributions.Normal(loc=0., scale=self.error_domain)
+        probability = 2 * (1 - dist.cdf(1.96 * abs(errors)))
+        return reduce_min(binary_crossentropy(actual, probability), axis=-1)
 
 def get_random_input(num_examples, num_dims):
     return np.random.random((num_examples, num_dims)) * 100
