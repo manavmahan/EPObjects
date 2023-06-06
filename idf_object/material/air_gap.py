@@ -9,7 +9,7 @@ class AirGap(IDFObject):
 
     default = dict(
         Name = 'AirGap',
-        Resistance = 0.16, # corresponding to 30 mm air cavity
+        Resistance = 0.12, # corresponding to 30 mm air cavity
     )
 
     def __init__(self, **kwargs):

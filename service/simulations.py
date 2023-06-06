@@ -1,5 +1,6 @@
 import math
 from helper.geometry_helper import check_surfaces_cardinality
+from helper.hot_water import set_hot_water_rate
 from . import os, pd, logger
 import copy
 import traceback
@@ -173,7 +174,8 @@ def create_energyplus_models(idf_folder: str,
         SetBestMatchInternalHeatGains(sample, ep_objects_copy)
         SetBestMatchSystemParameter(sample, ep_objects_copy)
         set_setpoints(sample, ep_objects_copy)
-        fill_schedules(ep_objects_copy)
+        fill_schedules(sample, ep_objects_copy)
+        set_hot_water_rate(sample, ep_objects_copy)
 
         with open(f'{idf_folder}/{i}.idf', 'w') as f:
             f.write('\n'.join((x.IDF for x in ep_objects_copy)))
