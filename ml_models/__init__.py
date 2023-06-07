@@ -115,14 +115,22 @@ class LossErrorDomain(Loss):
     def __init__(self, error,):
         super(LossErrorDomain, self).__init__()
         self.error_domain = error
+        try:
+            if len(self.error_domain) == 2: self.skewed = True
+        except: self.skewed = False
 
     def call(self, y_true, y_pred):
         errors = abs((y_pred - y_true) / y_true)
         actual = ones_like(errors)
 
         # probability = where(errors <= self.error_domain, 1., 0.)
-        dist = distributions.Normal(loc=0., scale=self.error_domain)
-        probability = 2 * (1 - dist.cdf(1.96 * abs(errors)))
+        if self.skewed:
+            dist_left = distributions.Normal(loc=0., scale=-self.error_domain[0])
+            dist_right = distributions.Normal(loc=0., scale=self.error_domain[1])
+            probability = where(errors<0, 2 * (1 - dist_left.cdf(1.96 * abs(errors))), 2 * (1 - dist_right.cdf(1.96 * abs(errors))))
+        else:
+            dist = distributions.Normal(loc=0., scale=self.error_domain)
+            probability = 2 * (1 - dist.cdf(1.96 * abs(errors)))
         return reduce_min(binary_crossentropy(actual, probability), axis=-1)
 
 def get_random_input(num_examples, num_dims):
