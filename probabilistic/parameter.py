@@ -165,6 +165,9 @@ class ProbabilisticParameters:
     def GenerateSamplesAsDF(self, numSamples : int, samplingScheme=SamplingScheme.LHS):
         return pd.DataFrame(self.GenerateSamples(numSamples, samplingScheme), columns=(str(x) for x in self.__parameters))
 
+    def get_names(self):
+        return list([str(x.Parameter) for x in self.__parameters])
+
     def get_scaling_df(self):
         df = pd.DataFrame(columns=['Min', 'Range'])
         for _, pp in enumerate(self.__parameters):

@@ -44,7 +44,6 @@ def get_simple_ann(
         num_inputs: int, 
         num_outputs: int, 
         scaling_X: Rescaling, 
-        rev_scaling_Y: Rescaling,
         inverted: bool=False)->Sequential:
     """ Get a simple ANN based on hyperparameter, number of inputs/outputs, and scaling layers."""
     model = Sequential()
@@ -53,42 +52,43 @@ def get_simple_ann(
     
     hidden_layers = list(n for n in hyperparameters['num_neurons'] if n>0)
     for i, nn in enumerate(hidden_layers):
-        model.add( Dense(nn, activation=relu, kernel_regularizer=L2(hyperparameters['reg_coeff'])) )
+        model.add( Dense(nn, activation=relu, kernel_regularizer=L2(hyperparameters['reg_coef'])) )
 
     model.add(Dense(num_outputs, activity_regularizer=CustomRegularizerHardSigmoid() if inverted else None))
-    if inverted: model.add(Activation(hard_sigmoid))
-
-    model.add(rev_scaling_Y)
-
-    model.compile(loss=mean_squared_error, optimizer=Adam(learning_rate=hyperparameters['learning_rate']),)
     return model
 
-def train_model(model: Sequential, X_train: np.ndarray, Y_train: np.ndarray,)-> float:
+def train_model(model: Sequential, X_train: np.ndarray, Y_train: np.ndarray, learning_rate, error_domain=None)-> float:
     """ Trains a sequential model based on the dataset. """
-    history = model.fit(X_train, Y_train, validation_split=0.2, epochs=100, verbose=0, callbacks=[early_stopping_validation_loss],)
-    return min(history.history['val_loss']) 
+    if error_domain:
+        loss = LossErrorDomain(error_domain)
+    else:
+        loss = mean_squared_error
+    model.compile(loss=loss, optimizer=Adam(learning_rate=learning_rate, amsgrad=True))
+    history = model.fit(X_train, Y_train, validation_split=0.2, epochs=1000, verbose=0, callbacks=[early_stopping_validation_loss],)
+    return min(history.history['val_loss']), len(history.history['val_loss'])
 
-def get_regressor(hyperparameters_df, X, Y, scaling_df_X=None, scaling_df_Y=None, all_columns_equal=False, inverted=False):
+def get_regressor(hyperparameters_df, X, Y, scaling_df_X=None, scaling_df_Y=None, all_columns_equal=True, inverted=False):
     '''
     all_columns_equal has no effect if scaling_df_Y is provided.
     '''
     scaling_X = get_scaling_layer(X, scaling_df_X)
-    scaling_Y = get_scaling_layer(Y, scaling_df_Y, reverse=True, all_columns_equal=all_columns_equal)
 
-    current_model, current_loss = None, float('inf')
+    if scaling_df_Y is None: scaling_df_Y = get_scaling_parameters(Y, all_columns_equal=all_columns_equal) 
+    scaling_Y = get_scaling_layer(Y, scaling_df_Y, all_columns_equal=all_columns_equal)
+
+    Y_scaled = scaling_Y(Y).numpy()
+    current_model, current_loss, current_epoch = None, float('inf'), 0
     for _, hp in hyperparameters_df.iterrows():
-        ann = get_simple_ann(hp, len(X.iloc[0]), len(Y.iloc[0]), scaling_X, scaling_Y, inverted=inverted)
-        loss = train_model(ann, X, Y,)
-        while math.is_nan(loss):
-            ann.summary()
-            print (X, Y, scaling_X.weights, scaling_Y.weights, all_columns_equal, inverted, loss)
-            ann = get_simple_ann(hp, len(X.iloc[0]), len(Y.iloc[0]), scaling_X, scaling_Y, inverted=inverted)
-            loss = train_model(ann, X, Y,)
+        ann = get_simple_ann(hp, len(X.iloc[0]), len(Y.iloc[0]), scaling_X, inverted=inverted)
+        if inverted: ann.add(Activation(hard_sigmoid))
+        loss, epoch = train_model(ann, X, Y_scaled, hp['learning_rate'])
 
         if loss < current_loss:
             current_loss = loss
             current_model = ann
-    return current_model, current_loss
+            current_epoch = epoch
+    if inverted: current_model.add(get_scaling_layer(scaled_df=scaling_df_Y, reverse=True))
+    return current_model, scaling_df_Y, current_loss, current_epoch
 
 @register_keras_serializable(package='Custom', name='CustomRegularizerHardSigmoid')
 class CustomRegularizerHardSigmoid(Regularizer):
@@ -120,42 +120,39 @@ class LossErrorDomain(Loss):
         except: self.skewed = False
 
     def call(self, y_true, y_pred):
-        errors = abs((y_pred - y_true) / y_true)
+        errors = (y_pred - y_true) / y_true
         actual = ones_like(errors)
 
-        # probability = where(errors <= self.error_domain, 1., 0.)
+        probability = where(abs(errors) <= self.error_domain[1], 1., (200.*self.error_domain[1] - abs(errors))/2000.*self.error_domain[1])
         if self.skewed:
             dist_left = distributions.Normal(loc=0., scale=-self.error_domain[0])
             dist_right = distributions.Normal(loc=0., scale=self.error_domain[1])
-            probability = where(errors<0, 2 * (1 - dist_left.cdf(1.96 * abs(errors))), 2 * (1 - dist_right.cdf(1.96 * abs(errors))))
+            # probability = where(errors<0, 2 * (1 - dist_left.cdf(1.96 * abs(errors))), 2 * (1 - dist_right.cdf(1.96 * abs(errors))))
+            # probability = where(self.error_domain[0] < errors < self.error_domain[1], 1., 0.)
         else:
             dist = distributions.Normal(loc=0., scale=self.error_domain)
-            probability = 2 * (1 - dist.cdf(1.96 * abs(errors)))
-        return reduce_min(binary_crossentropy(actual, probability), axis=-1)
+            # probability = 2 * (1 - dist.cdf(1.96 * abs(errors)))
+            # probability = where(abs(errors)<self.error_domain, 1., 0.)
+        return reduce_sum(binary_crossentropy(actual, probability), axis=-1)
 
 def get_random_input(num_examples, num_dims):
     return np.random.random((num_examples, num_dims)) * 100
 
-def get_generator_network(hyperparameters, append_model, input_dims, output_dims, rev_scaling_X, error_domain=None, ):
+def get_generator_network(hyperparameters, append_model, input_dims, output_dims, rev_scaling_X,):
     append_model.trainable = False
     generator = Sequential()
     generator.add(InputLayer(input_shape = (input_dims, )))
 
     for nn in [n for n in hyperparameters['num_neurons'] if n>0]:
-        generator.add( Dense(nn, kernel_regularizer=L2(hyperparameters['reg_coeff']), activation=sigmoid,))
+        generator.add( Dense(nn, kernel_regularizer=L2(hyperparameters['reg_coef']), activation=sigmoid,))
 
     generator.add(Dense(output_dims, activity_regularizer=CustomRegularizerHardSigmoid()))
     generator.add(Activation(hard_sigmoid))
     generator.add(rev_scaling_X)
 
     outputs = append_model(generator.output)
-    if error_domain:
-        loss = LossErrorDomain(error_domain)
-    else:
-        loss = LossMinimum()
 
     complete_model = Model(inputs=generator.inputs, outputs=outputs)
-    complete_model.compile(loss=loss, optimizer=Adam(learning_rate=hyperparameters['learning_rate']))
     return generator, complete_model
 
 def get_generator(hyperparameters_df, scaling_df_X, regressor, targets, error_domain=None):
@@ -164,9 +161,9 @@ def get_generator(hyperparameters_df, scaling_df_X, regressor, targets, error_do
 
     output_dims = len(scaling_df_X)
     for _, hp in hyperparameters_df.iterrows():
-        generator, complete_model = get_generator_network(hp, regressor, len(random_input[0]), output_dims, rev_scaling_X, error_domain=error_domain)
-        loss = train_model(complete_model, random_input, targets,)
-        yield generator, loss
+        generator, complete_model = get_generator_network(hp, regressor, len(random_input[0]), output_dims, rev_scaling_X,)
+        loss, epochs = train_model(complete_model, random_input, targets, hp['learning_rate'], error_domain)
+        yield generator, loss, epochs
 
 def predict(model, X=None, num_examples=1):
     if X is None:

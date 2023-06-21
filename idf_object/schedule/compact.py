@@ -1,4 +1,5 @@
 from idf_object import IDFObject
+import re
 
 class Compact(IDFObject):
     __IDFName__ = 'Schedule:Compact'
@@ -101,8 +102,26 @@ class Compact(IDFObject):
             self.assign_values(**selected)
 
     def set_setpoints(self, value):
+        if "Heating" not in self.Name and "Cooling" not in self.Name: return
         setoff = 4 if 'Heating' in self.Name else -4
         if self.type == "default":
-            self.assign_values(v1=value)
+            setpoint1 = value
+            setpoint2 = value - 2
+            setpoint3 = value - 4
+            if re.match('.*Kitchen.*', self.Name):
+                self.assign_values(v1=setpoint1)
+            elif re.match('.*Bedroom.*', self.Name):
+                self.assign_values(v1=setpoint2)
+            elif re.match('.*[Toilet|Bathroom|Corridor].*', self.Name):
+                self.assign_values(v1=setpoint3)
         elif self.type == "four_and_half_days":
             self.assign_values(v1=value-setoff, v2=value, v3=value-setoff)
+        elif self.type == "typical_house":
+            setpoint2 = value - 2
+            setback2 = setpoint2 - 4
+            if re.match('.*Office.*', self.Name):
+                self.assign_values(v1=setback2, v2 = setback2, v3 = setpoint2, v4 = setback2,
+                                   v5 = setpoint2, v6 = setpoint2, v7 = setback2,)
+            elif re.match('.*LivingRoom.*', self.Name):
+                self.assign_values(v1=setback2, v2 = setback2, v3 = setback2, v4 = setpoint2,
+                                   v5 = setback2, v6 = setpoint2, v7 = setpoint2,)

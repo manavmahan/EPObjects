@@ -39,14 +39,14 @@ class XYZList:
         self.__plane = None
         if isinstance(xyzs, str):
             string = xyzs.split(',')
-            xyzsNew = np.array(string[1:], dtype=np.float_).reshape(int(string[0]), 3)
+            xyzsNew = np.round(np.array(string[1:], dtype=np.float_), self.Round).reshape(int(string[0]), 3)
         elif isinstance(xyzs, np.ndarray):
             if xyzs.shape[1] != 3: raise Exception(f"Invalid argument type: {xyzs}")
             xyzsNew = np.copy(xyzs)
         else:
             raise Exception(f"Invalid argument type: {xyzs}")
 
-        xyzsNew.round(self.Round)
+        xyzsNew = xyzsNew.round(self.Round)
         indices = np.sort(np.unique(xyzsNew, axis=0, return_index=True)[1])
         self.XYZs = xyzsNew[indices]
 
