@@ -57,11 +57,9 @@ def get_simple_ann(
     model.add(Dense(num_outputs, activity_regularizer=CustomRegularizerHardSigmoid() if inverted else None))
     return model
 
-def train_model(model: Sequential, X_train: np.ndarray, Y_train: np.ndarray, learning_rate, error_domain=None)-> float:
+def train_model(model: Sequential, X_train: np.ndarray, Y_train: np.ndarray, learning_rate, loss=None)-> float:
     """ Trains a sequential model based on the dataset. """
-    if error_domain:
-        loss = LossErrorDomain(error_domain)
-    else:
+    if loss is None:
         loss = mean_squared_error
     model.compile(loss=loss, optimizer=Adam(learning_rate=learning_rate, amsgrad=True))
     history = model.fit(X_train, Y_train, validation_split=0.2, epochs=1000, verbose=0, callbacks=[early_stopping_validation_loss],)
@@ -127,13 +125,13 @@ class LossErrorDomain(Loss):
         if self.skewed:
             dist_left = distributions.Normal(loc=0., scale=-self.error_domain[0])
             dist_right = distributions.Normal(loc=0., scale=self.error_domain[1])
-            # probability = where(errors<0, 2 * (1 - dist_left.cdf(1.96 * abs(errors))), 2 * (1 - dist_right.cdf(1.96 * abs(errors))))
+            probability = where(errors<0, 2 * (1 - dist_left.cdf(1.96 * abs(errors))), 2 * (1 - dist_right.cdf(1.96 * abs(errors))))
             # probability = where(self.error_domain[0] < errors < self.error_domain[1], 1., 0.)
         else:
             dist = distributions.Normal(loc=0., scale=self.error_domain)
-            # probability = 2 * (1 - dist.cdf(1.96 * abs(errors)))
+            probability = 2 * (1 - dist.cdf(1.96 * abs(errors)))
             # probability = where(abs(errors)<self.error_domain, 1., 0.)
-        return reduce_sum(binary_crossentropy(actual, probability), axis=-1)
+        return reduce_min(binary_crossentropy(actual, probability), axis=-1)
 
 def get_random_input(num_examples, num_dims):
     return np.random.random((num_examples, num_dims)) * 100
@@ -162,7 +160,7 @@ def get_generator(hyperparameters_df, scaling_df_X, regressor, targets, error_do
     output_dims = len(scaling_df_X)
     for _, hp in hyperparameters_df.iterrows():
         generator, complete_model = get_generator_network(hp, regressor, len(random_input[0]), output_dims, rev_scaling_X,)
-        loss, epochs = train_model(complete_model, random_input, targets, hp['learning_rate'], error_domain)
+        loss, epochs = train_model(complete_model, random_input, targets, hp['learning_rate'], LossErrorDomain(error_domain) if error_domain is not None else LossMinimum())
         yield generator, loss, epochs
 
 def predict(model, X=None, num_examples=1):

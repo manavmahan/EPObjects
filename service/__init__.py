@@ -14,6 +14,7 @@ tmp_dir = "/tmp/energy_service/"
 os.makedirs(tmp_dir, exist_ok=True)
 
 DB_URL = "https://db.manavmahan.de"
+DB_URL = "http://localhost:4211"
 HEADER = {
     'id': os.environ.get('API_ID')
 }

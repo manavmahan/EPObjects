@@ -1,4 +1,5 @@
 from service import json, JsonDecoder, JsonEncoder, pd, requests, DB_URL, HEADER
+from json import JSONDecodeError
 
 BUILDING_USE = "BUILDING_USE"
 CONSTRUCTIONS = "constructions"
@@ -66,7 +67,12 @@ def get_columns(search_conditions: str, column_name: str, convert_to_df=False):
         "COLUMN_NAMES": column_name,
         "CONDITIONS": search_conditions,
     }
-    response = requests.post(DB_URL, headers=HEADER, json=data).json()
+    raw_response = requests.post(DB_URL, headers=HEADER, json=data)
+    try:
+        response = raw_response.json()
+    except JSONDecodeError:
+        raise TypeError(raw_response.text)
+
     if (response["ERROR"]): raise ValueError(response["ERROR"])
     if len(response["RESULTS"]) == 0: return None
     if response["RESULTS"][0][column_name] == None: return None
