@@ -1,5 +1,5 @@
 from helper.run_period_helper import get_run_periods
-from ml_models import predict
+from ml_models import predict, get_scaling_layer
 from service import logger, np, pd, statuses
 from service import db_functions as db
 import traceback
@@ -47,8 +47,13 @@ def run_results(project_settings, info, search_conditions):
                 parameters.loc[f'p_{m+p}'] = p_parameters[p]
         parameters.reset_index(inplace=True, drop=True)
 
+        predictions = predict(regressor, X=parameters[parameters_df.index])
+        scaling_data = db.get_columns(search_conditions, db.SCALING)
+        scaling_df_y = pd.DataFrame.from_dict(scaling_data[db.SCALING_DF_Y])
+        predictions = get_scaling_layer(scaled_df=scaling_df_y, reverse=True)(predictions).numpy()
+
         results[db.PARAMETERS] = parameters
-        results[db.PREDICTIONS] = pd.DataFrame(predict(regressor, X=parameters[parameters_df.index]), columns=consumption_df["Name"])
+        results[db.PREDICTIONS] = pd.DataFrame(predictions, columns=consumption_df["Name"])
         results[db.TOTAL] = pd.Series(results[db.PREDICTIONS].sum(axis=1))
         
         results[db.ERRORS] = pd.DataFrame(100 * (results[db.PREDICTIONS].values - m_consumption) / m_consumption, columns=consumption_df["Name"])

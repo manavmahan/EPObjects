@@ -1,3 +1,4 @@
+import re
 from json import JSONEncoder, JSONDecoder
 from geometry_object.xyzlist import XYZList
 
@@ -46,7 +47,11 @@ class IDFJsonEncoder(JSONEncoder):
 def custom_import(name):
     components = name.split(':')
     components.insert(0, 'idf_object')
-    mod = __import__('.'.join(components).lower(), fromlist=[components[-1]])
+    try:
+        mod = __import__('.'.join(components).lower(), fromlist=[components[-1]])
+    except ModuleNotFoundError:
+        module = [re.sub(r'(?<!^)(?=[A-Z])', '_', x).lower() for x in components]
+        mod = __import__('.'.join(module), fromlist=[module])
     return getattr(mod, components[-1])
 
 class IDFJsonDecoder(JSONDecoder):

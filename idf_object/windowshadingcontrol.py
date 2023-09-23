@@ -31,7 +31,7 @@ class WindowShadingControl(IDFObject):
         Setpoint = 30.0,
         ShadingControlIsScheduled = "NO",
         GlareControlIsActive = "NO",
-        ShadingDeviceMaterialName = "ROLLSHADE",
+        ShadingDeviceMaterialName = "RollShade",
         TypeofSlatAngleControlforBlinds = '',
         SlatAngleScheduleName = '',
         Setpoint2 = '',

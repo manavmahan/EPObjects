@@ -50,7 +50,7 @@ class DesignFlowRate(IDFObject):
         DesignFlowRate = 0,
         FlowRateperZoneFloorArea = 0,
         FlowRateperPerson = 0,
-        AirChangesperHour = 0.05,
+        AirChangesperHour = 0.1,
         VentilationType = "Balanced",
         FanPressureRise = 1,
         FanTotalEfficiency = 1,

@@ -3,6 +3,9 @@ from service import pd
 
 def sample_hyperparameters(hyperparameters_dict, sample_size):
     columns = hyperparameters_dict.keys()
+    num_neurons = hyperparameters_dict.get('num_neurons')
+    hyperparameters_dict['num_neurons'] = list(itertools.product(*num_neurons))
+
     _, values = zip(*hyperparameters_dict.items())
     hp1 = list(itertools.product(*values))
     hps = pd.DataFrame(hp1, columns=columns)

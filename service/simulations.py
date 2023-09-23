@@ -1,4 +1,6 @@
+import math
 from helper.geometry_helper import check_surfaces_cardinality
+from helper.hot_water import set_hot_water_rate
 from . import os, pd, logger
 import copy
 import traceback
@@ -7,7 +9,7 @@ from service import statuses, create_simulation_dir
 
 from run_ep import execute_simulations
 
-from helper.construction_helper import create_construction_materials, InitialiseZoneSurfaces, get_construction_names, SetBestMatchInternalMass, get_material_names
+from helper.construction_helper import create_construction_materials, InitialiseZoneSurfaces, get_generic_construction_names, SetBestMatchInternalMass, get_material_names
 from helper.infiltration_helper import SetBestMatchPermeability
 
 from helper.schedule_helper import fill_schedules, set_setpoints
@@ -37,6 +39,7 @@ def run_simulations(user_name, project_name, project_settings, info, search_cond
         idf_folder = create_simulation_dir(user_name, project_name, project_settings[db.LOCATION])
         geometry_json = db.get_columns(search_conditions, db.GEOMETRY,)
         dummy_objects_json = db.get_columns(search_conditions, db.DUMMY_OBJECTS)
+        constructions_json = db.get_columns(search_conditions, db.CONSTRUCTIONS)
         consumption_df = db.get_columns(search_conditions, db.CONSUMPTION, True)
         parameters_df = db.get_columns(search_conditions, db.PARAMETERS, True)
 
@@ -44,6 +47,7 @@ def run_simulations(user_name, project_name, project_settings, info, search_cond
             info, idf_folder, building_use,
             project_settings[db.SIMULATION_SETTINGS], 
             geometry_json, dummy_objects_json,
+            constructions_json,
             parameters_df, consumption_df,
         )
         for column in results:
@@ -64,6 +68,7 @@ def generate_simulation_results(info: str,
                                 simulation_settings: dict,
                                 geometry_json: dict,
                                 dummy_json: dict,
+                                constructions_json: dict,
                                 parameters_df: pd.DataFrame,
                                 consumption_df: pd.DataFrame):
     clean_up_geometry(geometry_json)
@@ -73,6 +78,7 @@ def generate_simulation_results(info: str,
                                        simulation_settings,
                                        geometry_json,
                                        dummy_json,
+                                       constructions_json,
                                        parameters_df,
                                        consumption_df)
     
@@ -104,6 +110,7 @@ def create_energyplus_models(idf_folder: str,
                              simulation_settings: dict,
                              geometry_json: dict,
                              dummy_json: dict,
+                             constructions_json: dict,
                              parameters_df: pd.DataFrame,
                              consumption_df: pd.DataFrame):
     
@@ -114,17 +121,22 @@ def create_energyplus_models(idf_folder: str,
     ep_objects += run_periods
     ep_objects += geometry_json
     ep_objects += dummy_json
+    constructions = constructions_json
     InitialiseZoneSurfaces(ep_objects)
     
-    construction_names = get_construction_names(ep_objects)
-    construction_names.append('Mass')
-    constructions = list(db.get_construction_material(construction_names))
+    construction_names = get_generic_construction_names(ep_objects, constructions)
+    constructions += list(db.get_construction_material(construction_names))
     
     material_names = get_material_names(constructions)
-    materials = list(db.get_construction_material(list(material_names.keys()), False))
-    for m in materials:
-        if material_names[m.Name] is not None: m.Thickness = material_names[m.Name] / 1000
-
+    generic_materials = list(db.get_construction_material(list(set(material_names["Name"])), False))
+    materials = []
+    for m in material_names.index:
+        material = copy.deepcopy(next(x for x in generic_materials if x.Name==material_names.loc[m, 'Name']))
+        material.Name = m
+        if not math.isnan(material_names.loc[m, 'Thickness']) and hasattr(material, 'Thickness'): 
+            material.Thickness = material_names.loc[m, 'Thickness'] / 1000
+        materials.append(material)
+        
     for c in constructions:
         c.initialise_materials(materials)
 
@@ -162,7 +174,8 @@ def create_energyplus_models(idf_folder: str,
         SetBestMatchInternalHeatGains(sample, ep_objects_copy)
         SetBestMatchSystemParameter(sample, ep_objects_copy)
         set_setpoints(sample, ep_objects_copy)
-        fill_schedules(ep_objects_copy)
+        fill_schedules(sample, ep_objects_copy)
+        set_hot_water_rate(sample, ep_objects_copy)
 
         with open(f'{idf_folder}/{i}.idf', 'w') as f:
             f.write('\n'.join((x.IDF for x in ep_objects_copy)))

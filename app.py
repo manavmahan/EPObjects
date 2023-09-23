@@ -5,6 +5,7 @@ from pathlib import Path
 home = str(Path.home())
 
 import sys
+import subprocess
 from flask_cors import cross_origin
 
 path = f'{home}/repos/EPObjects/'
@@ -24,7 +25,15 @@ def execute():
     user_name = request_data.get('user_name')
     project_name = request_data.get('project_name')
     print (user_name, project_name)
-    run_service(user_name, project_name)
+
+    proc = subprocess.Popen(['./run_service.py', user_name, project_name], 
+                        stdout=subprocess.PIPE,
+                        stderr=subprocess.PIPE)
+    output = proc.stdout.read().decode("utf-8")
+    errors = proc.stderr.read().decode("utf-8")
+
+    if errors:
+        return dict(output= output)
     return f"updated User Name:{user_name} Project: {project_name}"
 
 if __name__ == '__main__':

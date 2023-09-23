@@ -4,19 +4,16 @@ import os
 RepoPath = '/home/ubuntu/repos/EPObjects'
 regex = re.compile(r"{.*.}")
 
-lines = '''WaterUse:Equipment,
-  HotWater,   !- Name
-  Domestic Hot Water,   !- EndUse Subcategory
-  0.001,   !- Peak Flow Rate {m3/s}
-  HotWaterSchedule,   !- Flow Rate Fraction Schedule Name
-  HotWaterTargetTemp,   !- Target Temperature Schedule Name
-  HotWaterSuppltTemp,   !- Hot Water Supply Temperature Schedule Name
-  ;   !- Cold Water Supply Temperature Schedule Name'''.split('\n')
+lines = '''Material:AirGap,
+    AIRSPACE,  ! Material Name
+    0.1603675;                 ! Resistance'''.split('\n')
 
 name = lines[0].replace(',', '')
-properties = [ regex.sub("", x[x.index('!-')+3:]).replace(' ', '').replace('\t', '') for x in lines[1:] ]
-values = [y if y !='' else ' ' for y in [ x[:x.index('!-')].replace(' ', '').replace(',','').replace('\t', '') for x in lines[1:] ] ]
-values[-1] = values[-1][:-1]
+properties_values = [x.split('! ') for x in lines[1:]]
+print (properties_values)
+properties = [re.sub(',| |\t', '', x[1]) for x in properties_values]
+values = [re.sub(',| |\t', '', x[0]) for x in properties_values]
+print (properties_values, properties, values)
 
 default = "dict(\n" + ",\n".join(f"{x} = '{y}'" for (x, y) in zip(properties, values)) + '\n)'
 
