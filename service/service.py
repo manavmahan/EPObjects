@@ -1,8 +1,8 @@
-from service import np, pd, create_simulation_dir, logger
-import service.db_functions as db
+from service.helper import np, pd, create_simulation_dir, logger
+from service import db_functions as db
 
-from Probabilistic.EnergyPredictions import ProbabilisticEnergyPrediction
-from Probabilistic.Parameter import ProbabilisticParameters
+from probabilistic import ProbabilisticEnergyPrediction
+from probabilistic import ProbabilisticParameters
 
 from service.energy_model_simulations import generate_simulation_results, get_run_periods
 from service.ml_networks import train_generator, train_regressor, predict, get_scaling_parameters

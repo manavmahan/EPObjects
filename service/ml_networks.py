@@ -1,4 +1,4 @@
-from service import logger, os, np, pd, shutil, tmp_dir
+from .helper import logger, os, np, pd, shutil, tmp_dir
 import itertools
 from service import db_functions as db
 from MLModels.ml_models import get_regressor, get_generator, predict, get_scaling_parameters

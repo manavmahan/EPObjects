@@ -1,4 +1,4 @@
-from . import os, pd, shutil, logger, tmp_dir, json
+from .helper import os, pd, shutil, logger, tmp_dir, json
 from service import db_functions as db
 
 from runEP import ExecuteSimulations
@@ -16,8 +16,8 @@ from Helper.ShadingHelper import AddShading
 
 from Helper.InternalHeatGainsHelper import SetBestMatchInternalHeatGains
 
-from Probabilistic.EnergyPredictions import EnergyPrediction, ProbabilisticEnergyPrediction
-from Probabilistic.Parameter import ProbabilisticParameters
+from probabilistic import EnergyPrediction, ProbabilisticEnergyPrediction
+from probabilistic import ProbabilisticParameters
 
 def generate_simulation_results(info: str, idf_folder: str,
                                 building_use: str,

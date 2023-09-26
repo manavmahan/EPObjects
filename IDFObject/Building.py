@@ -1,7 +1,6 @@
 import numpy as np
 
 from IDFObject import IDFObject
-from Probabilistic.Parameter import ParameterType, ProbabilisticParameter
 
 class Building(IDFObject.IDFObject):
     __IDFName__ = "Building"

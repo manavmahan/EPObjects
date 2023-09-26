@@ -1,4 +1,4 @@
-from service import json, JsonDecoder, JsonEncoder, pd, requests
+from service.service import json, JsonDecoder, JsonEncoder, pd, requests
 
 db_url = "neo4j.manavmahan.de"
 headers = {'apiid': 'f76ba64860271dd9dd21867e387004d1'}

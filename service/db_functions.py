@@ -1,4 +1,4 @@
-from service import json, JsonDecoder, JsonEncoder, pd, requests, DB_URL, HEADER
+from .helper import json, JsonDecoder, JsonEncoder, pd, requests, DB_URL, HEADER
 
 BUILDING_USE = "BUILDING_USE"
 CONSUMPTION = "CONSUMPTION"
@@ -38,7 +38,7 @@ def get_columns(search_conditions: str, column_name: str, convert_to_df=False):
     """ Retrieves the selected columns from the DB. """
     data = {
         "TYPE": "SEARCH", 
-        "TABLE_NAME": "PROJECTS",
+        "TABLE_NAME": "projects",
         "COLUMN_NAMES": column_name,
         "CONDITIONS": search_conditions,
     }
