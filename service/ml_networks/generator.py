@@ -1,5 +1,5 @@
 from helper.run_period_helper import get_run_periods
-from ml_models import get_generator, predict, get_regressor, get_scaling_layer
+from ml_models import get_generator, predict, get_regressor
 from probabilistic.energy_predictions import ProbabilisticEnergyPrediction
 from probabilistic.parameter import ProbabilisticParameters
 from service.ml_networks import sample_hyperparameters
@@ -12,30 +12,25 @@ def run_generator(project_settings, info, search_conditions):
     try:
         db.update_columns(search_conditions, db.GENERATORS, None)
         regressor = None
-        targets = None
         if project_settings[db.GENERATOR_SETTINGS][db.METHOD] != db.INVERTED:
             regressor_data = db.get_columns(search_conditions, db.REGRESSOR)
             regressor = regressor_data[db.NETWORK]
             regressor.set_weights([np.array(x) for x in regressor_data[db.WEIGHTS]])
-            scaling_data = db.get_columns(search_conditions, db.SCALING)
-            scaling_df_y = pd.DataFrame.from_dict(scaling_data[db.SCALING_DF_Y])
         
-            consumption_df = db.get_columns(search_conditions, db.CONSUMPTION, True)
-            _, consumption = get_run_periods(consumption_df)
-            targets = np.array([consumption.mean(axis=1) for _ in range(125)])
-            targets = get_scaling_layer(scaled_df=scaling_df_y)(targets).numpy()
+        consumption_df = db.get_columns(search_conditions, db.CONSUMPTION, True)
+        _, consumption = get_run_periods(consumption_df)
 
         parameters_df = db.get_columns(search_conditions, db.PARAMETERS, True)
         p_parameters = ProbabilisticParameters.from_df(parameters_df)
         generators = train_generator(   info, search_conditions,
                                         p_parameters,
-                                        regressor,
-                                        targets,
+                                        regressor, 
+                                        consumption, 
                                         db.get_genertor_hyperparameters(search_conditions),
                                         **project_settings[db.GENERATOR_SETTINGS])
 
         generators_data = None #db.get_columns(search_conditions, db.GENERATORS)
-        for (network, loss, _) in generators:
+        for (network, loss) in generators:
             if generators_data == None:
                 generators_data = {db.NETWORK: [], db.LOSS: [], db.WEIGHTS: []}
 
@@ -54,16 +49,17 @@ def run_generator(project_settings, info, search_conditions):
         logger.info(traceback.format_exc())
         db.update_columns(search_conditions, db.STATUS, statuses.FAILED_GENERATOR)
 
-def train_generator(info, search_conditions, p_parameters: ProbabilisticParameters, regressor, targets, hyperparameters: dict, NUMS: int, **kwargs):
+def train_generator(info, search_conditions, p_parameters: ProbabilisticParameters, regressor, consumption, hyperparameters: dict, NUMS: int, **kwargs):
     hyperparameters = sample_hyperparameters(hyperparameters, NUMS,)
     logger.info(f'{info}training generator')
     if kwargs.get(db.METHOD) == db.GENERATIVE:
+        targets = np.array([consumption.mean(axis=1) for _ in range(125)])
         generators = get_generator(hyperparameters, 
                                    p_parameters.get_scaling_df(), 
                                    regressor, targets, 
                                    error_domain=kwargs.get(db.ERROR_DOMAIN))
         for i, x in enumerate(generators):
-            logger.info(f'{info}Generator Loss {i}:\t{x[1]:.5f}\tEpochs:{x[2]}\t{hyperparameters.loc[i].values}')
+            logger.info(f'{info}Generator Loss {i}:\t{x[1]:.5f}')
             yield x
     elif kwargs.get(db.METHOD) == db.INVERTED:
         logger.info(f'{info}training inverted regressor')
@@ -74,6 +70,8 @@ def train_generator(info, search_conditions, p_parameters: ProbabilisticParamete
 
         x = train_inverted_regressor(info, hyperparameters, regressor_targets, sampled_parameters, scaling_df_Y,)
         yield x
+    elif kwargs.get(db.METHOD) == db.GENERATIVE_ERROR_DOMAIN:
+        logger.info(f'{info}training inverted regressor')
 
 def train_inverted_regressor(info, 
                              hyperparameters: pd.DataFrame, 
@@ -81,12 +79,11 @@ def train_inverted_regressor(info,
                              targets: np.ndarray, 
                              scaling_df_Y: pd.DataFrame, 
                              ):
-    network, _, loss, epochs = get_regressor(hyperparameters, inputs, targets, scaling_df_Y=scaling_df_Y, inverted=True)
-    logger.info(f'{info}Inverted Regressor Loss:\t{loss:.5f}\tEpochs:{epochs}')
-    return network, loss, epochs
+    network, loss = get_regressor(hyperparameters, inputs, targets, scaling_df_Y=scaling_df_Y, inverted=True)
+    logger.info(f'{info}Inverted Regressor Loss:\t{loss:.5f}')
+    return network, loss
 
-# def predict_parameters(generator, regressor, scaling_df_y, num_samples_per_generator):
-#     parameters = predict(generator, None, num_samples_per_generator)
-#     results = predict(regressor, parameters,)
-#     results = get_scaling_layer(scaled_df=scaling_df_y)(results).numpy()
-#     return parameters, results
+def predict_parameters(generator, regressor, num_samples_per_generator):
+    parameters = predict(generator, None, num_samples_per_generator)
+    results = predict(regressor, parameters,)
+    return parameters, results

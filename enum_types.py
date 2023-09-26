@@ -36,7 +36,6 @@ class ParameterType(Enum):
 
     # Internal Heat Gains
     Occupancy = "Occupancy"
-    WeeklyHours = "WeeklyHours"
     LightHeatGain = "LightHeatGain"
     EquipmentHeatGain = "EquipmentHeatGain"
 
@@ -46,8 +45,6 @@ class ParameterType(Enum):
 
     # Zone Conditions
     HeatingSP = "HeatingSP"
-
-    HotWater = "HotWater"
 
     def __str__(self):
         return str(self.value)

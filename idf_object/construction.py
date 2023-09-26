@@ -6,7 +6,6 @@ from string_list import StringList
 
 from idf_object import IDFObject
 from idf_object.material import Material
-from idf_object.material.air_gap import AirGap
 from idf_object.windowmaterial.simpleglazingsystem import SimpleGlazingSystem
 
 class Construction(IDFObject):
@@ -23,7 +22,12 @@ class Construction(IDFObject):
 
     @property
     def UValue(self):
-        uvalue = 1./ Construction.get_resistance(self.Materials)
+        if all(isinstance(x, Material) for x in self.Materials):
+            uvalue = 1/sum(m.Thickness/m.Conductivity for m in self.Materials)
+        elif all(isinstance(x, SimpleGlazingSystem) for x in self.Materials):
+            uvalue = sum(m.UFactor for m in self.Materials)
+        else:
+            raise NotImplementedError("Compound construction!")
         return np.round(uvalue, 5)
     
     default = dict()
@@ -42,21 +46,6 @@ class Construction(IDFObject):
             try: self.Materials += [next(x for x in materials if x.Name==mName)]
             except StopIteration: raise KeyError(f'material {mName} not found for {self.Name}.')
 
-    @staticmethod
-    def get_resistance(materials):
-        if all(isinstance(x, Material) for x in materials):
-            r = sum(m.Thickness/m.Conductivity for m in materials)
-        elif all(isinstance(x, SimpleGlazingSystem) for x in materials):
-            r = sum(m.UFactor for m in materials)
-        elif all(isinstance(x, (Material, AirGap)) for x in materials):
-            materials = list(x for x in materials if isinstance(x, Material))
-            air_gaps = list(x for x in materials if isinstance(x, AirGap))
-            r =  sum([m.Thickness/m.Conductivity for m in materials])
-            r += sum([m.Resistance for m in air_gaps])
-        else:
-            raise NotImplementedError("Compound construction!")
-        return r
-
     def AdjustUGValue(self, requiredUValue, requiredGValue):
         if self.Materials[0].SolarHeatGainCoefficient != requiredGValue or self.Materials[0].UFactor != requiredUValue:
             self.Materials[0] = copy.deepcopy(self.Materials[0])
@@ -70,34 +59,31 @@ class Construction(IDFObject):
             return self.Materials[0]
         return None
 
-    def adjust_properties(self, require_uvalue: float = None, requiredGValue: float = None, insulation: str="Insulation"):
-        if not require_uvalue and not requiredGValue: return
-        if (self.UValue == require_uvalue):
+    def adjust_properties(self, requiredUValue: float = None, requiredGValue: float = None, insulation: str="Insulation"):
+        if not requiredUValue and not requiredGValue: return
+        if (self.UValue == requiredUValue):
             return
         
         if (isinstance(self.Materials[0], SimpleGlazingSystem)):
-            return self.AdjustUGValue(require_uvalue, requiredGValue)
+            return self.AdjustUGValue(requiredUValue, requiredGValue)
 
-        try:
-            insulation_layer = next(x for x in self.Materials if x.Name == insulation)
-        except StopIteration:
-            insulation_layer = next(x for x in self.Materials if insulation in x.Name)
+        insulationLayer = next(x for x in self.Materials if x.Name == insulation)
         
-        resistance_without_insulation = Construction.get_resistance(list(m for m in self.Materials if m.Name != insulation_layer.Name))
-        insulation_thickness = np.round(insulation_layer.Conductivity * ((1/require_uvalue) - resistance_without_insulation), 5)
-        if insulation_thickness < 0:
-            raise Exception(f"Cannot have insulation layer {insulation_layer.Name} of thickness {insulation_thickness}. u-value: {require_uvalue}, R-value (without insulation layer): {resistance_without_insulation}. Materials: {', '.join([x.Name for x in self.Materials])}")
+        resistanceWithoutInsulation = sum(m.Thickness/m.Conductivity for m in self.Materials if m.Name != insulation)
+        insulationThickness = np.round(insulationLayer.Conductivity * ((1/requiredUValue) - resistanceWithoutInsulation), 5)
+        if insulationThickness < 0:
+            raise Exception(f"Cannot have insulation layer of less than zero thickness. u-value: {requiredUValue}.")
         
-        if insulation_thickness == 0:
-            del insulation_layer
+        if insulationThickness == 0:
+            del insulationLayer
         else:
-            new_insulation_layer = copy.deepcopy(insulation_layer)
-            new_insulation_layer.Thickness = insulation_thickness
-            new_insulation_layer.Name = insulation_layer.Name + "." + self.Name
+            insulationLayerMod = copy.deepcopy(insulationLayer)
+            insulationLayerMod.Thickness = insulationThickness
+            insulationLayerMod.Name = insulationLayer.Name + "." + self.Name
 
-        self.Materials[self.Materials.index(insulation_layer)] = new_insulation_layer
+        self.Materials[self.Materials.index(insulationLayer)] = insulationLayerMod
         self.__updateMaterialNames()
-        return new_insulation_layer
+        return insulationLayerMod
 
     WallExternal = dict(
         Name = 'WallExternal',

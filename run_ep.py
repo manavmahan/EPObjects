@@ -11,7 +11,6 @@ import subprocess
 from subprocess import DEVNULL
 import ctypes
 from unittest.loader import VALID_MODULE_NAME
-from logger import logger
 # libgcc_s = ctypes.CDLL('libgcc_s.so.1') #uncomment for running on Windows
 
 try:
@@ -93,6 +92,7 @@ def get_IDF_files(idf_folder):
     Searches IDF files in the folder and its subfolders.
     """
     idf_files = []
+    print ("Searching IDF Files...")
     for root, dirs, files in os.walk(idf_folder):
         for f in files:
             if f.endswith(idf_extension):
@@ -100,6 +100,7 @@ def get_IDF_files(idf_folder):
                 if (not os.path.isfile(csv_file)):
                     idf_files.append(os.path.join(root, f))
     idf_files.sort()
+    print (f'{len(idf_files)} IDF files found!')
     return idf_files
 
 def get_EPW_files(idf_folder):
@@ -141,7 +142,11 @@ def run_simulation(idf_file, ep_dir, temp_EP_dirs, processed_files, total_files)
         processing_time_file = (t - start_time) / float(processed_files)
         etl = processing_time_file * (total_files - processed_files)
         finish_time = (datetime.now() + etl).strftime("%H:%M:%S")
-        logger.info(f'Estimated Finish Time:\t{finish_time} ({etl})')
+        sys.stdout.write(f'\nTotal Files:\t\t{total_files}' +
+                        f'\nFiles Remaining:\t{total_files - processed_files}' +
+                        f'\nFiles Processed:\t{processed_files}' +
+                        f'\nEstimated Finish Time:\t{finish_time} ({etl})' + 
+                        f'\n', flush=True)
     temp_EP_dirs.put(temp_dir)
 
 def delete_temp_folder(idf_folder):
@@ -163,12 +168,13 @@ def contains_error(file):
 
 def get_err_files(temp_folder):
     err_files = []
+    print ("Searching error files...")
     for root, dirs, files in os.walk(temp_folder):
         for f in files:
             if f.endswith(err_extension) and contains_error(os.path.join(root, f)):
                 err_files.append(f[:-4])
     err_files.sort()
-    logger.info (f'{temp_folder}\tError Files: \t{len(err_files)}')
+    print (f'Error Files: \t{len(err_files)}')
     return err_files
 
 def write_err_files(temp_folder):
@@ -195,6 +201,7 @@ def execute_simulations(idf_folder):
         epw_file = epw_file_input
     
     if (not os.path.isfile(epw_file)): raise FileNotFoundError(f"Invalid Weather File: {epw_file}")
+    print (f'Weather File: {epw_file}')
     
     idf_files = get_IDF_files(idf_folder)
     temp_dirs = [os.path.join(idf_folder, temp_dir, f'{temp_dir_pre}{i}') for i in range (min(processors, len(idf_files)))]
@@ -210,7 +217,7 @@ def execute_simulations(idf_folder):
     delete_temp_folder(idf_folder)
     write_err_files(idf_folder)
 
-    logger.info(f'finished simulations {len(idf_files)} files in {(datetime.now() - start_time)}')
+    print (f'---finished processing {len(idf_files)} files in {(datetime.now() - start_time)}---')
 
 if __name__ == '__main__':
     execute_simulations(sys.argv[1])

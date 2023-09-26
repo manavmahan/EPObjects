@@ -5,10 +5,9 @@ import re
 
 from enum_types import Frequency
 
-Converter = 2.77778e-7 # Joule-to-KW
+Converter = 2.77778e-10
 Energies = [
     # 'Lights Electric Energy',
-    'Water Use Equipment Heating Energy',
     'Water to Air Heat Pump Electricity Energy',
     'Boiler Electricity Energy',
 	'Boiler NaturalGas Energy',

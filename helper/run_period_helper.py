@@ -1,18 +1,15 @@
 import pandas as pd
-from datetime import datetime
 
 from idf_object.runperiod import RunPeriod
 
 def get_run_periods(df):
     periods = []
     for m, row in df.iterrows():
-        begin_date = datetime.strptime(row['BeginDate'], '%Y-%m-%d')
-        end_date = datetime.strptime(row['EndDate'], '%Y-%m-%d')
         r = RunPeriod(
             Name = f'RunPeriod{m}',
-            BeginYear = begin_date.year, EndYear = end_date.year,
-            BeginMonth = begin_date.month, EndMonth = end_date.month,
-            BeginDayofMonth = begin_date.day, EndDayofMonth = end_date.day,
+            BeginYear = int(row['BeginYear']), EndYear = int(row['EndYear']),
+            BeginMonth = int(row['BeginMonth']), EndMonth = int(row['EndMonth']),
+            BeginDayofMonth = int(row['BeginDay']), EndDayofMonth = int(row['EndDay']),
         )
         periods += [r]
     

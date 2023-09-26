@@ -1,8 +1,6 @@
 from service import json, JsonDecoder, JsonEncoder, pd, requests, DB_URL, HEADER
-from json import JSONDecodeError
 
 BUILDING_USE = "BUILDING_USE"
-CONSTRUCTIONS = "constructions"
 CONSUMPTION = "CONSUMPTION"
 DUMMY_OBJECTS = "dummyObjects"
 ERROR_DOMAIN = "ERROR_DOMAIN"
@@ -28,7 +26,6 @@ RESULTS = "RESULTS"
 RUN = "RUN"
 SAMPLED_PARAMETERS = "SAMPLED_PARAMETERS"
 SCALING = "SCALING"
-SCALING_DF_Y = "SCALING_DF_Y"
 SCHEDULES = "SCHEDULES"
 SIMULATION_RESULTS = "SIMULATION_RESULTS"
 SIMULATION_SETTINGS = "SIMULATION_SETTINGS"
@@ -63,16 +60,11 @@ def get_columns(search_conditions: str, column_name: str, convert_to_df=False):
     """ Retrieves the selected columns from the DB. """
     data = {
         "TYPE": "SEARCH", 
-        "TABLE_NAME": "projects",
+        "TABLE_NAME": "PROJECTS",
         "COLUMN_NAMES": column_name,
         "CONDITIONS": search_conditions,
     }
-    raw_response = requests.post(DB_URL, headers=HEADER, json=data)
-    try:
-        response = raw_response.json()
-    except JSONDecodeError:
-        raise TypeError(raw_response.text)
-
+    response = requests.post(DB_URL, headers=HEADER, json=data).json()
     if (response["ERROR"]): raise ValueError(response["ERROR"])
     if len(response["RESULTS"]) == 0: return None
     if response["RESULTS"][0][column_name] == None: return None
@@ -85,7 +77,7 @@ def get_columns(search_conditions: str, column_name: str, convert_to_df=False):
 def update_columns(search_conditions, column_name, column_value):
     data = {
         "TYPE": "UPDATE_ITEM", 
-        "TABLE_NAME": "projects",
+        "TABLE_NAME": "PROJECTS",
         "SET_VALUES": f"{column_name}='{json.dumps(column_value, cls=JsonEncoder)}'",
         "CONDITIONS": search_conditions,
     }
@@ -126,11 +118,10 @@ def get_zonelist_settings(building_use, zonelist_name):
     return value
 
 def get_hyperparameters(search_conditions=True, regressor=True, generator=True):
-    columnName = "regressorHyperparameters" if regressor else "generatorHyperparameters" if generator else None
     data = {
         "TYPE": "SEARCH", 
-        "TABLE_NAME": "projects",
-        "COLUMN_NAMES": columnName,
+        "TABLE_NAME": "REGRESSOR_HYPERPARAMETERS" if regressor else "GENERATOR_HYPERPARAMETERS" if generator else None,
+        "COLUMN_NAMES": "VALUE",
         "CONDITIONS": search_conditions,
     }
     response = requests.post(DB_URL, headers=HEADER, json=data).json()
@@ -139,7 +130,7 @@ def get_hyperparameters(search_conditions=True, regressor=True, generator=True):
     if len(response["RESULTS"]) == 0:
         raise ValueError(f"Cannot find SETTINGS for {search_conditions}.")
     
-    value = json.loads(response["RESULTS"][0][columnName], cls=JsonDecoder)
+    value = json.loads(response["RESULTS"][0]["VALUE"], cls=JsonDecoder)
     return value
 
 def get_regressor_hyperparameters(search_conditions=True):

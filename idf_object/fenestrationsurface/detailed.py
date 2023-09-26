@@ -39,6 +39,7 @@ class Detailed(IDFObject):
 
         if isinstance(self.XYZs, (str, np.ndarray)):
             self.XYZs = XYZList(self.XYZs)
+            return
 
         if self.XYZs == None:
             raise Exception(f"Cannot iniialise XYZs for {self.Name}!")
