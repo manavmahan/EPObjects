@@ -1,2 +1,0 @@
-Name,ZoneorZoneListName,ScheduleName,DesignFlowRateCalculationMethod,DesignFlowRate,FlowRateperZoneFloorArea,FlowRateperPerson,AirChangesperHour,VentilationType,FanPressureRise,FanTotalEfficiency,ConstantTermCoefficient,TemperatureTermCoefficient,VelocityTermCoefficient,VelocitySquaredTermCoefficient,MinimumIndoorTemperature,MaximumIndoorTemperatureSchedule,MaximumIndoorTemperature,MaximumIndoorTemperatureSchedule,DeltaTemperature
-NaturalVentilation_Office,Office,Office_VentilationSchedule,AirChanges/Hour,0,0.001,0.00944,2,Natural,1,1,1,0,0,0,23, ,24.9, ,1

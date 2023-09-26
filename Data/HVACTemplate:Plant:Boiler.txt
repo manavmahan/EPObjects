@@ -1,2 +1,0 @@
-Name,BoilerType,Capacity,Efficiency,FuelType,Priority,SizingFactor,MinimumPartLoadRatio,MaximumPartLoadRatio,OptimumPartLoadRatio,WaterOutletUpperTemperatureLimit
-Boiler1,HotWaterBoiler,autosize,0.95,Electricity,1,1.2,0.1,1.1,0.9,99

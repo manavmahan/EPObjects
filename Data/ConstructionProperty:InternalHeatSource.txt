@@ -1,2 +1,0 @@
-Name,ConstructionName,ThermalSourcePresentAfterLayerNumber,TemperatureCalculationRequestedAfterLayerNumber,DimensionsfortheCTFCalculation,TubeSpacing,Two-DimensionalTemperatureCalculationPosition
-FloorSource,SlabFloorwithRadiant,3,4,1,0.1524,0.0

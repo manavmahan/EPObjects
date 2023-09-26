@@ -1,2 +1,0 @@
-StartingVertexPosition,VertexEntryDirection,CoordinateSystem,DaylightingReferencePointCoordinateSystem,RectangularSurfaceCoordinateSystem
-UpperLeftCorner,Counterclockwise,Relative,Relative,Relative					

@@ -1,2 +1,0 @@
-Name,Coefficient1Constant,Coefficient2x,Coefficient3x**2,MinimumValueofx,MaximumValueofx
-HPHeatPLFFPLR,0.90,0.10,0.0,0.0,1.0

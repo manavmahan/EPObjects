@@ -1,2 +1,0 @@
-Name,Coefficient1Constant,Coefficient2x,Coefficient3x**2,Coefficient4y,Coefficient5y**2,Coefficient6x*y,MinimumValueofx,MaximumValueofx,MinimumValueofy,MaximumValueofy,MinimumCurveOutput,MaximumCurveOutput,InputUnitTypeforX,InputUnitTypeforY,OutputUnitType
-HPHeatingCAPFTemp,0.876825,-0.002955,-0.000058,0.025335,0.000196,-0.000043,0,50,0,50,0,5,Temperature,Temperature,Dimensionless

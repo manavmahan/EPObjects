@@ -1,0 +1,858 @@
+Program Version,EnergyPlus, Version 22.2.0-c249759bad, YMD=2023.04.03 12:51,
+   ** Warning ** Output:PreprocessorMessage="ExpandObjects" has the following Warning condition:
+   **   ~~~   ** Cannot find Energy+.idd as specified in Energy+.ini.
+   ** Warning ** Output:PreprocessorMessage="ExpandObjects" has the following Warning conditions:
+   **   ~~~   ** Since the Energy+.IDD file cannot be read no range or choice checking was
+   **   ~~~   ** performed.
+   ************* Beginning Zone Sizing Calculations
+   ** Warning ** Site:GroundTemperature:BuildingSurface: Some values fall outside the range of 15-25C.
+   **   ~~~   ** These values may be inappropriate.  Please consult the Input Output Reference for more details.
+   ** Warning ** ProcessScheduleInput: Schedule:Compact="GENERIC.ALWAYS1", Schedule Type Limits Name="ANYNUMBER" not found -- will not be validated
+   ** Warning ** ProcessScheduleInput: Schedule:Compact="GENERIC.ALWAYS01", Schedule Type Limits Name="ANYNUMBER" not found -- will not be validated
+   ** Warning ** ProcessScheduleInput: Schedule:Compact="OFFICE.COOLINGSETPOINT", Schedule Type Limits Name="ANYNUMBER" not found -- will not be validated
+   ** Warning ** ProcessScheduleInput: Schedule:Compact="OFFICE.ELECTRICEQUIPMENT", Schedule Type Limits Name="ANYNUMBER" not found -- will not be validated
+   ** Warning ** ProcessScheduleInput: Schedule:Compact="OFFICE.LIGHTS", Schedule Type Limits Name="ANYNUMBER" not found -- will not be validated
+   ** Warning ** ProcessScheduleInput: Schedule:Compact="OFFICE.PEOPLE", Schedule Type Limits Name="ANYNUMBER" not found -- will not be validated
+   ** Warning ** ProcessScheduleInput: Schedule:Compact="OFFICE.ACTIVITY", Schedule Type Limits Name="ANYNUMBER" not found -- will not be validated
+   ** Warning ** ProcessScheduleInput: Schedule:Compact="STAIRS.COOLINGSETPOINT", Schedule Type Limits Name="ANYNUMBER" not found -- will not be validated
+   ** Warning ** ProcessScheduleInput: Schedule:Compact="STAIRS.ELECTRICEQUIPMENT", Schedule Type Limits Name="ANYNUMBER" not found -- will not be validated
+   ** Warning ** ProcessScheduleInput: Schedule:Compact="STAIRS.LIGHTS", Schedule Type Limits Name="ANYNUMBER" not found -- will not be validated
+   ** Warning ** ProcessScheduleInput: Schedule:Compact="STAIRS.PEOPLE", Schedule Type Limits Name="ANYNUMBER" not found -- will not be validated
+   ** Warning ** ProcessScheduleInput: Schedule:Compact="STAIRS.ACTIVITY", Schedule Type Limits Name="ANYNUMBER" not found -- will not be validated
+   ** Warning ** ProcessScheduleInput: Schedule:Compact="TOILET.HEATINGSETPOINT", Schedule Type Limits Name="ANYNUMBER" not found -- will not be validated
+   ** Warning ** ProcessScheduleInput: Schedule:Compact="TOILET.COOLINGSETPOINT", Schedule Type Limits Name="ANYNUMBER" not found -- will not be validated
+   ** Warning ** ProcessScheduleInput: Schedule:Compact="TOILET.ELECTRICEQUIPMENT", Schedule Type Limits Name="ANYNUMBER" not found -- will not be validated
+   ** Warning ** ProcessScheduleInput: Schedule:Compact="TOILET.LIGHTS", Schedule Type Limits Name="ANYNUMBER" not found -- will not be validated
+   ** Warning ** ProcessScheduleInput: Schedule:Compact="TOILET.PEOPLE", Schedule Type Limits Name="ANYNUMBER" not found -- will not be validated
+   ** Warning ** ProcessScheduleInput: Schedule:Compact="TOILET.ACTIVITY", Schedule Type Limits Name="ANYNUMBER" not found -- will not be validated
+   ** Warning ** ProcessScheduleInput: Schedule:Compact="SERVICE.HEATINGSETPOINT", Schedule Type Limits Name="ANYNUMBER" not found -- will not be validated
+   ** Warning ** ProcessScheduleInput: Schedule:Compact="SERVICE.COOLINGSETPOINT", Schedule Type Limits Name="ANYNUMBER" not found -- will not be validated
+   ** Warning ** ProcessScheduleInput: Schedule:Compact="SERVICE.ELECTRICEQUIPMENT", Schedule Type Limits Name="ANYNUMBER" not found -- will not be validated
+   ** Warning ** ProcessScheduleInput: Schedule:Compact="SERVICE.LIGHTS", Schedule Type Limits Name="ANYNUMBER" not found -- will not be validated
+   ** Warning ** ProcessScheduleInput: Schedule:Compact="SERVICE.PEOPLE", Schedule Type Limits Name="ANYNUMBER" not found -- will not be validated
+   ** Warning ** ProcessScheduleInput: Schedule:Compact="SERVICE.ACTIVITY", Schedule Type Limits Name="ANYNUMBER" not found -- will not be validated
+   ** Warning ** ProcessScheduleInput: Schedule:Compact="CORRIDOR.COOLINGSETPOINT", Schedule Type Limits Name="ANYNUMBER" not found -- will not be validated
+   ** Warning ** ProcessScheduleInput: Schedule:Compact="CORRIDOR.ELECTRICEQUIPMENT", Schedule Type Limits Name="ANYNUMBER" not found -- will not be validated
+   ** Warning ** ProcessScheduleInput: Schedule:Compact="CORRIDOR.LIGHTS", Schedule Type Limits Name="ANYNUMBER" not found -- will not be validated
+   ** Warning ** ProcessScheduleInput: Schedule:Compact="CORRIDOR.PEOPLE", Schedule Type Limits Name="ANYNUMBER" not found -- will not be validated
+   ** Warning ** ProcessScheduleInput: Schedule:Compact="CORRIDOR.ACTIVITY", Schedule Type Limits Name="ANYNUMBER" not found -- will not be validated
+   ** Warning ** ProcessScheduleInput: Schedule:Compact="TECHNIC.HEATINGSETPOINT", Schedule Type Limits Name="ANYNUMBER" not found -- will not be validated
+   ** Warning ** ProcessScheduleInput: Schedule:Compact="TECHNIC.COOLINGSETPOINT", Schedule Type Limits Name="ANYNUMBER" not found -- will not be validated
+   ** Warning ** ProcessScheduleInput: Schedule:Compact="TECHNIC.ELECTRICEQUIPMENT", Schedule Type Limits Name="ANYNUMBER" not found -- will not be validated
+   ** Warning ** ProcessScheduleInput: Schedule:Compact="TECHNIC.LIGHTS", Schedule Type Limits Name="ANYNUMBER" not found -- will not be validated
+   ** Warning ** ProcessScheduleInput: Schedule:Compact="TECHNIC.PEOPLE", Schedule Type Limits Name="ANYNUMBER" not found -- will not be validated
+   ** Warning ** ProcessScheduleInput: Schedule:Compact="TECHNIC.ACTIVITY", Schedule Type Limits Name="ANYNUMBER" not found -- will not be validated
+   ** Warning ** ProcessScheduleInput: Schedule:Compact="OFFICE.HEATINGSETPOINT", Schedule Type Limits Name="ANYNUMBER" not found -- will not be validated
+   ** Warning ** ProcessScheduleInput: Schedule:Compact="CORRIDOR.HEATINGSETPOINT", Schedule Type Limits Name="ANYNUMBER" not found -- will not be validated
+   ** Warning ** ProcessScheduleInput: Schedule:Compact="STAIRS.HEATINGSETPOINT", Schedule Type Limits Name="ANYNUMBER" not found -- will not be validated
+   ** Warning ** CheckUsedConstructions: There are 4 nominally unused constructions in input.
+   **   ~~~   ** Each Unused construction is shown.
+   ************* Construction=WALLEXTERNAL
+   ************* Construction=FLOORGROUND
+   ************* Construction=ROOF
+   ************* Construction=WINDOW
+   ************* Beginning Plant Sizing Calculations
+   ** Warning ** COIL:COOLING:WATERTOAIRHEATPUMP:EQUATIONFIT "OFFICE-0-0 WAHP COOLING COIL"
+   **   ~~~   ** SizeWaterToAirCoil: Rated Sensible Cooling Capacity > Rated Total Cooling Capacity
+   **   ~~~   ** Both of these capacity inputs have been autosized.
+   **   ~~~   ** Rated Sensible Cooling Capacity at Rated Conditions = 3236.46 W
+   **   ~~~   ** Rated Total Cooling Capacity at Rated Conditions    = 915.25 W
+   **   ~~~   ** See eio file for further details.
+   **   ~~~   ** Check Total and Sensible Cooling Capacity coefficients in curves to ensure they are accurate.
+   **   ~~~   ** Check Zone and System Sizing objects to verify sizing inputs.
+   **   ~~~   ** Sizing statistics:
+   **   ~~~   ** Rated entering Air Wet-Bulb Temperature = 19.000 C
+   **   ~~~   ** Peak entering Air Wet-Bulb Temperature = 17.678 C
+   **   ~~~   ** Entering Water Temperature used = 30.000 C
+   **   ~~~   ** Design air and water flow rates = 1.0
+   **   ~~~   ** Rated ratio of load-side air wet-bulb temperature to 283.15 C (Rated ratioTWB) = 1.031
+   **   ~~~   ** Rated ratio of source-side inlet water temperature to 283.15 C (Rated ratioTS)  = 1.070
+   **   ~~~   ** Peak ratio of load-side air wet-bulb temperature to 283.15 C (Peak ratioTWB) = 1.027
+   **   ~~~   ** Peak ratio of source-side inlet water temperature to 283.15 C (Peak ratioTS)  = 1.084
+   **   ~~~   ** Rated Total Cooling Capacity Modifier = 1.00000
+   **   ~~~   ** Peak Design Total Cooling Capacity Modifier = 0.92351
+   **   ~~~   ** Rated Sensible Cooling Capacity Modifier = 1.00000
+   **   ~~~   ** Peak Design Sensible Cooling Capacity Modifier = 0.98804
+   **   ~~~   ** ...Rated Total Cooling Capacity at Rated Conditions = Total Peak Design Load * Rated Total Cooling Capacity Modifier  / Peak Design Total Cooling Capacity Modifier
+   **   ~~~   ** ...Rated Sensible Cooling Capacity at Rated Conditions = Peak Design Sensible Load * Rated Sensible Cooling Capacity Modifier  / Peak Design Sensible Cooling Capacity Modifier
+   **   ~~~   ** Carefully review the Load Side Total, Sensible, and Latent heat transfer rates
+   **   ~~~   ** ... to ensure they meet the expected manufacturers performance specifications.
+   ** Warning ** COIL:HEATING:WATERTOAIRHEATPUMP:EQUATIONFIT "OFFICE-0-0 WAHP HEATING COIL"
+   **   ~~~   ** ...used with COIL:COOLING:WATERTOAIRHEATPUMP:EQUATIONFIT "OFFICE-0-0 WAHP COOLING COIL"
+   **   ~~~   ** ...heating capacity is disproportionate (> 20% different) to total cooling capacity
+   **   ~~~   ** ...heating capacity = 4000.000 W
+   **   ~~~   ** ...cooling capacity = 915.256 W
+   ** Warning ** COIL:COOLING:WATERTOAIRHEATPUMP:EQUATIONFIT "OFFICE-0-1 WAHP COOLING COIL"
+   **   ~~~   ** SizeWaterToAirCoil: Rated Sensible Cooling Capacity > Rated Total Cooling Capacity
+   **   ~~~   ** Both of these capacity inputs have been autosized.
+   **   ~~~   ** Rated Sensible Cooling Capacity at Rated Conditions = 2125.45 W
+   **   ~~~   ** Rated Total Cooling Capacity at Rated Conditions    = 634.10 W
+   **   ~~~   ** See eio file for further details.
+   **   ~~~   ** Check Total and Sensible Cooling Capacity coefficients in curves to ensure they are accurate.
+   **   ~~~   ** Check Zone and System Sizing objects to verify sizing inputs.
+   **   ~~~   ** Sizing statistics:
+   **   ~~~   ** Rated entering Air Wet-Bulb Temperature = 19.000 C
+   **   ~~~   ** Peak entering Air Wet-Bulb Temperature = 18.129 C
+   **   ~~~   ** Entering Water Temperature used = 30.000 C
+   **   ~~~   ** Design air and water flow rates = 1.0
+   **   ~~~   ** Rated ratio of load-side air wet-bulb temperature to 283.15 C (Rated ratioTWB) = 1.031
+   **   ~~~   ** Rated ratio of source-side inlet water temperature to 283.15 C (Rated ratioTS)  = 1.070
+   **   ~~~   ** Peak ratio of load-side air wet-bulb temperature to 283.15 C (Peak ratioTWB) = 1.028
+   **   ~~~   ** Peak ratio of source-side inlet water temperature to 283.15 C (Peak ratioTS)  = 1.084
+   **   ~~~   ** Rated Total Cooling Capacity Modifier = 1.00000
+   **   ~~~   ** Peak Design Total Cooling Capacity Modifier = 0.94114
+   **   ~~~   ** Rated Sensible Cooling Capacity Modifier = 1.00000
+   **   ~~~   ** Peak Design Sensible Cooling Capacity Modifier = 0.99320
+   **   ~~~   ** ...Rated Total Cooling Capacity at Rated Conditions = Total Peak Design Load * Rated Total Cooling Capacity Modifier  / Peak Design Total Cooling Capacity Modifier
+   **   ~~~   ** ...Rated Sensible Cooling Capacity at Rated Conditions = Peak Design Sensible Load * Rated Sensible Cooling Capacity Modifier  / Peak Design Sensible Cooling Capacity Modifier
+   **   ~~~   ** Carefully review the Load Side Total, Sensible, and Latent heat transfer rates
+   **   ~~~   ** ... to ensure they meet the expected manufacturers performance specifications.
+   ** Warning ** COIL:HEATING:WATERTOAIRHEATPUMP:EQUATIONFIT "OFFICE-0-1 WAHP HEATING COIL"
+   **   ~~~   ** ...used with COIL:COOLING:WATERTOAIRHEATPUMP:EQUATIONFIT "OFFICE-0-1 WAHP COOLING COIL"
+   **   ~~~   ** ...heating capacity is disproportionate (> 20% different) to total cooling capacity
+   **   ~~~   ** ...heating capacity = 4000.000 W
+   **   ~~~   ** ...cooling capacity = 634.109 W
+   ** Warning ** COIL:COOLING:WATERTOAIRHEATPUMP:EQUATIONFIT "OFFICE-0-2 WAHP COOLING COIL"
+   **   ~~~   ** SizeWaterToAirCoil: Rated Sensible Cooling Capacity > Rated Total Cooling Capacity
+   **   ~~~   ** Both of these capacity inputs have been autosized.
+   **   ~~~   ** Rated Sensible Cooling Capacity at Rated Conditions = 2431.01 W
+   **   ~~~   ** Rated Total Cooling Capacity at Rated Conditions    = 377.09 W
+   **   ~~~   ** See eio file for further details.
+   **   ~~~   ** Check Total and Sensible Cooling Capacity coefficients in curves to ensure they are accurate.
+   **   ~~~   ** Check Zone and System Sizing objects to verify sizing inputs.
+   **   ~~~   ** Sizing statistics:
+   **   ~~~   ** Rated entering Air Wet-Bulb Temperature = 19.000 C
+   **   ~~~   ** Peak entering Air Wet-Bulb Temperature = 17.429 C
+   **   ~~~   ** Entering Water Temperature used = 30.000 C
+   **   ~~~   ** Design air and water flow rates = 1.0
+   **   ~~~   ** Rated ratio of load-side air wet-bulb temperature to 283.15 C (Rated ratioTWB) = 1.031
+   **   ~~~   ** Rated ratio of source-side inlet water temperature to 283.15 C (Rated ratioTS)  = 1.070
+   **   ~~~   ** Peak ratio of load-side air wet-bulb temperature to 283.15 C (Peak ratioTWB) = 1.026
+   **   ~~~   ** Peak ratio of source-side inlet water temperature to 283.15 C (Peak ratioTS)  = 1.084
+   **   ~~~   ** Rated Total Cooling Capacity Modifier = 1.00000
+   **   ~~~   ** Peak Design Total Cooling Capacity Modifier = 0.91374
+   **   ~~~   ** Rated Sensible Cooling Capacity Modifier = 1.00000
+   **   ~~~   ** Peak Design Sensible Cooling Capacity Modifier = 0.89610
+   **   ~~~   ** ...Rated Total Cooling Capacity at Rated Conditions = Total Peak Design Load * Rated Total Cooling Capacity Modifier  / Peak Design Total Cooling Capacity Modifier
+   **   ~~~   ** ...Rated Sensible Cooling Capacity at Rated Conditions = Peak Design Sensible Load * Rated Sensible Cooling Capacity Modifier  / Peak Design Sensible Cooling Capacity Modifier
+   **   ~~~   ** Carefully review the Load Side Total, Sensible, and Latent heat transfer rates
+   **   ~~~   ** ... to ensure they meet the expected manufacturers performance specifications.
+   ** Warning ** COIL:HEATING:WATERTOAIRHEATPUMP:EQUATIONFIT "OFFICE-0-2 WAHP HEATING COIL"
+   **   ~~~   ** ...used with COIL:COOLING:WATERTOAIRHEATPUMP:EQUATIONFIT "OFFICE-0-2 WAHP COOLING COIL"
+   **   ~~~   ** ...heating capacity is disproportionate (> 20% different) to total cooling capacity
+   **   ~~~   ** ...heating capacity = 4000.000 W
+   **   ~~~   ** ...cooling capacity = 377.090 W
+   ** Warning ** COIL:COOLING:WATERTOAIRHEATPUMP:EQUATIONFIT "OFFICE-0-3 WAHP COOLING COIL"
+   **   ~~~   ** SizeWaterToAirCoil: Rated Sensible Cooling Capacity > Rated Total Cooling Capacity
+   **   ~~~   ** Both of these capacity inputs have been autosized.
+   **   ~~~   ** Rated Sensible Cooling Capacity at Rated Conditions = 2612.61 W
+   **   ~~~   ** Rated Total Cooling Capacity at Rated Conditions    = 527.17 W
+   **   ~~~   ** See eio file for further details.
+   **   ~~~   ** Check Total and Sensible Cooling Capacity coefficients in curves to ensure they are accurate.
+   **   ~~~   ** Check Zone and System Sizing objects to verify sizing inputs.
+   **   ~~~   ** Sizing statistics:
+   **   ~~~   ** Rated entering Air Wet-Bulb Temperature = 19.000 C
+   **   ~~~   ** Peak entering Air Wet-Bulb Temperature = 17.443 C
+   **   ~~~   ** Entering Water Temperature used = 30.000 C
+   **   ~~~   ** Design air and water flow rates = 1.0
+   **   ~~~   ** Rated ratio of load-side air wet-bulb temperature to 283.15 C (Rated ratioTWB) = 1.031
+   **   ~~~   ** Rated ratio of source-side inlet water temperature to 283.15 C (Rated ratioTS)  = 1.070
+   **   ~~~   ** Peak ratio of load-side air wet-bulb temperature to 283.15 C (Peak ratioTWB) = 1.026
+   **   ~~~   ** Peak ratio of source-side inlet water temperature to 283.15 C (Peak ratioTS)  = 1.084
+   **   ~~~   ** Rated Total Cooling Capacity Modifier = 1.00000
+   **   ~~~   ** Peak Design Total Cooling Capacity Modifier = 0.91430
+   **   ~~~   ** Rated Sensible Cooling Capacity Modifier = 1.00000
+   **   ~~~   ** Peak Design Sensible Cooling Capacity Modifier = 0.93297
+   **   ~~~   ** ...Rated Total Cooling Capacity at Rated Conditions = Total Peak Design Load * Rated Total Cooling Capacity Modifier  / Peak Design Total Cooling Capacity Modifier
+   **   ~~~   ** ...Rated Sensible Cooling Capacity at Rated Conditions = Peak Design Sensible Load * Rated Sensible Cooling Capacity Modifier  / Peak Design Sensible Cooling Capacity Modifier
+   **   ~~~   ** Carefully review the Load Side Total, Sensible, and Latent heat transfer rates
+   **   ~~~   ** ... to ensure they meet the expected manufacturers performance specifications.
+   ** Warning ** COIL:HEATING:WATERTOAIRHEATPUMP:EQUATIONFIT "OFFICE-0-3 WAHP HEATING COIL"
+   **   ~~~   ** ...used with COIL:COOLING:WATERTOAIRHEATPUMP:EQUATIONFIT "OFFICE-0-3 WAHP COOLING COIL"
+   **   ~~~   ** ...heating capacity is disproportionate (> 20% different) to total cooling capacity
+   **   ~~~   ** ...heating capacity = 4000.000 W
+   **   ~~~   ** ...cooling capacity = 527.171 W
+   ** Warning ** COIL:HEATING:WATERTOAIRHEATPUMP:EQUATIONFIT "TOILET-0-0 WAHP HEATING COIL"
+   **   ~~~   ** ...used with COIL:COOLING:WATERTOAIRHEATPUMP:EQUATIONFIT "TOILET-0-0 WAHP COOLING COIL"
+   **   ~~~   ** ...heating capacity is disproportionate (> 20% different) to total cooling capacity
+   **   ~~~   ** ...heating capacity = 4000.000 W
+   **   ~~~   ** ...cooling capacity = 240.792 W
+   ** Warning ** COIL:COOLING:WATERTOAIRHEATPUMP:EQUATIONFIT "STAIRS-0-0 WAHP COOLING COIL"
+   **   ~~~   ** SizeWaterToAirCoil: Rated Sensible Cooling Capacity > Rated Total Cooling Capacity
+   **   ~~~   ** Both of these capacity inputs have been autosized.
+   **   ~~~   ** Rated Sensible Cooling Capacity at Rated Conditions = 328.47 W
+   **   ~~~   ** Rated Total Cooling Capacity at Rated Conditions    = 254.80 W
+   **   ~~~   ** See eio file for further details.
+   **   ~~~   ** Check Total and Sensible Cooling Capacity coefficients in curves to ensure they are accurate.
+   **   ~~~   ** Check Zone and System Sizing objects to verify sizing inputs.
+   **   ~~~   ** Sizing statistics:
+   **   ~~~   ** Rated entering Air Wet-Bulb Temperature = 19.000 C
+   **   ~~~   ** Peak entering Air Wet-Bulb Temperature = 17.685 C
+   **   ~~~   ** Entering Water Temperature used = 30.000 C
+   **   ~~~   ** Design air and water flow rates = 1.0
+   **   ~~~   ** Rated ratio of load-side air wet-bulb temperature to 283.15 C (Rated ratioTWB) = 1.031
+   **   ~~~   ** Rated ratio of source-side inlet water temperature to 283.15 C (Rated ratioTS)  = 1.070
+   **   ~~~   ** Peak ratio of load-side air wet-bulb temperature to 283.15 C (Peak ratioTWB) = 1.027
+   **   ~~~   ** Peak ratio of source-side inlet water temperature to 283.15 C (Peak ratioTS)  = 1.084
+   **   ~~~   ** Rated Total Cooling Capacity Modifier = 1.00000
+   **   ~~~   ** Peak Design Total Cooling Capacity Modifier = 0.92376
+   **   ~~~   ** Rated Sensible Cooling Capacity Modifier = 1.00000
+   **   ~~~   ** Peak Design Sensible Cooling Capacity Modifier = 0.97763
+   **   ~~~   ** ...Rated Total Cooling Capacity at Rated Conditions = Total Peak Design Load * Rated Total Cooling Capacity Modifier  / Peak Design Total Cooling Capacity Modifier
+   **   ~~~   ** ...Rated Sensible Cooling Capacity at Rated Conditions = Peak Design Sensible Load * Rated Sensible Cooling Capacity Modifier  / Peak Design Sensible Cooling Capacity Modifier
+   **   ~~~   ** Carefully review the Load Side Total, Sensible, and Latent heat transfer rates
+   **   ~~~   ** ... to ensure they meet the expected manufacturers performance specifications.
+   ** Warning ** COIL:HEATING:WATERTOAIRHEATPUMP:EQUATIONFIT "STAIRS-0-0 WAHP HEATING COIL"
+   **   ~~~   ** ...used with COIL:COOLING:WATERTOAIRHEATPUMP:EQUATIONFIT "STAIRS-0-0 WAHP COOLING COIL"
+   **   ~~~   ** ...heating capacity is disproportionate (> 20% different) to total cooling capacity
+   **   ~~~   ** ...heating capacity = 4000.000 W
+   **   ~~~   ** ...cooling capacity = 254.803 W
+   ** Warning ** COIL:COOLING:WATERTOAIRHEATPUMP:EQUATIONFIT "TECHNIC-0-0 WAHP COOLING COIL"
+   **   ~~~   ** SizeWaterToAirCoil: Rated Sensible Cooling Capacity > Rated Total Cooling Capacity
+   **   ~~~   ** Both of these capacity inputs have been autosized.
+   **   ~~~   ** Rated Sensible Cooling Capacity at Rated Conditions = 612.39 W
+   **   ~~~   ** Rated Total Cooling Capacity at Rated Conditions    = 358.87 W
+   **   ~~~   ** See eio file for further details.
+   **   ~~~   ** Check Total and Sensible Cooling Capacity coefficients in curves to ensure they are accurate.
+   **   ~~~   ** Check Zone and System Sizing objects to verify sizing inputs.
+   **   ~~~   ** Sizing statistics:
+   **   ~~~   ** Rated entering Air Wet-Bulb Temperature = 19.000 C
+   **   ~~~   ** Peak entering Air Wet-Bulb Temperature = 16.376 C
+   **   ~~~   ** Entering Water Temperature used = 30.000 C
+   **   ~~~   ** Design air and water flow rates = 1.0
+   **   ~~~   ** Rated ratio of load-side air wet-bulb temperature to 283.15 C (Rated ratioTWB) = 1.031
+   **   ~~~   ** Rated ratio of source-side inlet water temperature to 283.15 C (Rated ratioTS)  = 1.070
+   **   ~~~   ** Peak ratio of load-side air wet-bulb temperature to 283.15 C (Peak ratioTWB) = 1.022
+   **   ~~~   ** Peak ratio of source-side inlet water temperature to 283.15 C (Peak ratioTS)  = 1.084
+   **   ~~~   ** Rated Total Cooling Capacity Modifier = 1.00000
+   **   ~~~   ** Peak Design Total Cooling Capacity Modifier = 0.87252
+   **   ~~~   ** Rated Sensible Cooling Capacity Modifier = 1.00000
+   **   ~~~   ** Peak Design Sensible Cooling Capacity Modifier = 0.96497
+   **   ~~~   ** ...Rated Total Cooling Capacity at Rated Conditions = Total Peak Design Load * Rated Total Cooling Capacity Modifier  / Peak Design Total Cooling Capacity Modifier
+   **   ~~~   ** ...Rated Sensible Cooling Capacity at Rated Conditions = Peak Design Sensible Load * Rated Sensible Cooling Capacity Modifier  / Peak Design Sensible Cooling Capacity Modifier
+   **   ~~~   ** Carefully review the Load Side Total, Sensible, and Latent heat transfer rates
+   **   ~~~   ** ... to ensure they meet the expected manufacturers performance specifications.
+   ** Warning ** COIL:HEATING:WATERTOAIRHEATPUMP:EQUATIONFIT "TECHNIC-0-0 WAHP HEATING COIL"
+   **   ~~~   ** ...used with COIL:COOLING:WATERTOAIRHEATPUMP:EQUATIONFIT "TECHNIC-0-0 WAHP COOLING COIL"
+   **   ~~~   ** ...heating capacity is disproportionate (> 20% different) to total cooling capacity
+   **   ~~~   ** ...heating capacity = 4000.000 W
+   **   ~~~   ** ...cooling capacity = 358.877 W
+   ** Warning ** COIL:COOLING:WATERTOAIRHEATPUMP:EQUATIONFIT "CORRIDOR-0-0 WAHP COOLING COIL"
+   **   ~~~   ** SizeWaterToAirCoil: Rated Sensible Cooling Capacity > Rated Total Cooling Capacity
+   **   ~~~   ** Both of these capacity inputs have been autosized.
+   **   ~~~   ** Rated Sensible Cooling Capacity at Rated Conditions = 1362.99 W
+   **   ~~~   ** Rated Total Cooling Capacity at Rated Conditions    = 658.20 W
+   **   ~~~   ** See eio file for further details.
+   **   ~~~   ** Check Total and Sensible Cooling Capacity coefficients in curves to ensure they are accurate.
+   **   ~~~   ** Check Zone and System Sizing objects to verify sizing inputs.
+   **   ~~~   ** Sizing statistics:
+   **   ~~~   ** Rated entering Air Wet-Bulb Temperature = 19.000 C
+   **   ~~~   ** Peak entering Air Wet-Bulb Temperature = 17.222 C
+   **   ~~~   ** Entering Water Temperature used = 30.000 C
+   **   ~~~   ** Design air and water flow rates = 1.0
+   **   ~~~   ** Rated ratio of load-side air wet-bulb temperature to 283.15 C (Rated ratioTWB) = 1.031
+   **   ~~~   ** Rated ratio of source-side inlet water temperature to 283.15 C (Rated ratioTS)  = 1.070
+   **   ~~~   ** Peak ratio of load-side air wet-bulb temperature to 283.15 C (Peak ratioTWB) = 1.025
+   **   ~~~   ** Peak ratio of source-side inlet water temperature to 283.15 C (Peak ratioTS)  = 1.084
+   **   ~~~   ** Rated Total Cooling Capacity Modifier = 1.00000
+   **   ~~~   ** Peak Design Total Cooling Capacity Modifier = 0.90563
+   **   ~~~   ** Rated Sensible Cooling Capacity Modifier = 1.00000
+   **   ~~~   ** Peak Design Sensible Cooling Capacity Modifier = 0.98292
+   **   ~~~   ** ...Rated Total Cooling Capacity at Rated Conditions = Total Peak Design Load * Rated Total Cooling Capacity Modifier  / Peak Design Total Cooling Capacity Modifier
+   **   ~~~   ** ...Rated Sensible Cooling Capacity at Rated Conditions = Peak Design Sensible Load * Rated Sensible Cooling Capacity Modifier  / Peak Design Sensible Cooling Capacity Modifier
+   **   ~~~   ** Carefully review the Load Side Total, Sensible, and Latent heat transfer rates
+   **   ~~~   ** ... to ensure they meet the expected manufacturers performance specifications.
+   ** Warning ** COIL:HEATING:WATERTOAIRHEATPUMP:EQUATIONFIT "CORRIDOR-0-0 WAHP HEATING COIL"
+   **   ~~~   ** ...used with COIL:COOLING:WATERTOAIRHEATPUMP:EQUATIONFIT "CORRIDOR-0-0 WAHP COOLING COIL"
+   **   ~~~   ** ...heating capacity is disproportionate (> 20% different) to total cooling capacity
+   **   ~~~   ** ...heating capacity = 4000.000 W
+   **   ~~~   ** ...cooling capacity = 658.208 W
+   ** Warning ** COIL:COOLING:WATERTOAIRHEATPUMP:EQUATIONFIT "OFFICE-1-0 WAHP COOLING COIL"
+   **   ~~~   ** SizeWaterToAirCoil: Rated Sensible Cooling Capacity > Rated Total Cooling Capacity
+   **   ~~~   ** Both of these capacity inputs have been autosized.
+   **   ~~~   ** Rated Sensible Cooling Capacity at Rated Conditions = 2749.91 W
+   **   ~~~   ** Rated Total Cooling Capacity at Rated Conditions    = 581.35 W
+   **   ~~~   ** See eio file for further details.
+   **   ~~~   ** Check Total and Sensible Cooling Capacity coefficients in curves to ensure they are accurate.
+   **   ~~~   ** Check Zone and System Sizing objects to verify sizing inputs.
+   **   ~~~   ** Sizing statistics:
+   **   ~~~   ** Rated entering Air Wet-Bulb Temperature = 19.000 C
+   **   ~~~   ** Peak entering Air Wet-Bulb Temperature = 17.491 C
+   **   ~~~   ** Entering Water Temperature used = 30.000 C
+   **   ~~~   ** Design air and water flow rates = 1.0
+   **   ~~~   ** Rated ratio of load-side air wet-bulb temperature to 283.15 C (Rated ratioTWB) = 1.031
+   **   ~~~   ** Rated ratio of source-side inlet water temperature to 283.15 C (Rated ratioTS)  = 1.070
+   **   ~~~   ** Peak ratio of load-side air wet-bulb temperature to 283.15 C (Peak ratioTWB) = 1.026
+   **   ~~~   ** Peak ratio of source-side inlet water temperature to 283.15 C (Peak ratioTS)  = 1.084
+   **   ~~~   ** Rated Total Cooling Capacity Modifier = 1.00000
+   **   ~~~   ** Peak Design Total Cooling Capacity Modifier = 0.91616
+   **   ~~~   ** Rated Sensible Cooling Capacity Modifier = 1.00000
+   **   ~~~   ** Peak Design Sensible Cooling Capacity Modifier = 0.99138
+   **   ~~~   ** ...Rated Total Cooling Capacity at Rated Conditions = Total Peak Design Load * Rated Total Cooling Capacity Modifier  / Peak Design Total Cooling Capacity Modifier
+   **   ~~~   ** ...Rated Sensible Cooling Capacity at Rated Conditions = Peak Design Sensible Load * Rated Sensible Cooling Capacity Modifier  / Peak Design Sensible Cooling Capacity Modifier
+   **   ~~~   ** Carefully review the Load Side Total, Sensible, and Latent heat transfer rates
+   **   ~~~   ** ... to ensure they meet the expected manufacturers performance specifications.
+   ** Warning ** COIL:HEATING:WATERTOAIRHEATPUMP:EQUATIONFIT "OFFICE-1-0 WAHP HEATING COIL"
+   **   ~~~   ** ...used with COIL:COOLING:WATERTOAIRHEATPUMP:EQUATIONFIT "OFFICE-1-0 WAHP COOLING COIL"
+   **   ~~~   ** ...heating capacity is disproportionate (> 20% different) to total cooling capacity
+   **   ~~~   ** ...heating capacity = 4000.000 W
+   **   ~~~   ** ...cooling capacity = 581.354 W
+   ** Warning ** COIL:COOLING:WATERTOAIRHEATPUMP:EQUATIONFIT "OFFICE-1-1 WAHP COOLING COIL"
+   **   ~~~   ** SizeWaterToAirCoil: Rated Sensible Cooling Capacity > Rated Total Cooling Capacity
+   **   ~~~   ** Both of these capacity inputs have been autosized.
+   **   ~~~   ** Rated Sensible Cooling Capacity at Rated Conditions = 2515.95 W
+   **   ~~~   ** Rated Total Cooling Capacity at Rated Conditions    = 562.13 W
+   **   ~~~   ** See eio file for further details.
+   **   ~~~   ** Check Total and Sensible Cooling Capacity coefficients in curves to ensure they are accurate.
+   **   ~~~   ** Check Zone and System Sizing objects to verify sizing inputs.
+   **   ~~~   ** Sizing statistics:
+   **   ~~~   ** Rated entering Air Wet-Bulb Temperature = 19.000 C
+   **   ~~~   ** Peak entering Air Wet-Bulb Temperature = 17.726 C
+   **   ~~~   ** Entering Water Temperature used = 30.000 C
+   **   ~~~   ** Design air and water flow rates = 1.0
+   **   ~~~   ** Rated ratio of load-side air wet-bulb temperature to 283.15 C (Rated ratioTWB) = 1.031
+   **   ~~~   ** Rated ratio of source-side inlet water temperature to 283.15 C (Rated ratioTS)  = 1.070
+   **   ~~~   ** Peak ratio of load-side air wet-bulb temperature to 283.15 C (Peak ratioTWB) = 1.027
+   **   ~~~   ** Peak ratio of source-side inlet water temperature to 283.15 C (Peak ratioTS)  = 1.084
+   **   ~~~   ** Rated Total Cooling Capacity Modifier = 1.00000
+   **   ~~~   ** Peak Design Total Cooling Capacity Modifier = 0.92538
+   **   ~~~   ** Rated Sensible Cooling Capacity Modifier = 1.00000
+   **   ~~~   ** Peak Design Sensible Cooling Capacity Modifier = 0.99352
+   **   ~~~   ** ...Rated Total Cooling Capacity at Rated Conditions = Total Peak Design Load * Rated Total Cooling Capacity Modifier  / Peak Design Total Cooling Capacity Modifier
+   **   ~~~   ** ...Rated Sensible Cooling Capacity at Rated Conditions = Peak Design Sensible Load * Rated Sensible Cooling Capacity Modifier  / Peak Design Sensible Cooling Capacity Modifier
+   **   ~~~   ** Carefully review the Load Side Total, Sensible, and Latent heat transfer rates
+   **   ~~~   ** ... to ensure they meet the expected manufacturers performance specifications.
+   ** Warning ** COIL:HEATING:WATERTOAIRHEATPUMP:EQUATIONFIT "OFFICE-1-1 WAHP HEATING COIL"
+   **   ~~~   ** ...used with COIL:COOLING:WATERTOAIRHEATPUMP:EQUATIONFIT "OFFICE-1-1 WAHP COOLING COIL"
+   **   ~~~   ** ...heating capacity is disproportionate (> 20% different) to total cooling capacity
+   **   ~~~   ** ...heating capacity = 4000.000 W
+   **   ~~~   ** ...cooling capacity = 562.137 W
+   ** Warning ** COIL:COOLING:WATERTOAIRHEATPUMP:EQUATIONFIT "OFFICE-1-2 WAHP COOLING COIL"
+   **   ~~~   ** SizeWaterToAirCoil: Rated Sensible Cooling Capacity > Rated Total Cooling Capacity
+   **   ~~~   ** Both of these capacity inputs have been autosized.
+   **   ~~~   ** Rated Sensible Cooling Capacity at Rated Conditions = 2981.56 W
+   **   ~~~   ** Rated Total Cooling Capacity at Rated Conditions    = 275.91 W
+   **   ~~~   ** See eio file for further details.
+   **   ~~~   ** Check Total and Sensible Cooling Capacity coefficients in curves to ensure they are accurate.
+   **   ~~~   ** Check Zone and System Sizing objects to verify sizing inputs.
+   **   ~~~   ** Sizing statistics:
+   **   ~~~   ** Rated entering Air Wet-Bulb Temperature = 19.000 C
+   **   ~~~   ** Peak entering Air Wet-Bulb Temperature = 17.177 C
+   **   ~~~   ** Entering Water Temperature used = 30.000 C
+   **   ~~~   ** Design air and water flow rates = 1.0
+   **   ~~~   ** Rated ratio of load-side air wet-bulb temperature to 283.15 C (Rated ratioTWB) = 1.031
+   **   ~~~   ** Rated ratio of source-side inlet water temperature to 283.15 C (Rated ratioTS)  = 1.070
+   **   ~~~   ** Peak ratio of load-side air wet-bulb temperature to 283.15 C (Peak ratioTWB) = 1.025
+   **   ~~~   ** Peak ratio of source-side inlet water temperature to 283.15 C (Peak ratioTS)  = 1.084
+   **   ~~~   ** Rated Total Cooling Capacity Modifier = 1.00000
+   **   ~~~   ** Peak Design Total Cooling Capacity Modifier = 0.90389
+   **   ~~~   ** Rated Sensible Cooling Capacity Modifier = 1.00000
+   **   ~~~   ** Peak Design Sensible Cooling Capacity Modifier = 0.91235
+   **   ~~~   ** ...Rated Total Cooling Capacity at Rated Conditions = Total Peak Design Load * Rated Total Cooling Capacity Modifier  / Peak Design Total Cooling Capacity Modifier
+   **   ~~~   ** ...Rated Sensible Cooling Capacity at Rated Conditions = Peak Design Sensible Load * Rated Sensible Cooling Capacity Modifier  / Peak Design Sensible Cooling Capacity Modifier
+   **   ~~~   ** Carefully review the Load Side Total, Sensible, and Latent heat transfer rates
+   **   ~~~   ** ... to ensure they meet the expected manufacturers performance specifications.
+   ** Warning ** COIL:HEATING:WATERTOAIRHEATPUMP:EQUATIONFIT "OFFICE-1-2 WAHP HEATING COIL"
+   **   ~~~   ** ...used with COIL:COOLING:WATERTOAIRHEATPUMP:EQUATIONFIT "OFFICE-1-2 WAHP COOLING COIL"
+   **   ~~~   ** ...heating capacity is disproportionate (> 20% different) to total cooling capacity
+   **   ~~~   ** ...heating capacity = 4000.000 W
+   **   ~~~   ** ...cooling capacity = 275.915 W
+   ** Warning ** COIL:COOLING:WATERTOAIRHEATPUMP:EQUATIONFIT "OFFICE-1-3 WAHP COOLING COIL"
+   **   ~~~   ** SizeWaterToAirCoil: Rated Sensible Cooling Capacity > Rated Total Cooling Capacity
+   **   ~~~   ** Both of these capacity inputs have been autosized.
+   **   ~~~   ** Rated Sensible Cooling Capacity at Rated Conditions = 3131.07 W
+   **   ~~~   ** Rated Total Cooling Capacity at Rated Conditions    = 407.31 W
+   **   ~~~   ** See eio file for further details.
+   **   ~~~   ** Check Total and Sensible Cooling Capacity coefficients in curves to ensure they are accurate.
+   **   ~~~   ** Check Zone and System Sizing objects to verify sizing inputs.
+   **   ~~~   ** Sizing statistics:
+   **   ~~~   ** Rated entering Air Wet-Bulb Temperature = 19.000 C
+   **   ~~~   ** Peak entering Air Wet-Bulb Temperature = 17.118 C
+   **   ~~~   ** Entering Water Temperature used = 30.000 C
+   **   ~~~   ** Design air and water flow rates = 1.0
+   **   ~~~   ** Rated ratio of load-side air wet-bulb temperature to 283.15 C (Rated ratioTWB) = 1.031
+   **   ~~~   ** Rated ratio of source-side inlet water temperature to 283.15 C (Rated ratioTS)  = 1.070
+   **   ~~~   ** Peak ratio of load-side air wet-bulb temperature to 283.15 C (Peak ratioTWB) = 1.025
+   **   ~~~   ** Peak ratio of source-side inlet water temperature to 283.15 C (Peak ratioTS)  = 1.084
+   **   ~~~   ** Rated Total Cooling Capacity Modifier = 1.00000
+   **   ~~~   ** Peak Design Total Cooling Capacity Modifier = 0.90157
+   **   ~~~   ** Rated Sensible Cooling Capacity Modifier = 1.00000
+   **   ~~~   ** Peak Design Sensible Cooling Capacity Modifier = 0.94509
+   **   ~~~   ** ...Rated Total Cooling Capacity at Rated Conditions = Total Peak Design Load * Rated Total Cooling Capacity Modifier  / Peak Design Total Cooling Capacity Modifier
+   **   ~~~   ** ...Rated Sensible Cooling Capacity at Rated Conditions = Peak Design Sensible Load * Rated Sensible Cooling Capacity Modifier  / Peak Design Sensible Cooling Capacity Modifier
+   **   ~~~   ** Carefully review the Load Side Total, Sensible, and Latent heat transfer rates
+   **   ~~~   ** ... to ensure they meet the expected manufacturers performance specifications.
+   ** Warning ** COIL:HEATING:WATERTOAIRHEATPUMP:EQUATIONFIT "OFFICE-1-3 WAHP HEATING COIL"
+   **   ~~~   ** ...used with COIL:COOLING:WATERTOAIRHEATPUMP:EQUATIONFIT "OFFICE-1-3 WAHP COOLING COIL"
+   **   ~~~   ** ...heating capacity is disproportionate (> 20% different) to total cooling capacity
+   **   ~~~   ** ...heating capacity = 4000.000 W
+   **   ~~~   ** ...cooling capacity = 407.313 W
+   ** Warning ** COIL:COOLING:WATERTOAIRHEATPUMP:EQUATIONFIT "TOILET-1-0 WAHP COOLING COIL"
+   **   ~~~   ** SizeWaterToAirCoil: Rated Sensible Cooling Capacity > Rated Total Cooling Capacity
+   **   ~~~   ** Both of these capacity inputs have been autosized.
+   **   ~~~   ** Rated Sensible Cooling Capacity at Rated Conditions = 285.50 W
+   **   ~~~   ** Rated Total Cooling Capacity at Rated Conditions    = 27.69 W
+   **   ~~~   ** See eio file for further details.
+   **   ~~~   ** Check Total and Sensible Cooling Capacity coefficients in curves to ensure they are accurate.
+   **   ~~~   ** Check Zone and System Sizing objects to verify sizing inputs.
+   **   ~~~   ** Sizing statistics:
+   **   ~~~   ** Rated entering Air Wet-Bulb Temperature = 19.000 C
+   **   ~~~   ** Peak entering Air Wet-Bulb Temperature = 17.392 C
+   **   ~~~   ** Entering Water Temperature used = 30.000 C
+   **   ~~~   ** Design air and water flow rates = 1.0
+   **   ~~~   ** Rated ratio of load-side air wet-bulb temperature to 283.15 C (Rated ratioTWB) = 1.031
+   **   ~~~   ** Rated ratio of source-side inlet water temperature to 283.15 C (Rated ratioTS)  = 1.070
+   **   ~~~   ** Peak ratio of load-side air wet-bulb temperature to 283.15 C (Peak ratioTWB) = 1.026
+   **   ~~~   ** Peak ratio of source-side inlet water temperature to 283.15 C (Peak ratioTS)  = 1.084
+   **   ~~~   ** Rated Total Cooling Capacity Modifier = 1.00000
+   **   ~~~   ** Peak Design Total Cooling Capacity Modifier = 0.91231
+   **   ~~~   ** Rated Sensible Cooling Capacity Modifier = 1.00000
+   **   ~~~   ** Peak Design Sensible Cooling Capacity Modifier = 0.99823
+   **   ~~~   ** ...Rated Total Cooling Capacity at Rated Conditions = Total Peak Design Load * Rated Total Cooling Capacity Modifier  / Peak Design Total Cooling Capacity Modifier
+   **   ~~~   ** ...Rated Sensible Cooling Capacity at Rated Conditions = Peak Design Sensible Load * Rated Sensible Cooling Capacity Modifier  / Peak Design Sensible Cooling Capacity Modifier
+   **   ~~~   ** Carefully review the Load Side Total, Sensible, and Latent heat transfer rates
+   **   ~~~   ** ... to ensure they meet the expected manufacturers performance specifications.
+   ** Warning ** COIL:HEATING:WATERTOAIRHEATPUMP:EQUATIONFIT "TOILET-1-0 WAHP HEATING COIL"
+   **   ~~~   ** ...used with COIL:COOLING:WATERTOAIRHEATPUMP:EQUATIONFIT "TOILET-1-0 WAHP COOLING COIL"
+   **   ~~~   ** ...heating capacity is disproportionate (> 20% different) to total cooling capacity
+   **   ~~~   ** ...heating capacity = 4000.000 W
+   **   ~~~   ** ...cooling capacity = 27.690 W
+   ** Warning ** COIL:COOLING:WATERTOAIRHEATPUMP:EQUATIONFIT "STAIRS-1-0 WAHP COOLING COIL"
+   **   ~~~   ** SizeWaterToAirCoil: Rated Sensible Cooling Capacity > Rated Total Cooling Capacity
+   **   ~~~   ** Both of these capacity inputs have been autosized.
+   **   ~~~   ** Rated Sensible Cooling Capacity at Rated Conditions = 605.11 W
+   **   ~~~   ** Rated Total Cooling Capacity at Rated Conditions    = 219.00 W
+   **   ~~~   ** See eio file for further details.
+   **   ~~~   ** Check Total and Sensible Cooling Capacity coefficients in curves to ensure they are accurate.
+   **   ~~~   ** Check Zone and System Sizing objects to verify sizing inputs.
+   **   ~~~   ** Sizing statistics:
+   **   ~~~   ** Rated entering Air Wet-Bulb Temperature = 19.000 C
+   **   ~~~   ** Peak entering Air Wet-Bulb Temperature = 17.418 C
+   **   ~~~   ** Entering Water Temperature used = 30.000 C
+   **   ~~~   ** Design air and water flow rates = 1.0
+   **   ~~~   ** Rated ratio of load-side air wet-bulb temperature to 283.15 C (Rated ratioTWB) = 1.031
+   **   ~~~   ** Rated ratio of source-side inlet water temperature to 283.15 C (Rated ratioTS)  = 1.070
+   **   ~~~   ** Peak ratio of load-side air wet-bulb temperature to 283.15 C (Peak ratioTWB) = 1.026
+   **   ~~~   ** Peak ratio of source-side inlet water temperature to 283.15 C (Peak ratioTS)  = 1.084
+   **   ~~~   ** Rated Total Cooling Capacity Modifier = 1.00000
+   **   ~~~   ** Peak Design Total Cooling Capacity Modifier = 0.91330
+   **   ~~~   ** Rated Sensible Cooling Capacity Modifier = 1.00000
+   **   ~~~   ** Peak Design Sensible Cooling Capacity Modifier = 0.98478
+   **   ~~~   ** ...Rated Total Cooling Capacity at Rated Conditions = Total Peak Design Load * Rated Total Cooling Capacity Modifier  / Peak Design Total Cooling Capacity Modifier
+   **   ~~~   ** ...Rated Sensible Cooling Capacity at Rated Conditions = Peak Design Sensible Load * Rated Sensible Cooling Capacity Modifier  / Peak Design Sensible Cooling Capacity Modifier
+   **   ~~~   ** Carefully review the Load Side Total, Sensible, and Latent heat transfer rates
+   **   ~~~   ** ... to ensure they meet the expected manufacturers performance specifications.
+   ** Warning ** COIL:HEATING:WATERTOAIRHEATPUMP:EQUATIONFIT "STAIRS-1-0 WAHP HEATING COIL"
+   **   ~~~   ** ...used with COIL:COOLING:WATERTOAIRHEATPUMP:EQUATIONFIT "STAIRS-1-0 WAHP COOLING COIL"
+   **   ~~~   ** ...heating capacity is disproportionate (> 20% different) to total cooling capacity
+   **   ~~~   ** ...heating capacity = 4000.000 W
+   **   ~~~   ** ...cooling capacity = 219.008 W
+   ** Warning ** COIL:COOLING:WATERTOAIRHEATPUMP:EQUATIONFIT "SERVICE-1-0 WAHP COOLING COIL"
+   **   ~~~   ** SizeWaterToAirCoil: Rated Sensible Cooling Capacity > Rated Total Cooling Capacity
+   **   ~~~   ** Both of these capacity inputs have been autosized.
+   **   ~~~   ** Rated Sensible Cooling Capacity at Rated Conditions = 682.79 W
+   **   ~~~   ** Rated Total Cooling Capacity at Rated Conditions    = 333.44 W
+   **   ~~~   ** See eio file for further details.
+   **   ~~~   ** Check Total and Sensible Cooling Capacity coefficients in curves to ensure they are accurate.
+   **   ~~~   ** Check Zone and System Sizing objects to verify sizing inputs.
+   **   ~~~   ** Sizing statistics:
+   **   ~~~   ** Rated entering Air Wet-Bulb Temperature = 19.000 C
+   **   ~~~   ** Peak entering Air Wet-Bulb Temperature = 16.248 C
+   **   ~~~   ** Entering Water Temperature used = 30.000 C
+   **   ~~~   ** Design air and water flow rates = 1.0
+   **   ~~~   ** Rated ratio of load-side air wet-bulb temperature to 283.15 C (Rated ratioTWB) = 1.031
+   **   ~~~   ** Rated ratio of source-side inlet water temperature to 283.15 C (Rated ratioTS)  = 1.070
+   **   ~~~   ** Peak ratio of load-side air wet-bulb temperature to 283.15 C (Peak ratioTWB) = 1.022
+   **   ~~~   ** Peak ratio of source-side inlet water temperature to 283.15 C (Peak ratioTS)  = 1.084
+   **   ~~~   ** Rated Total Cooling Capacity Modifier = 1.00000
+   **   ~~~   ** Peak Design Total Cooling Capacity Modifier = 0.86749
+   **   ~~~   ** Rated Sensible Cooling Capacity Modifier = 1.00000
+   **   ~~~   ** Peak Design Sensible Cooling Capacity Modifier = 0.97032
+   **   ~~~   ** ...Rated Total Cooling Capacity at Rated Conditions = Total Peak Design Load * Rated Total Cooling Capacity Modifier  / Peak Design Total Cooling Capacity Modifier
+   **   ~~~   ** ...Rated Sensible Cooling Capacity at Rated Conditions = Peak Design Sensible Load * Rated Sensible Cooling Capacity Modifier  / Peak Design Sensible Cooling Capacity Modifier
+   **   ~~~   ** Carefully review the Load Side Total, Sensible, and Latent heat transfer rates
+   **   ~~~   ** ... to ensure they meet the expected manufacturers performance specifications.
+   ** Warning ** COIL:HEATING:WATERTOAIRHEATPUMP:EQUATIONFIT "SERVICE-1-0 WAHP HEATING COIL"
+   **   ~~~   ** ...used with COIL:COOLING:WATERTOAIRHEATPUMP:EQUATIONFIT "SERVICE-1-0 WAHP COOLING COIL"
+   **   ~~~   ** ...heating capacity is disproportionate (> 20% different) to total cooling capacity
+   **   ~~~   ** ...heating capacity = 4000.000 W
+   **   ~~~   ** ...cooling capacity = 333.448 W
+   ** Warning ** COIL:COOLING:WATERTOAIRHEATPUMP:EQUATIONFIT "CORRIDOR-1-0 WAHP COOLING COIL"
+   **   ~~~   ** SizeWaterToAirCoil: Rated Sensible Cooling Capacity > Rated Total Cooling Capacity
+   **   ~~~   ** Both of these capacity inputs have been autosized.
+   **   ~~~   ** Rated Sensible Cooling Capacity at Rated Conditions = 1752.64 W
+   **   ~~~   ** Rated Total Cooling Capacity at Rated Conditions    = 205.28 W
+   **   ~~~   ** See eio file for further details.
+   **   ~~~   ** Check Total and Sensible Cooling Capacity coefficients in curves to ensure they are accurate.
+   **   ~~~   ** Check Zone and System Sizing objects to verify sizing inputs.
+   **   ~~~   ** Sizing statistics:
+   **   ~~~   ** Rated entering Air Wet-Bulb Temperature = 19.000 C
+   **   ~~~   ** Peak entering Air Wet-Bulb Temperature = 16.779 C
+   **   ~~~   ** Entering Water Temperature used = 30.000 C
+   **   ~~~   ** Design air and water flow rates = 1.0
+   **   ~~~   ** Rated ratio of load-side air wet-bulb temperature to 283.15 C (Rated ratioTWB) = 1.031
+   **   ~~~   ** Rated ratio of source-side inlet water temperature to 283.15 C (Rated ratioTS)  = 1.070
+   **   ~~~   ** Peak ratio of load-side air wet-bulb temperature to 283.15 C (Peak ratioTWB) = 1.023
+   **   ~~~   ** Peak ratio of source-side inlet water temperature to 283.15 C (Peak ratioTS)  = 1.084
+   **   ~~~   ** Rated Total Cooling Capacity Modifier = 1.00000
+   **   ~~~   ** Peak Design Total Cooling Capacity Modifier = 0.88829
+   **   ~~~   ** Rated Sensible Cooling Capacity Modifier = 1.00000
+   **   ~~~   ** Peak Design Sensible Cooling Capacity Modifier = 0.98241
+   **   ~~~   ** ...Rated Total Cooling Capacity at Rated Conditions = Total Peak Design Load * Rated Total Cooling Capacity Modifier  / Peak Design Total Cooling Capacity Modifier
+   **   ~~~   ** ...Rated Sensible Cooling Capacity at Rated Conditions = Peak Design Sensible Load * Rated Sensible Cooling Capacity Modifier  / Peak Design Sensible Cooling Capacity Modifier
+   **   ~~~   ** Carefully review the Load Side Total, Sensible, and Latent heat transfer rates
+   **   ~~~   ** ... to ensure they meet the expected manufacturers performance specifications.
+   ** Warning ** COIL:HEATING:WATERTOAIRHEATPUMP:EQUATIONFIT "CORRIDOR-1-0 WAHP HEATING COIL"
+   **   ~~~   ** ...used with COIL:COOLING:WATERTOAIRHEATPUMP:EQUATIONFIT "CORRIDOR-1-0 WAHP COOLING COIL"
+   **   ~~~   ** ...heating capacity is disproportionate (> 20% different) to total cooling capacity
+   **   ~~~   ** ...heating capacity = 4000.000 W
+   **   ~~~   ** ...cooling capacity = 205.288 W
+   ** Warning ** COIL:COOLING:WATERTOAIRHEATPUMP:EQUATIONFIT "OFFICE-2-0 WAHP COOLING COIL"
+   **   ~~~   ** SizeWaterToAirCoil: Rated Sensible Cooling Capacity > Rated Total Cooling Capacity
+   **   ~~~   ** Both of these capacity inputs have been autosized.
+   **   ~~~   ** Rated Sensible Cooling Capacity at Rated Conditions = 2606.18 W
+   **   ~~~   ** Rated Total Cooling Capacity at Rated Conditions    = 763.03 W
+   **   ~~~   ** See eio file for further details.
+   **   ~~~   ** Check Total and Sensible Cooling Capacity coefficients in curves to ensure they are accurate.
+   **   ~~~   ** Check Zone and System Sizing objects to verify sizing inputs.
+   **   ~~~   ** Sizing statistics:
+   **   ~~~   ** Rated entering Air Wet-Bulb Temperature = 19.000 C
+   **   ~~~   ** Peak entering Air Wet-Bulb Temperature = 17.660 C
+   **   ~~~   ** Entering Water Temperature used = 30.000 C
+   **   ~~~   ** Design air and water flow rates = 1.0
+   **   ~~~   ** Rated ratio of load-side air wet-bulb temperature to 283.15 C (Rated ratioTWB) = 1.031
+   **   ~~~   ** Rated ratio of source-side inlet water temperature to 283.15 C (Rated ratioTS)  = 1.070
+   **   ~~~   ** Peak ratio of load-side air wet-bulb temperature to 283.15 C (Peak ratioTWB) = 1.027
+   **   ~~~   ** Peak ratio of source-side inlet water temperature to 283.15 C (Peak ratioTS)  = 1.084
+   **   ~~~   ** Rated Total Cooling Capacity Modifier = 1.00000
+   **   ~~~   ** Peak Design Total Cooling Capacity Modifier = 0.92280
+   **   ~~~   ** Rated Sensible Cooling Capacity Modifier = 1.00000
+   **   ~~~   ** Peak Design Sensible Cooling Capacity Modifier = 0.98868
+   **   ~~~   ** ...Rated Total Cooling Capacity at Rated Conditions = Total Peak Design Load * Rated Total Cooling Capacity Modifier  / Peak Design Total Cooling Capacity Modifier
+   **   ~~~   ** ...Rated Sensible Cooling Capacity at Rated Conditions = Peak Design Sensible Load * Rated Sensible Cooling Capacity Modifier  / Peak Design Sensible Cooling Capacity Modifier
+   **   ~~~   ** Carefully review the Load Side Total, Sensible, and Latent heat transfer rates
+   **   ~~~   ** ... to ensure they meet the expected manufacturers performance specifications.
+   ** Warning ** COIL:HEATING:WATERTOAIRHEATPUMP:EQUATIONFIT "OFFICE-2-0 WAHP HEATING COIL"
+   **   ~~~   ** ...used with COIL:COOLING:WATERTOAIRHEATPUMP:EQUATIONFIT "OFFICE-2-0 WAHP COOLING COIL"
+   **   ~~~   ** ...heating capacity is disproportionate (> 20% different) to total cooling capacity
+   **   ~~~   ** ...heating capacity = 4000.000 W
+   **   ~~~   ** ...cooling capacity = 763.035 W
+   ** Warning ** COIL:COOLING:WATERTOAIRHEATPUMP:EQUATIONFIT "OFFICE-2-1 WAHP COOLING COIL"
+   **   ~~~   ** SizeWaterToAirCoil: Rated Sensible Cooling Capacity > Rated Total Cooling Capacity
+   **   ~~~   ** Both of these capacity inputs have been autosized.
+   **   ~~~   ** Rated Sensible Cooling Capacity at Rated Conditions = 1652.23 W
+   **   ~~~   ** Rated Total Cooling Capacity at Rated Conditions    = 475.14 W
+   **   ~~~   ** See eio file for further details.
+   **   ~~~   ** Check Total and Sensible Cooling Capacity coefficients in curves to ensure they are accurate.
+   **   ~~~   ** Check Zone and System Sizing objects to verify sizing inputs.
+   **   ~~~   ** Sizing statistics:
+   **   ~~~   ** Rated entering Air Wet-Bulb Temperature = 19.000 C
+   **   ~~~   ** Peak entering Air Wet-Bulb Temperature = 17.896 C
+   **   ~~~   ** Entering Water Temperature used = 30.000 C
+   **   ~~~   ** Design air and water flow rates = 1.0
+   **   ~~~   ** Rated ratio of load-side air wet-bulb temperature to 283.15 C (Rated ratioTWB) = 1.031
+   **   ~~~   ** Rated ratio of source-side inlet water temperature to 283.15 C (Rated ratioTS)  = 1.070
+   **   ~~~   ** Peak ratio of load-side air wet-bulb temperature to 283.15 C (Peak ratioTWB) = 1.027
+   **   ~~~   ** Peak ratio of source-side inlet water temperature to 283.15 C (Peak ratioTS)  = 1.084
+   **   ~~~   ** Rated Total Cooling Capacity Modifier = 1.00000
+   **   ~~~   ** Peak Design Total Cooling Capacity Modifier = 0.93203
+   **   ~~~   ** Rated Sensible Cooling Capacity Modifier = 1.00000
+   **   ~~~   ** Peak Design Sensible Cooling Capacity Modifier = 0.99169
+   **   ~~~   ** ...Rated Total Cooling Capacity at Rated Conditions = Total Peak Design Load * Rated Total Cooling Capacity Modifier  / Peak Design Total Cooling Capacity Modifier
+   **   ~~~   ** ...Rated Sensible Cooling Capacity at Rated Conditions = Peak Design Sensible Load * Rated Sensible Cooling Capacity Modifier  / Peak Design Sensible Cooling Capacity Modifier
+   **   ~~~   ** Carefully review the Load Side Total, Sensible, and Latent heat transfer rates
+   **   ~~~   ** ... to ensure they meet the expected manufacturers performance specifications.
+   ** Warning ** COIL:HEATING:WATERTOAIRHEATPUMP:EQUATIONFIT "OFFICE-2-1 WAHP HEATING COIL"
+   **   ~~~   ** ...used with COIL:COOLING:WATERTOAIRHEATPUMP:EQUATIONFIT "OFFICE-2-1 WAHP COOLING COIL"
+   **   ~~~   ** ...heating capacity is disproportionate (> 20% different) to total cooling capacity
+   **   ~~~   ** ...heating capacity = 4000.000 W
+   **   ~~~   ** ...cooling capacity = 475.146 W
+   ** Warning ** COIL:COOLING:WATERTOAIRHEATPUMP:EQUATIONFIT "OFFICE-2-4 WAHP COOLING COIL"
+   **   ~~~   ** SizeWaterToAirCoil: Rated Sensible Cooling Capacity > Rated Total Cooling Capacity
+   **   ~~~   ** Both of these capacity inputs have been autosized.
+   **   ~~~   ** Rated Sensible Cooling Capacity at Rated Conditions = 1719.34 W
+   **   ~~~   ** Rated Total Cooling Capacity at Rated Conditions    = 677.20 W
+   **   ~~~   ** See eio file for further details.
+   **   ~~~   ** Check Total and Sensible Cooling Capacity coefficients in curves to ensure they are accurate.
+   **   ~~~   ** Check Zone and System Sizing objects to verify sizing inputs.
+   **   ~~~   ** Sizing statistics:
+   **   ~~~   ** Rated entering Air Wet-Bulb Temperature = 19.000 C
+   **   ~~~   ** Peak entering Air Wet-Bulb Temperature = 18.018 C
+   **   ~~~   ** Entering Water Temperature used = 30.000 C
+   **   ~~~   ** Design air and water flow rates = 1.0
+   **   ~~~   ** Rated ratio of load-side air wet-bulb temperature to 283.15 C (Rated ratioTWB) = 1.031
+   **   ~~~   ** Rated ratio of source-side inlet water temperature to 283.15 C (Rated ratioTS)  = 1.070
+   **   ~~~   ** Peak ratio of load-side air wet-bulb temperature to 283.15 C (Peak ratioTWB) = 1.028
+   **   ~~~   ** Peak ratio of source-side inlet water temperature to 283.15 C (Peak ratioTS)  = 1.084
+   **   ~~~   ** Rated Total Cooling Capacity Modifier = 1.00000
+   **   ~~~   ** Peak Design Total Cooling Capacity Modifier = 0.93680
+   **   ~~~   ** Rated Sensible Cooling Capacity Modifier = 1.00000
+   **   ~~~   ** Peak Design Sensible Cooling Capacity Modifier = 0.98916
+   **   ~~~   ** ...Rated Total Cooling Capacity at Rated Conditions = Total Peak Design Load * Rated Total Cooling Capacity Modifier  / Peak Design Total Cooling Capacity Modifier
+   **   ~~~   ** ...Rated Sensible Cooling Capacity at Rated Conditions = Peak Design Sensible Load * Rated Sensible Cooling Capacity Modifier  / Peak Design Sensible Cooling Capacity Modifier
+   **   ~~~   ** Carefully review the Load Side Total, Sensible, and Latent heat transfer rates
+   **   ~~~   ** ... to ensure they meet the expected manufacturers performance specifications.
+   ** Warning ** COIL:HEATING:WATERTOAIRHEATPUMP:EQUATIONFIT "OFFICE-2-4 WAHP HEATING COIL"
+   **   ~~~   ** ...used with COIL:COOLING:WATERTOAIRHEATPUMP:EQUATIONFIT "OFFICE-2-4 WAHP COOLING COIL"
+   **   ~~~   ** ...heating capacity is disproportionate (> 20% different) to total cooling capacity
+   **   ~~~   ** ...heating capacity = 4000.000 W
+   **   ~~~   ** ...cooling capacity = 677.208 W
+   ** Warning ** COIL:COOLING:WATERTOAIRHEATPUMP:EQUATIONFIT "OFFICE-2-2 WAHP COOLING COIL"
+   **   ~~~   ** SizeWaterToAirCoil: Rated Sensible Cooling Capacity > Rated Total Cooling Capacity
+   **   ~~~   ** Both of these capacity inputs have been autosized.
+   **   ~~~   ** Rated Sensible Cooling Capacity at Rated Conditions = 1966.16 W
+   **   ~~~   ** Rated Total Cooling Capacity at Rated Conditions    = 313.49 W
+   **   ~~~   ** See eio file for further details.
+   **   ~~~   ** Check Total and Sensible Cooling Capacity coefficients in curves to ensure they are accurate.
+   **   ~~~   ** Check Zone and System Sizing objects to verify sizing inputs.
+   **   ~~~   ** Sizing statistics:
+   **   ~~~   ** Rated entering Air Wet-Bulb Temperature = 19.000 C
+   **   ~~~   ** Peak entering Air Wet-Bulb Temperature = 17.266 C
+   **   ~~~   ** Entering Water Temperature used = 30.000 C
+   **   ~~~   ** Design air and water flow rates = 1.0
+   **   ~~~   ** Rated ratio of load-side air wet-bulb temperature to 283.15 C (Rated ratioTWB) = 1.031
+   **   ~~~   ** Rated ratio of source-side inlet water temperature to 283.15 C (Rated ratioTS)  = 1.070
+   **   ~~~   ** Peak ratio of load-side air wet-bulb temperature to 283.15 C (Peak ratioTWB) = 1.025
+   **   ~~~   ** Peak ratio of source-side inlet water temperature to 283.15 C (Peak ratioTS)  = 1.084
+   **   ~~~   ** Rated Total Cooling Capacity Modifier = 1.00000
+   **   ~~~   ** Peak Design Total Cooling Capacity Modifier = 0.90736
+   **   ~~~   ** Rated Sensible Cooling Capacity Modifier = 1.00000
+   **   ~~~   ** Peak Design Sensible Cooling Capacity Modifier = 0.90733
+   **   ~~~   ** ...Rated Total Cooling Capacity at Rated Conditions = Total Peak Design Load * Rated Total Cooling Capacity Modifier  / Peak Design Total Cooling Capacity Modifier
+   **   ~~~   ** ...Rated Sensible Cooling Capacity at Rated Conditions = Peak Design Sensible Load * Rated Sensible Cooling Capacity Modifier  / Peak Design Sensible Cooling Capacity Modifier
+   **   ~~~   ** Carefully review the Load Side Total, Sensible, and Latent heat transfer rates
+   **   ~~~   ** ... to ensure they meet the expected manufacturers performance specifications.
+   ** Warning ** COIL:HEATING:WATERTOAIRHEATPUMP:EQUATIONFIT "OFFICE-2-2 WAHP HEATING COIL"
+   **   ~~~   ** ...used with COIL:COOLING:WATERTOAIRHEATPUMP:EQUATIONFIT "OFFICE-2-2 WAHP COOLING COIL"
+   **   ~~~   ** ...heating capacity is disproportionate (> 20% different) to total cooling capacity
+   **   ~~~   ** ...heating capacity = 4000.000 W
+   **   ~~~   ** ...cooling capacity = 313.492 W
+   ** Warning ** COIL:COOLING:WATERTOAIRHEATPUMP:EQUATIONFIT "OFFICE-2-3 WAHP COOLING COIL"
+   **   ~~~   ** SizeWaterToAirCoil: Rated Sensible Cooling Capacity > Rated Total Cooling Capacity
+   **   ~~~   ** Both of these capacity inputs have been autosized.
+   **   ~~~   ** Rated Sensible Cooling Capacity at Rated Conditions = 2881.54 W
+   **   ~~~   ** Rated Total Cooling Capacity at Rated Conditions    = 622.51 W
+   **   ~~~   ** See eio file for further details.
+   **   ~~~   ** Check Total and Sensible Cooling Capacity coefficients in curves to ensure they are accurate.
+   **   ~~~   ** Check Zone and System Sizing objects to verify sizing inputs.
+   **   ~~~   ** Sizing statistics:
+   **   ~~~   ** Rated entering Air Wet-Bulb Temperature = 19.000 C
+   **   ~~~   ** Peak entering Air Wet-Bulb Temperature = 17.308 C
+   **   ~~~   ** Entering Water Temperature used = 30.000 C
+   **   ~~~   ** Design air and water flow rates = 1.0
+   **   ~~~   ** Rated ratio of load-side air wet-bulb temperature to 283.15 C (Rated ratioTWB) = 1.031
+   **   ~~~   ** Rated ratio of source-side inlet water temperature to 283.15 C (Rated ratioTS)  = 1.070
+   **   ~~~   ** Peak ratio of load-side air wet-bulb temperature to 283.15 C (Peak ratioTWB) = 1.025
+   **   ~~~   ** Peak ratio of source-side inlet water temperature to 283.15 C (Peak ratioTS)  = 1.084
+   **   ~~~   ** Rated Total Cooling Capacity Modifier = 1.00000
+   **   ~~~   ** Peak Design Total Cooling Capacity Modifier = 0.90899
+   **   ~~~   ** Rated Sensible Cooling Capacity Modifier = 1.00000
+   **   ~~~   ** Peak Design Sensible Cooling Capacity Modifier = 0.93787
+   **   ~~~   ** ...Rated Total Cooling Capacity at Rated Conditions = Total Peak Design Load * Rated Total Cooling Capacity Modifier  / Peak Design Total Cooling Capacity Modifier
+   **   ~~~   ** ...Rated Sensible Cooling Capacity at Rated Conditions = Peak Design Sensible Load * Rated Sensible Cooling Capacity Modifier  / Peak Design Sensible Cooling Capacity Modifier
+   **   ~~~   ** Carefully review the Load Side Total, Sensible, and Latent heat transfer rates
+   **   ~~~   ** ... to ensure they meet the expected manufacturers performance specifications.
+   ** Warning ** COIL:HEATING:WATERTOAIRHEATPUMP:EQUATIONFIT "OFFICE-2-3 WAHP HEATING COIL"
+   **   ~~~   ** ...used with COIL:COOLING:WATERTOAIRHEATPUMP:EQUATIONFIT "OFFICE-2-3 WAHP COOLING COIL"
+   **   ~~~   ** ...heating capacity is disproportionate (> 20% different) to total cooling capacity
+   **   ~~~   ** ...heating capacity = 4000.000 W
+   **   ~~~   ** ...cooling capacity = 622.511 W
+   ** Warning ** COIL:COOLING:WATERTOAIRHEATPUMP:EQUATIONFIT "TOILET-2-0 WAHP COOLING COIL"
+   **   ~~~   ** SizeWaterToAirCoil: Rated Sensible Cooling Capacity > Rated Total Cooling Capacity
+   **   ~~~   ** Both of these capacity inputs have been autosized.
+   **   ~~~   ** Rated Sensible Cooling Capacity at Rated Conditions = 275.19 W
+   **   ~~~   ** Rated Total Cooling Capacity at Rated Conditions    = 263.62 W
+   **   ~~~   ** See eio file for further details.
+   **   ~~~   ** Check Total and Sensible Cooling Capacity coefficients in curves to ensure they are accurate.
+   **   ~~~   ** Check Zone and System Sizing objects to verify sizing inputs.
+   **   ~~~   ** Sizing statistics:
+   **   ~~~   ** Rated entering Air Wet-Bulb Temperature = 19.000 C
+   **   ~~~   ** Peak entering Air Wet-Bulb Temperature = 17.680 C
+   **   ~~~   ** Entering Water Temperature used = 30.000 C
+   **   ~~~   ** Design air and water flow rates = 1.0
+   **   ~~~   ** Rated ratio of load-side air wet-bulb temperature to 283.15 C (Rated ratioTWB) = 1.031
+   **   ~~~   ** Rated ratio of source-side inlet water temperature to 283.15 C (Rated ratioTS)  = 1.070
+   **   ~~~   ** Peak ratio of load-side air wet-bulb temperature to 283.15 C (Peak ratioTWB) = 1.027
+   **   ~~~   ** Peak ratio of source-side inlet water temperature to 283.15 C (Peak ratioTS)  = 1.084
+   **   ~~~   ** Rated Total Cooling Capacity Modifier = 1.00000
+   **   ~~~   ** Peak Design Total Cooling Capacity Modifier = 0.92357
+   **   ~~~   ** Rated Sensible Cooling Capacity Modifier = 1.00000
+   **   ~~~   ** Peak Design Sensible Cooling Capacity Modifier = 0.99003
+   **   ~~~   ** ...Rated Total Cooling Capacity at Rated Conditions = Total Peak Design Load * Rated Total Cooling Capacity Modifier  / Peak Design Total Cooling Capacity Modifier
+   **   ~~~   ** ...Rated Sensible Cooling Capacity at Rated Conditions = Peak Design Sensible Load * Rated Sensible Cooling Capacity Modifier  / Peak Design Sensible Cooling Capacity Modifier
+   **   ~~~   ** Carefully review the Load Side Total, Sensible, and Latent heat transfer rates
+   **   ~~~   ** ... to ensure they meet the expected manufacturers performance specifications.
+   ** Warning ** COIL:HEATING:WATERTOAIRHEATPUMP:EQUATIONFIT "TOILET-2-0 WAHP HEATING COIL"
+   **   ~~~   ** ...used with COIL:COOLING:WATERTOAIRHEATPUMP:EQUATIONFIT "TOILET-2-0 WAHP COOLING COIL"
+   **   ~~~   ** ...heating capacity is disproportionate (> 20% different) to total cooling capacity
+   **   ~~~   ** ...heating capacity = 4000.000 W
+   **   ~~~   ** ...cooling capacity = 263.628 W
+   ** Warning ** COIL:COOLING:WATERTOAIRHEATPUMP:EQUATIONFIT "STAIRS-2-0 WAHP COOLING COIL"
+   **   ~~~   ** SizeWaterToAirCoil: Rated Sensible Cooling Capacity > Rated Total Cooling Capacity
+   **   ~~~   ** Both of these capacity inputs have been autosized.
+   **   ~~~   ** Rated Sensible Cooling Capacity at Rated Conditions = 568.69 W
+   **   ~~~   ** Rated Total Cooling Capacity at Rated Conditions    = 393.75 W
+   **   ~~~   ** See eio file for further details.
+   **   ~~~   ** Check Total and Sensible Cooling Capacity coefficients in curves to ensure they are accurate.
+   **   ~~~   ** Check Zone and System Sizing objects to verify sizing inputs.
+   **   ~~~   ** Sizing statistics:
+   **   ~~~   ** Rated entering Air Wet-Bulb Temperature = 19.000 C
+   **   ~~~   ** Peak entering Air Wet-Bulb Temperature = 17.677 C
+   **   ~~~   ** Entering Water Temperature used = 30.000 C
+   **   ~~~   ** Design air and water flow rates = 1.0
+   **   ~~~   ** Rated ratio of load-side air wet-bulb temperature to 283.15 C (Rated ratioTWB) = 1.031
+   **   ~~~   ** Rated ratio of source-side inlet water temperature to 283.15 C (Rated ratioTS)  = 1.070
+   **   ~~~   ** Peak ratio of load-side air wet-bulb temperature to 283.15 C (Peak ratioTWB) = 1.027
+   **   ~~~   ** Peak ratio of source-side inlet water temperature to 283.15 C (Peak ratioTS)  = 1.084
+   **   ~~~   ** Rated Total Cooling Capacity Modifier = 1.00000
+   **   ~~~   ** Peak Design Total Cooling Capacity Modifier = 0.92345
+   **   ~~~   ** Rated Sensible Cooling Capacity Modifier = 1.00000
+   **   ~~~   ** Peak Design Sensible Cooling Capacity Modifier = 0.97841
+   **   ~~~   ** ...Rated Total Cooling Capacity at Rated Conditions = Total Peak Design Load * Rated Total Cooling Capacity Modifier  / Peak Design Total Cooling Capacity Modifier
+   **   ~~~   ** ...Rated Sensible Cooling Capacity at Rated Conditions = Peak Design Sensible Load * Rated Sensible Cooling Capacity Modifier  / Peak Design Sensible Cooling Capacity Modifier
+   **   ~~~   ** Carefully review the Load Side Total, Sensible, and Latent heat transfer rates
+   **   ~~~   ** ... to ensure they meet the expected manufacturers performance specifications.
+   ** Warning ** COIL:HEATING:WATERTOAIRHEATPUMP:EQUATIONFIT "STAIRS-2-0 WAHP HEATING COIL"
+   **   ~~~   ** ...used with COIL:COOLING:WATERTOAIRHEATPUMP:EQUATIONFIT "STAIRS-2-0 WAHP COOLING COIL"
+   **   ~~~   ** ...heating capacity is disproportionate (> 20% different) to total cooling capacity
+   **   ~~~   ** ...heating capacity = 4000.000 W
+   **   ~~~   ** ...cooling capacity = 393.751 W
+   ** Warning ** COIL:COOLING:WATERTOAIRHEATPUMP:EQUATIONFIT "TECHNIC-2-0 WAHP COOLING COIL"
+   **   ~~~   ** SizeWaterToAirCoil: Rated Sensible Cooling Capacity > Rated Total Cooling Capacity
+   **   ~~~   ** Both of these capacity inputs have been autosized.
+   **   ~~~   ** Rated Sensible Cooling Capacity at Rated Conditions = 370.07 W
+   **   ~~~   ** Rated Total Cooling Capacity at Rated Conditions    = 295.07 W
+   **   ~~~   ** See eio file for further details.
+   **   ~~~   ** Check Total and Sensible Cooling Capacity coefficients in curves to ensure they are accurate.
+   **   ~~~   ** Check Zone and System Sizing objects to verify sizing inputs.
+   **   ~~~   ** Sizing statistics:
+   **   ~~~   ** Rated entering Air Wet-Bulb Temperature = 19.000 C
+   **   ~~~   ** Peak entering Air Wet-Bulb Temperature = 16.683 C
+   **   ~~~   ** Entering Water Temperature used = 30.000 C
+   **   ~~~   ** Design air and water flow rates = 1.0
+   **   ~~~   ** Rated ratio of load-side air wet-bulb temperature to 283.15 C (Rated ratioTWB) = 1.031
+   **   ~~~   ** Rated ratio of source-side inlet water temperature to 283.15 C (Rated ratioTS)  = 1.070
+   **   ~~~   ** Peak ratio of load-side air wet-bulb temperature to 283.15 C (Peak ratioTWB) = 1.023
+   **   ~~~   ** Peak ratio of source-side inlet water temperature to 283.15 C (Peak ratioTS)  = 1.084
+   **   ~~~   ** Rated Total Cooling Capacity Modifier = 1.00000
+   **   ~~~   ** Peak Design Total Cooling Capacity Modifier = 0.88453
+   **   ~~~   ** Rated Sensible Cooling Capacity Modifier = 1.00000
+   **   ~~~   ** Peak Design Sensible Cooling Capacity Modifier = 0.94975
+   **   ~~~   ** ...Rated Total Cooling Capacity at Rated Conditions = Total Peak Design Load * Rated Total Cooling Capacity Modifier  / Peak Design Total Cooling Capacity Modifier
+   **   ~~~   ** ...Rated Sensible Cooling Capacity at Rated Conditions = Peak Design Sensible Load * Rated Sensible Cooling Capacity Modifier  / Peak Design Sensible Cooling Capacity Modifier
+   **   ~~~   ** Carefully review the Load Side Total, Sensible, and Latent heat transfer rates
+   **   ~~~   ** ... to ensure they meet the expected manufacturers performance specifications.
+   ** Warning ** COIL:HEATING:WATERTOAIRHEATPUMP:EQUATIONFIT "TECHNIC-2-0 WAHP HEATING COIL"
+   **   ~~~   ** ...used with COIL:COOLING:WATERTOAIRHEATPUMP:EQUATIONFIT "TECHNIC-2-0 WAHP COOLING COIL"
+   **   ~~~   ** ...heating capacity is disproportionate (> 20% different) to total cooling capacity
+   **   ~~~   ** ...heating capacity = 4000.000 W
+   **   ~~~   ** ...cooling capacity = 295.073 W
+   ** Warning ** COIL:COOLING:WATERTOAIRHEATPUMP:EQUATIONFIT "CORRIDOR-2-0 WAHP COOLING COIL"
+   **   ~~~   ** SizeWaterToAirCoil: Rated Sensible Cooling Capacity > Rated Total Cooling Capacity
+   **   ~~~   ** Both of these capacity inputs have been autosized.
+   **   ~~~   ** Rated Sensible Cooling Capacity at Rated Conditions = 1415.12 W
+   **   ~~~   ** Rated Total Cooling Capacity at Rated Conditions    = 556.93 W
+   **   ~~~   ** See eio file for further details.
+   **   ~~~   ** Check Total and Sensible Cooling Capacity coefficients in curves to ensure they are accurate.
+   **   ~~~   ** Check Zone and System Sizing objects to verify sizing inputs.
+   **   ~~~   ** Sizing statistics:
+   **   ~~~   ** Rated entering Air Wet-Bulb Temperature = 19.000 C
+   **   ~~~   ** Peak entering Air Wet-Bulb Temperature = 16.726 C
+   **   ~~~   ** Entering Water Temperature used = 30.000 C
+   **   ~~~   ** Design air and water flow rates = 1.0
+   **   ~~~   ** Rated ratio of load-side air wet-bulb temperature to 283.15 C (Rated ratioTWB) = 1.031
+   **   ~~~   ** Rated ratio of source-side inlet water temperature to 283.15 C (Rated ratioTS)  = 1.070
+   **   ~~~   ** Peak ratio of load-side air wet-bulb temperature to 283.15 C (Peak ratioTWB) = 1.023
+   **   ~~~   ** Peak ratio of source-side inlet water temperature to 283.15 C (Peak ratioTS)  = 1.084
+   **   ~~~   ** Rated Total Cooling Capacity Modifier = 1.00000
+   **   ~~~   ** Peak Design Total Cooling Capacity Modifier = 0.88621
+   **   ~~~   ** Rated Sensible Cooling Capacity Modifier = 1.00000
+   **   ~~~   ** Peak Design Sensible Cooling Capacity Modifier = 0.96594
+   **   ~~~   ** ...Rated Total Cooling Capacity at Rated Conditions = Total Peak Design Load * Rated Total Cooling Capacity Modifier  / Peak Design Total Cooling Capacity Modifier
+   **   ~~~   ** ...Rated Sensible Cooling Capacity at Rated Conditions = Peak Design Sensible Load * Rated Sensible Cooling Capacity Modifier  / Peak Design Sensible Cooling Capacity Modifier
+   **   ~~~   ** Carefully review the Load Side Total, Sensible, and Latent heat transfer rates
+   **   ~~~   ** ... to ensure they meet the expected manufacturers performance specifications.
+   ** Warning ** COIL:HEATING:WATERTOAIRHEATPUMP:EQUATIONFIT "CORRIDOR-2-0 WAHP HEATING COIL"
+   **   ~~~   ** ...used with COIL:COOLING:WATERTOAIRHEATPUMP:EQUATIONFIT "CORRIDOR-2-0 WAHP COOLING COIL"
+   **   ~~~   ** ...heating capacity is disproportionate (> 20% different) to total cooling capacity
+   **   ~~~   ** ...heating capacity = 4000.000 W
+   **   ~~~   ** ...cooling capacity = 556.934 W
+   ************* Testing Individual Branch Integrity
+   ************* All Branches passed integrity testing
+   ************* Testing Individual Supply Air Path Integrity
+   ************* All Supply Air Paths passed integrity testing
+   ************* Testing Individual Return Air Path Integrity
+   ************* All Return Air Paths passed integrity testing
+   ************* No node connection errors were found.
+   ************* Beginning Simulation
+   ** Warning ** GetSpecificHeatGlycol: Temperature is out of range (too low) for fluid [WATER] specific heat supplied values **
+   **   ~~~   ** ..Called From:PlantLoopSolver::EvaluateLoopSetPointLoad,Temperature=[-28.90], supplied data range=[0.00,125.00]
+   **   ~~~   **  Environment=RUNPERIODNOVEMBER, at Simulation time=11/01 00:00 - 00:10
+   ** Warning ** GetDensityGlycol: Temperature is out of range (too low) for fluid [WATER] density **
+   **   ~~~   ** ..Called From:PlantPumps:CalcPumps: ,Temperature=[-28.85], supplied data range=[0.00,100.00]
+   **   ~~~   **  Environment=RUNPERIODNOVEMBER, at Simulation time=11/01 00:00 - 00:10
+   ** Warning ** WetBulb not converged after 101 iterations(PsyTwbFnTdbWPb)
+   **   ~~~   **  Routine=CalcHPHeatingSimple, Environment=RUNPERIODDECEMBER, at Simulation time=12/03 02:10 - 02:20
+   **   ~~~   **  Input Temperature = 7.75
+   **   ~~~   **  Input Humidity Ratio= 7.407930E-004
+   **   ~~~   **  Input Pressure = 98929.62
+   **   ~~~   **  Resultant Temperature= -1.77E-003
+   ** Warning ** Temperature out of range [-100. to 200.] (PsyPsatFnTemp)
+   **   ~~~   **  Routine=CalcHPHeatingSimple, Environment=RUNPERIODDECEMBER, at Simulation time=12/03 06:50 - 07:00
+   **   ~~~   **  Input Temperature=-149.47
+   ************* Simulation Error Summary *************
+   ** Warning ** The following Report Variables were requested but not generated -- check.rdd file
+   **   ~~~   ** Either the IDF did not contain these elements, the variable name is misspelled,
+   **   ~~~   ** or the requested variable is an advanced output which requires Output : Diagnostics, DisplayAdvancedReportVariables;
+   ************* Key=*, VarName=BOILER ELECTRICITY ENERGY, Frequency=
+   ************* Key=*, VarName=CHILLER ELECTRICITY ENERGY, Frequency=
+   *************
+   ************* ===== Recurring Error Summary =====
+   ************* The following recurring error messages occurred.
+   *************
+   *************  ** Warning ** Actual air mass flow rate is smaller than 25% of water-to-air heat pump coil rated air flow rate.
+   *************  **   ~~~   **   This error occurred 900921 total times;
+   *************  **   ~~~   **   during Warmup 205620 times;
+   *************  **   ~~~   **   during Sizing 0 times.
+   *************  **   ~~~   **   Max=6.094101E-002  Min=8.954206E-006
+   *************
+   *************  ** Warning ** Plant loop falling below lower temperature limit, PlantLoop="ONLYWATERLOOP MIXED WATER LOOP"
+   *************  **   ~~~   **   This error occurred 45563 total times;
+   *************  **   ~~~   **   during Warmup 11003 times;
+   *************  **   ~~~   **   during Sizing 0 times.
+   *************  **   ~~~   **   Min=-36.451032
+   *************
+   *************  ** Warning ** GetSpecificHeatGlycol: Temperature out of range (too low) for fluid [WATER] specific heat **
+   *************  **   ~~~   **   This error occurred 430189 total times;
+   *************  **   ~~~   **   during Warmup 0 times;
+   *************  **   ~~~   **   during Sizing 0 times.
+   *************  **   ~~~   **   Max=-5.590123E-003 {C}  Min=-36.658806 {C}
+   *************
+   *************  ** Warning ** GetDensityGlycol: Temperature out of range (too low) for fluid [WATER] density **
+   *************  **   ~~~   **   This error occurred 4059112 total times;
+   *************  **   ~~~   **   during Warmup 0 times;
+   *************  **   ~~~   **   during Sizing 0 times.
+   *************  **   ~~~   **   Max=-5.590123E-003 {C}  Min=-36.658806 {C}
+   *************
+   *************  ** Warning ** WetBulb not converged after max iterations(PsyTwbFnTdbWPb)
+   *************  **   ~~~   **   This error occurred 1 total times;
+   *************  **   ~~~   **   during Warmup 0 times;
+   *************  **   ~~~   **   during Sizing 0 times.
+   *************
+   *************  ** Warning ** Temperature out of range [-100. to 200.] (PsyPsatFnTemp)
+   *************  **   ~~~   **   This error occurred 2 total times;
+   *************  **   ~~~   **   during Warmup 0 times;
+   *************  **   ~~~   **   during Sizing 0 times.
+   *************  **   ~~~   **   Max=-149.476158 C  Min=-311.977859 C
+   *************
+   *************
+   ************* ===== Final Error Summary =====
+   ************* The following error categories occurred.  Consider correcting or noting.
+   ************* Nominally Unused Constructions
+   ************* ..The nominally unused constructions warning is provided to alert you to potential conditions that can cause
+   ************* ..extra time during simulation. Each construction is calculated by the algorithm indicated in the HeatBalanceAlgorithm
+   ************* ..object. You may remove the constructions indicated (when you use the DisplayExtraWarnings option).
+   *************
+   ************* EnergyPlus Warmup Error Summary. During Warmup: 0 Warning; 0 Severe Errors.
+   ************* EnergyPlus Sizing Error Summary. During Sizing: 40 Warning; 0 Severe Errors.
+   ************* EnergyPlus Completed Successfully-- 5435880 Warning; 0 Severe Errors; Elapsed Time=00hr 01min  9.55sec
