@@ -22,7 +22,7 @@ from helper.shading_helper import AddShading
 from helper.internal_heat_gains_helper import SetBestMatchInternalHeatGains
 
 from probabilistic.energy_predictions import EnergyPrediction, ProbabilisticEnergyPrediction
-from probabilistic.parameter import ProbabilisticParameters
+from probabilistic.probabilistic_parameters import ProbabilisticParameters
 
 from idf_object.scheduletypelimits import ScheduleTypeLimits
 from idf_object.zone import Zone
@@ -163,7 +163,7 @@ def create_energyplus_models(idf_folder: str,
         AddShading(ep_objects)
 
     pps = ProbabilisticParameters.from_df(parameters_df)
-    samples = pps.GenerateSamplesAsDF(num_samples,)
+    samples = pps.generate_samples_as_df(num_samples,)
 
     for i, sample in samples.iterrows():
         ep_objects_copy = copy.deepcopy(ep_objects)

@@ -1,7 +1,7 @@
 from helper.run_period_helper import get_run_periods
 from ml_models import get_generator, predict, get_regressor, get_scaling_layer
 from probabilistic.energy_predictions import ProbabilisticEnergyPrediction
-from probabilistic.parameter import ProbabilisticParameters
+from probabilistic.probabilistic_parameters import ProbabilisticParameters
 from service.ml_networks import sample_hyperparameters
 from service import logger, np, statuses, pd
 from service import db_functions as db

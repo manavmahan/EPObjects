@@ -1,5 +1,5 @@
 from probabilistic.energy_predictions import ProbabilisticEnergyPrediction
-from probabilistic.parameter import ProbabilisticParameters
+from probabilistic.probabilistic_parameters import ProbabilisticParameters
 from service import logger, os, np, pd, shutil, statuses, tmp_dir
 import traceback
 
