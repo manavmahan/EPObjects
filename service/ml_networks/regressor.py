@@ -1,14 +1,15 @@
 from probabilistic.energy_predictions import ProbabilisticEnergyPrediction
 from probabilistic.probabilistic_parameters import ProbabilisticParameters
-from service import logger, os, np, pd, shutil, statuses, tmp_dir
+from service import status
 import traceback
 
 from service import db_functions as db
 from ml_models import get_regressor, get_generator, predict, get_scaling_parameters
+from service.helper import logger, np, os, pd, shutil, tmp_dir
 from service.ml_networks import sample_hyperparameters
 
 def run_regressor(project_settings, info, search_conditions):
-    db.update_columns(search_conditions, db.STATUS, statuses.TRAINING_REGRESSOR)
+    db.update_columns(search_conditions, db.STATUS, status.TRAINING_REGRESSOR)
     try:
         db.update_columns(search_conditions, db.REGRESSOR, None)
         db.update_columns(search_conditions, db.SCALING, None)
@@ -29,7 +30,7 @@ def run_regressor(project_settings, info, search_conditions):
     except Exception as e:
         logger.info(e)
         logger.info(traceback.format_exc())
-        db.update_columns(search_conditions, db.STATUS, statuses.FAILED_REGRESSOR)
+        db.update_columns(search_conditions, db.STATUS, status.FAILED_REGRESSOR)
 
 def train_regressor(info, probabilistic_parameters: ProbabilisticParameters, sampled_parameters: np.ndarray, target_values: np.ndarray, hyperparameters: dict, NUMS: int, **kwargs):
     logger.info(f'{info}Training Regressor')

@@ -1,11 +1,19 @@
-from helper.run_period_helper import get_run_periods
-from ml_models import predict, get_scaling_layer
-from service import logger, np, pd, statuses
-from service import db_functions as db
+"""Generate results."""
+import numpy as np
+import pandas as pd
+
 import traceback
 
+from helper.run_period import get_run_periods
+from ml_models import predict, get_scaling_layer
+from logger import logger
+
+from service import status
+from service import db_functions as db
+
 def run_results(project_settings, info, search_conditions):
-    db.update_columns(search_conditions, db.STATUS, statuses.GENERATING_RESULTS)
+    """Run results on a project."""
+    db.update_columns(search_conditions, db.STATUS, status.GENERATING_RESULTS)
     try:
         db.update_columns(search_conditions, db.RESULTS, None)
         logger.info(f'{info}generating results')
@@ -60,10 +68,10 @@ def run_results(project_settings, info, search_conditions):
         results[db.TOTAL_ERROR] = pd.Series(100 * (results[db.TOTAL].values - total_consumption) / total_consumption,)
         
         db.update_columns(search_conditions, db.RESULTS, results)
-        db.update_columns(search_conditions, db.STATUS, statuses.UPDATED)
+        db.update_columns(search_conditions, db.STATUS, status.UPDATED)
         project_settings[db.RESULTS][db.RUN] = False
         db.update_columns(search_conditions, db.PROJECT_SETTINGS, project_settings)
     except Exception as e:
         logger.info(e)
         logger.info(traceback.format_exc())
-        db.update_columns(search_conditions, db.STATUS, statuses.FAILED_RESULTS)
+        db.update_columns(search_conditions, db.STATUS, status.FAILED_RESULTS)

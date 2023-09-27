@@ -1,4 +1,4 @@
-from helper.hvac_helper import get_zonelists_with_thermostat
+from helper.hvac import get_zonelists_with_thermostat
 from idf_object.hvactemplate.thermostat import Thermostat
 from idf_object.hvactemplate.zone.watertoairheatpump import WaterToAirHeatPump
 from idf_object.hvactemplate.plant.boiler import Boiler

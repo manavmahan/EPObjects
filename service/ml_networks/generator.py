@@ -1,14 +1,15 @@
-from helper.run_period_helper import get_run_periods
+from helper.run_period import get_run_periods
 from ml_models import get_generator, predict, get_regressor, get_scaling_layer
 from probabilistic.energy_predictions import ProbabilisticEnergyPrediction
 from probabilistic.probabilistic_parameters import ProbabilisticParameters
+from service.helper import logger, np, pd
 from service.ml_networks import sample_hyperparameters
-from service import logger, np, statuses, pd
+from service import status
 from service import db_functions as db
 import traceback
 
 def run_generator(project_settings, info, search_conditions):
-    db.update_columns(search_conditions, db.STATUS, statuses.TRAINING_GENERATOR)
+    db.update_columns(search_conditions, db.STATUS, status.TRAINING_GENERATOR)
     try:
         db.update_columns(search_conditions, db.GENERATORS, None)
         regressor = None
@@ -52,7 +53,7 @@ def run_generator(project_settings, info, search_conditions):
     except Exception as e:
         logger.info(e)
         logger.info(traceback.format_exc())
-        db.update_columns(search_conditions, db.STATUS, statuses.FAILED_GENERATOR)
+        db.update_columns(search_conditions, db.STATUS, status.FAILED_GENERATOR)
 
 def train_generator(info, search_conditions, p_parameters: ProbabilisticParameters, regressor, targets, hyperparameters: dict, NUMS: int, **kwargs):
     hyperparameters = sample_hyperparameters(hyperparameters, NUMS,)

@@ -1,5 +1,5 @@
 import itertools
-from service import pd
+from service.helper import pd
 
 def sample_hyperparameters(hyperparameters_dict, sample_size):
     columns = hyperparameters_dict.keys()

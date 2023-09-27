@@ -6,7 +6,7 @@ from idf_object.output.variable import Variable
 from idf_object.schedule.compact import Compact
 from idf_object.zonelist import ZoneList
 
-from helper.hvac_helper import get_zonelists_with_thermostat
+from helper.hvac import get_zonelists_with_thermostat
 
 def add_baseboard_heating(ep_objects, boiler_fuel_type="NaturalGas"):
     thermostats = list (x for x in ep_objects if isinstance(x, Thermostat))
