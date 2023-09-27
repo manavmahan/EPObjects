@@ -15,8 +15,8 @@ from tensorflow import math, ones_like, multiply
 from tensorflow import reduce_min, where, reduce_sum
 from tensorflow_probability import distributions
 
-early_stopping_loss = EarlyStopping(monitor='loss', min_delta=1e-05, patience=1, restore_best_weights=True,)
-early_stopping_validation_loss = EarlyStopping(monitor='val_loss', min_delta=1e-05, patience=20, restore_best_weights=True,)
+early_stopping_loss = EarlyStopping(monitor='loss', min_delta=1e-04, patience=1, restore_best_weights=True,)
+early_stopping_validation_loss = EarlyStopping(monitor='val_loss', min_delta=1e-04, patience=20, restore_best_weights=True,)
 
 def get_scaling_layer(dataset: pd.DataFrame=None, 
                       scaled_df: pd.DataFrame=None, 

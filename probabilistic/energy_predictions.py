@@ -5,7 +5,7 @@ import re
 
 from enum_types import Frequency
 
-CONVERTER = 2.77778e-10
+CONVERTER = 2.77778e-07
 ENERGIES = [
     # 'Lights Electric Energy',
     'Water to Air Heat Pump Electricity Energy',
