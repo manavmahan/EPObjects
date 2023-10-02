@@ -1,4 +1,3 @@
-FLASK_RUN_PORT=8000
-FLASK_APP=app:app
+DB_URL=https://db.manavmahan.de
 DB_API_ID=
-API_ID=
+ML_API_ID=
