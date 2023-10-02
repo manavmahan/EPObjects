@@ -14,9 +14,9 @@ tmp_dir = "/tmp/energy_service/"
 os.makedirs(tmp_dir, exist_ok=True)
 
 DB_URL = "https://db.manavmahan.de"
-DB_URL = "http://localhost:4211"
+DB_URL = os.environ.get('DB_URL')
 HEADER = {
-    'id': os.environ.get('API_ID')
+    'id': os.environ.get('DB_API_ID')
 }
 
 def create_simulation_dir(user_name: str, project_name: str, location: str,):

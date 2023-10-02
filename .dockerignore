@@ -1,0 +1,6 @@
+Dockerfile
+visualisation/
+__local__/
+samples/
+geometry_importer/
+EnergyPlus
