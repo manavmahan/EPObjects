@@ -1,15 +1,11 @@
-"""Module for service."""
-from .service import run_service
+"""Module for service with flask app."""
 
-"""Flask app."""
-import os
 from flask import Flask, jsonify
 from flask_talisman import Talisman
 from flask_cors import CORS
 from flask import request
+import subprocess
 
-from logger import logger
-from service import run_service
 from service import status
 
 app = Flask(__name__)
@@ -39,9 +35,14 @@ def execute():
     project_name = request_data.get('project_name')
     print (user_name, project_name)
 
-    run_service(user_name, project_name)
-    return {"message": f"updated User Name:{user_name} Project: {project_name}"}
+    proc = subprocess.Popen(['python3', './run_service.py', user_name, project_name], 
+                        stdout=subprocess.PIPE,
+                        stderr=subprocess.PIPE)
+    output = proc.stdout.read().decode("utf-8")
+    errors = proc.stderr.read().decode("utf-8")
 
-if __name__ == "__main__":
-    app.run(debug=True, port=8000, host="0.0.0.0")
-# gunicorn --bind=0.0.0.0:7080 --log-level=info service:app
+    if errors:
+        return dict(output=output, errors=errors)
+    return f"updated User Name:{user_name} Project: {project_name}"
+
+# gunicorn --bind=0.0.0.0:7000 --log-level=info --timeout=3600 service:app

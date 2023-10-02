@@ -4,13 +4,15 @@ import os
 import pandas as pd
 import requests
 import shutil
+import tempfile
 
 from ml_models import model_from_json, Sequential
 from idf_object import IDFObject, IDFJsonDecoder, IDFJsonEncoder
 
 from logger import logger
 
-tmp_dir = "/tmp/energy_service/"
+tmp_dir = tempfile.gettempdir()
+tmp_dir = os.path.join(tmp_dir, "energy-service")
 os.makedirs(tmp_dir, exist_ok=True)
 
 DB_URL = "https://db.manavmahan.de"
