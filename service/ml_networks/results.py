@@ -84,7 +84,9 @@ def execute_results(project_settings, info, search_conditions):
 
     total_error = (results[db.TOTAL].values - total_consumption)
     total_error /= total_consumption
-    results[db.TOTAL_ERROR] = pd.Series(100 * total_error)
+
+    # print(abs(results[db.ERRORS]).sum(axis=1))
+    results[db.TOTAL_ERROR] = abs(results[db.ERRORS]).mean(axis=1)
 
     db.update_columns(search_conditions, db.RESULTS, results)
     db.update_columns(search_conditions, db.STATUS, status.UPDATED)

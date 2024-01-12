@@ -6,7 +6,7 @@ from service import status
 import traceback
 
 from logger import logger
-from ml_models import get_regressor, get_scaling_parameters
+from ml_models import get_regressor, get_scaling_parameters, get_scaling_layer
 from service import db_functions as db
 
 from .helper import sample_hyperparameters
@@ -39,10 +39,11 @@ def execute_regressor(project_settings, info, search_conditions):
 
     regressor_targets = ProbabilisticEnergyPrediction.from_json(
         simulation_results).Values["Total"]
+
+    hyperparameters = db.get_hyperparameters_all(network='regressor').loc[0]
     network, scaling_df_y, loss = train_regressor(
         info, p_parameters, sampled_parameters, regressor_targets,
-        db.get_regressor_hyperparameters(search_conditions),
-        nums=project_settings[db.REGRESSOR_SETTINGS][db.NUMS])
+        hyperparameters)
 
     db.update_columns(search_conditions, db.REGRESSOR,
                       {db.NETWORK: network,
@@ -65,14 +66,13 @@ def train_regressor(
         probabilistic_parameters: ProbabilisticParameters,
         sampled_parameters: np.ndarray,
         target_values: np.ndarray,
-        hyperparameters: dict,
-        nums: int,
-        **kwargs):
+        hyperparameters):
     """Train regressor."""
     logger.info(f'{info}Training Regressor')
-    hyperparameters = sample_hyperparameters(hyperparameters, nums,)
-    network, scaling_df_y, loss, epoch = get_regressor(
+    scaling_df_Y = get_scaling_parameters(target_values, all_columns_equal=True)
+    network, loss = get_regressor(
         hyperparameters, sampled_parameters, target_values,
-        probabilistic_parameters.get_scaling_df(),)
-    logger.info(f'{info}Regressor Loss:\t{loss:.5f}\tEpochs:{epoch}')
-    return network, scaling_df_y, loss
+        scaling_df_X=probabilistic_parameters.get_scaling_df(),
+        scaling_df_Y=scaling_df_Y)
+    logger.info(f'{info}Regressor Loss:\t{loss:.5f}')
+    return network, scaling_df_Y, loss
