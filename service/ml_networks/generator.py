@@ -40,20 +40,15 @@ def train_generator(
     consumption_df = db.get_columns(search_conditions, db.CONSUMPTION, True)
     _, consumption = get_run_periods(consumption_df)
     
-    
-    j = 0
-    while j<kwargs.get(db.NUMS):
-        targets = np.array([consumption.mean(axis=1) for _ in range(100)])
-        targets = get_scaling_layer(scaled_df=scaling_df_y)(targets).numpy()
-        x = get_generator(hyperparameters.loc[j],
-            p_parameters.get_scaling_df(),
-            regressor, targets,
-            error_domain=kwargs.get(db.ERROR_DOMAIN))
+    targets = np.array([consumption.mean(axis=1) for _ in range(50)])
+    targets = get_scaling_layer(scaled_df=scaling_df_y)(targets).numpy()
+    x = get_generator(hyperparameters.loc[0],
+        p_parameters.get_scaling_df(),
+        regressor, targets,
+        error_domain=kwargs.get(db.ERROR_DOMAIN))
 
-        logger.info(f'{info}Generator Loss {j}:\t{x[1]:.5f}')
-        if math.isnan(x[1]): continue
-        j += 1
-        yield x
+    logger.info(f'{info}Generator Loss:\t{x[1]:.5f}')
+    return x
 
 
 def train_inverted_regressor(
@@ -76,7 +71,7 @@ def train_inverted_regressor(
         hyperparameters, regressor_targets, sampled_parameters, scaling_df_X=scaling_df_X,
         scaling_df_Y=scaling_df_Y, inverted=True)
     logger.info(f'{info}Inverted Regressor Loss:\t{loss:.5f}')
-    yield (network, loss)
+    return (network, loss)
 
 def execute_generator(project_settings, info, search_conditions):
     """Execute generator."""
@@ -89,24 +84,14 @@ def execute_generator(project_settings, info, search_conditions):
     hp = db.get_hyperparameters_all(network=gen_type)
 
     if project_settings[db.GENERATOR_SETTINGS][db.METHOD] == db.GENERATIVE:
-        generators = train_generator(info, search_conditions,
+        network, loss = train_generator(info, search_conditions,
             p_parameters, hp, **project_settings[db.GENERATOR_SETTINGS])
     else:
-        generators = train_inverted_regressor(
+        network, loss = train_inverted_regressor(
             info, search_conditions, hp.loc[0], p_parameters)
 
-    generators_data = None
-    for (network, loss) in generators:
-        if generators_data is None:
-            generators_data = {db.NETWORK: [], db.LOSS: [], db.WEIGHTS: []}
-
-        i = 0
-        while (len(generators_data[db.LOSS]) > i and
-               loss < generators_data[db.LOSS][i]):
-            i += 1
-        generators_data[db.NETWORK].insert(i, network)
-        generators_data[db.LOSS].insert(i, loss)
-        generators_data[db.WEIGHTS].insert(i, network.get_weights())
+    generators_data = {db.NETWORK: network, db.LOSS: loss, db.WEIGHTS: network.get_weights()}
+    
     db.update_columns(search_conditions, db.GENERATORS, generators_data)
     project_settings[db.GENERATOR_SETTINGS][db.RUN] = False
     project_settings[db.RESULTS][db.RUN] = True

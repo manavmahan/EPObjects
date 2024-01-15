@@ -5,7 +5,7 @@ import pandas as pd
 from tensorflow.keras.activations import relu, hard_sigmoid
 from tensorflow.keras.callbacks import EarlyStopping
 from tensorflow.keras.layers import Activation, Dense, InputLayer, Rescaling, Layer
-from tensorflow.keras.losses import mean_squared_error
+from tensorflow.keras.losses import Loss, mean_squared_error
 from tensorflow.keras.models import model_from_json
 from tensorflow.keras.optimizers import Adam
 from tensorflow.keras.regularizers import L2, Regularizer
@@ -70,7 +70,15 @@ def get_simple_ann(
     model.add(Dense(num_outputs, activity_regularizer=RegularizerHS() if inverted else None))
     return model
 
-
+from tensorflow import reduce_min
+class LossMinimum(Loss):
+    def __init__(self, error_fn=mean_squared_error):
+        super(LossMinimum, self).__init__()
+        self.error_fn = error_fn
+    
+    def call(self, y_true, y_pred):
+        return reduce_min(self.error_fn(y_pred, y_true), axis=-1)
+    
 def train_model(model, X_train, Y_train, learning_rate, loss=mean_squared_error)-> float:
     """ Trains a sequential model based on the dataset. """
     model.compile(loss=loss, optimizer=Adam(learning_rate=learning_rate, amsgrad=True))
@@ -121,7 +129,6 @@ def get_generator(hp, scaling_df_X, regressor, targets, error_domain=None):
     if error_domain is not None:
         errors = np.random.rand(*targets.shape) * (error_domain[1] - error_domain[0]) + error_domain[0]
         targets += targets * errors
-        targets = np.round(targets * 50) / 50
 
     output_dims = len(scaling_df_X)
     generator, complete_model = get_generator_network(hp, regressor, len(random_input[0]), output_dims, rev_scaling_X,)
