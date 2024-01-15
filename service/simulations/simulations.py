@@ -1,8 +1,7 @@
 """Simulation methods."""
-import copy
-import math
 import os
 import pandas as pd
+import sys
 import traceback
 
 from logger import logger
@@ -62,6 +61,7 @@ def run_simulations(user_name, project_name,
         logger.info(traceback.format_exc())
         db.update_columns(
             search_conditions, db.STATUS, status.FAILED_SIMULATIONS)
+        sys.exit(4)
 
 
 def generate_simulation_results(info: str,

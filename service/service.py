@@ -13,7 +13,7 @@ def run_service(user_name, project_name):
     if project_settings[db.SIMULATION_SETTINGS][db.RUN]:
         run_simulations(user_name, project_name, project_settings, info, search_conditions)
 
-    if project_settings[db.REGRESSOR_SETTINGS][db.RUN]:
+    if project_settings[db.REGRESSOR_SETTINGS][db.RUN] and project_settings[db.GENERATOR_SETTINGS][db.METHOD]!=db.INVERTED:
         run_regressor(project_settings, info, search_conditions)
         
     if project_settings[db.GENERATOR_SETTINGS][db.RUN]:

@@ -185,3 +185,21 @@ def get_construction_material(names, is_construction=True):
     
     for i, obj in enumerate(response["RESULTS"]):
         yield json.loads(obj["value"], cls=JsonDecoder)
+
+def get_hyperparameters_all(network='regressor'):
+    data = {
+        "TYPE": "SEARCH", 
+        "TABLE_NAME": "hyperparameters",
+        "COLUMN_NAMES": "name, value",
+        "CONDITIONS": f"name='{network}'",
+    }
+
+    response = requests.post(DB_URL, headers=HEADER, json=data).json()
+    
+    if (response["ERROR"]):
+        raise ValueError(response["ERROR"])
+
+    value = json.loads(response["RESULTS"][0]['value'], cls=JsonDecoder)
+    df = pd.DataFrame.from_dict(value)
+    df.index = df.index.astype(int)
+    return df

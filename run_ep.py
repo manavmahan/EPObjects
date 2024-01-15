@@ -18,7 +18,8 @@ try:
     processors = int(sys.argv[2]) #provide input if cpu_count cannot be determined, automatically
 except:
     processors = multiprocessing.cpu_count()
-    
+    print (f"Available Processors: {processors}")
+
 try:
     home_directory = os.environ['HOME']
 except:

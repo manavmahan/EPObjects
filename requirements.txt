@@ -1,0 +1,11 @@
+flask
+flask_cors
+flask_talisman
+gunicorn
+pandas
+shapely
+salib
+scikit-image
+scikit-learn
+tensorflow-cpu==2.12.0
+tensorflow-probability==0.20.0

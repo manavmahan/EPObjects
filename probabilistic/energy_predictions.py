@@ -11,6 +11,7 @@ ENERGIES = [
     'Water to Air Heat Pump Electricity Energy',
     'Boiler Electricity Energy',
     'Cooling Tower Fan Electricity Energy',
+    'Boiler NaturalGas Energy',
 ]
 
 
