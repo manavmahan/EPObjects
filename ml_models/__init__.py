@@ -13,8 +13,8 @@ from tensorflow.keras.utils import register_keras_serializable
 from tensorflow.keras import Model, Sequential
 from tensorflow import math
 
-early_stopping_loss = EarlyStopping(monitor='loss', min_delta=1e-03, patience=5, restore_best_weights=True,)
-early_stopping_validation_loss = EarlyStopping(monitor='val_loss', min_delta=1e-03, patience=10, restore_best_weights=True,)
+early_stopping_loss = EarlyStopping(monitor='loss', min_delta=1e-04, patience=10, restore_best_weights=True,)
+early_stopping_validation_loss = EarlyStopping(monitor='val_loss', min_delta=1e-04, patience=20, restore_best_weights=True,)
 
 @register_keras_serializable(package='Custom', name='RegularizerHS')
 class RegularizerHS(Regularizer):
@@ -122,13 +122,9 @@ def get_generator_network(hyperparameters, append_model, input_dims, output_dims
     return generator, complete_model
 
 
-def get_generator(hp, scaling_df_X, regressor, targets, error_domain=None):
+def get_generator(hp, scaling_df_X, regressor, targets):
     rev_scaling_X = get_scaling_layer(scaled_df=scaling_df_X, reverse=True)
-    random_input = get_random_input(len(targets), 1000)
-
-    if error_domain is not None:
-        errors = np.random.rand(*targets.shape) * (error_domain[1] - error_domain[0]) + error_domain[0]
-        targets += targets * errors
+    random_input = get_random_input(len(targets), 1000) * 50
 
     output_dims = len(scaling_df_X)
     generator, complete_model = get_generator_network(hp, regressor, len(random_input[0]), output_dims, rev_scaling_X,)

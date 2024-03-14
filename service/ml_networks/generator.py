@@ -41,11 +41,17 @@ def train_generator(
     _, consumption = get_run_periods(consumption_df)
     
     targets = np.array([consumption.mean(axis=1) for _ in range(50)])
+
+    error_domain=kwargs.get(db.ERROR_DOMAIN)
+    if error_domain is not None:
+        errors = np.random.rand(*targets.shape) * (error_domain[1] - error_domain[0]) + error_domain[0]
+        targets += targets * errors
+        print(targets)
+
     targets = get_scaling_layer(scaled_df=scaling_df_y)(targets).numpy()
     x = get_generator(hyperparameters.loc[0],
         p_parameters.get_scaling_df(),
-        regressor, targets,
-        error_domain=kwargs.get(db.ERROR_DOMAIN))
+        regressor, targets,)
 
     logger.info(f'{info}Generator Loss:\t{x[1]:.5f}')
     return x

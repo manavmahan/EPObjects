@@ -63,6 +63,7 @@ def execute_results(project_settings, info, search_conditions):
 
     results[db.PARAMETERS] = pd.DataFrame(p_parameters, 
                                           columns=parameters_df.index)
+
     results[db.PREDICTIONS] = pd.DataFrame(
         predictions, columns=consumption_df["Name"])
     results[db.TOTAL] = pd.Series(results[db.PREDICTIONS].sum(axis=1))
